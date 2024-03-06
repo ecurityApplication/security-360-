@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <excludedPredefinedLibrary name="securityV2/Security360/frontEnd_Security/node_modules" />
+    <excludedPredefinedLibrary name="securityV2/Security360/node_modules" />
+  </component>
+</project>
