@@ -1,6 +1,6 @@
 export class Incident{
 
-  id!:number;
+  /*id!:number;
   Incident_type!:string[];
   Date!:string;
   title!:string;
@@ -25,5 +25,12 @@ export class Incident{
   Escalation!:string[];
   Incident_Status!:string[];
   False_Positive!:string[];
+*/
+  id!: number;
+  title!: string;
+  incidentID!: string;
+  hostName!: string;
+  userName!: string;
 
 }
+

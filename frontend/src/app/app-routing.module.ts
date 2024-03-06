@@ -4,6 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
+import { IncidentListComponent } from './pages/incident-list/incident-list.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,10 @@ const routes: Routes = [
     path: 'welcome',
     component: WelcomeComponent,
     canActivate: [authGuard]
-  }
+  },
+  {
+    path: 'incidents', 
+    component: IncidentListComponent}
 ];
 
 @NgModule({
