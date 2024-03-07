@@ -1,14 +1,11 @@
 
-package com.project.security.incident;
+package com.application.security.incident;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
-
-import static com.project.security.incident.Incidentrepository.*;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200" )

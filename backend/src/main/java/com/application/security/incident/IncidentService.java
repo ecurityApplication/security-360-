@@ -1,4 +1,4 @@
-package com.project.security.incident;
+package com.application.security.incident;
 
 import java.util.List;
 

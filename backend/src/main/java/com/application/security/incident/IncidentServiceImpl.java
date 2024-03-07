@@ -1,4 +1,4 @@
-package com.project.security.incident;
+package com.application.security.incident;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
