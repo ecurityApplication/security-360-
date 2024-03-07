@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
+import {Incident} from "../../models/incident";
 import {IncidentService} from "../../service/incident.service";
-import {Router} from "@angular/router";
-import { Incident } from '../../models/incident';
 
 @Component({
   selector: 'app-create-incident',
   templateUrl: './create-incident.component.html',
   styleUrl: './create-incident.component.css'
 })
-export class CreateIncidentComponent implements OnInit{
+export class CreateIncidentComponent implements OnInit  {
   incident: Incident = new Incident();
   constructor(private incidentService: IncidentService, private router:Router){ }
 
@@ -17,10 +18,10 @@ export class CreateIncidentComponent implements OnInit{
 
   saveIncident(){
 
-    this.incidentService.createIncident(this.incident).subscribe( data =>{console.log(data);
-        this.goToIncidentList();
-      },
-      error => console.log(error));
+      this.incidentService.createIncident(this.incident).subscribe( data =>{console.log(data);
+      this.goToIncidentList();
+    },
+    error => console.log(error));
 
   }
   goToIncidentList(){
@@ -30,4 +31,5 @@ export class CreateIncidentComponent implements OnInit{
     console.log(this.incident);
     this.saveIncident();
   }
+
 }
