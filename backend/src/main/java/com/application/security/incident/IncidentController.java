@@ -9,32 +9,44 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200" )
-@RequestMapping("/api/v1/incident")
+//@RequestMapping("/api/v1/incident")
+
 public class IncidentController {
     @Autowired
-    IncidentService incidentService;
-    @GetMapping("/getAllIncident")
+    IncidentServiceImpl incidentService;
+    @Autowired
+    Incidentrepository incidentrepository;
+    @GetMapping("/Incident")
     @ResponseBody
     public List<Incident> getAllIncident(){
         List<Incident>list=incidentService.getAllIncident();
         return list;
     }
-    @PostMapping("/AjouterIncident")
+    @PostMapping("/Incident")
 @ResponseBody
     public Incident AjouterIncident(@RequestBody Incident i){
         return incidentService.AjouterIncident(i);
     }
-    @DeleteMapping("/DeleteIncident/{id}")
+    @DeleteMapping("/Incident/{id}")
     @ResponseBody
     public void DeleteIncident(@PathVariable("id")Long idincident){
         incidentService.DeleteIncident(idincident);
     }
 
-    @PutMapping("/updateIncident/{id}")
+// get employee by id rest api
+
+    @GetMapping("/Incident/{id}")
     @ResponseBody
-    public ResponseEntity<Incident> updateIncident(@PathVariable("id") Long id, @RequestBody Incident updatedIncident) {
+    public ResponseEntity<Incident> getIncidentById(@PathVariable(name = "id") long id){
+        Incident incident = incidentrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("incident not exist with id :" + id));
+        return ResponseEntity.ok(incident);}
+
+
+    @PutMapping("/Incident/{id}")
+    @ResponseBody
+    public ResponseEntity<Incident> updateIncident(@PathVariable(name = "id") Long id, @RequestBody Incident incident) {
         // Call the service method to update the incident
-        Incident updated = incidentService.updateIncident(id, updatedIncident);
+        Incident updated = incidentService.updateIncident(id, incident);
         if(updated != null) {
             return ResponseEntity.ok(updated);
         } else {
@@ -42,4 +54,5 @@ public class IncidentController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

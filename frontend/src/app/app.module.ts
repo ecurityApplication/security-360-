@@ -10,6 +10,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {RouterOutlet} from "@angular/router";
 import { IncidentListComponent } from './pages/incident-list/incident-list.component';
 import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
+import {UpdateIncidentComponent} from "./pages/update-incident/update-incident.component";
+import {IncidentDetailsComponent} from "./pages/incident-details/incident-details.component";
 
 let IncidentService;
 
@@ -18,7 +20,9 @@ let IncidentService;
     AppComponent,
     WelcomeComponent,
     IncidentListComponent,
-    CreateIncidentComponent
+    CreateIncidentComponent,
+    UpdateIncidentComponent,
+    IncidentDetailsComponent
   ],
   imports: [
     BrowserModule,

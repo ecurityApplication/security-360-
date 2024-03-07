@@ -7,9 +7,10 @@ import { Incident } from '../models/incident';
   providedIn: 'root'
 })
 export class IncidentService {
-
-
-  private baseURL = "http://localhost:8080/api/v1/incident";
+  updateIncident(id: number, incident: Incident) {
+    throw new Error('Method not implemented.');
+  }
+  private baseURL = "http://localhost:8081/SpringMVC/servlet/Incident";
 
 
   constructor(private httpClient: HttpClient) { }
@@ -22,5 +23,15 @@ export class IncidentService {
 
   }
 
+  updateIndents(id: number, incident: Incident): Observable<any>{
+    return this.httpClient.put(`${this.baseURL}/${id}`, incident);
+  }
 
+  deleteIncident(id : number){
+    return  this.httpClient.delete(`${this.baseURL}/${id}`)
+  }
+
+  getIncidentById(id: number):Observable<Incident> {
+    return  this.httpClient.get<Incident>(`${this.baseURL}/${id}`)
+  }
 }
