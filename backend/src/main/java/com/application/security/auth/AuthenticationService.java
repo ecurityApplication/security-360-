@@ -4,6 +4,7 @@ import com.application.security.configSecurity.JwtService;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
 import com.application.security.repository.UserRepository;
+import com.application.security.services.PasswordResetTokenService;
 import com.application.security.tfa.TowFactorAuthenticationService;
 import com.application.security.token.Token;
 import com.application.security.token.TokenRepository;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 
 @Service
@@ -32,18 +34,19 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
   private final TowFactorAuthenticationService tfaService;
+  private final PasswordResetTokenService passwordResetTokenService;
 
   public AuthenticationResponse register(RegisterRequest request) {
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        //.role(request.getRole().USER)
+            .firstname(request.getFirstname())
+            .lastname(request.getLastname())
+            .email(request.getEmail())
+            .password(passwordEncoder.encode(request.getPassword()))
+            //.role(request.getRole().USER)
 //        .role(request.getRole())
-        .role( Role.ADMIN)
-        .mfaEnabled(request.isMfaEnabled())
-        .build();
+            .role( Role.ADMIN)
+            .mfaEnabled(request.isMfaEnabled())
+            .build();
 
     // if MFA enabled --> Generate Secret
     if (request.isMfaEnabled()) {
@@ -54,22 +57,24 @@ public class AuthenticationService {
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-         .secretImageUri(tfaService.generateQrCodeImgUri(user.getSecret()))//create an imageUri
-        .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .mfaEnabled(user.isMfaEnabled())
-        .build();
+            //create an imageUri
+            .secretImageUri(tfaService.generateQrCodeImgUri(user.getSecret()))
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            //mfa Enabled
+            .mfaEnabled(user.isMfaEnabled())
+            .build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        )
+            new UsernamePasswordAuthenticationToken(
+                    request.getEmail(),
+                    request.getPassword()
+            )
     );
     var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
+            .orElseThrow();
 
     //if the user enable the mFA
     if(user.isMfaEnabled()) {
@@ -84,20 +89,21 @@ public class AuthenticationService {
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .mfaEnabled(false)
-        .build();
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            //mfa Enabled
+            .mfaEnabled(false)
+            .build();
   }
 
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()
-        .user(user)
-        .token(jwtToken)
-        .tokenType( TokenType.BEARER)
-        .expired(false)
-        .revoked(false)
-        .build();
+            .user(user)
+            .token(jwtToken)
+            .tokenType( TokenType.BEARER)
+            .expired(false)
+            .revoked(false)
+            .build();
     tokenRepository.save(token);
   }
 
@@ -134,6 +140,7 @@ public class AuthenticationService {
         var authResponse = AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                //mfa Enabled
                 .mfaEnabled(false)
                 .build();
         new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
@@ -155,7 +162,34 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .mfaEnabled(user
-            .isMfaEnabled())
+                    .isMfaEnabled())
             .build();
+  }
+
+
+  public User findUserByPasswordToken(String token) {
+    return passwordResetTokenService.findUserByPasswordToken(token).get();
+  }
+
+
+  public void createPasswordResetTokenForUser(User user, String passwordResetToken) {
+    passwordResetTokenService.createPasswordResetTokenForUser(user, passwordResetToken);
+  }
+
+  public boolean oldPasswordIsValid(User user, String oldPassword){
+    return passwordEncoder.matches(oldPassword, user.getPassword());
+  }
+
+  public Optional<User> findByEmail(String email) {
+    return repository.findByEmail(email);
+  }
+
+  public String validatePasswordResetToken(String token) {
+    return passwordResetTokenService.validatePasswordResetToken(token);
+  }
+
+  public void changePassword(User theUser, String newPassword) {
+    theUser.setPassword(passwordEncoder.encode(newPassword));
+    repository.save(theUser);
   }
 }
