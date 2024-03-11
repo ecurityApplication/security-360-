@@ -15,10 +15,10 @@ export class IncidentListComponent implements OnInit {
      this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
       this.incidents = data;
     });
- 
+
  }
  updateIncident(id:number){
   this.router.navigate(['update-incident', id]);
-
  }
+
 }

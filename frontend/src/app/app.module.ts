@@ -10,6 +10,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {RouterOutlet} from "@angular/router";
 import { IncidentListComponent } from './pages/incident-list/incident-list.component';
 import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
+import { ForgotPasswordFormComponent } from './forgot-password-form/forgot-password-form.component';
 
 let IncidentService;
 
@@ -18,7 +19,8 @@ let IncidentService;
     AppComponent,
     WelcomeComponent,
     IncidentListComponent,
-    CreateIncidentComponent
+    CreateIncidentComponent,
+    ForgotPasswordFormComponent
   ],
   imports: [
     BrowserModule,

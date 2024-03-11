@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!authResponse.mfaEnabled">
+<div class="container" *ngIf="!authResponse.mfaEnabled" xmlns:th="http://www.w3.org/1999/xhtml">
   <h2>Login</h2>
   <form (ngSubmit)="authenticate()">
     <div class="form-group">
@@ -11,6 +11,8 @@
     </div>
     <button type="submit">Login</button>
     <a routerLink="/register">Register</a>
+    <br>
+    <a routerLink="/forgotPassword">Forgot your password?</a>
   </form>
 </div>
 

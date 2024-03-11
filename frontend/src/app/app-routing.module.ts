@@ -5,6 +5,8 @@ import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
 import { IncidentListComponent } from './pages/incident-list/incident-list.component';
+import {ForgotPasswordFormComponent} from "./pages/forgot-password-form/forgot-password-form.component";
+import {CreateIncidentComponent} from "./pages/create-incident/create-incident.component";
 
 const routes: Routes = [
   {
@@ -21,8 +23,17 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: 'incidents', 
-    component: IncidentListComponent}
+    path: 'incidents',
+    component: IncidentListComponent
+  },
+  {
+    path: 'create-incident',
+    component: CreateIncidentComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordFormComponent
+  },
 ];
 
 @NgModule({
