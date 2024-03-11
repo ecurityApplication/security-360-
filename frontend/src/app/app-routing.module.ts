@@ -30,7 +30,7 @@ const routes: Routes = [
   {  path:'createIncidents',
      component: CreateIncidentComponent
 },
-  {path: '', redirectTo: 'incidents', pathMatch: 'full'},
+  {path: '', redirectTo: 'welcome', pathMatch: 'full'},
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
   {path:'incident-details/:id', component: IncidentDetailsComponent}
 ];

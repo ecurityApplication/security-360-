@@ -10,6 +10,13 @@ import {IncidentService} from "../../service/incident.service";
 })
 export class IncidentListComponent implements OnInit {
   incidents: Incident[] = [];
+  sideBarOpen: boolean | undefined;
+
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+
+
+  }
   constructor(private incidentService :IncidentService ,private router :Router ){ }
   ngOnInit(): void {
      this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {

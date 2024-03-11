@@ -13,6 +13,20 @@ import { CreateIncidentComponent } from './pages/create-incident/create-incident
 import {UpdateIncidentComponent} from "./pages/update-incident/update-incident.component";
 import {IncidentDetailsComponent} from "./pages/incident-details/incident-details.component";
 
+// @ts-ignore
+import {MatIconModule}from "@angular/material/icon";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatDrawerContainer} from "@angular/material/sidenav";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { HeaderComponent } from './header/header.component';
+import {MatToolbar} from "@angular/material/toolbar";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+
 let IncidentService;
 
 @NgModule({
@@ -22,7 +36,9 @@ let IncidentService;
     IncidentListComponent,
     CreateIncidentComponent,
     UpdateIncidentComponent,
-    IncidentDetailsComponent
+    IncidentDetailsComponent,
+    SidebarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +48,21 @@ let IncidentService;
     RouterOutlet,
     HttpClientModule,
     FormsModule,
-    LoginComponent
+    LoginComponent,
+    MatIconModule,
+    MatDrawerContainer,
+    MatSidenavModule,
+    MatButtonModule,
+    MatListModule,
+    MatToolbar,
+    MatMenuTrigger,
+    MatMenu,
+    MatToolbarModule
+
   ],
   providers: [
     HttpClient,
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

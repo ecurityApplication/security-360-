@@ -1,30 +1,87 @@
-<h2> Employee List</h2>
-<table class = "table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>title </th>
-            <th>incidentID</th>
-            <th>hostName</th>
-            <th>userName</th>
-            <th> Actions </th>
-        </tr>
-    </thead>
-        <tbody>
-            <tr *ngFor = "let incident of incidents" >
-                <td> {{ incident.id }} </td>
-                <td> {{ incident.title }} </td>
-                <td> {{ incident.incidentID }} </td>
-                <td> {{ incident.hostName }} </td>
-                <td> {{ incident.userName }} </td>
-                <td>
-                  <button (click) = "updateIncident(incident.id)" class = "btn btn-primary"> Update</button>
-                  <button (click) = "deleteIncident(incident.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
-                  <button (click) = "incidentDetails(incident.id)" class = "btn btn-info" style="margin-left: 10px">View</button>
-                </td>
 
-            </tr>
 
-            </tbody>
+    <mat-drawer-container>
+        <mat-drawer mode="side" [opened]="sideBarOpen">
+            <app-sidebar></app-sidebar>
+          </mat-drawer>
+        <mat-drawer-content>
+          <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+          
 
-    </table>
+            <h2> Employee List</h2>
+            <table class = "table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>incidentType</th>
+                        <th>Date</th>
+                        <th>title </th>
+                        <th>severityLevel</th>
+                        <th>category</th>
+                        <th>incidentID</th>
+                        <th>ticketRaised</th>
+                        <th>plantName</th>
+                        <th>raisedBy</th>
+                        <th>hostName</th>
+                        <th>userName</th>
+                        <th>hostStatus</th>
+                        <th>investigation</th>
+                        <th>remediation</th>
+                        <th>firstEvent</th>
+                        <th>acknowledge</th>
+                        <th>timeAnalyse</th>
+                        <th>analyst</th>
+                        <th>remediationOwner</th>
+                        <th>dateTarget</th>
+                        <th>escalation</th>
+                        <th>incidentStatus</th>
+                        <th>falsePositive</th>
+            
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr *ngFor = "let incident of incidents" >
+                            <td> {{ incident.id }} </td>
+                            <td> {{ incident.incidentType }} </td>
+                            <td> {{ incident.date }} </td>
+            
+                            <td> {{ incident.title }} </td>
+                            <td> {{ incident.severityLevel }} </td>
+                            <td> {{ incident.category }} </td>
+            
+                            <td> {{ incident.incidentID }} </td>
+                            <td> {{ incident.ticketRaised }} </td>
+                            <td> {{ incident.plantName }} </td>
+                            <td> {{ incident.raisedBy }} </td>
+            
+                            <td> {{ incident.hostName }} </td>
+                            <td> {{ incident.userName }} </td>
+                            <td> {{ incident.hostStatus }} </td>
+                            <td> {{ incident.investigation }} </td>
+                            <td> {{ incident.remediation }} </td>
+                            <td> {{ incident.firstEvent }} </td>
+                            <td> {{ incident.acknowledge }} </td>
+                            <td> {{ incident.timeAnalyse }} </td>
+                            <td> {{ incident.analyst }} </td>
+                            <td> {{ incident.remediationOwner }} </td>
+                            <td> {{ incident.dateTarget }} </td>
+                            <td> {{ incident.escalation }} </td>
+                            <td> {{ incident.incidentStatus }} </td>
+                            <td> {{ incident.falsePositive }} </td>
+            
+                            <td>
+                              <button (click) = "updateIncident(incident.id)" class = "btn btn-primary"> Update</button>
+                              <button (click) = "deleteIncident(incident.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+                              <button (click) = "incidentDetails(incident.id)" class = "btn btn-info" style="margin-left: 10px">Incident report</button>
+                            </td>
+            
+                        </tr>
+            
+                        </tbody>
+            
+                </table>
+      
+        </mat-drawer-content>
+      
+      </mat-drawer-container>

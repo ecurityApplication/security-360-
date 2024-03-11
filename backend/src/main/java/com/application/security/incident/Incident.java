@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,31 +19,31 @@ public class Incident {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    // private List<String> incidentType = new ArrayList<>();
 
-    // Il est préférable d'initialiser les listes directement lors de leur déclaration
-   // private List<String> incidentType = new ArrayList<>();
-  //  private Date date;
+    private String incidentType ;
+    private Date date;
     private String title;
-    //private List<String> severityLevel = new ArrayList<>();
-    //private List<String> category = new ArrayList<>();
+    private String severityLevel ;
+    private String category ;
     private String incidentID;
-    //private List<String> ticketRaised = new ArrayList<>();
-    //private List<String> plantName = new ArrayList<>();
-    //private List<String> raisedBy = new ArrayList<>();
+    private String ticketRaised ;
+    private String plantName ;
+    private String raisedBy ;
     private String hostName;
     private String userName;
-    //private List<String> hostStatus = new ArrayList<>();
-//    private String investigation;
-//    private String remediation;
-//    private String firstEvent;
-//    private String acknowledge;
-//    private Integer timeAnalyse;
-//    private String analyst;
-//    private String remediationOwner;
-//    private Date dateTarget;
-    //private List<String> escalation = new ArrayList<>();
-    //private List<String> incidentStatus = new ArrayList<>();
-    //private List<String> falsePositive = new ArrayList<>();
+    private String hostStatus ;
+    private String investigation;
+    private String remediation;
+    private String firstEvent;
+    private String acknowledge;
+    private Integer timeAnalyse;
+    private String analyst;
+    private String remediationOwner;
+    private Date dateTarget;
+    private String escalation ;
+    private String incidentStatus ;
+    private String  falsePositive ;
 
     // Constructeur
     /*public Incident(Long id) {
@@ -105,8 +107,8 @@ public class Incident {
         escalation.add("No");
 
         // Initialisation de la liste incidentStatus
-        incidentStatus.add("Closed");
         incidentStatus.add("Open");
+        incidentStatus.add("Closed");
 
         // Initialisation de la liste falsePositive
         falsePositive.add("Yes");
