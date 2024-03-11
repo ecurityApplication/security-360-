@@ -10,7 +10,7 @@ export class IncidentService {
   updateIncident(id: number, incident: Incident) {
     throw new Error('Method not implemented.');
   }
-  private baseURL = "http://localhost:8081/SpringMVC/servlet/Incident";
+  private baseURL = "http://localhost:8080/api/v1/Incident";
 
 
   constructor(private httpClient: HttpClient) { }

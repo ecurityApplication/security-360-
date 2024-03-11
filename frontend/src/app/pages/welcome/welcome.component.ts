@@ -7,17 +7,15 @@ import {Router} from "@angular/router";
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent {
-incidents: any;
-  constructor(private router: Router) { }
+  sideBarOpen: boolean | undefined;
 
-  ngOnInit(): void {
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+
+
   }
-// Method to navigate to the Incidents List page
-  navigateToIncidentsList() {
-    this.router.navigate(['/incidents']);
-  }
-  navigateToAddList() {
-    this.router.navigate(['/createIncidents']);
-  }
+ 
+
+ 
 
 }
