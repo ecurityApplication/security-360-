@@ -45,7 +45,28 @@ export class RegisterComponent {
     private router: Router
   ) {
   }
+  isPasswordStrong(password: string): boolean {
+    const strongPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
+  isGmailFormat(email: string): boolean {
+    const gmailRegEx =/^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return gmailRegEx.test(email);
+  }
   registerUser() {
+    const password = this.registerRequest.password;
+    const email = this.registerRequest.email;
+   
+    if (!password||!this.isPasswordStrong(password)) {
+      console.log('Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.');
+      this.message = 'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.';
+      return;
+    }
+    if (!email || !this.isGmailFormat(email)){
+      console.log('Email is not in Gmail format.');
+      this.message = 'Email is not in Gmail format.';
+      return;
+    }
     this.message = '';
     this.authService.register(this.registerRequest)
       .subscribe({
