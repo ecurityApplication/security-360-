@@ -5,32 +5,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import {FormsModule} from "@angular/forms";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {RouterOutlet} from "@angular/router";
+import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterOutlet } from '@angular/router';
 
 // @ts-ignore
-import {MatIconModule}from "@angular/material/icon";
+import { MatIconModule } from '@angular/material/icon';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatDrawerContainer} from "@angular/material/sidenav";
+import { MatDrawerContainer } from '@angular/material/sidenav';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import {MatToolbar} from "@angular/material/toolbar";
-import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RegisterComponent } from './pages/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
-
-
-let IncidentService;
+import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
+import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
+// import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -48,13 +45,14 @@ let IncidentService;
     MatMenuTrigger,
     MatMenu,
     MatToolbarModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(), 
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      progressBar: true,
+    }),
+    // NgToastModule
   ],
-  providers: [
-    HttpClient,
-    provideAnimationsAsync(),
-  ],
-  bootstrap: [AppComponent]
+  providers: [HttpClient, provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,6 +6,7 @@ import {AuthenticationRequest} from "../models/authentication-request";
 import {VerificationRequest} from "../models/verification-request";
 import {PasswordRequestUtil} from "../models/PasswordRequestUtil";
 import {PasswordRequestUtilnewpassword} from "../models/PasswordRequestUtilnewpassword";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,14 +37,14 @@ export class AuthService {
     (`${this.baseUrl}/verify`, verificationRequest);
   }
 
-  resetPasswordRequest(passwordRequestUtil: PasswordRequestUtil) {
-    return this.http.post<PasswordRequestUtil>
-    (`${this.baseUrl}/password-reset-request`, passwordRequestUtil);
+  resetPasswordRequest(email:string):Observable<string> {
+    return this.http.post<string>
+    (`${this.baseUrl}/password-reset-request`, email);
   }
 
 
-  resetPassword(passwordRequestUtilnewpassword: PasswordRequestUtilnewpassword) {
-    return this.http.post<PasswordRequestUtil>
-    (`${this.baseUrl}/reset-password`, passwordRequestUtilnewpassword);
+  resetPassword(codeEmail: string, newPassword: string):Observable<string> {
+    return this.http.post<string>
+    (`${this.baseUrl}//reset-password`, { codeEmail, newPassword });
   }
 }
