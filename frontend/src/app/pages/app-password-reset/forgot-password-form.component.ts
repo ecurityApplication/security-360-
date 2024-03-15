@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './forgot-password-form.component.css'
 })
 export class ForgotPasswordFormComponent {
-
+  email: string = '';
+ 
+  
 }

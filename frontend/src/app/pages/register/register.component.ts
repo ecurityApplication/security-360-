@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {Router,RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
@@ -17,14 +17,28 @@ import {AuthService} from "../../service/auth.service";
     FormsModule,
     NgIf
   ],
+  
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  //add it
+  otpCode: string[] = ['', '', '', '', '', ''];
+
+  @ViewChild('input1') input1!: ElementRef;
+  @ViewChild('input2') input2!: ElementRef;
+  @ViewChild('input3') input3!: ElementRef;
+  @ViewChild('input4') input4!: ElementRef;
+  @ViewChild('input5') input5!: ElementRef;
+
+  focusNext(nextInput: HTMLInputElement): void {
+    nextInput.focus();
+  }
+  //add it
   registerRequest: RegisterRequest = {};
   authResponse: AuthenticationResponse = {};
   message = '';
-  otpCode = '';
+  // otpCode = '';
 
   constructor(
     private  authService: AuthService,
@@ -52,7 +66,8 @@ export class RegisterComponent {
     this.message = '';
     const verifyRequest : VerificationRequest = {
       email:this.registerRequest.email,
-      code:this.otpCode
+      // code:this.otpCode
+      code: this.otpCode.join('') // Convert otpCode array to string
     };
     this.authService.verifyCode(verifyRequest)
       .subscribe({

@@ -4,6 +4,8 @@ import {RegisterRequest} from "../models/register-request";
 import {AuthenticationResponse} from "../models/authentication-response";
 import {AuthenticationRequest} from "../models/authentication-request";
 import {VerificationRequest} from "../models/verification-request";
+import {PasswordRequestUtil} from "../models/PasswordRequestUtil";
+import {PasswordRequestUtilnewpassword} from "../models/PasswordRequestUtilnewpassword";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +34,16 @@ export class AuthService {
   verifyCode(verificationRequest: VerificationRequest) {
     return this.http.post<AuthenticationResponse>
     (`${this.baseUrl}/verify`, verificationRequest);
+  }
+
+  resetPasswordRequest(passwordRequestUtil: PasswordRequestUtil) {
+    return this.http.post<PasswordRequestUtil>
+    (`${this.baseUrl}/password-reset-request`, passwordRequestUtil);
+  }
+
+
+  resetPassword(passwordRequestUtilnewpassword: PasswordRequestUtilnewpassword) {
+    return this.http.post<PasswordRequestUtil>
+    (`${this.baseUrl}/reset-password`, passwordRequestUtilnewpassword);
   }
 }

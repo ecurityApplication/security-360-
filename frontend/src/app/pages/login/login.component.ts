@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {AuthenticationRequest} from "../../models/authentication-request";
 import {AuthenticationResponse} from "../../models/authentication-response";
 import {AuthService} from "../../service/auth.service";
@@ -21,10 +21,15 @@ import {NgIf} from "@angular/common";
 export class LoginComponent {
 
   authRequest: AuthenticationRequest = {};
-  otpCode: any;
-  authResponse: AuthenticationResponse = {};
-  message = '';
-
+  // otpCode: any;
+    otpCode: string[] = ['', '', '', '', '', '']; // Array to store individual digits
+    authResponse: AuthenticationResponse = {};
+    message = '';
+    @ViewChild('input1') input1!: ElementRef;
+    @ViewChild('input2') input2!: ElementRef;
+    @ViewChild('input3') input3!: ElementRef;
+    @ViewChild('input4') input4!: ElementRef;
+    @ViewChild('input5') input5!: ElementRef;
   constructor(
       private authService: AuthService,
       private router: Router
@@ -48,7 +53,8 @@ export class LoginComponent {
     this.message = '';
     const verifyRequest : VerificationRequest = {
       email:this.authRequest.email,
-      code:this.otpCode
+      code: this.otpCode.join('') // Combine OTP digits into a single string
+      // code:this.otpCode
     };
     this.authService.verifyCode(verifyRequest)
         .subscribe({
@@ -61,4 +67,10 @@ export class LoginComponent {
           }
         })
   }
+  
+  focusNext(nextInput: HTMLInputElement): void {
+    nextInput.focus();
+  }
+
+    
 }
