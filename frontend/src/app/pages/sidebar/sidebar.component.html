@@ -1,0 +1,113 @@
+<body>
+    <div class="sidebar"  [ngClass]="{'open': sidebarOpen}">
+      <div class="logo-details">
+        <!-- <i class='bx bxl-c-plus-plus icon'></i>
+          <div class="logo_name">CodingLab</div> -->
+          <img class="logo_name" src="./assets/coficab.png" alt="Company Logo" />
+          <i class='bx bx-menu' id="btn" (click)="toggleSidebar()"></i>
+      </div>
+      <ul class="nav-list">
+        <!-- <li>
+            <i class='bx bx-search' (click)="toggleSidebar()"></i>
+           <input type="text" placeholder="Search...">
+           <span class="tooltip">Search</span>
+        </li> -->
+        <li>
+          <a href="#">
+            <i class='bx bx-grid-alt'></i>
+            <span class="links_name">Incident Logging</span>
+          </a>
+           <span class="tooltip">Incident Logging</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bxs-report'></i>
+            <span class="links_name">Incident report</span>
+          </a>
+          <span class="tooltip">Incident report</span>
+        </li>
+       <li>
+         <a href="#">
+          <i class='bx bx-table'></i>
+           <span class="links_name">Escalation</span>
+         </a>
+         <span class="tooltip">Escalation</span>
+       </li>
+       <li>
+         <a href="#">
+           <i class='bx bx-pie-chart-alt-2' ></i>
+           <span class="links_name">Analytics</span>
+         </a>
+         <span class="tooltip">Analytics</span>
+       </li>
+       <li>
+         <a href="#">
+          <i class='bx bxs-bar-chart-alt-2'></i>
+           <span class="links_name">Monthly KPIs</span>
+         </a>
+         <span class="tooltip">Monthly KPIs</span>
+       </li>
+       <li>
+         <a href="#">
+          <i class='bx bx-line-chart'></i>
+           <span class="links_name">Yearly KPIs</span>
+         </a>
+         <span class="tooltip">Yearly KPIs</span>
+       </li>
+       <li>
+        <a href="#">
+          <i class='bx bx-calendar'   ></i>
+          <span class="links_name">Calendar</span>
+        </a>
+        <span class="tooltip">Calendar</span>
+      </li>
+       <li>
+        <a href="#">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">Profile</span>
+        </a>
+        <span class="tooltip">Profile</span>
+      </li>
+      <hr>
+      <div class="sidbar-footer">
+      <li class="footer">
+        <a href="#">
+            <i class='bx bx-log-out icon' ></i>
+            <span class="links_name">Logout</span>
+        </a>
+        <span class="tooltip">Logout</span>
+    </li>
+    </div>
+   
+       <!-- <li class="profile">
+           <div class="profile-details">
+             <img src="profile.jpg" alt="profileImg">
+             <div class="name_job">
+               <div class="name">Prem Shahi</div>
+               <div class="job">Web designer</div>
+             </div>
+           </div>
+           <i class='bx bx-log-out' id="log_out" ></i>
+       </li> -->
+      </ul>
+    </div>
+    <section class="home-section">
+        <div class="text">Dashboard</div>
+        <form class="form">
+          <label for="search">
+              <input class="input" type="text" required="" placeholder="Search.." id="search">
+              <div class="fancy-bg"></div>
+              <div class="search">
+                <i class='bx bx-search'></i>
+                  <!-- <svg viewBox="0 0 24 24" aria-hidden="true" class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-4wgw6l r-f727ji r-bnwqim r-1plcrui r-lrvibr">
+                      <g>
+                          <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                      </g>
+                  </svg> -->
+              </div>
+              <!-- <button class="close-btn" type="reset">
+              </button> -->
+          </label>
+      </form>
+    </section>
+    </body>
