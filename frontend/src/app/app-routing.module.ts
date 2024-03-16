@@ -4,12 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
-import { RegisterComponent } from './pages/register/register.component';
-import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
-import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
-
-
-
+import { IncidentListComponent } from './pages/incident-list/incident-list.component';
 
 const routes: Routes = [
   {
@@ -25,12 +20,9 @@ const routes: Routes = [
     component: WelcomeComponent,
     canActivate: [authGuard]
   },
-  {path:'passwordreset',
-  component: PasswordResetInitiateComponent
-  },
-  {path:'passwprdconfirm',
-   component: PasswordResetConfirmComponent
-  }
+  {
+    path: 'incidents', 
+    component: IncidentListComponent}
 ];
 
 @NgModule({
