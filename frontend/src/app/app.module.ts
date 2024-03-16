@@ -9,12 +9,13 @@ import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
 import { NgModule } from '@angular/core';
 
 
@@ -30,6 +31,10 @@ import { NgModule } from '@angular/core';
     HttpClientModule,
     FormsModule,
     RegisterComponent,
+   
+   
+   
+    // MatToolbarModule,
     CommonModule,
     // BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
@@ -38,11 +43,13 @@ import { NgModule } from '@angular/core';
     }),
     // NgToastModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient,
+    //  provideAnimationsAsync()
+    ],
   bootstrap: [AppComponent],
 })
-export class AppRoutingModule { }
-function provideAnimationsAsync() {
-  throw new Error('Function not implemented.');
-}
+export class AppModule { }
+// function provideAnimationsAsync() {
+//   throw new Error('Function not implemented.');
+// }
 
