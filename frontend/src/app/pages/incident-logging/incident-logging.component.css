@@ -1,0 +1,65 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box ;
+}
+body {
+    font-family: 'Poppins',sans-serif;
+    overflow: hidden;
+}
+.table{
+   width: 100%;
+}
+.table-header{
+    display: flex;
+   justify-content: space-between; 
+   align-items: center;
+   padding: 20px;
+   background-color:rgb(240, 240, 240) ;
+}
+.table-header p {
+    color: black;
+}
+.btn button{
+   outline: none; 
+   border: none;
+   border-radius: 6px;
+  cursor: pointer;
+}
+.add-new{
+    padding: 10px 20px;
+    color: white;
+    background-color: #029Bcf;
+}
+.add-incident input{
+    padding: 10px 20px;
+    margin: 0 10px;
+    outline: none;
+    border: 1px solid #029Bcf;
+    border-radius: 6px;
+    color: #029Bcf;
+}
+.table-section{
+    height: 90%;
+   overflow: auto;
+}
+table{
+    width: 100%;
+    table-layout: fixed;
+    min-width:100% ;
+}
+thead th {
+    position: sticky;
+    background-color: #f6f9fc;
+    color: #8493a5;
+    font-size: 15px;
+}
+th.td{
+    border-bottom: 1px solid #dddd;
+    padding:  10;
+}
+::placeholder{
+    color: #029Bcf;
+}
+
+

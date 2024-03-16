@@ -8,7 +8,20 @@ import { Component } from "@angular/core";
 })
 export class WelcomeComponent {
 
+  sidebarClosed = false;
+  darkMode = false;
 
+  toggleSidebar() {
+    this.sidebarClosed = !this.sidebarClosed;
+  }
+
+  openSidebar() {
+    this.sidebarClosed = false;
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+  }
 
 
 

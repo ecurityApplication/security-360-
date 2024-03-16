@@ -4,7 +4,14 @@ import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
-import { IncidentListComponent } from './pages/incident-list/incident-list.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
+import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
+
+
+
 
 const routes: Routes = [
   {
@@ -21,8 +28,21 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: 'incidents', 
-    component: IncidentListComponent}
+    path:'passwordreset',
+    component: PasswordResetInitiateComponent
+  },
+  {
+    path:'passwprdconfirm',
+    component: PasswordResetConfirmComponent
+  },
+  {
+    path:'sidebar',
+    component:SidebarComponent
+  },
+  {
+    path: 'incidentlogging',
+    component:IncidentLoggingComponent
+  }
 ];
 
 @NgModule({
