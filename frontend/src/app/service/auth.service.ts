@@ -4,6 +4,9 @@ import {RegisterRequest} from "../models/register-request";
 import {AuthenticationResponse} from "../models/authentication-response";
 import {AuthenticationRequest} from "../models/authentication-request";
 import {VerificationRequest} from "../models/verification-request";
+import {PasswordRequestUtil} from "../models/PasswordRequestUtil";
+import {PasswordRequestUtilnewpassword} from "../models/PasswordRequestUtilnewpassword";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +35,16 @@ export class AuthService {
   verifyCode(verificationRequest: VerificationRequest) {
     return this.http.post<AuthenticationResponse>
     (`${this.baseUrl}/verify`, verificationRequest);
+  }
+
+  resetPasswordRequest(email:string):Observable<string> {
+    return this.http.post<string>
+    (`${this.baseUrl}/password-reset-request`, email);
+  }
+
+
+  resetPassword(codeEmail: string, newPassword: string):Observable<string> {
+    return this.http.post<string>
+    (`${this.baseUrl}//reset-password`, { codeEmail, newPassword });
   }
 }

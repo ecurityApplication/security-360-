@@ -1,17 +1,37 @@
-
-
-
-    <mat-drawer-container>
-        <mat-drawer mode="side" [opened]="sideBarOpen">
-            <app-sidebar></app-sidebar>
-          </mat-drawer>
-        <mat-drawer-content>
-          <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
-          <video autoplay muted loop id="myVideo">
-
-            <source src="./assets/codicab.mp4" type="video/mp4">
-        </video>
-      
-        </mat-drawer-content>
-      
-      </mat-drawer-container>
+<div class="nav-bar">
+  <input class="nav-toggle" type="checkbox" />
+  <div class="nav-header">
+    <a class="nav-title" href="https://codepen.io" target="_blank">C#<i class="fab fa-codepen"></i>DEPEN</a>
+    <label for="nav-toggle"><span class="nav-toggle-burger"></span></label>
+    <hr />
+  </div>
+  <div class="nav-content">
+    <div class="nav-button"><i class="fas fa-palette"></i><span>Your Work</span></div>
+    <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
+    <div class="nav-button"><i class="fas fa-thumbtack"></i><span>Pinned Items</span></div>
+    <hr />
+    <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
+    <div class="nav-button"><i class="fas fa-chart-line"></i><span>Trending</span></div>
+    <div class="nav-button"><i class="fas fa-fire"></i><span>Challenges</span></div>
+    <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
+    <hr />
+    <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div>
+    <div class="nav-content-highlight"></div>
+  </div>
+  <input class="nav-footer-toggle" type="checkbox" />
+  <div class="nav-footer">
+    <div class="nav-footer-heading">
+      <div class="nav-footer-avatar">
+        <img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" />
+      </div>
+      <div class="nav-footer-titlebox">
+        <a class="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank">uahnbu</a>
+        <span class="nav-footer-subtitle">Admin</span>
+      </div>
+      <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+    </div>
+    <div class="nav-footer-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </div>
+  </div>
+</div>

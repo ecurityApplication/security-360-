@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import { Component } from "@angular/core";
+
 
 @Component({
   selector: 'app-welcome',
@@ -7,15 +7,12 @@ import {Router} from "@angular/router";
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent {
-  sideBarOpen: boolean | undefined;
-
-  sideBarToggler() {
-    this.sideBarOpen = !this.sideBarOpen;
 
 
-  }
- 
 
- 
+
+
+
+
 
 }
