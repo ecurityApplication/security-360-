@@ -7,8 +7,6 @@ import {authGuard} from "./service/auth/auth.guard";
 import { RegisterComponent } from './pages/register/register.component';
 import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
 import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
-import { SidebarComponent } from './pages/sidebar/sidebar.component';
-import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
 
 
 
@@ -43,6 +41,7 @@ const routes: Routes = [
     path: 'incidentlogging',
     component:IncidentLoggingComponent
   }
+  
 ];
 
 @NgModule({
