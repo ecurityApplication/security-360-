@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,8 +55,17 @@ public class AuthenticationService {
     }
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
+//    var token = Token.builder()
+//            .user(savedUser)
+//            .token( jwtToken )
+//            .tokenType( TokenType.BEARER )
+//            .revoked( false )
+//            .expired( false )
+//            .build();
+    //tokenRepository.save( token );
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
+
     return AuthenticationResponse.builder()
             //create an imageUri
             .secretImageUri(tfaService.generateQrCodeImgUri(user.getSecret()))
@@ -86,7 +96,7 @@ public class AuthenticationService {
     }
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
-    revokeAllUserTokens(user);
+    revokeAllUserTokens(user);//token
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
@@ -110,9 +120,9 @@ public class AuthenticationService {
   private void revokeAllUserTokens(User user) {
     var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
     if (validUserTokens.isEmpty())
-      return;
+      return;//if the table of token is empty it will return
     validUserTokens.forEach(token -> {
-      token.setExpired(true);
+      token.setExpired(true);//will modify the values
       token.setRevoked(true);
     });
     tokenRepository.saveAll(validUserTokens);
@@ -192,4 +202,8 @@ public class AuthenticationService {
     theUser.setPassword(passwordEncoder.encode(newPassword));
     repository.save(theUser);
   }
+
+  
+
+ 
 }

@@ -9,6 +9,8 @@ import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/
 import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
+import { EscalationComponent } from './pages/escalation/escalation.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 
@@ -42,6 +44,14 @@ const routes: Routes = [
   {
     path: 'incidentlogging',
     component:IncidentLoggingComponent
+  },
+  {
+    path:'escalation',
+    component:EscalationComponent
+  },
+  {
+    path:'profile',
+    component:ProfileComponent
   }
 ];
 

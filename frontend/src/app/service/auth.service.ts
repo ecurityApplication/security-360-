@@ -45,6 +45,10 @@ export class AuthService {
 
   resetPassword(codeEmail: string, newPassword: string):Observable<string> {
     return this.http.post<string>
-    (`${this.baseUrl}//reset-password`, { codeEmail, newPassword });
+    (`${this.baseUrl}/reset-password`, { codeEmail, newPassword });
   }
+  logout(): Observable<any> {
+     return this.http.post<any>(`${this.baseUrl}/logout`, {});
+  }
+ 
 }

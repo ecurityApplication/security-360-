@@ -32,7 +32,7 @@ public class User implements UserDetails {
 
 	@Enumerated(EnumType.STRING)// Specifying that the field should be persisted as a string in the database
 	private Role role;// Declaring a field named role of type Role enum
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user")//one user belongs to many tokens
 //it's indicating that there can be multiple Token entities associated with a single User entity
 	private List<Token> tokens;
 

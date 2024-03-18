@@ -1,4 +1,5 @@
 package com.application.security.auth;
+import com.application.security.configSecurity.LogoutService;
 import com.application.security.entity.PasswordRequestUtilnewpassword;
 import com.application.security.entity.PasswordRequestUtil;
 import com.application.security.entity.User;
@@ -8,10 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -26,6 +27,7 @@ public class AuthenticationController {
   private final AuthenticationService service;
   private final HttpServletRequest servletRequest;
   private final RegistrationCompleteEventListener eventListener;
+  private final LogoutService logoutService;
 
   @PostMapping("/register")
   public ResponseEntity<?> register(//because the response type might change
@@ -105,4 +107,12 @@ public class AuthenticationController {
     }
     return "Invalid password reset token";
   }
+  @PostMapping("/logout")
+  public void logout(HttpServletRequest request, HttpServletResponse response) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication != null) {
+      new SecurityContextLogoutHandler().logout(request, response, authentication);
+    }
+  }
+ 
 }

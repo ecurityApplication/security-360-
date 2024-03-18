@@ -12,57 +12,57 @@
            <input type="text" placeholder="Search...">
            <span class="tooltip">Search</span>
         </li> -->
-        <li>
-          <a href="#">
+        <li routerLink="/incidentlogging">
+          <a >
             <i class='bx bx-grid-alt'></i>
             <span class="links_name">Incident Logging</span>
           </a>
            <span class="tooltip">Incident Logging</span>
         </li>
         <li>
-          <a href="#">
+          <a>
             <i class='bx bxs-report'></i>
             <span class="links_name">Incident report</span>
           </a>
           <span class="tooltip">Incident report</span>
         </li>
-       <li>
-         <a href="#">
+       <li routerLink="/escalation">
+         <a>
           <i class='bx bx-table'></i>
            <span class="links_name">Escalation</span>
          </a>
          <span class="tooltip">Escalation</span>
        </li>
        <li>
-         <a href="#">
+         <a>
            <i class='bx bx-pie-chart-alt-2' ></i>
            <span class="links_name">Analytics</span>
          </a>
          <span class="tooltip">Analytics</span>
        </li>
        <li>
-         <a href="#">
+         <a>
           <i class='bx bxs-bar-chart-alt-2'></i>
            <span class="links_name">Monthly KPIs</span>
          </a>
          <span class="tooltip">Monthly KPIs</span>
        </li>
        <li>
-         <a href="#">
+         <a>
           <i class='bx bx-line-chart'></i>
            <span class="links_name">Yearly KPIs</span>
          </a>
          <span class="tooltip">Yearly KPIs</span>
        </li>
        <li>
-        <a href="#">
+        <a>
           <i class='bx bx-calendar'   ></i>
           <span class="links_name">Calendar</span>
         </a>
         <span class="tooltip">Calendar</span>
       </li>
-       <li>
-        <a href="#">
+       <li routerLink="/profile">
+        <a>
           <i class='bx bx-user' ></i>
           <span class="links_name">Profile</span>
         </a>
@@ -70,8 +70,8 @@
       </li>
       <hr>
       <div class="sidbar-footer">
-      <li class="footer">
-        <a href="#">
+      <li class="footer" (click)=" logout()">
+        <a>
             <i class='bx bx-log-out icon' ></i>
             <span class="links_name">Logout</span>
         </a>
@@ -92,15 +92,10 @@
       </ul>
     </div>
     <section class="home-section">
+      <div class="header-section">
         <div class="text">Dashboard</div>
-        <form class="form">
-          <label for="search">
-              <input class="input" type="text" required="" placeholder="Search.." id="search">
-              <div class="fancy-bg"></div>
-              <div class="search">
-                <i class='bx bx-search'></i>
-              </div>
-          </label>
-      </form>
+        
+    </div>
+       <app-incident-logging></app-incident-logging>
     </section>
     </body>
