@@ -1,4 +1,6 @@
-package com.application.security.incident;
+package com.application.security.services;
+
+import com.application.security.entity.Incident;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.application.security.incident;
+package com.application.security.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
