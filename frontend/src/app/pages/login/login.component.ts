@@ -65,7 +65,7 @@ export class LoginComponent {
         // this.message = 'You will be redirected to the Dashboard page ';
         console.log('token');
         localStorage.setItem('token', response.accessToken as string);
-        this.router.navigate(['welcome']);
+        this.router.navigate(['incidentlogging']);
       },
     });
   }

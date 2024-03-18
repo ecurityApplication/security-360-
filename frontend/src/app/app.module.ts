@@ -19,13 +19,17 @@ import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/pa
 import { NgModule } from '@angular/core';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RouterOutlet } from "@angular/router";
-
+import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
+import {MatDividerModule} from '@angular/material/divider';
+import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
+import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
+import { IncidentDetailsComponent } from "./pages/incident-details/incident-details.component";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,7 +38,7 @@ import { RouterOutlet } from "@angular/router";
     HttpClientModule,
     FormsModule,
     RegisterComponent,
-   
+    MatDividerModule,
    
    
     // MatToolbarModule,
@@ -47,11 +51,13 @@ import { RouterOutlet } from "@angular/router";
     // NgToastModule
   ],
   providers: [HttpClient,
-    //  provideAnimationsAsync()
+     provideAnimationsAsync()
     ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+
 // function provideAnimationsAsync() {
 //   throw new Error('Function not implemented.');
 // }

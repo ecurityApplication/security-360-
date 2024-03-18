@@ -20,11 +20,14 @@ export class Incident{
   acknowledge!: string;
   timeAnalyse!: number;
   analyst!: string;
+  reviewer!:string;
   remediationOwner!: string;
   dateTarget!:Date;
   escalation!: string;
   incidentStatus!: string;
   falsePositive!: string;
+  // description!:string;
+
 
 
 }

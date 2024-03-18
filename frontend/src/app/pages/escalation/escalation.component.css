@@ -43,8 +43,7 @@ body {
     box-shadow: 5px 5px 0px rgb(52, 125, 220);
     transition-duration: .3s;
   }
-  
-  .Btn i {
+.Btn i {
     width: 13px;
     position: absolute;
     right: 0;
@@ -54,11 +53,11 @@ body {
     transition-duration: .3s;
     color: #fff;
   }
-  
+
   .Btn:hover {
     color: transparent;
   }
-  
+
   .Btn:hover i {
     right: 43%;
     margin: 0;
@@ -66,7 +65,7 @@ body {
     border: none;
     transition-duration: .3s;
   }
-  
+
   .Btn:active {
     transform: translate(3px , 3px);
     transition-duration: .3s;
@@ -87,7 +86,7 @@ table{
     background-color: #f6f6f9fc;
     color: rgb(128, 125, 125);
     font-size: 12px;
-    
+
 }
 tr:hover td {
     cursor: pointer ;
@@ -133,7 +132,7 @@ tr:hover td {
     justify-content: end;
     width: 100%;
     padding: 10px 20px;
-   
+
 }
 .pagination div {
     padding: 10px;
@@ -146,6 +145,3 @@ tr:hover td {
     margin: 0 5px;
     cursor: pointer;
 }
-
-
- 
