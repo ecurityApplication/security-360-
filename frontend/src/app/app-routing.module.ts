@@ -11,6 +11,9 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
+import { UpdateIncidentComponent } from './pages/update-incident/update-incident.component';
+import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
 
 
 
@@ -38,6 +41,10 @@ const routes: Routes = [
     component: PasswordResetConfirmComponent
   },
   {
+    path:'profile',
+    component:ProfileComponent
+  },
+  {
     path:'sidebar',
     component:SidebarComponent
   },
@@ -52,7 +59,12 @@ const routes: Routes = [
   {
     path:'profile',
     component:ProfileComponent
-  }
+  },
+  {  path:'createIncidents',
+  component: CreateIncidentComponent
+},
+  {path: 'update-incident/:id', component: UpdateIncidentComponent},
+  {path:'incident-details/:id', component: IncidentDetailsComponent}
 ];
 
 @NgModule({
