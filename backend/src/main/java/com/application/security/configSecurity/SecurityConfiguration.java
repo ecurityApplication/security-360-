@@ -57,9 +57,13 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
-                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                 logout
+                .logoutUrl("/api/v1/auth/logout")//if have this url it will execute logout handler
+//              .addLogoutHandler(null)
+                .addLogoutHandler(logoutHandler)
+                .logoutSuccessHandler(
+                    (request, response, authentication) ->
+                    SecurityContextHolder.clearContext())//clear  the security context
                 )
         ;
 

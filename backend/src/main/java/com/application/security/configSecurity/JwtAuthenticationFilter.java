@@ -33,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           @NonNull HttpServletResponse response,
           @NonNull FilterChain filterChain
   ) throws ServletException, IOException {
+    //extract the jwt from the authorization header
     if (request.getServletPath().contains("/api/v1/auth")) {
       filterChain.doFilter(request, response);
       return;
@@ -47,11 +48,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     jwt = authHeader.substring(7);
     userEmail = jwtService.extractUsername(jwt);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-      UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      var isTokenValid = tokenRepository.findByToken(jwt)
+      UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);//fetching the userDetails from the database
+      var isTokenValid = tokenRepository.findByToken(jwt)//fetch the token from the database by the generated token
               .map(t -> !t.isExpired() && !t.isRevoked())
-              .orElse(false);
-      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+              .orElse(false);//return a boolean to check if the token is valid or not
+      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {//check if the action is valid(available) or not on the database
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,

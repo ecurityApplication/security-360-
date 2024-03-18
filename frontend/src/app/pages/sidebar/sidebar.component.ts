@@ -1,4 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +8,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  constructor(private router: Router,private authService: AuthService) { }
   sidebarOpen = false;
   miniSidebar = false;
   darkMode = false;
@@ -18,5 +21,18 @@ export class SidebarComponent {
   }
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
+  }
+  // navigateTo() {
+  //   this.router.navigate(['/register']);
+  // }
+  // logout(){
+  //   this.authService.logout();
+  // }
+  logout() {
+    this.authService.logout().subscribe(
+      () => {
+        this.router.navigate(['/login']);
+      }
+    );
   }
 }
