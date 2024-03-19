@@ -6,9 +6,13 @@ import com.application.security.repository.Incidentrepository;
 import com.application.security.services.IncidentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -44,6 +48,20 @@ public class IncidentController {
     public ResponseEntity<Incident> getIncidentById(@PathVariable(name = "id") long id){
         Incident incident = incidentrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("incident not exist with id :" + id));
         return ResponseEntity.ok(incident);}
+
+
+    @GetMapping("/Incident/{date}")
+    @ResponseBody
+    public ResponseEntity<List<Incident>> getIncidentsByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        List<Incident> incidents = incidentrepository.findByDate(date);
+        if (incidents.isEmpty()) {
+            throw new ResourceNotFoundException("No incidents found for date: " + date);
+        }
+        return ResponseEntity.ok(incidents);
+    }
+
+
+
 
 
     @PutMapping("/Incident/{id}")
