@@ -13,25 +13,25 @@ export class CreateIncidentComponent implements OnInit  {
 constructor(private incidentService: IncidentService, private router:Router){ }
 
 incident: Incident = new Incident();
-retrievedImage: any;
-selectedFile: any;
-message: any;
-imageName: any;
+// retrievedImage: any;
+// selectedFile: any;
+// message: any;
+// imageName: any;
 
-getImage() {
-}
+// getImage() {
+// }
 
-onUpload() {
-  console.log(this.selectedFile);
-  const uploadImageData = new FormData();
-  uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+// onUpload() {
+//   console.log(this.selectedFile);
+//   const uploadImageData = new FormData();
+//   uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
 
-}
-public onFileChanged(event:any) {
-  this.selectedFile = event.target.files[0];
+// }
+// public onFileChanged(event:any) {
+//   this.selectedFile = event.target.files[0];
 
-}
+// }
   // imgURL: any;
   // userFile: any  ;
   // public message!: string;

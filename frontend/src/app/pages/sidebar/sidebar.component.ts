@@ -31,6 +31,7 @@ export class SidebarComponent {
   logout() {
     this.authService.logout().subscribe(
       () => {
+        localStorage.clear()
         this.router.navigate(['/login']);
       }
     );

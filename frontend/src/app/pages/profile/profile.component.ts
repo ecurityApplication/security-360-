@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-RegisterRequest: any;
 
+  constructor(private authService :AuthService ,private router :Router ){ }
+  
+  ngOnInit(): void {
+   
+    // this.AuthService.g
+  }
 }

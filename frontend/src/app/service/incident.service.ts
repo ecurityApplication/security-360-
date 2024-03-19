@@ -7,10 +7,8 @@ import { Incident } from '../models/incident';
   providedIn: 'root'
 })
 export class IncidentService {
- /*updateIncident(id: number, incident: Incident) {
-    throw new Error('Method not implemented.');
-  }*/
-  // let head_obj=new HttpHeaders().set("Authorization","bearer")
+ 
+  
   private baseURL = "http://localhost:8080/api/v1/incident";
 
 
@@ -19,6 +17,18 @@ export class IncidentService {
   getIncidentList(): Observable<Incident[]>{
     return this.httpClient.get<Incident[]>(`${this.baseURL}`);
   }
+//   private createAuthorizationHeader(){
+// const jwtToken = localStorage.getItem('jwt');
+// if(jwtToken){
+//   console.log("jwt token found in local storage",jwtToken);
+//   return new HttpHeaders().set(
+//     "Authorization", "Bearer" + jwtToken
+//     );
+// }else{
+//   console.log("jwt token not found in local storage"); 
+// }
+// return null;
+//   }
   createIncident(incident:Incident): Observable<Object>{
     return this.httpClient.post(`${this.baseURL}`,incident);
 
