@@ -1,9 +1,6 @@
 package com.application.security.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +24,9 @@ public class Incident {
 
 
     private String incidentType ;
-    //    @Temporal(TemporalType.DATE)
+     @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.TIMESTAMP)
+
     private Date date;
     private String title;
     private String severityLevel ;
@@ -47,6 +46,9 @@ public class Incident {
     private String analyst;
     private String reviewer;
     private String remediationOwner;
+
+    @Temporal(TemporalType.TIMESTAMP)
+
     private Date dateTarget;
     private String escalation ;
     private String incidentStatus ;

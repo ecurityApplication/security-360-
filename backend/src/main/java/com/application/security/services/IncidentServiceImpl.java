@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,10 @@ public class IncidentServiceImpl implements IncidentService {
 public Object getIncidentById(long id){
         return repIncident.findById(id);
 }
+//    public Object getIncidentsByDate(Date date){
+//        return repIncident.findByDate(date);
+//    }
+
 
     @Override
     public Incident updateIncident(Long id, Incident updatedIncident) {
