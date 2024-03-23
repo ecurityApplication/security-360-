@@ -27,7 +27,7 @@ export class CreateIncidentComponent {
 
   }
   goToIncidentList(){
-    this.router.navigate(['/incidents']);
+    this.router.navigate(['/incidentlogging']);
     this.router.navigate(['/escalation']);
 
   }

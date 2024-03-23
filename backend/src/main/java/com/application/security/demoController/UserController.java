@@ -22,29 +22,29 @@ public class UserController {
     UserService userService;
     @Autowired
     UserRepository userRepository;
-    @GetMapping("/User")
+    @GetMapping("/getAllUser")
     @ResponseBody
     public List<User> getAllUser(){
         List<User>list=userService.getAllUser();
         return list;
     }
-    @PostMapping("/User")
+    @PostMapping("/addUser")
     @ResponseBody
     public User AjouterUser(@RequestBody User i){
         return userService.AjouterUser(i);
     }
-    @DeleteMapping("/User/{id}")
+    @DeleteMapping("/dejeteUser/{id}")
     @ResponseBody
     public void DeleteUser(@PathVariable("id")Long iduser){
 
         userService.DeleteUser(iduser);
     }
-    @GetMapping("/User/{id}")
+    @GetMapping("/getUserById/{id}")
     @ResponseBody
     public ResponseEntity<User> getUserById(@PathVariable(name = "id") long id){
          User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not exist with id :" + id));
         return ResponseEntity.ok(user);}
-    @PutMapping("/User/{id}")
+    @PutMapping("/updateUser/{id}")
     @ResponseBody
     public ResponseEntity<User> updateUser(@PathVariable(name = "id") Long id, @RequestBody  User user) {
         User updated = userService.updateUser(id, user);

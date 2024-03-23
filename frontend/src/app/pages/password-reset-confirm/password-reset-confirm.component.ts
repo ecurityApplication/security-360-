@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { PasswordRequestUtilnewpassword } from '../../models/PasswordRequestUtilnewpassword';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-password-reset-confirm',
@@ -13,21 +14,20 @@ export class PasswordResetConfirmComponent {
     newPassword:'',
     codeemail: ''
   };
-  password: string = '';
-  codeEmail: string = '';
+  
   constructor(
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
     ) { }
     
   resetPassword(){
-    this.authService.resetPassword(this.codeEmail,this.password).subscribe({
+    this.authService.resetPassword(this.requestnewpassword).subscribe({
       next:(response)=>{
         console.log('response ', response);
-        this.toastr.success(
-          'Check your email'
-        );
+        this.router.navigate(['incidentlogging']);
       }
+
     })
   }
 }
