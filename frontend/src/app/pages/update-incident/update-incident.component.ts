@@ -31,7 +31,7 @@ this.incidentService.updateIncident(this.id,this.incident).subscribe(data =>{
 }, error => console.log(error));
   }
   goToIncidentList(){
-    this.router.navigate(['/incidents']);
+    this.router.navigate(['/incidentlogging']);
   }
 }
 

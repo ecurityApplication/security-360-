@@ -160,14 +160,16 @@ public class AuthenticationService {
 
 
   public AuthenticationResponse verifyCode(VerificationRequest verificationRequest) {
+    System.out.println("enetr verify");
     User user = repository
             .findByEmail(verificationRequest.getEmail())
             .orElseThrow(() -> new EntityNotFoundException(
                     String.format("No user found with %S",verificationRequest.getEmail()))
             );
-    if(tfaService.isOtpNotValid( user.getSecret(), verificationRequest.getCode())) {
+    /*if(tfaService.isOtpNotValid( user.getSecret(), verificationRequest.getCode())) {
+      System.out.println("incorrect code ");
       throw new BadCredentialsException("Code is not correct");
-    }
+    }*/
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)

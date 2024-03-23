@@ -10,7 +10,7 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
 import { BrowserModule , provideClientHydration} from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
@@ -22,14 +22,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
-import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
 import { IncidentDetailsComponent } from "./pages/incident-details/incident-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { TokeninterceptorService } from "./service/tokeninterceptor.service";
+import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -50,8 +52,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     }),
     // NgToastModule
   ],
-  providers: [HttpClient,
-     provideAnimationsAsync()
+  providers: [
+    HttpClient,
+     provideAnimationsAsync(),
+     {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
     ],
   bootstrap: [AppComponent],
 })

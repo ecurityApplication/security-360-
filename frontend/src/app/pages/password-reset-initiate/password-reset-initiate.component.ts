@@ -17,7 +17,7 @@ export class PasswordResetInitiateComponent {
     private toastr: ToastrService
   ) { }
 
-  requestPasswordReset() { // Corrected method name
+  requestPasswordReset() { 
     this.authService.resetPasswordRequest(this.passwrdRequest.email).subscribe({
       next: (response) => {
         console.log('response ', response);

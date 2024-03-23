@@ -11,9 +11,10 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
 import { UpdateIncidentComponent } from './pages/update-incident/update-incident.component';
 import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
+import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 
 
@@ -60,9 +61,14 @@ const routes: Routes = [
     path:'profile',
     component:ProfileComponent
   },
-  {  path:'createIncidents',
-  component: CreateIncidentComponent
-},
+  {
+    path:'createIncident',
+    component:CreateIncidentComponent
+  },
+  {
+    path:'calendar',
+    component:CalendarComponent
+  },
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
   {path:'incident-details/:id', component: IncidentDetailsComponent}
 ];

@@ -60,13 +60,15 @@ export class LoginComponent {
       code: this.otpCode.join(''), // Combine OTP digits into a single string
       // code:this.otpCode
     };
-    this.authService.verifyCode(verifyRequest).subscribe({
-      next: (response) => {
+    this.authService.verifyCode(verifyRequest).subscribe( res => {
+ 
         // this.message = 'You will be redirected to the Dashboard page ';
         console.log('token');
-        localStorage.setItem('token', response.accessToken as string);
+        localStorage.setItem('token', res.accessToken as string);
         this.router.navigate(['incidentlogging']);
-      },
+      
+    } , error => {
+      console.error(error)
     });
   }
 

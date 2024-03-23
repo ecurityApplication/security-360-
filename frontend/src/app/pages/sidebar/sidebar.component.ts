@@ -12,6 +12,7 @@ export class SidebarComponent {
   sidebarOpen = false;
   miniSidebar = false;
   darkMode = false;
+  sidebarClosed = false;
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -31,6 +32,7 @@ export class SidebarComponent {
   logout() {
     this.authService.logout().subscribe(
       () => {
+        localStorage.clear()
         this.router.navigate(['/login']);
       }
     );

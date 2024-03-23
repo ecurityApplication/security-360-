@@ -71,12 +71,6 @@ public class ApplicationConfig {
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
   }
-  private final Client client = new Client();
 
-  @Getter
-  @Setter
-  public static class Client {
-      private String baseUrl;
-  }
 
 }
