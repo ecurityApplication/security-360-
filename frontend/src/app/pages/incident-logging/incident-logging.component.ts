@@ -19,13 +19,15 @@ export class IncidentLoggingComponent {
   incidents: Incident[] = [];
   constructor(private incidentService :IncidentService ,private router :Router ){ }
   ngOnInit(): void {
-     this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
-      this.incidents = data;
-    });
+    this.getIncident()
  }
- private  getIncident(){
+   getIncident(){
    this.incidentService.getIncidentList().subscribe(data=>{
+    console.log(this.incidents);
      this.incidents = data;
+     
+   } , error => {
+    console.error(error)
    })
 
  }

@@ -6,32 +6,36 @@ import com.application.security.repository.Incidentrepository;
 import com.application.security.services.IncidentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200" )
-@RequestMapping("/api/v1/incident")
+@RequestMapping("/api/v1/incidents")
 @RequiredArgsConstructor
 public class IncidentController {
     @Autowired
     IncidentServiceImpl incidentService;
     @Autowired
     Incidentrepository incidentrepository;
-    @GetMapping("/Incident")
+    @GetMapping("/getAll")
     @ResponseBody
     public List<Incident> getAllIncident(){
         List<Incident>list=incidentService.getAllIncident();
         return list;
     }
-    @PostMapping("/Incident")
+    @PostMapping("/add")
 @ResponseBody
     public Incident AjouterIncident(@RequestBody Incident i){
         return incidentService.AjouterIncident(i);
     }
-    @DeleteMapping("/Incident/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
     public void DeleteIncident(@PathVariable("id")Long idincident){
         incidentService.DeleteIncident(idincident);
@@ -39,14 +43,28 @@ public class IncidentController {
 
 // get employee by id rest api
 
-    @GetMapping("/Incident/{id}")
+    @GetMapping("/getById/{id}")
     @ResponseBody
     public ResponseEntity<Incident> getIncidentById(@PathVariable(name = "id") long id){
         Incident incident = incidentrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("incident not exist with id :" + id));
         return ResponseEntity.ok(incident);}
 
 
-    @PutMapping("/Incident/{id}")
+    @GetMapping("/getByDate/{date}")
+    @ResponseBody
+    public ResponseEntity<List<Incident>> getIncidentsByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        List<Incident> incidents = incidentrepository.findByDate(date);
+        if (incidents.isEmpty()) {
+            throw new ResourceNotFoundException("No incidents found for date: " + date);
+        }
+        return ResponseEntity.ok(incidents);
+    }
+
+
+
+
+
+    @PutMapping("/update/{id}")
     @ResponseBody
     public ResponseEntity<Incident> updateIncident(@PathVariable(name = "id") Long id, @RequestBody Incident incident) {
         // Call the service method to update the incident

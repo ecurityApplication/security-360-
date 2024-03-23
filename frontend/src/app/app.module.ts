@@ -22,15 +22,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
-import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
 import { IncidentDetailsComponent } from "./pages/incident-details/incident-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TokeninterceptorService } from "./service/tokeninterceptor.service";
+import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,5 +1,6 @@
 package com.application.security.listener;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.mail.javamail.JavaMailSender;
@@ -8,13 +9,17 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 @Configuration
 public class JavaMaileSender {
-    @Bean
+    @Value("${spring.mail.username}")
+    private String sender;
+    @Value("${spring.mail.password}")
+    private String password;
+    @Bean       
     public JavaMailSenderImpl javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername("sirinerezgui585@gmail.com");
-        mailSender.setPassword("wdil jwzf rdhh apas");
+        mailSender.setUsername(sender);
+        mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

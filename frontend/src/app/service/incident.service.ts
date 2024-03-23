@@ -9,13 +9,13 @@ import { Incident } from '../models/incident';
 export class IncidentService {
  
   
-  private baseURL = "http://localhost:8080/api/v1/incident";
+  private baseURL = "http://localhost:8080/api/v1/incidents";
 
 
   constructor(private httpClient: HttpClient) { }
 
   getIncidentList(): Observable<Incident[]>{
-    return this.httpClient.get<Incident[]>(`${this.baseURL}`);
+    return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll`);
   }
 //   private createAuthorizationHeader(){
 // const jwtToken = localStorage.getItem('jwt');
@@ -30,20 +30,20 @@ export class IncidentService {
 // return null;
 //   }
   createIncident(incident:Incident): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}`,incident);
+    return this.httpClient.post(`${this.baseURL}/add`,incident);
 
   }
 
   updateIncident(id: number, incident: Incident): Observable<any>{
-    return this.httpClient.put(`${this.baseURL}/${id}`, incident);
+    return this.httpClient.put(`${this.baseURL}/update/${id}`, incident);
   }
 
   deleteIncident(id : number){
-    return  this.httpClient.delete(`${this.baseURL}/${id}`)
+    return  this.httpClient.delete(`${this.baseURL}/delete/${id}`)
   }
 
   getIncidentById(id: number):Observable<Incident> {
-    return  this.httpClient.get<Incident>(`${this.baseURL}/${id}`)
+    return  this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`)
   }
 
 

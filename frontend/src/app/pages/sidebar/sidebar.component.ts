@@ -12,6 +12,7 @@ export class SidebarComponent {
   sidebarOpen = false;
   miniSidebar = false;
   darkMode = false;
+  sidebarClosed = false;
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
