@@ -34,7 +34,7 @@ export class LoginComponent {
   authenticate() {
     this.authService.login(this.authRequest).subscribe({
       next: (response) => {
-        console.log('response ', response);
+        console.log('response login  ', response);
         this.authResponse = response;
         if (this.authResponse.mfaEnabled) {
           localStorage.setItem('token', response.accessToken as string);
@@ -43,13 +43,13 @@ export class LoginComponent {
           // If login fails, show toaster message
           this.toastr.info('Login Failed. Try again later!', 'Login Status');
         }
+      },error: (error) => {
+       
+        if (error.status === 403) {
+          // Password is incorrect, show error message
+          this.toastr.error('Incorrect email or password!', 'Login Error');
+        }
       }
-      // },
-      // error: (error) => {
-      //   // Handle error
-      //   console.error('Error occurred during login:', error);
-      //   this.toastr.error('An error occurred during login. Please try again later.', 'Error');
-      // }
     });
   }
 
@@ -63,12 +63,16 @@ export class LoginComponent {
     this.authService.verifyCode(verifyRequest).subscribe( res => {
  
         // this.message = 'You will be redirected to the Dashboard page ';
-        console.log('token');
+        // console.log('token');
         localStorage.setItem('token', res.accessToken as string);
         this.router.navigate(['incidentlogging']);
       
-    } , error => {
-      console.error(error)
+    } ,  (error) => {
+       
+      if (error.status === 403) {
+        // Password is incorrect, show error message
+        this.toastr.error('Incorrect verification code!', 'Verification Error');
+      }
     });
   }
 

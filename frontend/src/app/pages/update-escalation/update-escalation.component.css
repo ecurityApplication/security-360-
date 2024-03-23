@@ -1,0 +1,135 @@
+.container {
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  .container header {
+    font-size: 1.2rem;
+    color: #e4a814;
+    font-weight: 600;
+  }
+  .container .form {
+    margin-top: 15px;
+  }
+  .form .input-box {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .input-box label {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    font-family:Arial, Helvetica, sans-serif
+  }
+  .form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #000;
+    margin-top: 5px;
+    border: 1px solid rgb(6,14,131);
+    border-radius: 6px;
+    padding: 0 15px;
+  }
+  .input-box textarea{
+    position: relative;
+    height: 90px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #000;
+    margin-top: 5px;
+    border: 1px solid rgb(6,14,131);
+    border-radius: 6px;
+    padding: 0 15px;
+  }
+  .input-box input:focus,
+.input-box textarea:focus  {
+    outline: none;
+    border: 2px solid rgb(49, 20, 211);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+  }
+  .form .column {
+    display: flex;
+    column-gap: 15px;
+  }
+  .form .gender-box {
+    margin-top: 10px;
+  }
+  .form :where(.gender-option, .gender) {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+    flex-wrap: wrap;
+  }
+  .form .gender {
+    column-gap: 5px;
+  }
+  .gender input {
+    accent-color: rgb(6,14,131);
+  }
+  .form :where(.gender input, .gender label) {
+    cursor: pointer;
+  }
+  .gender label {
+    color: #000;
+  }
+  .address :where(input, .select-box) {
+    margin-top: 10px;
+  }
+  .select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #000;
+    font-size: 1rem;
+  }
+  .footer-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    margin-top: 20px;
+   }
+  .Btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 150px;
+    height: 40px;
+    border: none;
+    padding: 0px 20px;
+    background-color: rgb(16, 51, 165);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+      7px 7px 20px 0px rgba(0,0,0,.1),
+      4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+  .btn-1 {
+    background: rgb(6,14,131);
+    background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
+    border: none;
+   }
+   
+   .btn-1:hover {
+    background: rgb(16, 51, 165);
+    background: linear-gradient(0deg, rgb(19, 28, 158) 0%, rgba(2,126,251,1) 100%);
+   }
+  
+  
+  
+  
+  

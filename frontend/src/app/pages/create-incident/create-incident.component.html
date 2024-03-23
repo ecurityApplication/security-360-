@@ -8,11 +8,11 @@ name="incidentID"/>
     </div>
     <div class="column">
       <div class="input-box">
-        <label> IncidentType</label>
+        <label> Incident Type</label>
         <div class="select-box">
           <select [(ngModel)]="incident.incidentType"
           name="incidentType">
-            <option hidden="" >Incident Type</option>
+            <option hidden >Incident Type</option>
             <option value="Major incident">Major incident</option>
             <option value="Minor Incident">Minor Incident</option>
           </select>
@@ -49,13 +49,14 @@ name="incidentID"/>
         <label>Category</label>
         <div class="gender-option">
           <div class="gender">
-            <input  [(ngModel)]="incident.category"
-            name="category" checked="" id="check-male" type="radio">
-            <label for="check-male">Application</label>
+            <input  [(ngModel)]="incident.category" 
+            name="category"     id="check-application" type="radio">
+            <label for="check-application">Application</label>
           </div>
           <div class="gender">
-            <input [(ngModel)]="incident.category" name="category" id="check-female" type="radio">
-            <label for="check-female">Email</label>
+            <input  [(ngModel)]="incident.category" 
+            name="category" value="Email" id="check-email" type="radio">
+            <label for="check-email">Email</label>
           </div>
         </div>
       </div>
@@ -63,14 +64,14 @@ name="incidentID"/>
         <label>Ticket Raised</label>
         <div class="gender-option">
           <div class="gender">
-            <input checked=""  [(ngModel)]="incident.ticketRaised"
-            name="ticketRaised"  id="check-male" type="radio">
-            <label for="check-male">Yes</label>
+            <input   [(ngModel)]="incident.ticketRaised"
+            name="Yes"  id="Yes" type="radio">
+            <label for="Yes">Yes</label>
           </div>
           <div class="gender">
             <input  [(ngModel)]="incident.ticketRaised"
-            name="ticketRaised" id="check-female" type="radio">
-            <label for="check-female">No</label>
+            name="No" value="No" id="No" type="radio">
+            <label for="No">No</label>
           </div>
           
         </div>
@@ -170,10 +171,9 @@ name="incidentID"/>
       </div>
       <div class="column">
        <div class="input-box">
-        <label>Time to Analyse</label>
+        <label>Time To Analyse</label>
         <input required="" placeholder="Enter The Time" type="number" id="timeAnalyse" [(ngModel)]="incident.timeAnalyse"
-        name="timeAnalyse">
-        <!-- <button  (click)="incrementTimeAnalyse()">Increment</button> -->
+        name="timeAnalyse" step="5">
        </div>
        <div class="input-box">
         <label>Analyst</label>

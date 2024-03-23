@@ -166,10 +166,10 @@ public class AuthenticationService {
             .orElseThrow(() -> new EntityNotFoundException(
                     String.format("No user found with %S",verificationRequest.getEmail()))
             );
-    /*if(tfaService.isOtpNotValid( user.getSecret(), verificationRequest.getCode())) {
-      System.out.println("incorrect code ");
+    if(tfaService.isOtpNotValid( user.getSecret(), verificationRequest.getCode())) {
+      // System.out.println("incorrect code ");
       throw new BadCredentialsException("Code is not correct");
-    }*/
+    }
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)

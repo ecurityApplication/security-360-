@@ -27,11 +27,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

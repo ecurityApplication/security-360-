@@ -25,7 +25,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 18px;
   overflow: hidden;
   flex-wrap: wrap;
 }
@@ -80,8 +80,9 @@ body {
 }
 
 .table-section {
-  height: 90%;
+  /* height: 40%; */
   overflow: auto;
+  
 }
 table {
   table-layout: fixed;
@@ -89,16 +90,16 @@ table {
 .table-header th {
   position: sticky;
   top: 0;
-  background-color: #f6f6f9fc;
-  color: rgb(128, 125, 125);
-  font-size: 12px;
+  background-color: #fff;
+  color: rgb(116, 113, 113);
+  font-size: 13px;
 }
 .table-body td {
   position: sticky;
-  top: 0;
-  background-color: #f6f6f9fc;
-  color: rgb(128, 125, 125);
-  font-size: 12px;
+  height: 60px;
+  color: rgb(110, 108, 108);
+  font-size: 13px;
+  font-weight: 500;
 }
 tr:hover td {
   cursor: pointer;
@@ -110,23 +111,26 @@ tr:hover td {
 }
 .table-body .btn-action {
   display: flex;
-  width: 100%;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  flex-direction: row;
+  position: sticky;
+  height: 60px; 
 }
-.btn-edit {
-  background-color: #77d3be;
+.bx-edit {
   color: #008767;
-  border-radius: 5px;
-  width: 60px;
-  padding: 2px;
+  padding: 5px; 
   border: none;
 }
-.btn-delete {
-  background-color: #ffc5c5;
+.bxs-trash-alt {
   color: #df0404;
-  border-radius: 5px;
-  width: 20px;
-  padding: 2px;
+  padding: 5px;
+  border: none;
+}
+.bx-show{
+  color: #2c0886;
+  padding: 5px;
   border: none;
 }
 ::-webkit-scrollbar {

@@ -4,9 +4,10 @@ import {RegisterRequest} from "../models/register-request";
 import {AuthenticationResponse} from "../models/authentication-response";
 import {AuthenticationRequest} from "../models/authentication-request";
 import {VerificationRequest} from "../models/verification-request";
-import {PasswordRequestUtil} from "../models/PasswordRequestUtil";
-import {PasswordRequestUtilnewpassword} from "../models/PasswordRequestUtilnewpassword";
+
 import { Observable } from 'rxjs';
+import { PasswordRequestUtil } from '../models/PasswordRequestUtil';
+import { PasswordRequestUtilnewpassword } from '../models/PasswordRequestUtilnewpassword';
 
 @Injectable({
   providedIn: 'root'
@@ -37,18 +38,19 @@ export class AuthService {
     (`${this.baseUrl}/verify`, verificationRequest);
   }
 
-  resetPasswordRequest(email:string):Observable<string> {
-    return this.http.post<string>
-    (`${this.baseUrl}/password-reset-request`, email);
+  resetPasswordRequest(passwordRequest:PasswordRequestUtil) { 
+  // resetPasswordRequest(email:string):Observable<string> {
+    return this.http.post<PasswordRequestUtil>
+    (`${this.baseUrl}/password-reset-request`, passwordRequest);
   }
 
-
-  resetPassword(codeEmail: string, newPassword: string):Observable<string> {
-    return this.http.post<string>
-    (`${this.baseUrl}/reset-password`, { codeEmail, newPassword });
-  }
-  logout(): Observable<any> {
-     return this.http.post<any>(`${this.baseUrl}/logout`, {});
-  }
+  resetPassword(passwordRequestUtilnewpassword:PasswordRequestUtilnewpassword){
+    return this.http.post<PasswordRequestUtilnewpassword>
+    (`${this.baseUrl}/reset-password`, passwordRequestUtilnewpassword);
+ }
+ 
+   logout(): Observable<any> {
+      return this.http.post<any>(`${this.baseUrl}/logout`, {});
+   }
  
 }
