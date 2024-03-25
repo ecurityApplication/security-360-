@@ -1,11 +1,10 @@
 package com.application.security.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -53,7 +52,21 @@ public class Incident {
     private String escalation ;
     private String incidentStatus ;
     private String  falsePositive ;
-//    private String description;
+    @Getter
+    @Setter
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "incident_images",
+            joinColumns = {
+                    @JoinColumn(name = "incident_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "image_id")
+            }
+    )
+
+    private Set<ImageModel>incidentImages;
+
+    //    private String description;
     // Constructeur
     /*public Incident(Long id) {
         this.id = id;

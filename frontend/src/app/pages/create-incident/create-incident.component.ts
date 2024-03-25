@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
 import { Router } from '@angular/router';
+import { FileHandle } from '../../models/file-handle';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-incident',
@@ -9,7 +11,19 @@ import { Router } from '@angular/router';
   styleUrl: './create-incident.component.css'
 })
 export class CreateIncidentComponent {
-  constructor(private incidentService: IncidentService, private router:Router){ }
+  onFileSelected(event: any) {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      const fileHandle: FileHandle = {
+        file: file,
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(file)
+        ),
+      };
+      this.incident.incidentImages.push(fileHandle);
+    }
+  }
+  constructor(private incidentService: IncidentService, private router:Router ,private sanitizer :DomSanitizer ){ }
   timeAnalyse: number = 0;
   incident: Incident = new Incident();
   logSelectedIncidentType() {

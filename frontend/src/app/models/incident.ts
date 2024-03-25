@@ -1,3 +1,5 @@
+import { FileHandle } from "./file-handle";
+
 export class Incident{
 
  
@@ -27,6 +29,9 @@ export class Incident{
   incidentStatus!: string;
   falsePositive!: string;
   // description!:string;
+  incidentImages!: FileHandle[]
+
+
 
 
 

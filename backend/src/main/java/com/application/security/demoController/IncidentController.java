@@ -1,19 +1,24 @@
 
 package com.application.security.demoController;
 
+import com.application.security.entity.ImageModel;
 import com.application.security.entity.Incident;
 import com.application.security.repository.Incidentrepository;
 import com.application.security.services.IncidentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
-
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200" )
@@ -34,6 +39,33 @@ public class IncidentController {
 @ResponseBody
     public Incident AjouterIncident(@RequestBody Incident i){
         return incidentService.AjouterIncident(i);
+    }
+//    @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+//    @ResponseBody
+//    public Incident AjouterIncident(@RequestPart ("incident") Incident i, @RequestPart("imageFile") MultipartFile[] file){
+//        try {
+//            Set<ImageModel> images = uploadImage(file);
+//            i.setIncidentImages(images);
+//            return incidentService.AjouterIncident(i);
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
+//    }
+    public Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
+        Set<ImageModel> imageModels = new HashSet<>();
+
+        for (MultipartFile file: multipartFiles) {
+            ImageModel imageModel = new ImageModel(
+                    file.getOriginalFilename(),
+                    file.getContentType(),
+                    file.getBytes()
+            );
+            imageModels.add(imageModel);
+        }
+
+        return imageModels;
     }
     @DeleteMapping("/delete/{id}")
     @ResponseBody
