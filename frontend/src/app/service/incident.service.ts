@@ -17,6 +17,20 @@ export class IncidentService {
   getIncidentList(): Observable<Incident[]>{
     return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll`);
   }
+
+  public createIncident(incident:FormData){
+    return this.httpClient.post<Incident>("http://localhost:8080/api/v1/incidents/add",incident);
+  }
+  //   getIncidentById(id: number):Observable<Incident> {
+  //   return  this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`)
+  // }
+
+  public getIncidentById(id:number) {
+    return this.httpClient.get<Incident>("http://localhost:8080/api/v1/incidents/getById/"+id);
+  }
+
+
+
 //   private createAuthorizationHeader(){
 // const jwtToken = localStorage.getItem('jwt');
 // if(jwtToken){
@@ -29,10 +43,14 @@ export class IncidentService {
 // }
 // return null;
 //   }
-  createIncident(incident:Incident): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}/add`,incident);
 
-  }
+  // createIncident(incident:Incident): Observable<Object>{
+  //   return this.httpClient.post(`${this.baseURL}/add`,incident);
+
+  // }
+ 
+ 
+  
 
   updateIncident(id: number, incident: Incident): Observable<any>{
     return this.httpClient.put(`${this.baseURL}/update/${id}`, incident);
@@ -42,9 +60,7 @@ export class IncidentService {
     return  this.httpClient.delete(`${this.baseURL}/delete/${id}`)
   }
 
-  getIncidentById(id: number):Observable<Incident> {
-    return  this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`)
-  }
+
 
 
 }

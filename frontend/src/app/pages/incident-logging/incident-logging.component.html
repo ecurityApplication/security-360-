@@ -36,6 +36,7 @@
             <th>HostStatus</th>
             <!-- <th>description</th> -->
             <th>Investigation</th>
+            <!-- <th>Images</th> -->
             <th>Remediation</th>
             <th>FirstEvent</th>
             <th>Acknowledge</th>
@@ -69,6 +70,13 @@
             <td>{{ incident.hostStatus }}</td>
             <!-- <td>{{ incident.description}}</td> -->
             <td>{{ incident.investigation }}</td>
+            <!-- <td><button class="btn"><i class='bx bx-images'></i></button></td> -->
+            <!-- <td><mat-grid-list cols="1" rowHeight="1:1">
+              <mat-grid-tile *ngFor="let fileHandle of data.images">
+                  <img [src]="fileHandle.url" width="150px" height="150px">
+              </mat-grid-tile>
+          </mat-grid-list></td> -->
+
             <td>{{ incident.remediation }}</td>
             <td>{{ incident.firstEvent }}</td>
             <td>{{ incident.acknowledge }}</td>

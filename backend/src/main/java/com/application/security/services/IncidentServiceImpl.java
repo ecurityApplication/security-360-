@@ -16,12 +16,14 @@ public class IncidentServiceImpl implements IncidentService {
     @Autowired
     Incidentrepository repIncident;
 
-    @Override
-    public Incident AjouterIncident(Incident i) {
-        repIncident.save(i);
-        return i;
-    }
-
+//    @Override
+//    public Incident AjouterIncident(Incident i) {
+//        repIncident.save(i);
+//        return i;
+//    }
+public Incident AjouterIncident(Incident i) {
+return  repIncident.save(i);
+}
 
     @Override
     public void DeleteIncident(Long id) {
