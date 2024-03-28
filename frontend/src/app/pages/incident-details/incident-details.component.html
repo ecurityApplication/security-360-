@@ -95,9 +95,10 @@
         <h1>Incident Description</h1>
         <div class="card">
           <p>{{incident.investigation	}}</p>
-          
+          <div *ngFor="let file of incident.incidentImages">
+            <img [src]="file.url" alt="Image" width="200">
         </div>
-        
+        </div>
       </div>
       <div class="ard">
         <div class="action">

@@ -28,6 +28,7 @@ export class IncidentDetailsComponent implements OnInit{
 
     })
   }
+    
   public convertToPDF() {
     if (!this.contentToConvert) {
       console.error('Content element not found.');

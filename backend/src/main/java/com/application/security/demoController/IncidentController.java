@@ -29,30 +29,36 @@ public class IncidentController {
     IncidentServiceImpl incidentService;
     @Autowired
     Incidentrepository incidentrepository;
+//    @GetMapping("/getAll")
+//    @ResponseBody
+//    public List<Incident> getAllIncident(){
+//        List<Incident>list=incidentService.getAllIncident();
+//        return list;
+// }
     @GetMapping("/getAll")
     @ResponseBody
     public List<Incident> getAllIncident(){
-        List<Incident>list=incidentService.getAllIncident();
-        return list;
+//        List<Incident>list=incidentService.getAllIncident();
+        return incidentService.getAllIncident();
     }
-    @PostMapping("/add")
-@ResponseBody
-    public Incident AjouterIncident(@RequestBody Incident i){
-        return incidentService.AjouterIncident(i);
+//   @PostMapping("/add")
+//   @ResponseBody
+//   public Incident AjouterIncident(@RequestBody Incident i){
+//       return incidentService.AjouterIncident(i);
+//  }
+    @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @ResponseBody
+    public Incident AjouterIncident(@RequestPart ("incident") Incident i, @RequestPart("imageFile") MultipartFile[] file){
+        try {
+            Set<ImageModel> images = uploadImage(file);
+            i.setIncidentImages(images);
+            return incidentService.AjouterIncident(i);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
-//    @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    @ResponseBody
-//    public Incident AjouterIncident(@RequestPart ("incident") Incident i, @RequestPart("imageFile") MultipartFile[] file){
-//        try {
-//            Set<ImageModel> images = uploadImage(file);
-//            i.setIncidentImages(images);
-//            return incidentService.AjouterIncident(i);
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return null;
-//        }
-//    }
     public Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
         Set<ImageModel> imageModels = new HashSet<>();
 

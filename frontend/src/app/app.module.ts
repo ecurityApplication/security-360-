@@ -28,6 +28,10 @@ import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDrawerContainer} from "@angular/material/sidenav";
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 // import { NgToastModule } from 'ng-angular-popup';
 
@@ -42,6 +46,10 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
     FormsModule,
     RegisterComponent,
     MatDividerModule,
+    MatGridListModule,
+    MatDrawerContainer,
+    MatSidenavModule,
+
    
    
     // MatToolbarModule,

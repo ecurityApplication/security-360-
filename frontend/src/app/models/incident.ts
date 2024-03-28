@@ -5,7 +5,9 @@ export class Incident{
  
   id!: number;
   incidentType!:string;
-  date !:Date;
+  // date !:Date;
+  date: Date = new Date();
+
   title!: string;
   severityLevel!: string;
   category!: string;
@@ -24,13 +26,15 @@ export class Incident{
   analyst!: string;
   reviewer!:string;
   remediationOwner!: string;
-  dateTarget!:Date;
+  // dateTarget!:Date ;
+  dateTarget: Date = new Date();
+
   escalation!: string;
   incidentStatus!: string;
   falsePositive!: string;
   // description!:string;
-  incidentImages!: FileHandle[]
-
+  // incidentImages!: FileHandle[]
+  incidentImages: FileHandle[] = [];
 
 
 

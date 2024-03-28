@@ -30,7 +30,7 @@ public class User implements UserDetails {
 	private boolean mfaEnabled;//tell the backend if the user will use the 2FA or not
 	private String secret;//if the user use mFA it generate a new secrete
 
-	@Enumerated(EnumType.STRING)// Specifying that the field should be persisted as a string in the database
+//	@Enumerated(EnumType.STRING)// Specifying that the field should be persisted as a string in the database
 	private Role role;// Declaring a field named role of type Role enum
 	@OneToMany(mappedBy = "user")//one user belongs to many tokens
 //it's indicating that there can be multiple Token entities associated with a single User entity
