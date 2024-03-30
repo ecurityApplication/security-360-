@@ -1,11 +1,10 @@
 package com.application.security.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -39,11 +38,231 @@ public class Incident {
     private String remediationOwner;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTarget;
-    private String escalation;
-    private String incidentStatus;
-    private String falsePositive;
+    private String escalation ;
+    private String incidentStatus ;
+    private String  falsePositive ;
+    @Getter
+    @Setter
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "incident_images",
+            joinColumns = {
+                    @JoinColumn(name = "incident_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "image_id")
+            }
+    )
 
-    // private String description;
+    private Set<ImageModel>incidentImages;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(String incidentType) {
+        this.incidentType = incidentType;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSeverityLevel() {
+        return severityLevel;
+    }
+
+    public void setSeverityLevel(String severityLevel) {
+        this.severityLevel = severityLevel;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getIncidentID() {
+        return incidentID;
+    }
+
+    public void setIncidentID(String incidentID) {
+        this.incidentID = incidentID;
+    }
+
+    public String getTicketRaised() {
+        return ticketRaised;
+    }
+
+    public void setTicketRaised(String ticketRaised) {
+        this.ticketRaised = ticketRaised;
+    }
+
+    public String getPlantName() {
+        return plantName;
+    }
+
+    public void setPlantName(String plantName) {
+        this.plantName = plantName;
+    }
+
+    public String getRaisedBy() {
+        return raisedBy;
+    }
+
+    public void setRaisedBy(String raisedBy) {
+        this.raisedBy = raisedBy;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getHostStatus() {
+        return hostStatus;
+    }
+
+    public void setHostStatus(String hostStatus) {
+        this.hostStatus = hostStatus;
+    }
+
+    public String getInvestigation() {
+        return investigation;
+    }
+
+    public void setInvestigation(String investigation) {
+        this.investigation = investigation;
+    }
+
+    public String getRemediation() {
+        return remediation;
+    }
+
+    public void setRemediation(String remediation) {
+        this.remediation = remediation;
+    }
+
+    public String getFirstEvent() {
+        return firstEvent;
+    }
+
+    public void setFirstEvent(String firstEvent) {
+        this.firstEvent = firstEvent;
+    }
+
+    public String getAcknowledge() {
+        return acknowledge;
+    }
+
+    public void setAcknowledge(String acknowledge) {
+        this.acknowledge = acknowledge;
+    }
+
+    public Integer getTimeAnalyse() {
+        return timeAnalyse;
+    }
+
+    public void setTimeAnalyse(Integer timeAnalyse) {
+        this.timeAnalyse = timeAnalyse;
+    }
+
+    public String getAnalyst() {
+        return analyst;
+    }
+
+    public void setAnalyst(String analyst) {
+        this.analyst = analyst;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public String getRemediationOwner() {
+        return remediationOwner;
+    }
+
+    public void setRemediationOwner(String remediationOwner) {
+        this.remediationOwner = remediationOwner;
+    }
+
+    public Date getDateTarget() {
+        return dateTarget;
+    }
+
+    public void setDateTarget(Date dateTarget) {
+        this.dateTarget = dateTarget;
+    }
+
+    public String getEscalation() {
+        return escalation;
+    }
+
+    public void setEscalation(String escalation) {
+        this.escalation = escalation;
+    }
+
+    public String getIncidentStatus() {
+        return incidentStatus;
+    }
+
+    public void setIncidentStatus(String incidentStatus) {
+        this.incidentStatus = incidentStatus;
+    }
+
+    public String getFalsePositive() {
+        return falsePositive;
+    }
+
+    public void setFalsePositive(String falsePositive) {
+        this.falsePositive = falsePositive;
+    }
+
+    public Set<ImageModel> getIncidentImages() {
+        return incidentImages;
+    }
+
+    public void setIncidentImages(Set<ImageModel> incidentImages) {
+        this.incidentImages = incidentImages;
+    }
+//    private String description;
     // Constructeur
     /*
      * public Incident(Long id) {

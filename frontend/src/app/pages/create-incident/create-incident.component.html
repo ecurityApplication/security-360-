@@ -1,7 +1,8 @@
 <section class="container">
   <header>Add Incident</header>
-  <form class="form"(ngSubmit)="onSubmit()">
-    <div class="input-box">
+  <!-- <form class="form"(ngSubmit)="onSubmit()"> -->
+    <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)">
+      <div class="input-box">
       <label>Incident ID</label>
       <input required="" placeholder="Enter ID" type="text" id="incidentID" [(ngModel)]="incident.incidentID"
 name="incidentID"/>
@@ -50,7 +51,7 @@ name="incidentID"/>
         <div class="gender-option">
           <div class="gender">
             <input  [(ngModel)]="incident.category" 
-            name="category"     id="check-application" type="radio">
+            name="category" value="Application"    id="check-application" type="radio">
             <label for="check-application">Application</label>
           </div>
           <div class="gender">
@@ -65,7 +66,7 @@ name="incidentID"/>
         <div class="gender-option">
           <div class="gender">
             <input   [(ngModel)]="incident.ticketRaised"
-            name="Yes"  id="Yes" type="radio">
+            name="Yes" value="Yes" id="Yes" type="radio">
             <label for="Yes">Yes</label>
           </div>
           <div class="gender">
@@ -153,6 +154,34 @@ name="incidentID"/>
         <label for="exampleFormControlTextarea1">Investigation</label>
         <textarea  id="investigation"  rows="3"  [(ngModel)]="incident.investigation" name="investigation" ></textarea>
       </div>
+
+      <div class="form-group">
+        <div>
+          <input  
+          type="file"
+          multiple value="select"
+          #selectFile
+
+          (change)="onFileSelected($event)"  >
+
+        </div>
+        <div>
+          <mat-grid-list cols="4" rowHeight="1:1">
+            <mat-grid-tile *ngFor="let file of incident.incidentImages; let i = index;">
+              <div style="position: relative;">
+                <span class="btn-remove-image" (click)="removeImages(i)">X</span>
+                <img [src]="file.url" width="100px" height="100px" >
+
+              </div>
+
+            </mat-grid-tile>
+           
+          </mat-grid-list>
+          
+        </div>
+     
+      </div>
+
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Remediation</label>
         <textarea  id="remediation"  rows="3"  [(ngModel)]="incident.remediation" name="remediation" ></textarea>

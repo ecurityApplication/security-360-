@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { StorageService } from './service/storage.service';
-import { AuthService } from './service/auth.service';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] // Use styleUrls instead of styleUrl
 })
 export class AppComponent {
   

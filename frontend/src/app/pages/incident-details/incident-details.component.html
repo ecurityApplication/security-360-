@@ -1,165 +1,180 @@
 
-  <body>
-    <div class="container">
-      <section class="main">
-        <div class="main-top">
-          <img src="./assets/coficab.png" alt="Company Logo" />
-          <label>  Title:{{incident.title}}  </label> 
-          <div class="main-top-date">
-            <label>SOC</label>
-            <label>{{incident.date | date: 'dd/MM/yyyy hh:mm a'}}</label>
-          </div>
-         </div>
-         <mat-divider></mat-divider>
-         <section class="main-tab">
-          <h1>Dear colleagues,Following the analysis of the incident, please find below a summary of the incident.</h1>
-          <div class="course-box">
-            <!-- <div class="course"> -->
-              <div class="box">
-                <tr>
-                  <th>severity Level :</th>
-                  <td> {{ incident.severityLevel }} </td>
-                </tr>
-               
-                <tr>
-                  <th> Category : </th>
-                  <td> {{incident.category}} </td>
-                </tr>
-                <tr>
-                  <th> Incident ID: </th>
-                  <td> {{incident.incidentID}} </td>
+<body>
 
-                </tr>
-                <tr>
-                  <th> Ticket Raised: </th>
-                  <td> {{incident.ticketRaised}} </td>
+  <div class="container">
+    <div #contentToConvert>
 
-                </tr>
+    <section class="main">
 
-                
-              </div>
-              <div class="box">
+      <div class="main-top">
+        <img src="./assets/coficab.png" alt="Company Logo" />
+        <label>  Title:{{incident.title}}  </label> 
+        <div class="main-top-date">
+          <label>SOC</label>
+          <label>{{incident.date | date: 'dd/MM/yyyy hh:mm a'}}</label>
+        </div>
+       </div>
+       <mat-divider></mat-divider>
+       <section class="main-tab">
+        <h1>Dear colleagues,Following the analysis of the incident, please find below a summary of the incident.</h1>
+        <div class="course-box">
+          <!-- <div class="course"> -->
+            <div class="box">
+              <tr>
+                <th>severity Level :</th>
+                <td> {{ incident.severityLevel }} </td>
+              </tr>
+             
+              <tr>
+                <th> Category : </th>
+                <td> {{incident.category}} </td>
+              </tr>
+              <tr>
+                <th> Incident ID: </th>
+                <td> {{incident.incidentID}} </td>
 
-                <tr>
-                  <th>Plant Name:</th>
-                  <td> {{ incident.plantName }} </td>
+              </tr>
+              <tr>
+                <th> Ticket Raised: </th>
+                <td> {{incident.ticketRaised}} </td>
 
               </tr>
 
-              <tr  >    
-                <th> Raised BY: </th>
-                <td> {{incident.raisedBy}} </td>
-            </tr>
-
-              </div>
-              <div class="box">
-                
-                <tr>
-                  <th>Host Name:</th>
-                  <td> {{ incident.hostName }} </td>
-
-              </tr>
               
-              <tr  >
-                     
-                <th> User Name: </th>
-                <td> {{incident.userName}} </td>
-                
+            </div>
+            <div class="box">
 
-               
+              <tr>
+                <th>Plant Name:</th>
+                <td> {{ incident.plantName }} </td>
+
+            </tr>
+
+            <tr  >    
+              <th> Raised BY: </th>
+              <td> {{incident.raisedBy}} </td>
+          </tr>
+
+            </div>
+            <div class="box">
+              
+              <tr>
+                <th>Host Name:</th>
+                <td> {{ incident.hostName }} </td>
+
             </tr>
             
-            <tr>
-              <th> Incident Status :</th>
-              <td> {{incident.incidentStatus}} </td>
+            <tr  >
+                   
+              <th> User Name: </th>
+              <td> {{incident.userName}} </td>
+              
 
-            </tr>
-
-            <tr>
-              <th> Host Status: </th>
-              <td> {{incident.hostStatus}} </td>
-
-            </tr>
-
-
-
-              </div>
-            <!-- </div> -->
-          </div>
-        </section>
-        <div class="main-description">
-          <h1>Incident Description</h1>
-          <div class="card">
-            <p>{{incident.investigation	}}</p>
-            
-          </div>
+             
+          </tr>
           
-        </div>
-        <div class="ard">
-          <div class="action">
-            <h1>Action </h1>
-          <div class="action-box">
-          <p>{{incident.remediation	}}</p>
+          <tr>
+            <th> Incident Status :</th>
+            <td> {{incident.incidentStatus}} </td>
 
+          </tr>
 
+          <tr>
+            <th> Host Status: </th>
+            <td> {{incident.hostStatus}} </td>
 
-          </div>
+          </tr>
 
-          </div>
-          
-          <div class="rd" >
-            <h1>Remediation Owner</h1>
-            <div class="rd-box">
-              <p>{{incident.remediationOwner	}}</p>
 
 
             </div>
-            <h1>Date Target</h1>
-            <div class="rd-box">
-              <p>{{incident.dateTarget| date: 'dd/MM/yyyy hh:mm a'	}}</p>
-
-
-            </div>
-
-
-          </div>
-
-
+          <!-- </div> -->
         </div>
-        <div class="tab2">
-          <table class ="table" >
-            <thead>
-                <tr>
-                    <th>First event</th>
-                    <th>Acknowledge</th>
-                    <th>Time to Analyse</th>
-                    <th>Analyst </th>
-                    <th>Reviewer</th>
-                  </tr>
-                </thead>
-                    <tbody>
-                      <tr>
-                        <td> {{ incident.firstEvent }} </td>
-                            <td> {{ incident.acknowledge }} </td>
-                            <td> {{ incident.timeAnalyse }} </td>
-                            <td> {{ incident.analyst }} </td>
-                            <td> {{ incident.reviewer }} </td>
-                      </tr>
-                    </tbody>
-            
-                  </table>
-
-
-
-
-
-        </div>
-        <h1>If you need further information, please do not hesitate to reach us by:soc.corp coficab.com</h1>
-
-
-  
-
       </section>
-    </div>
-  </body>
- 
+      <div class="main-description">
+        <h1>Incident Description</h1>
+        <div class="card">
+          <p>{{incident.investigation	}}</p>
+          <div *ngFor="let file of incident.incidentImages">
+            <img [src]="file.url" alt="Image" width="200">
+        </div>
+        </div>
+      </div>
+      <div class="ard">
+        <div class="action">
+          <h1>Action </h1>
+        <div class="action-box">
+        <p>{{incident.remediation	}}</p>
+
+
+
+        </div>
+
+        </div>
+        
+        <div class="rd" >
+          <h1>Remediation Owner</h1>
+          <div class="rd-box">
+            <p>{{incident.remediationOwner	}}</p>
+
+
+          </div>
+          <h1>Date Target</h1>
+          <div class="rd-box">
+            <p>{{incident.dateTarget| date: 'dd/MM/yyyy hh:mm a'	}}</p>
+
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+      <div class="tab2">
+        <table class ="table" >
+          <thead>
+              <tr>
+                  <th>First event</th>
+                  <th>Acknowledge</th>
+                  <th>Time to Analyse</th>
+                  <th>Analyst </th>
+                  <th>Reviewer</th>
+                </tr>
+              </thead>
+                  <tbody>
+                    <tr>
+                      <td> {{ incident.firstEvent }} </td>
+                          <td> {{ incident.acknowledge }} </td>
+                          <td> {{ incident.timeAnalyse }} </td>
+                          <td> {{ incident.analyst }} </td>
+                          <td> {{ incident.reviewer }} </td>
+                    </tr>
+                  </tbody>
+          
+                </table>
+
+
+
+
+
+      </div>
+      <h1>If you need further information, please do not hesitate to reach us by:{{ 'soc.corp&#64;coficab.com' }}</h1>
+
+
+
+      
+
+
+
+    </section>
+  </div>
+
+    <div>
+      <button class="Btn" type="button" value="Convert" (click)="convertToPDF()" >Télécharger</button>
+
+      </div>
+
+  </div>
+
+</body>

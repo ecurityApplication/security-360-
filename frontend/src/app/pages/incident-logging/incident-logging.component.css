@@ -1,11 +1,15 @@
-  
+/* :host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}  
 mat-drawer {
   width: 260px;
   background: linear-gradient(#000168, rgb(0, 191, 255), #000168);
 }
 mat-drawer-container {
   height: 100%;
-}
+} */
 * {
   margin: 0;
   padding: 0;
@@ -60,6 +64,7 @@ body {
   transition-duration: 0.3s;
   color: #fff;
 }
+
 
 .Btn:hover {
   color: transparent;
