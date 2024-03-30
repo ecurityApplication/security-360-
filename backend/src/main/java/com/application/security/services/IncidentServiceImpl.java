@@ -91,6 +91,21 @@ public Object getIncidentById(long id){
     }
 
 
+    @Override
+    public List<Incident> getIncidentsByDate(Date date) {
+       return repIncident.findByDate(date);
+    }
+
+
+    @Override
+    public List<Incident> getIncidentsByCategory(String category) {
+        return repIncident.findByCategory(category);
+    }
+
+
+    
+
+
 }
 
 

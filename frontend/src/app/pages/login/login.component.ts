@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationRequest } from '../../models/authentication-request';
 import { AuthenticationResponse } from '../../models/authentication-response';
 import { AuthService } from '../../service/auth.service';
@@ -7,6 +7,7 @@ import { VerificationRequest } from '../../models/verification-request';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from '../../service/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,10 @@ export class LoginComponent {
   otpCode: string[] = ['', '', '', '', '', '']; // Array to store individual digits
   authResponse: AuthenticationResponse = {};
   // message = '';
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
   @ViewChild('input1') input1!: ElementRef;
   @ViewChild('input2') input2!: ElementRef;
   @ViewChild('input3') input3!: ElementRef;
@@ -29,8 +34,15 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private tokenStorage: StorageService
   ) {}
+  ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+    }
+  }
   authenticate() {
     this.authService.login(this.authRequest).subscribe({
       next: (response) => {
@@ -39,15 +51,23 @@ export class LoginComponent {
         if (this.authResponse.mfaEnabled) {
           localStorage.setItem('token', response.accessToken as string);
           //this.router.navigate(['welcome']);
+          //this.tokenStorage.saveToken(response.accessToken);
+          this.tokenStorage.saveUser(response);
+  
+        
+          this.roles = this.tokenStorage.getUser().roles;
+          //this.reloadPage();
         } else {
           // If login fails, show toaster message
           this.toastr.info('Login Failed. Try again later!', 'Login Status');
         }
-      },error: (error) => {
+      },error: (err) => {
        
-        if (error.status === 403) {
+        if (err.status === 403) {
           // Password is incorrect, show error message
           this.toastr.error('Incorrect email or password!', 'Login Error');
+          this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
         }
       }
     });

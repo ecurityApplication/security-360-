@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Incident } from '../models/incident';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IncidentService {
- 
-  
-  private baseURL = "http://localhost:8080/api/v1/incidents";
 
+  private baseURL = 'http://localhost:8080/api/v1/incidents';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getIncidentList(): Observable<Incident[]>{
+  getIncidentList(): Observable<Incident[]> {
     return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll`);
   }
 
@@ -52,15 +50,22 @@ export class IncidentService {
  
   
 
-  updateIncident(id: number, incident: Incident): Observable<any>{
+  updateIncident(id: number, incident: Incident): Observable<any> {
     return this.httpClient.put(`${this.baseURL}/update/${id}`, incident);
   }
 
-  deleteIncident(id : number){
-    return  this.httpClient.delete(`${this.baseURL}/delete/${id}`)
+  deleteIncident(id: number) {
+    return this.httpClient.delete(`${this.baseURL}/delete/${id}`);
   }
 
 
+  getIncidentByCategory(category: string): Observable<Incident> {
+    return this.httpClient.get<Incident>(
+      `${this.baseURL}/getByCategory/${category}`
+    );
+  }
 
-
+  getIncidentByDate(date: Date): Observable<Incident> {
+    return this.httpClient.get<Incident>(`${this.baseURL}/byDate`, { params: { date: date.toISOString() } });
+  }
 }

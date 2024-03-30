@@ -1,8 +1,11 @@
 package com.application.security.auth;
 
 import com.application.security.configSecurity.JwtService;
+import com.application.security.entity.ERole;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
+//import com.application.security.repository.RoleRepository;
+import com.application.security.repository.RoleRepository;
 import com.application.security.repository.UserRepository;
 import com.application.security.services.PasswordResetTokenService;
 import com.application.security.tfa.TowFactorAuthenticationService;
@@ -13,17 +16,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -36,24 +44,50 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
   private final TowFactorAuthenticationService tfaService;
   private final PasswordResetTokenService passwordResetTokenService;
+  private final RoleRepository roleRepository;
 
   public AuthenticationResponse register(RegisterRequest request) {
+    //add roles
+    String strRole = request.getRole();
+    Role role = new Role();
+
+    if (strRole == null) {
+      role = roleRepository.findByName(ERole.ROLE_ADMIN)
+              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+    }
+    else if(strRole.equals("admin"))
+    {
+      role = roleRepository.findByName(ERole.ROLE_ADMIN)
+              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    }
+    else if(strRole.equals("mod"))
+    {
+      role = roleRepository.findByName(ERole.ROLE_MODERATOR)
+              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    } else {
+      role = roleRepository.findByName(ERole.ROLE_USER)
+              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    }
+
+    // Create a new user entity with the provided details
     var user = User.builder()
             .firstname(request.getFirstname())
             .lastname(request.getLastname())
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
-            //.role(request.getRole().USER)
-//        .role(request.getRole())
-            .role( Role.ADMIN)
+            .role( role)
             .mfaEnabled(request.isMfaEnabled())
             .build();
 
-    // if MFA enabled --> Generate Secret
+    // Generate MFA secret if enabled
     if (request.isMfaEnabled()) {
       user.setSecret(tfaService.generateNewSecret());
     }
+
+    // Save the user entity to the database
     var savedUser = repository.save(user);
+    // Generate JWT token and refresh token
     var jwtToken = jwtService.generateToken(user);
 //    var token = Token.builder()
 //            .user(savedUser)
@@ -64,8 +98,10 @@ public class AuthenticationService {
 //            .build();
     //tokenRepository.save( token );
     var refreshToken = jwtService.generateRefreshToken(user);
+    // Save user token (not sure about the implementation of saveUserToken method)
     saveUserToken(savedUser, jwtToken);
 
+    // Return authentication response with tokens and MFA details
     return AuthenticationResponse.builder()
             //create an imageUri
             .secretImageUri(tfaService.generateQrCodeImgUri(user.getSecret()))
@@ -77,12 +113,17 @@ public class AuthenticationService {
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
-    authenticationManager.authenticate(
+    // Perform authentication using email and password
+    Authentication authentication =authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     request.getEmail(),
                     request.getPassword()
             )
     );
+    // Set the authentication object in the security context
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    // Retrieve the authenticated user from the repository
     var user = repository.findByEmail(request.getEmail())
             .orElseThrow();
 
@@ -94,13 +135,20 @@ public class AuthenticationService {
               .mfaEnabled(true)
               .build();
     }
+    // Generate JWT token and refresh token
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
+    // Revoke all existing user tokens
     revokeAllUserTokens(user);//token
+    // Save user token
     saveUserToken(user, jwtToken);
+
+
+    // Return authentication response with tokens, roles, and MFA details
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
+            .role(user.getRole().getName().name())
             //mfa Enabled
             .mfaEnabled(false)
             .build();
@@ -205,7 +253,4 @@ public class AuthenticationService {
     repository.save(theUser);
   }
 
-  
-
- 
 }

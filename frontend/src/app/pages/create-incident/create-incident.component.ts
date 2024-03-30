@@ -106,7 +106,6 @@ export class CreateIncidentComponent {
   goToIncidentList(){
     this.router.navigate(['/incidentlogging']);
     this.router.navigate(['/escalation']);
-
   }
   // onSubmit() {
   //   console.log(this.incident);

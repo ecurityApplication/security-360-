@@ -1,5 +1,3 @@
-
-
 import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
@@ -69,9 +67,4 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-
-// function provideAnimationsAsync() {
-//   throw new Error('Function not implemented.');
-// }
 
