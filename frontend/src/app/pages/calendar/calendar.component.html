@@ -1,1 +1,22 @@
-<p>calendar works!</p>
+<div>
+    <h2>Incidents</h2>
+    <label for="datePicker">Select Date:</label>
+    <input type="date" id="datePicker" [(ngModel)]="selectedDate" (change)="getIncidentsByDate()">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <!-- Add more headers as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let incident of incidents">
+          <td>{{ incident.id }}</td>
+          <td>{{ incident.incidentType }}</td>
+          <!-- Add more columns as needed -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

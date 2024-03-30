@@ -1,40 +1,68 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
+  import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+  import { Router } from '@angular/router';
+  import { AuthService } from '../../service/auth.service';
+  import { IncidentService } from '../../service/incident.service';
+  import { Incident } from '../../models/incident';
+import { StorageService } from '../../service/storage.service';
 
-@Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
-})
-export class SidebarComponent {
-  constructor(private router: Router,private authService: AuthService) { }
-  sidebarOpen = false;
-  miniSidebar = false;
-  darkMode = false;
-  sidebarClosed = false;
+  @Component({
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.css'
+  })
+  export class SidebarComponent  {
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    if (window.innerWidth <= 320) {
-      this.miniSidebar = !this.miniSidebar;
-    }
+    constructor(private router: Router,
+      private authService: AuthService,
+      private incidentService : IncidentService,
+      private storageService : StorageService) { }
+
+      sidebarOpen = false;
+      miniSidebar = false;
+      incidents: Incident[] = [];
+      // darkMode = false;
+      // sidebarClosed = false;
+     
+
+   ngOnInit(): void {
+    this.getIncidentByCategory('yourCategory'); // Specify your category here
   }
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
+
+  getIncidentByCategory(category: string): void {
+    this.incidentService.getIncidentByCategory(category)
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+          this.incidents = data;
+        },
+        error => {
+          console.error(error);
+        }
+      );
   }
-  // navigateTo() {
-  //   this.router.navigate(['/register']);
-  // }
-  // logout(){
-  //   this.authService.logout();
-  // }
-  logout() {
-    this.authService.logout().subscribe(
-      () => {
-        localStorage.clear()
-        this.router.navigate(['/login']);
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+      if (window.innerWidth <= 320) {
+        this.miniSidebar = !this.miniSidebar;
       }
-    );
+    }
+
+    // toggleDarkMode() {
+    //   this.darkMode = !this.darkMode;
+    // }
+    
+    logout(): void {
+      this.authService.logout().subscribe({
+        next: res => {
+          console.log(res);
+          this.storageService.clean();
+  
+          window.location.reload();
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    }
+    
   }
-}

@@ -49,6 +49,7 @@ export class AuthService {
     (`${this.baseUrl}/reset-password`, passwordRequestUtilnewpassword);
  }
  
+ 
    logout(): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/logout`, {});
    }

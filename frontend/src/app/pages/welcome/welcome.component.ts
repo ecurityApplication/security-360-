@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../../service/user.service";
 
 
 @Component({
@@ -6,13 +7,11 @@ import { Component } from "@angular/core";
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })
-export class WelcomeComponent {
-
+export class WelcomeComponent implements OnInit{
   
+ 
+  constructor() { }
 
-
-
-
-
-
+  ngOnInit(): void {
+  }
 }

@@ -1,50 +1,44 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Incident } from '../models/incident';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IncidentService {
- 
-  
-  private baseURL = "http://localhost:8080/api/v1/incidents";
 
+  private baseURL = 'http://localhost:8080/api/v1/incidents';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getIncidentList(): Observable<Incident[]>{
+  getIncidentList(): Observable<Incident[]> {
     return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll`);
   }
-//   private createAuthorizationHeader(){
-// const jwtToken = localStorage.getItem('jwt');
-// if(jwtToken){
-//   console.log("jwt token found in local storage",jwtToken);
-//   return new HttpHeaders().set(
-//     "Authorization", "Bearer" + jwtToken
-//     );
-// }else{
-//   console.log("jwt token not found in local storage"); 
-// }
-// return null;
-//   }
-  createIncident(incident:Incident): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}/add`,incident);
 
+  createIncident(incident: Incident): Observable<Object> {
+    return this.httpClient.post(`${this.baseURL}/add`, incident);
   }
 
-  updateIncident(id: number, incident: Incident): Observable<any>{
+  updateIncident(id: number, incident: Incident): Observable<any> {
     return this.httpClient.put(`${this.baseURL}/update/${id}`, incident);
   }
 
-  deleteIncident(id : number){
-    return  this.httpClient.delete(`${this.baseURL}/delete/${id}`)
+  deleteIncident(id: number) {
+    return this.httpClient.delete(`${this.baseURL}/delete/${id}`);
   }
 
-  getIncidentById(id: number):Observable<Incident> {
-    return  this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`)
+  getIncidentById(id: number): Observable<Incident> {
+    return this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`);
   }
 
+  getIncidentByCategory(category: string): Observable<Incident> {
+    return this.httpClient.get<Incident>(
+      `${this.baseURL}/getByCategory/${category}`
+    );
+  }
 
+  getIncidentByDate(date: Date): Observable<Incident> {
+    return this.httpClient.get<Incident>(`${this.baseURL}/byDate`, { params: { date: date.toISOString() } });
+  }
 }

@@ -1,5 +1,3 @@
-
-
 import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
@@ -28,11 +26,13 @@ import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
+import { BoardAdminComponent } from './pages/board-admin/board-admin.component';
+import { BoardModeratorComponent } from './pages/board-moderator/board-moderator.component';
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, BoardAdminComponent, BoardModeratorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -61,9 +61,4 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-
-// function provideAnimationsAsync() {
-//   throw new Error('Function not implemented.');
-// }
 
