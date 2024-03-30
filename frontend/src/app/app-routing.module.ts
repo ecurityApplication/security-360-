@@ -15,6 +15,8 @@ import { UpdateIncidentComponent } from './pages/update-incident/update-incident
 import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
 import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { CreateAnalysteComponent } from './create-analyste/create-analyste.component';
+import { AnalysteListeComponent } from './analyste-liste/analyste-liste.component';
 
 
 
@@ -69,6 +71,18 @@ const routes: Routes = [
     path:'calendar',
     component:CalendarComponent
   },
+  {
+    path:'CreateAnalyste',
+    component:CreateAnalysteComponent
+
+  },
+  {
+    path:'AnalysteListe',
+    component:  AnalysteListeComponent
+
+
+  },
+
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
   {path:'incident-details/:id', component: IncidentDetailsComponent}
 ];

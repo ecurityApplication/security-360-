@@ -1,0 +1,67 @@
+<section class="container">
+    <header>Add Analyste</header>
+    <form class="form">
+      <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->
+        
+      <div class="column">
+        <div class="input-box">
+            <label for="firstname">First name</label>
+            <i class="bx bxs-user"></i>
+            <input required="" placeholder="Enter First Name"  type="First Name"
+            name="First Name">
+          </div>
+        <div class="input-box">
+            <label for="lastname">Last name</label>
+          <i class="bx bxs-user"></i>
+            <input required="" placeholder="Enter Last Name"  type="Last Name"
+            name="Last Name">
+          </div>
+      </div>
+        <div class="column">
+            <div class="input-box">
+              <label for="email">Email</label>
+              <i class="bx bxs-envelope"></i>
+              <input required="" placeholder="Enter Email"  type="Email"
+              name="Email">
+            </div>
+            <div class="input-box">
+                <label for="password">Password</label>
+                <i class="bx bxs-lock-alt"></i>
+                <input required="" placeholder="Enter Password"  type="Password"
+                name="Password">
+                
+              </div>
+        </div>
+      
+    
+     
+        <div class="input-box address">
+          <div class="column">
+            <div class="input-box">
+              <label>Role</label>
+              <div class="select-box">
+                <select 
+                name="Role">
+                  <option hidden="" >Role</option>
+                  <option value="1">Admin</option>
+                  <option value="2">Analyste</option>
+                  <option value="3">consulteur</option>
+               
+                </select>
+              </div>
+            </div> 
+        </div>
+        </div>
+        <div class="footer-container">
+            <button type="submit" class="Btn btn-1">Create</button>
+          </div>
+     
+        
+  
+  
+    
+    
+      
+   
+    </form>
+  </section>

@@ -31,12 +31,15 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CreateAnalysteComponent } from './create-analyste/create-analyste.component';
+import { AnalysteListeComponent } from './analyste-liste/analyste-liste.component';
+// import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, CreateAnalysteComponent, AnalysteListeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

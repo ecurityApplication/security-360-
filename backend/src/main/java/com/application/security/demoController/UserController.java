@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200" )
+//@CrossOrigin(origins = "http://localhost:4200" )
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 
@@ -33,11 +33,11 @@ public class UserController {
     public User AjouterUser(@RequestBody User i){
         return userService.AjouterUser(i);
     }
-    @DeleteMapping("/dejeteUser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     @ResponseBody
-    public void DeleteUser(@PathVariable("id")Long iduser){
+    public void DeleteUser(@PathVariable("id")Long id){
 
-        userService.DeleteUser(iduser);
+        userService.DeleteUser(id);
     }
     @GetMapping("/getUserById/{id}")
     @ResponseBody
