@@ -34,7 +34,6 @@
             <th>HostName</th>
             <th>UserName</th>
             <th>HostStatus</th>
-            <!-- <th>description</th> -->
             <th>Investigation</th>
             <!-- <th>Images</th> -->
             <th>Remediation</th>
@@ -53,14 +52,13 @@
         </thead>
         <tbody class="table-body">
           <tr *ngFor="let incident of incidents; let i = index">
-            <!-- <tr *ngFor = "let incident of incidents" > -->
-            <td>{{ generateIncidentID(i) }}</td>
+            <!-- <td>{{ generateIncidentID(i) }}</td> -->
+            <td>{{incident.incidentID}}</td>
             <td>{{ incident.incidentType }}</td>
             <td>{{ incident.date | date : "dd/MM/yyyy hh:mm a" }}</td>
             <td>{{ incident.title }}</td>
             <td>{{ incident.severityLevel }}</td>
             <td>{{ incident.category }}</td>
-            <!-- <td> {{ incident.incidentID }} </td> -->
             <td>{{ incident.ticketRaised }}</td>
             <td>{{ incident.plantName }}</td>
             <td>{{ incident.raisedBy }}</td>
@@ -68,7 +66,6 @@
             <td>{{ incident.hostName }}</td>
             <td>{{ incident.userName }}</td>
             <td>{{ incident.hostStatus }}</td>
-            <!-- <td>{{ incident.description}}</td> -->
             <td>{{ incident.investigation }}</td>
             <!-- <td><button class="btn"><i class='bx bx-images'></i></button></td> -->
             <!-- <td><mat-grid-list cols="1" rowHeight="1:1">

@@ -1,5 +1,3 @@
-
-
 import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
@@ -72,9 +70,4 @@ import { AnalysteListeComponent } from './analyste-liste/analyste-liste.componen
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-
-// function provideAnimationsAsync() {
-//   throw new Error('Function not implemented.');
-// }
 

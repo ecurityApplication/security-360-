@@ -1,4 +1,3 @@
-
 package com.application.security.demoController;
 
 import com.application.security.entity.ImageModel;
@@ -29,7 +28,7 @@ public class IncidentController {
     IncidentServiceImpl incidentService;
     @Autowired
     Incidentrepository incidentrepository;
-//    @GetMapping("/getAll")
+    //    @GetMapping("/getAll")
 //    @ResponseBody
 //    public List<Incident> getAllIncident(){
 //        List<Incident>list=incidentService.getAllIncident();
@@ -41,7 +40,7 @@ public class IncidentController {
 //        List<Incident>list=incidentService.getAllIncident();
         return incidentService.getAllIncident();
     }
-//   @PostMapping("/add")
+    //   @PostMapping("/add")
 //   @ResponseBody
 //   public Incident AjouterIncident(@RequestBody Incident i){
 //       return incidentService.AjouterIncident(i);
