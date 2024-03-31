@@ -1,39 +1,68 @@
 package com.application.security.auth;
 
-import com.application.security.entity.ERole;
-import com.application.security.entity.Role;
-import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.List;
+
 public class RegisterRequest {
+	@NotBlank
+	@Size(min = 3, max = 20)
+	private String username;
 
-	private String firstname;
-	private String lastname;
+	@NotBlank
+	@Size(max = 50)
+	@Email
 	private String email;
+
+	private List<String> role;
+
+	@NotBlank
+	@Size(min = 6, max = 40)
 	private String password;
+	@Column
+
 	private boolean mfaEnabled;
-	private String role;
 
-	public String getFirstname() {
-		return firstname;
+
+
+	public RegisterRequest(String username, String email, List<String> role, String password, boolean mfaEnabled) {
+		this.username = username;
+		this.email = email;
+		this.role = role;
+		this.password = password;
+		this.mfaEnabled = mfaEnabled;
+
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public RegisterRequest(String username, String email, String password, boolean mfaEnabled) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.mfaEnabled = mfaEnabled;
+
 	}
 
-	public String getLastname() {
-		return lastname;
+	public RegisterRequest(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+
+
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public RegisterRequest() {
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -42,6 +71,14 @@ public class RegisterRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<String> getRole() {
+		return role;
+	}
+
+	public void setRole(List<String> role) {
+		this.role = role;
 	}
 
 	public String getPassword() {
@@ -58,13 +95,5 @@ public class RegisterRequest {
 
 	public void setMfaEnabled(boolean mfaEnabled) {
 		this.mfaEnabled = mfaEnabled;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 }
