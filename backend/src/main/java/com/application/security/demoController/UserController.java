@@ -5,7 +5,6 @@
     import com.application.security.repository.RoleRepository;
     import com.application.security.repository.UserRepository;
     import com.application.security.services.UserServiceImpl;
-    import jakarta.mail.MessagingException;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -36,23 +35,8 @@
             return list;
         }
 
-        @DeleteMapping("/remove-user/{user-id}")
-        @ResponseBody
-        public void removeUser(@PathVariable("user-id") Long id) {
-            userService.DeleteUser(id);
-
-        }
-        @GetMapping("/retrieve-user/{user-id}")
-        @ResponseBody
-        public User getUserById(@PathVariable("user-id")Long id){
-            return userService.findById(id);
-        }
-
-
-
-
         @PostMapping("/Add-user")
-        public ResponseEntity<Object> addUser(@RequestBody Map<String, Object> requestBody) {
+          public ResponseEntity<Object> addUser(@RequestBody Map<String, Object> requestBody) {
             // Extract user and role data from the request body
             Map<String, Object> userMap = (Map<String, Object>) requestBody.get("user");
             String roleName = (String) requestBody.get("role");
@@ -62,11 +46,11 @@
             user.setUsername((String) userMap.get("username"));
             user.setPassword( encoder.encode((CharSequence) userMap.get("password")));
             user.setEmail((String) userMap.get("email"));
-            user.setMfaEnabled((boolean) userMap.get("enable"));
+            user.setMfaEnabled((boolean) userMap.get("mfaEnabled"));
             userRepository.save(user);
 
             // Find the role by name
-            Optional<Role> roleOptional = roleRepository.findByName(roleName);
+             Optional<Role> roleOptional = roleRepository.findByName(roleName);
 
             // If role doesn't exist, create and save it
             Role role;
@@ -89,26 +73,4 @@
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
-
-
-        @GetMapping("/find-by-username/{username}")
-        @ResponseBody
-        public User findByname(@PathVariable("username")String username){
-            return userService.findByName(username);
-        }
-        @PutMapping(value="/modifyuser/{user-id}")
-        public User modify(@PathVariable (name="user-id") Long id, @RequestBody  Map<String, Object> requestBody) throws MessagingException {
-
-            return userService.updateUser(requestBody, id);
-        }
-
-
-
-
-        @GetMapping("/retrieve-username/{id}")
-        @ResponseBody
-        public User getusername(@PathVariable("id") String username) {
-
-            return userService.getById(username);
-        }
     }
