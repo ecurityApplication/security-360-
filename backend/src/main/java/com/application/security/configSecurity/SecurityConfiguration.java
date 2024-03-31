@@ -36,6 +36,7 @@ public class SecurityConfiguration {
             "/api/v1/incidents/**",
             "/api/v1/user/**",
             "/api/v1/test/**",
+            "/api/v1/role/**",
             "/company/**" };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;

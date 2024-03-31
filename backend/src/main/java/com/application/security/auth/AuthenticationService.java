@@ -1,7 +1,6 @@
 package com.application.security.auth;
 
 import com.application.security.configSecurity.JwtService;
-import com.application.security.entity.ERole;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
 //import com.application.security.repository.RoleRepository;
@@ -27,10 +26,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -47,36 +46,40 @@ public class AuthenticationService {
   private final RoleRepository roleRepository;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    //add roles
-    String strRole = request.getRole();
-    Role role = new Role();
-
-    if (strRole == null) {
-      role = roleRepository.findByName(ERole.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-
-    }
-    else if(strRole.equals("admin"))
-    {
-      role = roleRepository.findByName(ERole.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-    }
-    else if(strRole.equals("mod"))
-    {
-      role = roleRepository.findByName(ERole.ROLE_MODERATOR)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    // add roles to users
+    List<String> strRoles = request.getRole() ;
+    List<Role> roles = new ArrayList<>();
+    if (strRoles != null && !strRoles.isEmpty()) {
+      strRoles.forEach(role -> {
+        switch (role) {
+          case "admin":
+            Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(adminRole);
+            break;
+          case "moderator":
+            Role managerRole = roleRepository.findByName("ROLE_MODERATOR")
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(managerRole);
+            break;
+          default:
+            Role userRole = roleRepository.findByName("ROLE_USER")
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        }
+      });
     } else {
-      role = roleRepository.findByName(ERole.ROLE_USER)
+      // if any role specified, attribute default role "ROLE_USER"
+      Role userRole = roleRepository.findByName("ROLE_USER")
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+      roles.add(userRole);
     }
-
     // Create a new user entity with the provided details
     var user = User.builder()
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
+            .username(request.getUsername())
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
-            .role( role)
+            .roles( roles )
             .mfaEnabled(request.isMfaEnabled())
             .build();
 
@@ -148,10 +151,15 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .role(user.getRole().getName().name())
+           // .role(user.getRole().getName().name())
+            .role( user.getRoles().stream()
+                    .map(Role::getName)
+                    .collect( Collectors.joining(", ")) )
             //mfa Enabled
             .mfaEnabled(false)
             .build();
+    // Helper method to get role names as a comma-separated string
+
   }
 
   private void saveUserToken(User user, String jwtToken) {

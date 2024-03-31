@@ -18,36 +18,42 @@ import java.util.stream.Collectors;
 @NoArgsConstructor // Generating a no-argument constructor using Lombok
 @Entity // transform from class to table in database
 @Builder // Adding builder pattern support using Lombok (add data in database without
-			// creating the requet manually
+// creating the requet manually
 @Table(name = "_user") // Specifying the table name for this entity in the database
 public class User implements UserDetails {
 	@Id // Marking the field as primary key
 	@GeneratedValue(strategy = GenerationType.AUTO) // Generating the value automatically for the field
 	private Long id;
-	private String firstname;
-	private String lastname;
+	private String username;
 	private String email;
 	private String password;
 	private boolean mfaEnabled;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
 	// the many user might have different role
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
-	 //@Enumerated(EnumType.STRING)// Specifying that the field should be persisted
-	// as a string in the database
-	 //private ERole role;// Declaring a field named role of type Role enum
+	//@ManyToOne
+	//@JoinColumn(name = "role_id")
+	//private Role role;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles",
+			joinColumns = { @JoinColumn(name = "user_Id") },
+			inverseJoinColumns = { @JoinColumn(name = "role_Id") })
+	private List<Role> roles;
 	@OneToMany(mappedBy = "user") // one user belongs to many tokens
 	// it's indicating that there can be multiple Token entities associated with a
 	// single User entity
 	private List<Token> tokens;
 
-	@Override // Annotation indicating that this method overrides a method in the superclass
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.getName().name()));
-
+		return roles.stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName()))
+				.collect(Collectors.toList());
 	}
+	//@Override // Annotation indicating that this method overrides a method in the superclass
+	//public Collection<? extends GrantedAuthority> getAuthorities() {
+	//	return List.of(new SimpleGrantedAuthority(role.getName().name()));
+	//}
 
 	@Override
 	public String getPassword() {

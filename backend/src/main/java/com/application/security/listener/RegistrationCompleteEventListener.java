@@ -43,7 +43,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         //theUser = event.getUser();
         String subject = "Email Verification";
         String senderName = "User Registration Portal Service";
-        String mailContent = "<p> Hi, "+ theUser.getFirstname()+ ", </p>"+
+        String mailContent = "<p> Hi, "+ theUser.getUsername()+ ", </p>"+
                 "<p>Thank you for registering with us,"+"" +
                 "Please, follow the link below to complete your registration.</p>"+
                 "<a href=\"" +url+ "\">Verify your email to activate your account</a>"+
@@ -60,7 +60,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     public void sendPasswordResetVerificationEmail(String code,User user) throws MessagingException, UnsupportedEncodingException {
         String subject = "Password Reset Request Verification";
         String senderName = "User Registration Portal Service";
-        String mailContent = "<p> Hi, "+ user.getFirstname()+ ", </p>"+
+        String mailContent = "<p> Hi, "+ user.getUsername()+ ", </p>"+
                 "<p><b>You recently requested to reset your password,</b>"+"" +
                 "Please, follow the link below to complete the action.</p>"+
                 "<p> "+ code + "</p>"+
@@ -77,7 +77,7 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     public void sendwelcomeEmail(User user) throws MessagingException, UnsupportedEncodingException {
         String subject = "Password Reset Request Verification";
         String senderName = "User Registration Portal Service";
-        String mailContent = "<p> Hi, "+ user.getFirstname()+ ", </p>"+
+        String mailContent = "<p> Hi, "+ user.getUsername()+ ", </p>"+
                 "<p><b>Nous sommes heureux de vous accueillir, !,</b>"+""
                 ;
         MimeMessage message = mailSender.createMimeMessage();
