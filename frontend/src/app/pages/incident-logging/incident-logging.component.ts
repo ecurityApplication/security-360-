@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-incident-logging',

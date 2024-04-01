@@ -17,13 +17,17 @@ mat-drawer-container {
 }
 body {
   font-family: "Popins", sans-serif;
+  overflow-x: hidden; /* Hide horizontal overflow */
 }
-.sidebar {
-  z-index: 1;
+app-sidebar {
+  z-index: 2; /* Ensure the sidebar is on top */
+  position: fixed; /* Fix the sidebar position */
+  top: 0; /* Position from top */
+  left: 0; /* Position from left */
 }
 .table {
-  width: 100%;
-  z-index: 0;
+  width: calc(100% - 260px); /* Adjust the width considering sidebar width */
+  margin-left: 260px; 
 }
 .header-content {
   display: flex;
