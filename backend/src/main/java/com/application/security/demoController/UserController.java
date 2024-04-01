@@ -5,6 +5,7 @@
     import com.application.security.repository.RoleRepository;
     import com.application.security.repository.UserRepository;
     import com.application.security.services.UserServiceImpl;
+    import jakarta.mail.MessagingException;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -31,8 +32,8 @@
         @GetMapping("/retrieve-all-user")
         @ResponseBody
         public List<User> getAllUsers() {
-            List<User> list = userService.RetreiveAllUser();
-            return list;
+            return userService.RetreiveAllUser();
+
         }
 
         @PostMapping("/Add-user")
@@ -71,6 +72,18 @@
             response.put("status", "success");
 
             return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+        @PutMapping(value="/modifyuser/{user-id}")
+        public User modify(@PathVariable (name="user-id") Long id, @RequestBody  Map<String, Object> requestBody) throws MessagingException {
+
+            return userService.updateUser(requestBody, id);
+        }
+        @DeleteMapping("/remove-user/{user-id}")
+        @ResponseBody
+        public void removeUser(@PathVariable("user-id") Long id) {
+            userService.DeleteUser(id);
+
         }
 
     }

@@ -1,6 +1,8 @@
 package com.application.security.entity;
 
 import com.application.security.token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +40,7 @@ public class User implements UserDetails {
 	@JoinTable(name = "users_roles",
 			joinColumns = { @JoinColumn(name = "user_Id") },
 			inverseJoinColumns = { @JoinColumn(name = "role_Id") })
+	@JsonIgnore
 	private List<Role> roles;
 	@OneToMany(mappedBy = "user") // one user belongs to many tokens
 	// it's indicating that there can be multiple Token entities associated with a
