@@ -27,8 +27,8 @@ export class EscalationComponent implements OnInit{
  })
 
 }
-updateIncident(id:number){
-this.router.navigate(['update-incident', id]);
+updateescalation(id:number){
+this.router.navigate(['update-escalation', id]);
 
 }
 
@@ -38,9 +38,9 @@ deleteIncident(id: number) {
     this.getIncident();
   })
 }
-incidentDetails(id: number) {
-this.router.navigate(['incident-details', id]);
-}
+// incidentDetails(id: number) {
+// this.router.navigate(['incident-details', id]);
+// }
 
 //incident id + date
 // Method to generate incident ID

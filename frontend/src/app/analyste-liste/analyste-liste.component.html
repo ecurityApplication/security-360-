@@ -22,11 +22,11 @@
               </tr>
            </thead>
            <tbody class="table-body">
-            <tr >
-              <td></td>
-                  <td>Bochra Ouerfelli</td>
-                  <td>ouerfelli.bochra&#64;gmail.com </td>
-                  <td>Bochra123.</td>
+            <tr *ngFor = "let analyste of analyste"  >
+                  <td>{{analyste.id}}</td>
+                  <td>{{analyste.username}} </td>
+                  <td>{{analyste.email}}</td>
+                  <td>{{analyste.password}}</td>
                   <td>Analyste</td>
 
   

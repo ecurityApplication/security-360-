@@ -72,6 +72,11 @@ public class IncidentController {
 
         return imageModels;
     }
+//    @PostMapping("/escalation")
+//    @ResponseBody
+//    public Incident AjouterIncident(@RequestBody Incident i){
+//        return incidentService.AjouterIncident(i);
+//    }
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public void DeleteIncident(@PathVariable("id")Long idincident){

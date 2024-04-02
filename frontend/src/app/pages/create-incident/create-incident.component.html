@@ -154,6 +154,7 @@ name="incidentID"/>
         <label for="exampleFormControlTextarea1">Investigation</label>
         <textarea  id="investigation"  rows="3"  [(ngModel)]="incident.investigation" name="investigation" ></textarea>
       </div>
+      
 
       <div class="form-group">
         <div>
@@ -167,10 +168,10 @@ name="incidentID"/>
         </div>
         <div>
           <mat-grid-list cols="4" rowHeight="1:1">
-            <mat-grid-tile *ngFor="let file of incident.incidentImages; let i = index;">
+            <mat-grid-tile *ngFor="let FileHandle of incident.incidentImages; let i = index;">
               <div style="position: relative;">
                 <span class="btn-remove-image" (click)="removeImages(i)">X</span>
-                <img [src]="file.url" width="100px" height="100px" >
+                <img [src]="FileHandle.url" width="100px" height="100px" >
 
               </div>
 

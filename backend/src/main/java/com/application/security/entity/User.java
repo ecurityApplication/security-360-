@@ -40,7 +40,9 @@ public class User implements UserDetails {
 	@JoinTable(name = "users_roles",
 			joinColumns = { @JoinColumn(name = "user_Id") },
 			inverseJoinColumns = { @JoinColumn(name = "role_Id") })
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonManagedReference
+
 	private List<Role> roles;
 	@OneToMany(mappedBy = "user") // one user belongs to many tokens
 	// it's indicating that there can be multiple Token entities associated with a
