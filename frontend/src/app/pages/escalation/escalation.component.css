@@ -1,4 +1,4 @@
-  
+/*   
 mat-drawer {
     width: 260px;
     background: linear-gradient(#000168, rgb(0, 191, 255), #000168);
@@ -32,9 +32,9 @@ mat-drawer {
   .header-content p {
     color: #e4a814;
     font-size: 18px;
-  }
+  } */
   /* btn Add */
-  .Btn {
+  /* .Btn {
     position: relative;
     display: flex;
     align-items: center;
@@ -79,9 +79,9 @@ mat-drawer {
     box-shadow: 2px 2px 0px rgb(16, 51, 165);
   }
   
-  .table-section {
+  .table-section { */
     /* height: 40%; */
-    overflow: auto;
+    /* overflow: auto;
     
   }
   table {
@@ -160,4 +160,171 @@ mat-drawer {
     margin: 0 5px;
     cursor: pointer;
   }
+   */
+   /* :host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}  
+mat-drawer {
+  width: 260px;
+  background: linear-gradient(#000168, rgb(0, 191, 255), #000168);
+}
+mat-drawer-container {
+  height: 100%;
+} */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Popins", sans-serif;
+}
+.sidebar {
+  z-index: 1;
+}
+.table {
+  width: 100%;
+  z-index: 0;
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+.header-content p {
+  color: #e4a814;
+  font-size: 18px;
+}
+/* btn Add */
+.Btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 120px;
+  height: 40px;
+  border: none;
+  padding: 0px 20px;
+  background-color: rgb(16, 51, 165);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px rgb(52, 125, 220);
+  transition-duration: 0.3s;
+}
+.Btn i {
+  width: 13px;
+  position: absolute;
+  right: 0;
+  margin-right: 20px;
+  background-color: rgb(16, 51, 165);
+  transition-duration: 0.3s;
+  color: #fff;
+}
+
+
+.Btn:hover {
+  color: transparent;
+}
+
+.Btn:hover i {
+  right: 43%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition-duration: 0.3s;
+}
+
+.Btn:active {
+  transform: translate(3px, 3px);
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 0px rgb(16, 51, 165);
+}
+
+.table-section {
+  /* height: 40%; */
+  overflow: auto;
   
+}
+table {
+  table-layout: fixed;
+}
+.table-header th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  color: rgb(116, 113, 113);
+  font-size: 13px;
+}
+.table-body td {
+  position: sticky;
+  height: 60px;
+  color: rgb(110, 108, 108);
+  font-size: 13px;
+  font-weight: 500;
+}
+tr:hover td {
+  cursor: pointer;
+  background: rgba(188, 183, 183, 0.539);
+}
+.table-body {
+  overflow-x: auto;
+  width: fit-content;
+}
+.table-body .btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  flex-direction: row;
+  position: sticky;
+  height: 60px; 
+}
+.bx-edit {
+  color: #008767;
+  padding: 5px; 
+  border: none;
+}
+.bxs-trash-alt {
+  color: #df0404;
+  padding: 5px;
+  border: none;
+}
+.bx-show{
+  color: #2c0886;
+  padding: 5px;
+  border: none;
+}
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgb(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgb(0, 0, 0, 0.3);
+}
+.pagination {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 10px 20px;
+}
+.pagination div {
+  padding: 10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  cursor: pointer;
+}

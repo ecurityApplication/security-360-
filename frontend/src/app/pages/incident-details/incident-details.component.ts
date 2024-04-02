@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import {ActivatedRoute} from "@angular/router";
 import { Incident } from '../../models/incident';
 import { IncidentService } from '../../service/incident.service';
+import { FileHandle } from '../../models/file-handle';
 
 
 
@@ -13,18 +14,56 @@ import { IncidentService } from '../../service/incident.service';
   styleUrl: './incident-details.component.css'
 })
 export class IncidentDetailsComponent implements OnInit{
+
+onImageLoad(event: Event) {
+  console.log('Image loaded:', event);
+}
+
   id!: number
-  incident!: Incident
+  // incident!: Incident
+  // incident:Incident ={
+  //   incidentImages: [],
+  //   id: 0,
+  //   incidentType: '',
+  //   date: new Date(),
+  //   title: '',
+  //   severityLevel: '',
+  //   category: '',
+  //   incidentID: '',
+  //   ticketRaised: '',
+  //   plantName: '',
+  //   raisedBy: '',
+  //   hostName: '',
+  //   userName: '',
+  //   hostStatus: '',
+  //   investigation: '',
+  //   remediation: '',
+  //   firstEvent: '',
+  //   acknowledge: '',
+  //   timeAnalyse: 0,
+  //   analyst: '',
+  //   reviewer: '',
+  //   remediationOwner: '',
+  //   dateTarget: new Date(),
+  //   escalation: '',
+  //   incidentStatus: '',
+  //   falsePositive: ''
+  // }
+
   @ViewChild('contentToConvert') contentToConvert!: ElementRef;
 
   constructor(private  route:ActivatedRoute, private  incidentService:IncidentService) {
-  }
+  }  incident: Incident = new Incident();
+
+
+  
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.incident = new Incident();
+     this.incident = new Incident();
+    
     this.incidentService.getIncidentById(this.id).subscribe(data =>{
       console.log(data);
-      this.incident = data;
+       this.incident = data;
 
     })
   }

@@ -1,29 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Analyste } from '../models/analyste';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/test';
+  private baseUrl = 'http://localhost:8080/api/v1/user';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(`${this.baseUrl }/all`, { responseType: 'text' });
+  // public createAnalyste(analyste: Analyste){
+  //   return this.httpClient.post<Analyste>("http://localhost:8080/api/v1/user/Add-user",analyste);
+
+  // }
+  // createIncident(incident:Incident): Observable<Object>{
+  //   return this.httpClient.post(${this.baseURL}/add,incident);
+
+  // }
+  createAnalyste(analyste: Analyste): Observable<Object>{
+return this.httpClient.post(`${this.baseUrl}/Add-user`,analyste)
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/user`, { responseType: 'text' });
+  
+
+  getAnalysteList(): Observable<Analyste[]> {
+    return this.httpClient.get<Analyste[]>(`${this.baseUrl}/retrieve-all-user`);
+  }
+  updateAnalyste(id: number, analyste: Analyste): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}/modifyuser/${id}`, analyste);
   }
 
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/mod`, { responseType: 'text' });
+  deleteAnalyste(id: number) {
+    return this.httpClient.delete(`${this.baseUrl}/remove-user/${id}`);
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/admin`, { responseType: 'text' });
-  }
+
+
+  
 }
