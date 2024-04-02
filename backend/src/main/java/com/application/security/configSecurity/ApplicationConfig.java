@@ -35,9 +35,7 @@ import java.util.Collections;
 public class ApplicationConfig {
 
   private final UserRepository repository;
-  //add for roles
-  @Autowired
-  UserDetailsServiceImpl userDetailsService;
+
 
 
 

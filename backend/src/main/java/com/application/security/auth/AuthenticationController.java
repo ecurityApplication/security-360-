@@ -9,7 +9,9 @@ import com.application.security.listener.RegistrationCompleteEventListener;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthenticationController {
 
   private final AuthenticationService service;
@@ -31,17 +33,42 @@ public class AuthenticationController {
   private final RegistrationCompleteEventListener eventListener;
   private final LogoutService logoutService;
 
+
   @PostMapping("/register")
-  public ResponseEntity<?> register(// because the response type might change
-      @RequestBody RegisterRequest request) {
-    // return ResponseEntity.ok(service.register(request));
-    var response = service.register(request);
+  public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    AuthenticationResponse response = service.register(request);
     if (request.isMfaEnabled()) {
       return ResponseEntity.ok(response);
+    } else {
+      return ResponseEntity.accepted().build();
     }
-    return ResponseEntity.accepted().build();
   }
+  //@PostMapping("/register")
+  //public ResponseEntity<?> registerUser( @RequestBody RegisterRequest request) {
+    //service.register(request);
+    //return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+  //}
+  //@PostMapping("/register")
+  //public ResponseEntity<?> register(// because the response type might change
+     // @RequestBody RegisterRequest request) {
+    // return ResponseEntity.ok(service.register(request));
+   // var response = service.register(request);
+    //if (request.isMfaEnabled()) {
+      //return ResponseEntity.ok(response);
+   // }
+   // return ResponseEntity.accepted().build();
+ // }
 
+
+
+  @GetMapping(path = "confirm")
+  public String confirm(@RequestParam("token") String token) {
+    return service.confirmToken(token);
+  }
+  //@PostMapping("/authenticate")
+ // public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
+   // return service.authenticate( request );
+  //}
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request) {
@@ -103,12 +130,22 @@ public class AuthenticationController {
     return "Invalid password reset token";
   }
 
+  //@PostMapping("/logout")
+ // public void logout(HttpServletRequest request, HttpServletResponse response) {
+    //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+   // if (authentication != null) {
+     // new SecurityContextLogoutHandler().logout(request, response, authentication);
+  //  }
+ // }
+
   @PostMapping("/logout")
-  public void logout(HttpServletRequest request, HttpServletResponse response) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null) {
-      new SecurityContextLogoutHandler().logout(request, response, authentication);
+  public ResponseEntity<String> logout(HttpServletRequest request, Authentication authentication) {
+    try {
+      // Clear authentication context
+      SecurityContextHolder.clearContext();
+      return ResponseEntity.ok("Logout successful");
+    } catch (Exception e) {
+      return ResponseEntity.status( HttpStatus.INTERNAL_SERVER_ERROR).body("Logout failed");
     }
   }
-
 }

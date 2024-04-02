@@ -2,7 +2,6 @@ package com.application.security.entity;
 
 import com.application.security.token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 //@Getter// Generating getters  method using Lombok
 //@Setter// Generating getters, setters, equals, hashCode, and toString methods using Lombok
 @Getter
-@Setter
 @AllArgsConstructor // Generating an all-argument constructor using Lombok
 @NoArgsConstructor // Generating a no-argument constructor using Lombok
 @Entity // transform from class to table in database
@@ -29,6 +27,8 @@ public class User implements UserDetails {
 	private String username;
 	private String email;
 	private String password;
+	private Boolean enabled = false;
+	private Boolean locked = false;
 	private boolean mfaEnabled;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
@@ -46,6 +46,16 @@ public class User implements UserDetails {
 	// it's indicating that there can be multiple Token entities associated with a
 	// single User entity
 	private List<Token> tokens;
+
+	public User(String username, String email, String password, List<Role> roles) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
+
+	public User(User user) {
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -82,10 +92,42 @@ public class User implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-
 	@Override
 	public boolean isEnabled() {
 		return true;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setEnable(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+	public void setMfaEnabled(boolean mfaEnabled) {
+		this.mfaEnabled = mfaEnabled;
+	}
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+	public void setTokens(List<Token> tokens) {
+		this.tokens = tokens;
+	}
 }

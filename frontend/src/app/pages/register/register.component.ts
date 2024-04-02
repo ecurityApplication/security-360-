@@ -21,9 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent {
   registerRequest: RegisterRequest = {};
   authResponse: AuthenticationResponse = {};
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
+ 
   // message = '';
   
   // otpCode = '';
@@ -75,8 +73,6 @@ export class RegisterComponent {
       next: (response) => {
         if (response) {
           this.authResponse = response;
-          this.isSuccessful = true;
-          this.isSignUpFailed = false;
         } else {
           // this.message = 'Account created successfully\nYou will be redirected to the Welcome page in 3 seconds';
           this.toastr.success('Account created successfully\n Please Login');
@@ -84,11 +80,7 @@ export class RegisterComponent {
             this.router.navigate(['login']);
           }, 3000);
         }
-      },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      },
+      }
     });
   }
 
