@@ -30,7 +30,6 @@ public class UserServiceImpl implements Userservice {
     public List<User> RetreiveAllUser() {
         return (List<User>) userRepository.findAll();
     }
-
     @Override
     public User Adduser(User user) {
         return userRepository.save(user);
@@ -40,8 +39,6 @@ public class UserServiceImpl implements Userservice {
     public User updateUser(User user, Long id) throws MessagingException {
         user.setId(id);
         User userToUpdate= userRepository.findById(id).get();
-
-
         return userRepository.save(user);
     }
     public User updateUser(Map<String, Object> requestBody, Long id) {

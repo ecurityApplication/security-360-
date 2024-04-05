@@ -1,33 +1,14 @@
-/* :host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}  
-mat-drawer {
-  width: 260px;
-  background: linear-gradient(#000168, rgb(0, 191, 255), #000168);
-}
-mat-drawer-container {
-  height: 100%;
-} */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-body {
   font-family: "Popins", sans-serif;
-  overflow-x: hidden; /* Hide horizontal overflow */
-}
-app-sidebar {
-  z-index: 2; /* Ensure the sidebar is on top */
-  position: fixed; /* Fix the sidebar position */
-  top: 0; /* Position from top */
-  left: 0; /* Position from left */
 }
 .table {
-  width: calc(100% - 260px); /* Adjust the width considering sidebar width */
-  margin-left: 260px; 
+  z-index: 0;
+  margin-left: 80px;
+  width:calc(100% - 90px);
 }
 .header-content {
   display: flex;
@@ -41,7 +22,6 @@ app-sidebar {
   color: #e4a814;
   font-size: 18px;
 }
-/* btn Add */
 .Btn {
   position: relative;
   display: flex;
@@ -68,12 +48,9 @@ app-sidebar {
   transition-duration: 0.3s;
   color: #fff;
 }
-
-
 .Btn:hover {
   color: transparent;
 }
-
 .Btn:hover i {
   right: 43%;
   margin: 0;
@@ -81,17 +58,13 @@ app-sidebar {
   border: none;
   transition-duration: 0.3s;
 }
-
 .Btn:active {
   transform: translate(3px, 3px);
   transition-duration: 0.3s;
   box-shadow: 2px 2px 0px rgb(16, 51, 165);
 }
-
 .table-section {
-  /* height: 40%; */
-  overflow: auto;
-  
+  overflow: auto; 
 }
 table {
   table-layout: fixed;

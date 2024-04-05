@@ -1,19 +1,13 @@
-<body>
-  <!-- <app-sidebar class="sidebar"></app-sidebar> -->
+<app-sidebar></app-sidebar>
   <div class="table">
     <div class="header-content">
       <p>Escalation</p>
-      <!-- add btn  -->
-      <!-- <button class="Btn">Add
-        <i class='bx bx-plus'></i>
-      </button> -->
-  
     </div>
     <div class="table-section">
-        <table>
-         <thead class="table-header">
-            <tr>
-                <th>Incident ID</th>
+      <table>
+        <thead class="table-header">
+          <tr>
+            <th>Incident ID</th>
                 <th>Plant Name</th>
                 <th>Host Name</th>
                 <th>Functional Escalation</th>
@@ -27,43 +21,32 @@
                 <th>Action plan</th>
                 <th>Owner of Action Plan</th>
                 <th>Actions</th>
-            </tr>
-         </thead>
-         <tbody class="table-body">
+          </tr>
+        </thead>
+        <tbody class="table-body">
           <tr *ngFor="let incident of incidents; let i = index">
             <td>{{ generateIncidentID(i) }}</td>
                 <td>{{incident.plantName}}</td>
                 <td>{{incident.hostName}}</td>
-                <td> </td>
-                <td></td>
-                <td></td>
+                <td>{{incident.functionalEscalation}}</td>
+                <td>{{incident.herarachicescalation}}</td>
+                <td>{{incident.managementescalation}}</td>
                 <td>{{incident.investigation}}</td>
-                <td></td>
+                <td>{{incident.resolutionandrecovery}}</td>
                 <td>{{incident.incidentStatus}}</td>
-                <td></td>
+                <td>{{incident.lessonLeraned}}</td>
                 <td>{{incident.hostStatus}}</td>
                 <td>{{incident.remediation}}</td>
                 <td>{{incident.remediationOwner}}</td>
-
                 <td class="btn-action">
-                  <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
+                  <i class="bx bx-edit" (click)="updateescalation(incident.id)"></i>
                   <i
                     class="bx bxs-trash-alt"
                     (click)="deleteIncident(incident.id)"
                   ></i>
-                  <i class="bx bx-show" (click)="incidentDetails(incident.id)"></i>
                 </td>
             </tr> 
-         </tbody>
-        </table>
-    </div>
-    <div class="pagination">
-      <div><i class='bx bx-chevron-left'></i></div>
-      <div class="page-number">1</div>
-      <div class="page-number">2</div>
-      <div class="page-number">3</div>
-      <div class="page-number">...</div>
-      <div><i class='bx bx-chevron-right'></i></div>
+        </tbody>
+      </table>
     </div>
   </div>
-</body>

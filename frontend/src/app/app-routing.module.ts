@@ -15,9 +15,10 @@ import { UpdateIncidentComponent } from './pages/update-incident/update-incident
 import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
 import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
-import { BoardUserComponent } from './pages/board-user/board-user.component';
-import { BoardModeratorComponent } from './pages/board-moderator/board-moderator.component';
-import { BoardAdminComponent } from './pages/board-admin/board-admin.component';
+import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
+import { UsersListComponent } from './pages/users-list/users-list.component';
+import { CreateUserComponent } from './pages/create-user/create-user.component';
+
 
 
 
@@ -72,11 +73,18 @@ const routes: Routes = [
     path:'calendar',
     component:CalendarComponent
   },
+  {
+    path:'userList',
+    component:  UsersListComponent
+  },
+  {
+    path:'createUser',
+    component: CreateUserComponent
+  },
+  {path: 'update-escalation/:id', component: UpdateEscalationComponent},
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
   {path:'incident-details/:id', component: IncidentDetailsComponent},
-  { path: 'user', component: BoardUserComponent },
-  { path: 'mod', component: BoardModeratorComponent },
-  { path: 'admin', component: BoardAdminComponent },
+ 
   { path: '', redirectTo: 'register', pathMatch: 'full' }
 ];
 

@@ -42,23 +42,23 @@ public class SecurityApplication {
 				Role roleModerator = new Role();
 				roleModerator.setName("ROLE_MODERATOR");
 				roleRepository.save(roleModerator);
-
-
 			}
 
-			//if (!userRepository.existsByEmail("sirinerezgui585@gmail.com")) {
-			//	String bcrypt = applicationConfig.passwordEncoder().encode("12345678");
-			//	List<Role> rolesAdmin = new ArrayList<>();
-			//	Role r = roleRepository.findByName("ROLE_ADMIN")
-			//			.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			//	rolesAdmin.add(r);
-			//	User user = new User();
-			//	user.setRoles(rolesAdmin);
-			//	user.setUsername("admin");
-			//	user.setPassword(bcrypt);
-			//	user.setEmail("sirinerezgui585@gmail.com");
-			//	userRepository.save(user);
-			//}
+
+//			if (!userRepository.existsByEmail("sirinerezgui585@gmail.com")) {
+//				String bcrypt = applicationConfig.passwordEncoder().encode("12345678");
+//				List<Role> rolesAdmin = new ArrayList<>();
+//				Role r = roleRepository.findByName("ROLE_ADMIN")
+//						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//				rolesAdmin.add(r);
+//				User user = new User();
+//				user.setRoles(rolesAdmin);
+//				user.setUsername("admin");
+//				user.setPassword(bcrypt);
+//				user.setEmail("sirinerezgui585@gmail.com");
+//				userRepository.save(user);
+//			}
+
 		};
 
 	}

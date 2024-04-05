@@ -28,14 +28,13 @@ return  repIncident.save(i);
     @Override
     public void DeleteIncident(Long id) {
         repIncident.deleteById(id);
-
     }
 
     @Override
     public List<Incident> getAllIncident() {
         return (List<Incident>) repIncident.findAll();
-
     }
+
     @Override
 public Object getIncidentById(long id){
         return repIncident.findById(id);
@@ -78,8 +77,11 @@ public Object getIncidentById(long id){
             existingIncident.setEscalation(updatedIncident.getEscalation());
             existingIncident.setIncidentStatus(updatedIncident.getIncidentStatus());
             existingIncident.setFalsePositive(updatedIncident.getFalsePositive());
-//            existingIncident.setDescription(updatedIncident.getDescription());
-
+            existingIncident.setFunctionalEscalation(updatedIncident.getFunctionalEscalation());
+            existingIncident.setHerarachicescalation(updatedIncident.getHerarachicescalation());
+            existingIncident.setResolutionandrecovery(updatedIncident.getResolutionandrecovery());
+            existingIncident.setLessonLeraned(updatedIncident.getLessonLeraned());
+            existingIncident.setManagementescalation(updatedIncident.getManagementescalation());
 
             // Save the updated incident
             return repIncident.save(existingIncident);
@@ -89,7 +91,6 @@ public Object getIncidentById(long id){
         }
 
     }
-
 
     @Override
     public List<Incident> getIncidentsByDate(Date date) {
@@ -101,10 +102,6 @@ public Object getIncidentById(long id){
     public List<Incident> getIncidentsByCategory(String category) {
         return repIncident.findByCategory(category);
     }
-
-
-    
-
 
 }
 

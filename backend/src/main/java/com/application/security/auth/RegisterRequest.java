@@ -28,7 +28,6 @@ public class RegisterRequest {
 		this.role = role;
 		this.password = password;
 		this.enable = enable;
-
 	}
 
 	public RegisterRequest(String username, String email, String password, boolean enable) {
@@ -36,15 +35,12 @@ public class RegisterRequest {
 		this.email = email;
 		this.password = password;
 		this.enable = enable;
-
 	}
 
 	public RegisterRequest(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-
-
 	}
 
 	public RegisterRequest() {

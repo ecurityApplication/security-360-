@@ -13,34 +13,34 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './create-incident.component.css'
 })
 export class CreateIncidentComponent {
-  incident:Incident ={
-    incidentImages: [],
-    id: 0,
-    incidentType: '',
-    date: new Date(),
-    title: '',
-    severityLevel: '',
-    category: '',
-    incidentID: '',
-    ticketRaised: '',
-    plantName: '',
-    raisedBy: '',
-    hostName: '',
-    userName: '',
-    hostStatus: '',
-    investigation: '',
-    remediation: '',
-    firstEvent: '',
-    acknowledge: '',
-    timeAnalyse: 0,
-    analyst: '',
-    reviewer: '',
-    remediationOwner: '',
-    dateTarget: new Date(),
-    escalation: '',
-    incidentStatus: '',
-    falsePositive: ''
-  }
+  // incident:Incident ={
+  //   incidentImages: [],
+  //   id: 0,
+  //   incidentType: '',
+  //   date: new Date(),
+  //   title: '',
+  //   severityLevel: '',
+  //   category: '',
+  //   incidentID: '',
+  //   ticketRaised: '',
+  //   plantName: '',
+  //   raisedBy: '',
+  //   hostName: '',
+  //   userName: '',
+  //   hostStatus: '',
+  //   investigation: '',
+  //   remediation: '',
+  //   firstEvent: '',
+  //   acknowledge: '',
+  //   timeAnalyse: 0,
+  //   analyst: '',
+  //   reviewer: '',
+  //   remediationOwner: '',
+  //   dateTarget: new Date(),
+  //   escalation: '',
+  //   incidentStatus: '',
+  //   falsePositive: ''
+  // }
 
   prepareFormData(incident: Incident): FormData {
     const formData = new FormData();
@@ -88,7 +88,7 @@ export class CreateIncidentComponent {
   }
   constructor(private incidentService: IncidentService, private router:Router ,private sanitizer :DomSanitizer ){ }
   timeAnalyse: number = 0;
-  // incident: Incident = new Incident();
+  incident: Incident = new Incident();
   logSelectedIncidentType() {
   }
 

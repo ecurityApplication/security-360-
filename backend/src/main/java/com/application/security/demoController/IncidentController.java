@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200" )
 @RequestMapping("/api/v1/incidents")
 @RequiredArgsConstructor
 public class IncidentController {
@@ -28,16 +27,11 @@ public class IncidentController {
     IncidentServiceImpl incidentService;
     @Autowired
     Incidentrepository incidentrepository;
-    //    @GetMapping("/getAll")
-//    @ResponseBody
-//    public List<Incident> getAllIncident(){
-//        List<Incident>list=incidentService.getAllIncident();
-//        return list;
-// }
+
     @GetMapping("/getAll")
     @ResponseBody
     public List<Incident> getAllIncident(){
-//        List<Incident>list=incidentService.getAllIncident();
+        //List<Incident>list=incidentService.getAllIncident();
         return incidentService.getAllIncident();
     }
     //   @PostMapping("/add")
@@ -72,20 +66,20 @@ public class IncidentController {
 
         return imageModels;
     }
+
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public void DeleteIncident(@PathVariable("id")Long idincident){
         incidentService.DeleteIncident(idincident);
     }
 
-// get employee by id rest api
-
+// get incident by id rest api
     @GetMapping("/getById/{id}")
     @ResponseBody
     public ResponseEntity<Incident> getIncidentById(@PathVariable(name = "id") long id){
         Incident incident = incidentrepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("incident not exist with id :" + id));
-        return ResponseEntity.ok(incident);}
-
+        return ResponseEntity.ok(incident);
+    }
 
     @GetMapping("/getByDate/{date}")
     @ResponseBody
@@ -113,5 +107,4 @@ public class IncidentController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

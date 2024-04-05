@@ -43,32 +43,12 @@ public class AuthenticationController {
       return ResponseEntity.accepted().build();
     }
   }
-  //@PostMapping("/register")
-  //public ResponseEntity<?> registerUser( @RequestBody RegisterRequest request) {
-    //service.register(request);
-    //return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-  //}
-  //@PostMapping("/register")
-  //public ResponseEntity<?> register(// because the response type might change
-     // @RequestBody RegisterRequest request) {
-    // return ResponseEntity.ok(service.register(request));
-   // var response = service.register(request);
-    //if (request.isMfaEnabled()) {
-      //return ResponseEntity.ok(response);
-   // }
-   // return ResponseEntity.accepted().build();
- // }
-
-
 
   @GetMapping(path = "confirm")
   public String confirm(@RequestParam("token") String token) {
     return service.confirmToken(token);
   }
-  //@PostMapping("/authenticate")
- // public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
-   // return service.authenticate( request );
-  //}
+
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request) {
@@ -129,14 +109,6 @@ public class AuthenticationController {
     }
     return "Invalid password reset token";
   }
-
-  //@PostMapping("/logout")
- // public void logout(HttpServletRequest request, HttpServletResponse response) {
-    //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-   // if (authentication != null) {
-     // new SecurityContextLogoutHandler().logout(request, response, authentication);
-  //  }
- // }
 
   @PostMapping("/logout")
   public ResponseEntity<String> logout(HttpServletRequest request, Authentication authentication) {

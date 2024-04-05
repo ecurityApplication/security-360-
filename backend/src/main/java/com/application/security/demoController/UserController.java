@@ -14,7 +14,9 @@
 
     import java.util.*;
 
-    @CrossOrigin("*")
+//    @CrossOrigin("*")
+    @CrossOrigin(origins = "http://localhost:4200" )
+
     @RestController
     @RequestMapping("/api/v1/user")
     public class UserController {
@@ -22,8 +24,6 @@
         UserServiceImpl userService;
         @Autowired
         private UserRepository userRepository;
-       // @Autowired
-        //FileStorageService fileStorageService;
         @Autowired
         RoleRepository roleRepository;
         @Autowired
@@ -38,6 +38,14 @@
 
         @PostMapping("/Add-user")
           public ResponseEntity<Object> addUser(@RequestBody Map<String, Object> requestBody) {
+
+            // Check if userMap is null
+            if (requestBody == null || !requestBody.containsKey("user") || !requestBody.containsKey("role")) {
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Invalid request body");
+                response.put("status", "error");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
             // Extract user and role data from the request body
             Map<String, Object> userMap = (Map<String, Object>) requestBody.get("user");
             String roleName = (String) requestBody.get("role");
@@ -76,14 +84,12 @@
 
         @PutMapping(value="/modifyuser/{user-id}")
         public User modify(@PathVariable (name="user-id") Long id, @RequestBody  Map<String, Object> requestBody) throws MessagingException {
-
             return userService.updateUser(requestBody, id);
         }
+
         @DeleteMapping("/remove-user/{user-id}")
         @ResponseBody
         public void removeUser(@PathVariable("user-id") Long id) {
-            userService.DeleteUser(id);
-
+            userService.DeleteUser( id );
         }
-
     }

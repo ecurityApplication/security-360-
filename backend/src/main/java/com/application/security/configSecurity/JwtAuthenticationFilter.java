@@ -30,8 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
   private final TokenRepository tokenRepository;
- // add it
-  // private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
   @Override
   protected void doFilterInternal(
           @NonNull HttpServletRequest request,

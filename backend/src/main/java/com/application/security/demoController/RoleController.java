@@ -14,6 +14,7 @@ import java.util.List;
 public class RoleController {
     @Autowired
     RoleService roleService;
+
     @GetMapping("/retrieve-all-role")
     @ResponseBody
     public List<Role> getAllRole() {
@@ -31,15 +32,10 @@ public class RoleController {
     public void removeRole(@PathVariable("role-id") Long id) {
         roleService.DeleteRole(id);
     }
+
     @PutMapping(value="/modifyrole/{role-id}")
     public Role modify(@PathVariable (name="role-id") Long id, @RequestBody Role role) {
-
         return roleService.updateRole(role, id);
     }
-
-
-
-
-
 }
 

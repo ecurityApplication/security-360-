@@ -63,7 +63,7 @@ export class RegisterComponent {
       return;
     }
     if (!email || !this.isGmailFormat(email)) {
-      console.log('Email is not in Gmail format.');
+      console.log('Email is not in Gmail format.');//
       // this.message = 'Email is not in Gmail format.';
       this.toastr.warning('Email is not in Gmail format');
       return;
@@ -72,7 +72,10 @@ export class RegisterComponent {
     this.authService.register(this.registerRequest).subscribe({
       next: (response) => {
         if (response) {
+          console.log("response",response);//
           this.authResponse = response;
+          
+          
         } else {
           // this.message = 'Account created successfully\nYou will be redirected to the Welcome page in 3 seconds';
           this.toastr.success('Account created successfully\n Please Login');

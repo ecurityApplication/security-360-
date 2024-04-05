@@ -34,8 +34,12 @@ export class Incident{
   falsePositive!: string;
   // description!:string;
   // incidentImages!: FileHandle[]
-  incidentImages: FileHandle[] = [];
-
+   incidentImages: FileHandle[] = [];
+   functionalEscalation!: string;
+   herarachicescalation!: string;
+   resolutionandrecovery!: string;
+   lessonLeraned!: string;
+   managementescalation!: string;
 
 
 

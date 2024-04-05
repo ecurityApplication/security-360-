@@ -2,6 +2,8 @@ package com.application.security.entity;
 
 import com.application.security.token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,14 +35,12 @@ public class User implements UserDetails {
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
 	// the many user might have different role
-	//@ManyToOne
-	//@JoinColumn(name = "role_id")
-	//private Role role;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)//indicates that while fetching User object, also fetch roles simultaneously
 	@JoinTable(name = "users_roles",
 			joinColumns = { @JoinColumn(name = "user_Id") },
 			inverseJoinColumns = { @JoinColumn(name = "role_Id") })
-	@JsonIgnore
+	@JsonManagedReference
+
 	private List<Role> roles;
 	@OneToMany(mappedBy = "user") // one user belongs to many tokens
 	// it's indicating that there can be multiple Token entities associated with a
