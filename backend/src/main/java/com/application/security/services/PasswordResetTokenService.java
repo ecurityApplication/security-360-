@@ -15,7 +15,6 @@ import java.util.Optional;
 public class PasswordResetTokenService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-
     public void createPasswordResetTokenForUser(User user, String passwordToken) {
         PasswordResetToken passwordRestToken = new PasswordResetToken(passwordToken, user);
         passwordResetTokenRepository.save(passwordRestToken);

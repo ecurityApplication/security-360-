@@ -42,9 +42,8 @@ public class SecurityApplication {
 				Role roleModerator = new Role();
 				roleModerator.setName("ROLE_MODERATOR");
 				roleRepository.save(roleModerator);
-
-
 			}
+
 
 //			if (!userRepository.existsByEmail("sirinerezgui585@gmail.com")) {
 //				String bcrypt = applicationConfig.passwordEncoder().encode("12345678");
@@ -59,6 +58,7 @@ public class SecurityApplication {
 //				user.setEmail("sirinerezgui585@gmail.com");
 //				userRepository.save(user);
 //			}
+
 		};
 
 	}

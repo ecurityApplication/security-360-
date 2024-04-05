@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Data
 @Entity
 //@Table(name = "image_model")
 public class ImageModel {

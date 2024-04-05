@@ -24,14 +24,17 @@ public class LogoutService implements LogoutHandler {
   ) {
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
-    if (authHeader == null ||!authHeader.startsWith("Bearer ")) { //if there is no authHeader and no Bearer don't need to do any thing
+    //if there is no authHeader and no Bearer don't need to do any thing
+    if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
       return;
     }
     jwt = authHeader.substring(7);
     var storedToken = tokenRepository.findByToken(jwt)
         .orElse(null);
-    if (storedToken != null) {//if the token is valid in my database
-      storedToken.setExpired(true);//invalidated
+    //if the token is valid in my database
+    if (storedToken != null) {
+      //invalidated
+      storedToken.setExpired(true);
       storedToken.setRevoked(true);
       tokenRepository.save(storedToken);
       SecurityContextHolder.clearContext();

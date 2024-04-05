@@ -1,16 +1,8 @@
-
-<body>
-  <!-- <app-sidebar></app-sidebar> -->
+<app-sidebar></app-sidebar>
   <div class="table">
     <div class="header-content">
-      <p>escalation</p>
-
-      <!-- <button class="Btn" routerLink="/CreateEscalation">
-        Add
-        <i class="bx bx-plus"></i>
-      </button> -->
+      <p>Escalation</p>
     </div>
-
     <div class="table-section">
       <table>
         <thead class="table-header">
@@ -46,26 +38,15 @@
                 <td>{{incident.hostStatus}}</td>
                 <td>{{incident.remediation}}</td>
                 <td>{{incident.remediationOwner}}</td>
-
                 <td class="btn-action">
                   <i class="bx bx-edit" (click)="updateescalation(incident.id)"></i>
                   <i
                     class="bx bxs-trash-alt"
                     (click)="deleteIncident(incident.id)"
                   ></i>
-                  <!-- <i class="bx bx-show" ></i> -->
                 </td>
             </tr> 
         </tbody>
       </table>
     </div>
-      <!-- <div class="pagination">
-      <div><i class='bx bx-chevron-left'></i></div>
-      <div class="page-number">1</div>
-      <div class="page-number">2</div>
-      <div class="page-number">3</div>
-      <div class="page-number">...</div>
-      <div><i class='bx bx-chevron-right'></i></div>
-    </div> -->
   </div>
-</body>

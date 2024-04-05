@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RegisterRequest } from '../../models/register-request';
 import { UserService } from '../../service/user.service';
 import { StorageService } from '../../service/storage.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -11,22 +12,22 @@ import { StorageService } from '../../service/storage.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  currentUser: any;
+ 
 registerRequest : RegisterRequest = {}
   constructor(private authService :AuthService ,private router :Router , private userService :UserService,private storageService: StorageService){ }
-  
+  user : User[] = [];
   ngOnInit(): void {
-    this.currentUser = this.storageService.getUser();
+    this.getUser();
   //  this.getUser();
     // this.AuthService.g
   }
-  // getUser(){
-  //   this.userService.getUser(this.registerRequest).subscribe(data=>{
-  //     console.log("user data",data)
-  //     this.registerRequest = data;
-  //   }, error => {
-  //     console.error("Error fetching user data:", error);
-  //     // Handle error appropriately, such as displaying an error message to the user
-  //   })
-  // }
+  getUser(){
+    this.userService.getUser().subscribe(data=>{
+      console.log("user data",data)
+      this.user = data;
+    }, error => {
+      console.error("Error fetching user data:", error);
+      // Handle error appropriately, such as displaying an error message to the user
+    })
+  }
 }

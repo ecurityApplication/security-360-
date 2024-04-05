@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 public class PasswordResetToken {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long token_id;
@@ -43,5 +44,4 @@ public class PasswordResetToken {
         calendar.add(Calendar.MINUTE, EXPIRATION_TIME);
         return new Date(calendar.getTime().getTime());
     }
-
 }

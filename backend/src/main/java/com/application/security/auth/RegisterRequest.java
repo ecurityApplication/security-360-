@@ -5,53 +5,42 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
-
+@EqualsAndHashCode
+@ToString
 public class RegisterRequest {
-	@NotBlank
-	@Size(min = 3, max = 20)
-	private String username;
 
-	@NotBlank
-	@Size(max = 50)
+	private String username;
 	@Email
 	private String email;
-
 	private List<String> role;
-
-	@NotBlank
-	@Size(min = 6, max = 40)
 	private String password;
-	@Column
-
 	private boolean mfaEnabled;
-
-
-
-	public RegisterRequest(String username, String email, List<String> role, String password, boolean mfaEnabled) {
+	private  boolean enable;
+	public RegisterRequest(String username, String email, List<String> role, String password, boolean enable) {
 		this.username = username;
 		this.email = email;
 		this.role = role;
 		this.password = password;
-		this.mfaEnabled = mfaEnabled;
-
+		this.enable = enable;
 	}
 
-	public RegisterRequest(String username, String email, String password, boolean mfaEnabled) {
+	public RegisterRequest(String username, String email, String password, boolean enable) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.mfaEnabled = mfaEnabled;
-
+		this.enable = enable;
 	}
 
 	public RegisterRequest(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-
-
 	}
 
 	public RegisterRequest() {
@@ -95,5 +84,13 @@ public class RegisterRequest {
 
 	public void setMfaEnabled(boolean mfaEnabled) {
 		this.mfaEnabled = mfaEnabled;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 }

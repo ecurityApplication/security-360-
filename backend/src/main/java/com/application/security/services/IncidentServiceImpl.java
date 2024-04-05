@@ -28,13 +28,11 @@ return  repIncident.save(i);
     @Override
     public void DeleteIncident(Long id) {
         repIncident.deleteById(id);
-
     }
 
     @Override
     public List<Incident> getAllIncident() {
         return (List<Incident>) repIncident.findAll();
-
     }
 
     @Override
@@ -94,7 +92,6 @@ public Object getIncidentById(long id){
 
     }
 
-
     @Override
     public List<Incident> getIncidentsByDate(Date date) {
        return repIncident.findByDate(date);
@@ -105,10 +102,6 @@ public Object getIncidentById(long id){
     public List<Incident> getIncidentsByCategory(String category) {
         return repIncident.findByCategory(category);
     }
-
-
-    
-
 
 }
 

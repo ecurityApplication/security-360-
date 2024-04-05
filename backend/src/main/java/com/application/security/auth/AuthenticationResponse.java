@@ -3,6 +3,7 @@ package com.application.security.auth;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -18,7 +19,7 @@ public class AuthenticationResponse {
     private String accessToken;
     // @JsonProperty("refresh_token")
     private String refreshToken;
-    private String role;
+    private List<String> role;
     private boolean mfaEnabled;
     private String secretImageUri;
 }

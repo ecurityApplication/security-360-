@@ -34,13 +34,16 @@ public class TowFactorAuthenticationService {
                 .period(30)//how long  this code should be valid(30 secondes)
                 .build();
 
+
         QrGenerator generator = new ZxingPngQrGenerator();
         byte[] imageData = new byte[0];//create an image //the array to store the generated Qr code
         try {
             imageData = generator.generate(data);
+            System.err.println("data of qr code" + imageData);
         } catch (QrGenerationException e) {
             e.printStackTrace();//to see the exception in local execution
             log.error("Error while generating QR-CODE");
+            //System.err.println("data of qr code" + imageData);
         }
         return getDataUriForImage(imageData, generator.getImageMimeType());
     }

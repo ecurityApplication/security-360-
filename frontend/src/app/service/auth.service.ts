@@ -53,5 +53,5 @@ export class AuthService {
    logout(): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/logout`, {});
    }
- 
+  
 }
