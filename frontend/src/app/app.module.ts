@@ -31,13 +31,14 @@ import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 // import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, UsersListComponent, CreateUserComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, UsersListComponent, CreateUserComponent, RolesUserComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

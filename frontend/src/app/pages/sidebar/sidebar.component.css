@@ -16,6 +16,7 @@
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
+  
 }
 .sidebar.open {
   width: 250px;
@@ -65,7 +66,7 @@
   line-height: 60px;
 }
 .sidebar .nav-list {
-  margin-top: 20px;
+  /* margin-top: 10px; */
   height: 100%;
 }
 .sidebar li {
@@ -129,7 +130,6 @@
   left: 0;
   transform: translateY(-50%);
   font-size: 22px;
-  /* background:   #5b5b5b44; */
   color: #0ef;
 }
 .sidebar.open .bx-search:hover {
@@ -213,10 +213,11 @@ hr {
   background-color: white;
   width: calc(100% - 5px);
   min-height: 1px;
-  margin-top: 12vh;
+  margin-top: 40px
 }
 .sidbar-footer {
-  margin-top: 1vh;
+  margin-bottom: 20px;
+ 
 }
 .sidbar-footer .bx {
   color: #fff;
@@ -260,8 +261,6 @@ hr {
   align-items: center;
   position: relative;
   max-width: 100%;
-  /* margin-left: 20%; */
-  /* background-color: #0ef; */
 }
 
 .input {
@@ -307,10 +306,7 @@ input:hover {
   overflow: hidden;
   flex-wrap: wrap;
 }
-/* .header-content p {
-  color:  rgb(24, 62, 187);
-  font-size: 18px;
-} */
+
 /* btn Add */
 .Btn {
   position: relative;
