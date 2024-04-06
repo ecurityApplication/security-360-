@@ -26,7 +26,7 @@ this.getUser();
   }
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(data => {
-      // console.log(data);
+       console.log(data);
       this.getUser();
     })
 }

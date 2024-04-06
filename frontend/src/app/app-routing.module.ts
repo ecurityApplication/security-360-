@@ -18,6 +18,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 
 
 
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path:'createUser',
     component: CreateUserComponent
+  },
+  {
+    path:'roleUser',
+    component: RolesUserComponent
   },
   {path: 'update-escalation/:id', component: UpdateEscalationComponent},
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
