@@ -34,13 +34,13 @@ public class SecurityApplication {
 			List<Role> roles = (List<Role>) roleRepository.findAll();
 			if (roles.isEmpty()) {
 				Role roleAdmin = new Role();
-				roleAdmin.setName("ROLE_ADMIN");
+				roleAdmin.setRoleName("ROLE_ADMIN");
 				roleRepository.save(roleAdmin);
 				Role roleUSER = new Role();
-				roleUSER.setName("ROLE_USER");
+				roleUSER.setRoleName("ROLE_USER");
 				roleRepository.save(roleUSER);
 				Role roleModerator = new Role();
-				roleModerator.setName("ROLE_MODERATOR");
+				roleModerator.setRoleName("ROLE_MODERATOR");
 				roleRepository.save(roleModerator);
 			}
 

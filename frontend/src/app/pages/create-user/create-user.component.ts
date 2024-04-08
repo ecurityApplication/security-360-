@@ -9,14 +9,23 @@ import { User } from '../../models/user';
   styleUrl: './create-user.component.css'
 })
 export class CreateUserComponent {
-  user: User = new User();
-
+  //user: User = new User();
+  user: User = {
+    username: '',
+    email: '',
+    password: '',
+    roleName: '',
+    enable: false
+  };
   constructor(private userService: UserService, private router: Router) {} // Inject your UserService
 
   createUser() {
+    console.log(this.user,"createUser");
+    
     this.userService.createUser(this.user).subscribe(
-      response => {
-        console.log('User created successfully:', response);
+      user => {
+        console.log('User created successfully:', user);
+        console.log(this.user); 
         this.goToUserList();
       },
       error => {

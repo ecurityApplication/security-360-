@@ -1,17 +1,16 @@
 package com.application.security.services;
 
 
+import com.application.security.dto.UserDTO;
 import com.application.security.entity.User;
-import jakarta.mail.MessagingException;
 
 
 import java.util.List;
+import java.util.Map;
 
-public interface Userservice {
-    List<User> RetreiveAllUser ();
-    User Adduser (User user);
-    User updateUser(User user ,Long id) throws MessagingException;
-    public void DeleteUser(Long id);
-
-
+public interface UserService {
+    void DeleteUser(Long id);
+    List< User> getAllUser();
+    void addUser(UserDTO userDTO);
+    void updateUserById(Long id, UserDTO userDTO);
 }

@@ -24,22 +24,22 @@ import { StorageService } from '../../service/storage.service';
       // sidebarClosed = false;
      
 
-   ngOnInit(): void {
-    this.getIncidentByCategory('yourCategory'); // Specify your category here
-  }
+  //  ngOnInit(): void {
+  //   this.getIncidentByCategory('yourCategory'); // Specify your category here
+  // }
 
-  getIncidentByCategory(category: string): void {
-    this.incidentService.getIncidentByCategory(category)
-      .subscribe(
-        (data: any) => {
-          console.log(data);
-          this.incidents = data;
-        },
-        error => {
-          console.error(error);
-        }
-      );
-  }
+  // getIncidentByCategory(category: string): void {
+  //   this.incidentService.getIncidentByCategory(category)
+  //     .subscribe(
+  //       (data: any) => {
+  //         console.log(data);
+  //         this.incidents = data;
+  //       },
+  //       error => {
+  //         console.error(error);
+  //       }
+  //     );
+  // }
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
       if (window.innerWidth <= 320) {

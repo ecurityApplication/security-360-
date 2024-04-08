@@ -21,10 +21,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Boolean existsByEmail(String email);
     User findUserByUsername(String username);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE User a " +
-            "SET a.enabled = TRUE WHERE a.email = ?1")
-    int enableUser(String email);
-
 }

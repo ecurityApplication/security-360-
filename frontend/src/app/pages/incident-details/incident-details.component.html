@@ -1,158 +1,139 @@
 <div class="container">
-     <div class="main">
-      <div class="main-top">
-        <img src="./assets/coficab.png" alt="Company Logo" />
-        <label> {{ incident.title }} </label>
-        <div class="main-top-date">
-          <label>SOC</label>
-          <label>{{ incident.date | date : "dd/MM/yyyy hh:mm a" }}</label>
-        </div>
+  <div class="main">
+    <div class="main-top">
+      <img src="./assets/coficab.png" alt="Company Logo" />
+      <label> {{ incident.title }} </label>
+      <div class="main-top-date">
+        <label>SOC</label>
+        <label>{{ incident.date | date : "dd/MM/yyyy hh:mm a" }}</label>
       </div>
-      <div class="main-bottom"></div>
-      <!-- <mat-divider></mat-divider> -->
-      <section class="main-content">
-        <h1>
-          Dear colleagues,</h1>
-          <h1>Following the analysis of the incident, please find
-          below a summary of the incident.
-        </h1>
-          <div class="box">
-            <div class = "box-content">
-              <label class="box-content-text">Severity Level </label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">Category </label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">Incident ID</label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">HelpDesk Ticket nº</label>
-            </div>
-            <div class = "box-content">
-              <label class="box-content-text">{{ incident.severityLevel }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.category }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.incidentID }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.raisedBy }}</label>
-            </div>
-          </div>
-          <div class="box">
-            <div class = "box-content">
-              <label class="box-content-text">Plant Name</label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">Raised BY</label>
-            </div>
-            <div class = "box-content">
-              <label class="box-content-text">{{ incident.ticketRaised }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.plantName }}</label>
-            </div>
-          </div>
-          <div class="box">
-            <div class = "box-content">
-              <label class="box-content-text">Host Name </label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">User Name</label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">Incident Status</label>
-               <mat-divider></mat-divider>
-              <label class="box-content-text">Host Status</label>
-            </div>
-            <div class = "box-content">
-              <label class="box-content-text">{{ incident.hostName }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.userName }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.incidentStatus }}</label>
-              <mat-divider></mat-divider>
-              <label class="box-content-text">{{ incident.hostStatus }}</label>
-            </div>
-          </div> 
-      </section>
-      <div class="top-description"></div>
-      <div class="main-description">
-        <label>Incident Description</label>
-      </div>
-      <div class="main-description-card">
-        <p>{{ incident.investigation }}</p>
-        <div *ngFor="let file of incident.incidentImages">
-          <img
-            [src]="file.url"
-            alt="Image"
-            width="200"
-            height="100"
-            (load)="onImageLoad($event)"
-          />
-          {{ file.url | json }}
-        </div>
-      </div>
-      <div class="action-part">
-        <div class="action-description-left">
-          <h1>Action</h1>
-          <div class="rd-box">
-          <p>{{ incident.remediationOwner }}</p>
-        </div>
-        </div>
-        
-        <div class="action-description-right">
-          <div class="rd-box">
-            <h1>Action</h1>
-          <p>{{ incident.remediationOwner }}</p>
-          </div>
-          <div>
-          <h1>Action</h1>
-          <p>{{ incident.remediationOwner }}</p>
-        </div>
-            <!-- <h1>Remediation Owner</h1>
-            <div class="rd-box">
-              <p>{{ incident.remediationOwner }}</p>
-            </div>
-            <h1>Date Target</h1>
-            <div class="rd-box">
-              <p>{{ incident.dateTarget | date : "dd/MM/yyyy hh:mm a" }}</p>
-            </div>
-        </div> -->
-           <!-- <h1>Remediation Owner</h1>
-            <div class="rd-box">
-              <p>{{ incident.remediationOwner }}</p>
-            </div>
-            <h1>Date Target</h1>
-            <div class="rd-box">
-              <p>{{ incident.dateTarget | date : "dd/MM/yyyy hh:mm a" }}</p>
-            </div>
-        </div> -->
-      </div>
-      <!-- <div class="tab2">
+    </div>
+    <div class="main-bottom"></div>
+    <section class="main-content">
+      <h1>Dear colleagues,</h1>
+      <h1>
+        Following the analysis of the incident, please find below a summary of
+        the incident.
+      </h1>
+      <div class="tab2">
         <table class="table">
           <thead>
             <tr>
-              <th>First event</th>
-              <th>Acknowledge</th>
-              <th>Time to Analyse</th>
-              <th>Analyst</th>
-              <th>Reviewer</th>
+              <th>Severity Level</th>
+              <th>{{ incident.severityLevel }}</th>
+              <th>Plant Name</th>
+              <th>{{ incident.plantName }}</th>
+              <th>Host Name</th>
+              <th>{{ incident.hostName }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{{ incident.firstEvent }}</td>
-              <td>{{ incident.acknowledge }}</td>
-              <td>{{ incident.timeAnalyse }}</td>
-              <td>{{ incident.analyst }}</td>
-              <td>{{ incident.reviewer }}</td>
+              <td>Category</td>
+              <td>{{ incident.category }}</td>
+              <td>Raised BY</td>
+              <td>{{ incident.raisedBy }}</td>
+              <td>User Name</td>
+              <td>{{ incident.userName }}</td>
+            </tr>
+            <tr>
+              <td>Incident ID</td>
+              <td>{{ incident.incidentID }}</td>
+              <td></td>
+              <td></td>
+              <td>Incident Status</td>
+              <td>{{ incident.incidentStatus }}</td>
+            </tr>
+            <tr>
+              <td>HelpDesk Ticket nº</td>
+              <td>{{ incident.raisedBy }}</td>
+              <td></td>
+              <td></td>
+              <td>Host Status</td>
+              <td>{{ incident.hostStatus }}</td>
             </tr>
           </tbody>
         </table>
-      </div> -->
-      <!-- <h1>
-        If you need further information, please do not hesitate to reach us
-        by:{{ "soc.corp&#64;coficab.com" }}
-      </h1> -->
-    </div> 
-  
-  <!-- <div>
+      </div>
+    </section>
+    <!-- <div class="top-description"></div> -->
+    <div class="main-description">
+      <label>Incident Description</label>
+    </div>
+    <div class="main-description-card">
+      <p>{{ incident.investigation }}</p>
+      <div *ngFor="let file of incident.incidentImages">
+        <img
+          [src]="file.url"
+          alt="Image"
+          width="200"
+          height="100"
+          (load)="onImageLoad($event)"
+        />
+        {{ file.url | json }}
+      </div>
+    </div>
+    <div class="action-part">
+      <div class="action-description-left">
+        <div class="title">
+          <h1>Action</h1>
+        </div>
+        <div class="rd-box">
+          <p>{{ incident.remediationOwner }}</p>
+        </div>
+      </div>
+      <div class="action-description-right">
+        <div class="first">
+          <div class="title">
+            <h1>Remediation Owner</h1>
+          </div>
+          <div class="rd-box">
+            <p>{{ incident.remediationOwner }}</p>
+          </div>
+        </div>
+        <div class="second">
+          <div class="title">
+            <h1>Date Target</h1>
+          </div>
+          <div class="rd-box">
+            <p>{{ incident.dateTarget | date : "dd/MM/yyyy hh:mm a" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+        <!-- <mat-divider></mat-divider> -->
+    <!-- <div class="top-description"></div> -->
+    <div class="tab2">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>First event</th>
+            <th>Acknowledge</th>
+            <th>Time to Analyse</th>
+            <th>Analyst</th>
+            <th>Reviewer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ incident.firstEvent }}</td>
+            <td>{{ incident.acknowledge }}</td>
+            <td>{{ incident.timeAnalyse }}</td>
+            <td>{{ incident.analyst }}</td>
+            <td>{{ incident.reviewer }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h1>
+      If you need further information, please do not hesitate to reach us by:{{
+        "soc.corp&#64;coficab.com"
+      }}
+    </h1>
+  </div>
+  <div class="btn-download">
     <button class="Btn" type="button" value="Convert" (click)="convertToPDF()">
       Télécharger
     </button>
-  </div> -->
+  </div>
 </div>
