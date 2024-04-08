@@ -40,13 +40,27 @@
     <div class="input-box address">
       <div class="column">
         <div class="input-box">
-          <label>Role</label>
-          <div class="select-box"  [(ngModel)]="user.role">
-            <select name="Role">
+          <label for="roleName">Role</label>
+          <div class="select-box" >
+            <select name="Role" name="Role" [(ngModel)]="user.roleName">
               <option hidden="">Role</option>
-              <option value="1">Admin</option>
-              <option value="2">Analyste</option>
-              <option value="3">Consulteur</option>
+              <option value="1">ROLE_ADMIN</option>
+              <option value="2">ROLE_USER</option>
+              <option value="3">ROLE_MODERATOR</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-box address">
+      <div class="column">
+        <div class="input-box">
+          <label>Enable</label>
+          <div class="select-box" >
+            <select name="Enable" [(ngModel)]="user.enable">
+              <option hidden="">Enabe</option>
+              <option value=true>Yes</option>
+              <option value=false>No</option>
             </select>
           </div>
         </div>

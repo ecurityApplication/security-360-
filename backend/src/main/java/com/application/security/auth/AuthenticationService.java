@@ -2,13 +2,11 @@ package com.application.security.auth;
 
 import com.application.security.configSecurity.JwtService;
 import com.application.security.email.EmailSender;
-import com.application.security.entity.ConfirmationToken;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
 //import com.application.security.repository.RoleRepository;
 import com.application.security.repository.RoleRepository;
 import com.application.security.repository.UserRepository;
-import com.application.security.services.ConfirmationTokenService;
 import com.application.security.services.PasswordResetTokenService;
 import com.application.security.services.UserDetailsServiceImpl;
 import com.application.security.tfa.TowFactorAuthenticationService;
@@ -19,8 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,7 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,45 +48,45 @@ public class AuthenticationService {
 
   private final UserDetailsServiceImpl userDetailsService;
   //private final EmailValidator emailValidator;
-  private final ConfirmationTokenService confirmationTokenService;
   private final EmailSender emailSender;
 
 
     public AuthenticationResponse register(RegisterRequest request) {
         // add roles to users
-        List<String> strRoles = request.getRole() ;
+        List<String> strRoles = request.getRole();
         List<Role> roles = new ArrayList<>();
         if (strRoles != null && !strRoles.isEmpty()) {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+                        Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
                         break;
                     case "moderator":
-                        Role managerRole = roleRepository.findByName("ROLE_MODERATOR")
+                        Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(managerRole);
+                        roles.add(moderatorRole);
                         break;
                     default:
-                        Role userRole = roleRepository.findByName("ROLE_USER")
+                        Role userRole = roleRepository.findByRoleName("ROLE_USER")
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
             });
         } else {
-            // if any role specified, attribute default role "ROLE_USER"
-            Role userRole = roleRepository.findByName("ROLE_USER")
+            // if any role specified, attribute default role "ROLE_ADMIN"
+            Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+            roles.add(adminRole);
         }
+
         // Create a new user entity with the provided details
         var user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles( roles )
+                .roles(roles)
                 .mfaEnabled(request.isMfaEnabled())
                 .build();
 
@@ -102,45 +97,46 @@ public class AuthenticationService {
 
         // Save the user entity to the database
         var savedUser = repository.save(user);
+
         // Generate JWT token and refresh token
         var jwtToken = jwtService.generateToken(user);
-
         var refreshToken = jwtService.generateRefreshToken(user);
+
         // Save user token (not sure about the implementation of saveUserToken method)
         saveUserToken(savedUser, jwtToken);
+
         // Generate QR code image URL
-         String qrCodeImageUrl = tfaService.generateQrCodeImgUri(user.getSecret());
-         // Send registration details to user's email
+        String qrCodeImageUrl = tfaService.generateQrCodeImgUri(user.getSecret());
+
+        // Send registration details to user's email
         String emailSubject = "Registration Confirmation";
         String emailBody = "<html><body>"
-                + "<p>Dear " + user.getUsername() + ",</p>"
+                + "<p>Dear " + request.getUsername() + ",</p>"
                 + "<p>Thank you for registering with us!</p>"
                 + "<p>Your registration details:</p>"
                 + "<ul>"
-                + "<li>Username: " + user.getUsername() + "</li>"
-                + "<li>Email: " + user.getEmail() + "</li>"
-                + "<li>MFA Enabled: " + user.isMfaEnabled() + "</li>"
+                + "<li>Username: " + request.getUsername() + "</li>"
+                + "<li>Email: " + request.getEmail() + "</li>"
+                + "<li>MFA Enabled: " + request.isMfaEnabled() + "</li>"
                 + "</ul>"
                 + "<p>Please keep this information secure.</p>"
                 + "<p>Best regards,<br/>The Team</p>"
                 + "<img src=\"data:image/png;base64," + qrCodeImageUrl + "\">"
                 + "</body></html>";
 
-        //System.out.println("qr code" +qrCodeImageUrl);
-        emailSender.send(user.getEmail(), emailSubject, emailBody,tfaService.generateQrCodeImgUri(user.getSecret()));
+        emailSender.send(user.getEmail(), emailSubject, emailBody, qrCodeImageUrl);
 
         // Return authentication response with tokens and MFA details
         return AuthenticationResponse.builder()
-                //create an imageUri
-                .secretImageUri(tfaService.generateQrCodeImgUri(user.getSecret()))
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                //mfa Enabled
+                .secretImageUri(qrCodeImageUrl)
+               // .accessToken(jwtToken)
+               // .refreshToken(refreshToken)
                 .mfaEnabled(user.isMfaEnabled())
                 .build();
     }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
     // Perform authentication using email and password
     Authentication authentication =authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
@@ -173,31 +169,14 @@ public class AuthenticationService {
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
             .role(user.getRoles().stream()
-            .map(Role::getName)
+            .map(Role::getRoleName)
             .collect(Collectors.toList()))
             //mfa Enabled
             .mfaEnabled(false)
             .build();
     // Helper method to get role names as a comma-separated string
   }
-  @Transactional
-  public String confirmToken(String token) {
-    ConfirmationToken confirmationToken = confirmationTokenService
-            .getToken(token)
-            .orElseThrow(() ->
-                    new IllegalStateException("token not found"));
-    if (confirmationToken.getConfirmedAt() != null) {
-      throw new IllegalStateException("email already confirmed");
-    }
-    LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-    if (expiredAt.isBefore(LocalDateTime.now())) {
-      throw new IllegalStateException("token expired");
-    }
-    confirmationTokenService.setConfirmedAt(token);
-    userDetailsService.enableUser(
-    confirmationToken.getUser().getEmail());
-    return "confirmed";
-  }
+
 
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()

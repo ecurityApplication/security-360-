@@ -76,7 +76,7 @@ public getIncident(){
 
   deleteIncident(id: number) {
     this.incidentService.deleteIncident(id).subscribe(data => {
-      // console.log(data);
+       console.log(data);
       this.getIncident();
     })
 }

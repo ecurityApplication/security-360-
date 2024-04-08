@@ -9,14 +9,22 @@ import { User } from '../../models/user';
   styleUrl: './users-list.component.css'
 })
 export class UsersListComponent implements OnInit{
+  // Initialize users as an array
   user : User[] = [];
-  constructor(private userService: UserService, private router:Router){ }
+   // Inject UserService
+  constructor(private userService: UserService, private router:Router){ 
+  }
+
   ngOnInit():void {
+     // Call the method to fetch users on component initialization
 this.getUser();
   }
  
   getUser(){
     this.userService.getUser().subscribe(user =>{
+     
+      
+      // Assign fetched users to the local array
       this.user=user;
       console.log(this.user); 
     }, error => {
@@ -24,10 +32,16 @@ this.getUser();
      }
     );
   }
+
+  
+  
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(data => {
+      console.log("hi");
        console.log(data);
       this.getUser();
     })
 }
+
+
 }
