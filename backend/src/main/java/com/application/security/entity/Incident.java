@@ -50,7 +50,6 @@ public class Incident {
     private String managementescalation;
 
 
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "incident_images",
             joinColumns = {

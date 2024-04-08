@@ -83,6 +83,31 @@ table {
   font-size: 13px;
   font-weight: 500;
 }
+/* .table-body 
+  .green-bg {
+  background-color:rgb(97, 173, 97);
+  }
+   */
+   .table-body .green-bg {
+    background-color: rgb(116, 210, 116);
+  }
+  
+  .table-body .yellow-bg {
+    background-color: yellow;
+  }
+  
+  .table-body .orange-bg {
+    background-color: orange;
+  }
+  
+  .table-body .red-bg {
+    background-color: rgb(240, 69, 69);
+  }
+  
+  .table-body .redred-bg {
+    background-color: rgb(231, 11, 11);
+  }
+  
 tr:hover td {
   cursor: pointer;
   background: rgba(188, 183, 183, 0.539);
@@ -142,3 +167,4 @@ tr:hover td {
   margin: 0 5px;
   cursor: pointer;
 }
+

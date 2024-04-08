@@ -1,0 +1,141 @@
+<!-- <mat-grid-list cols="4" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let fileHandle of data.images">
+        <img [src]="fileHandle.url" width="150px" height="150px">
+    </mat-grid-tile>
+</mat-grid-list> -->
+<div class="container">
+    <div #contentToConvert>
+
+    <div class="main">
+      <div class="main-top">
+        <img src="./assets/coficab.png" alt="Company Logo" />
+        <label> Title:{{ data.title }} </label>
+        <div class="main-top-date">
+          <label>SOC</label>
+          <label>{{ data.date | date : "dd/MM/yyyy" }}</label>
+        </div>
+      </div>
+      <div class="main-bottom" [ngClass]="getSeverityClass(data.severity)"></div>
+      <section class="main-content">
+        <h1>Dear colleagues,</h1>
+        <h1>
+          Following the analysis of the incident, please find below a summary of
+          the incident.
+        </h1>
+        <div class="tab2">
+          <table class="table" >
+            <thead>
+              <tr>
+                <td class="bleu">Severity Level</td>
+                <td [ngClass]="getSeverityClass(data.severity)">{{ data.severity }}</td>
+                <td class="bleu">Plant Name</td>
+                <td>{{ data.plantName }}</td>
+                <td class="bleu">Host Name</td>
+                <td>{{ data.hostName }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bleu">Category</td>
+                <td>{{ data.category }}</td>
+                <td class="bleu">Raised BY</td>
+                <td>{{ data.raisedBy }}</td>
+                <td class="bleu">User Name</td>
+                <td>{{ data.userName }}</td>
+              </tr>
+              <tr>
+                <td class="bleu">Incident ID</td>
+                <!-- <td>{{ data.incidentID }}</td> -->
+                <td >1-08-04-2024</td>
+
+                <td colspan="2" rowspan="2"></td>
+                <td class="bleu">Incident Status</td>
+                <td>{{ data.incidentStatus }}</td>
+              </tr>
+              <tr>
+                <td class="bleu">HelpDesk Ticket nº</td>
+                <td>{{data.ticketRaised}}</td>
+                <td class="bleu" >Host Status</td>
+                <td [ngClass]="getHostClass(data.hostStatus)">{{ data.hostStatus }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- <div class="top-description"></div> -->
+      <div class="main-description">
+        <label>Incident Description</label>
+      </div>
+      <div class="main-description-card">
+        <p>{{ data.investigation }}</p>
+            <div *ngFor="let fileHandle of data.images">
+                <img [src]="fileHandle.url" width="150px" height="150px">
+            </div>
+        
+      </div>
+      <div class="action-part">
+        <div class="action-description-left">
+          <div class="title">
+            <h1>Action</h1>
+          </div>
+          <div class="rd-box">
+            <p>{{ data.remediation }}</p>
+          </div>
+        </div>
+        <div class="action-description-right">
+          <div class="first">
+            <div class="title">
+              <h1>Remediation Owner</h1>
+            </div>
+            <div class="rd-box">
+              <p>{{data.remediationOwner}}</p>
+            </div>
+          </div>
+          <div class="second">
+            <div class="title">
+              <h1>Date Target</h1>
+            </div>
+            <div class="rd-box">
+              <p>{{ data.dateTarget | date : "dd/MM/yyyy" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+          <!-- <mat-divider></mat-divider> -->
+      <!-- <div class="top-description"></div> -->
+      <div class="tab2">
+        <table class="table">
+          <thead>
+            <tr >
+              <th class="bleu">First event</th>
+              <th class="bleu">Acknowledge</th>
+              <th class="bleu">Time to Analyse</th>
+              <th class="bleu">Analyst</th>
+              <th class="bleu">Reviewer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ data.firstEvent }}</td>
+              <td>{{ data.acknowledge }}</td>
+              <td>{{ data.timeAnalyse }}</td>
+              <td>{{ data.analyst }}</td>
+              <td>{{ data.reviewer }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h1>
+        If you need further information, please do not hesitate to reach us by:{{
+          "soc.corp&#64;coficab.com"
+        }}
+      </h1>
+    </div>
+    </div>
+    <div class="btn-download">
+      <button class="Btn" type="button" value="Convert" (click)="convertToPDF()">
+        Télécharger
+      </button>
+    </div>
+  </div>
+  

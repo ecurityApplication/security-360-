@@ -8,31 +8,52 @@ import { Router } from '@angular/router';
   templateUrl: './escalation.component.html',
   styleUrl: './escalation.component.css',
 })
-export class EscalationComponent implements OnInit {
+export class EscalationComponent implements OnInit{
+  constructor(private incidentService :IncidentService ,private router :Router ){ }
+
   incidents: Incident[] = [];
-  constructor(
-    private incidentService: IncidentService,
-    private router: Router
-  ) {}
   ngOnInit(): void {
-    this.getIncident();
-    this.incidentService.getIncidentList().subscribe((data: Incident[]) => {
-      this.incidents = data;
-    });
-  }
-  getIncident() {
-    this.incidentService.getIncidentList().subscribe(
-      (data) => {
-        this.incidents = data;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-  updateescalation(id: number) {
-    this.router.navigate(['update-escalation', id]);
-  }
+    this.getIncident()
+  //   this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
+  //    this.incidents = data;
+  //  });
+}
+ getIncident(){
+ this.incidentService.getIncidentList().subscribe(data=>{
+  console.log(this.incidents);
+   this.incidents = data;
+   
+ } , error => {
+  console.error(error)
+ })
+
+}
+updateescalation(id:number){
+this.router.navigate(['update-escalation', id]);
+
+}
+
+// deleteIncident(id: number) {
+//   this.incidentService.deleteIncident(id).subscribe(data => {
+//     console.log(data);
+//     this.getIncident();
+//     this.incidentService.getIncidentList().subscribe((data: Incident[]) => {
+//       this.incidents = data;
+//     });
+//   }}
+  // getIncident() {
+  //   this.incidentService.getIncidentList().subscribe(
+  //     (data) => {
+  //       this.incidents = data;
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }
+  // updateescalation(id: number) {
+  //   this.router.navigate(['update-escalation', id]);
+  // }
 
   deleteIncident(id: number) {
     this.incidentService.deleteIncident(id).subscribe((data) => {

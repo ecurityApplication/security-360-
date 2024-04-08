@@ -9,14 +9,14 @@ import { User } from '../../models/user';
   styleUrl: './create-user.component.css'
 })
 export class CreateUserComponent {
-  //user: User = new User();
-  user: User = {
-    username: '',
-    email: '',
-    password: '',
-    roleName: '',
-    enable: false
-  };
+  user: User = new User();
+  // user: User = {
+  //   username: '',
+  //   email: '',
+  //   password: '',
+  //   roleName: '',
+  //   enable: false
+  // };
   constructor(private userService: UserService, private router: Router) {} // Inject your UserService
 
   createUser() {

@@ -19,9 +19,9 @@ export class IncidentService {
   public createIncident(incident:FormData){
     return this.httpClient.post<Incident>("http://localhost:8080/api/v1/incidents/add",incident);
   }
-  createescalation(incident: Incident): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}/escalation`,incident)
-      }
+  // createescalation(incident: Incident): Observable<Object>{
+  //   return this.httpClient.post(`${this.baseURL}/escalation`,incident)
+  //     }
   //   getIncidentById(id: number):Observable<Incident> {
   //   return  this.httpClient.get<Incident>(`${this.baseURL}/getById/${id}`)
   // }

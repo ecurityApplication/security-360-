@@ -20,7 +20,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
-import { IncidentDetailsComponent } from "./pages/incident-details/incident-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
@@ -29,17 +28,43 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgToastModule } from "ng-angular-popup";
+// import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from "@costlydeveloper/ngx-awesome-popup";
+import {
+  NgxAwesomePopupModule,
+  ConfirmBoxConfigModule,
+  ToastNotificationConfigModule,
+  DialogConfigModule
+} from '@costlydeveloper/ngx-awesome-popup';
+import { DragDirective } from './drag.directive';
+import { ShowDialogComponent } from './show-dialog/show-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { IncidentService } from "./service/incident.service";
+import { Incident } from "./models/incident";
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
-// import { NgToastModule } from 'ng-angular-popup';
-
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, UsersListComponent, CreateUserComponent, RolesUserComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent],
   imports: [
+    NgxAwesomePopupModule.forRoot({
+      colorList: {
+        success: '#3caea3', // optional
+        info: '#2f8ee5', // optional
+        warning: '#ffc107', // optional
+        danger: '#e46464', // optional
+        customOne: '#3ebb1a', // optional
+        customTwo: '#bd47fa', // optional (up to custom five)
+      },
+    }),
+     DialogConfigModule.forRoot(),
+    ToastNotificationConfigModule.forRoot() ,
+    NgxAwesomePopupModule.forRoot(), 
+
+    ConfirmBoxConfigModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     LoginComponent,
@@ -51,6 +76,9 @@ import { RolesUserComponent } from './pages/roles-user/roles-user.component';
     MatGridListModule,
     MatDrawerContainer,
     MatSidenavModule,
+    NgToastModule,
+    MatDialogModule,
+    
 
    
    
@@ -61,7 +89,7 @@ import { RolesUserComponent } from './pages/roles-user/roles-user.component';
       timeOut: 2000,
       progressBar: true,
     }),
-    // NgToastModule
+    
   ],
   providers: [
     HttpClient,

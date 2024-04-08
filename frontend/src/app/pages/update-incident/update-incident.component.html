@@ -158,17 +158,21 @@ name="incidentID"/>
         <textarea  id="remediation"  rows="3"  [(ngModel)]="incident.remediation" name="remediation" ></textarea>
       </div>
       <div class="column">
-       <div class="input-box">
-        <label>First Event</label>
-        <input required="" placeholder="Enter The First Event" type="text" id="firstEvent" [(ngModel)]="incident.firstEvent"
-        name="firstEvent">
+        <div class="input-box">
+         <label>First Event</label>
+         <!-- <input required="" placeholder="Enter The First Event" type="text" id="firstEvent" [(ngModel)]="incident.firstEvent"
+         name="firstEvent"> -->
+         <input type="datetime-local" id="firstEvent" name="firstEvent" [(ngModel)]="incident.firstEvent">
+ 
+        </div>
+        <div class="input-box">
+         <label>Acknowledge</label>
+         <!-- <input required="" placeholder="Enter The Acknowledge" type="text" id="acknowledge" [(ngModel)]="incident.acknowledge"
+         name="acknowledge"> -->
+         <input type="datetime-local" id="acknowledge" name="acknowledge" [(ngModel)]="incident.acknowledge">
+ 
+        </div>
        </div>
-       <div class="input-box">
-        <label>Acknowledge</label>
-        <input required="" placeholder="Enter The Acknowledge" type="text" id="acknowledge" [(ngModel)]="incident.acknowledge"
-        name="acknowledge">
-       </div>
-      </div>
       <div class="column">
        <div class="input-box">
         <label>Time To Analyse</label>
