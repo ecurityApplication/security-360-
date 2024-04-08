@@ -281,3 +281,6 @@ body{
   box-shadow: 5px 5px 0px rgb(196, 205, 240);
   transition-duration: .3s;
 }
+.green-text {
+  color: green;
+}

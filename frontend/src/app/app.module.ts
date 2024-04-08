@@ -31,14 +31,39 @@ import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreateAnalysteComponent } from './create-analyste/create-analyste.component';
 import { AnalysteListeComponent } from './analyste-liste/analyste-liste.component';
-// import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
+import { NgToastModule } from "ng-angular-popup";
+// import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from "@costlydeveloper/ngx-awesome-popup";
+import {
+  NgxAwesomePopupModule,
+  ConfirmBoxConfigModule,
+  ToastNotificationConfigModule,
+  DialogConfigModule
+} from '@costlydeveloper/ngx-awesome-popup';
+import { DragDirective } from './drag.directive';
+import { ShowDialogComponent } from './show-dialog/show-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { IncidentService } from "./service/incident.service";
+import { Incident } from "./models/incident";
 
-
-// import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, CreateAnalysteComponent, AnalysteListeComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, CreateAnalysteComponent, AnalysteListeComponent, DragDirective, ShowDialogComponent],
   imports: [
+    NgxAwesomePopupModule.forRoot({
+      colorList: {
+        success: '#3caea3', // optional
+        info: '#2f8ee5', // optional
+        warning: '#ffc107', // optional
+        danger: '#e46464', // optional
+        customOne: '#3ebb1a', // optional
+        customTwo: '#bd47fa', // optional (up to custom five)
+      },
+    }),
+     DialogConfigModule.forRoot(),
+    ToastNotificationConfigModule.forRoot() ,
+    NgxAwesomePopupModule.forRoot(), 
+
+    ConfirmBoxConfigModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     LoginComponent,
@@ -50,6 +75,9 @@ import { AnalysteListeComponent } from './analyste-liste/analyste-liste.componen
     MatGridListModule,
     MatDrawerContainer,
     MatSidenavModule,
+    NgToastModule,
+    MatDialogModule,
+    
 
    
    
@@ -60,7 +88,7 @@ import { AnalysteListeComponent } from './analyste-liste/analyste-liste.componen
       timeOut: 2000,
       progressBar: true,
     }),
-    // NgToastModule
+    
   ],
   providers: [
     HttpClient,

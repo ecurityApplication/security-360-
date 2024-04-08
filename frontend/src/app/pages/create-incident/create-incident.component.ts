@@ -6,6 +6,8 @@ import { FileHandle } from '../../models/file-handle';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgToastService } from 'ng-angular-popup';
+
 
 @Component({
   selector: 'app-create-incident',
@@ -13,34 +15,47 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './create-incident.component.css'
 })
 export class CreateIncidentComponent {
-  // incident:Incident ={
-  //   incidentImages: [],
-  //   id: 0,
-  //   incidentType: '',
-  //   date: new Date(),
-  //   title: '',
-  //   severityLevel: '',
-  //   category: '',
-  //   incidentID: '',
-  //   ticketRaised: '',
-  //   plantName: '',
-  //   raisedBy: '',
-  //   hostName: '',
-  //   userName: '',
-  //   hostStatus: '',
-  //   investigation: '',
-  //   remediation: '',
-  //   firstEvent: '',
-  //   acknowledge: '',
-  //   timeAnalyse: 0,
-  //   analyst: '',
-  //   reviewer: '',
-  //   remediationOwner: '',
-  //   dateTarget: new Date(),
-  //   escalation: '',
-  //   incidentStatus: '',
-  //   falsePositive: ''
-  // }
+  constructor(private incidentService: IncidentService, private router:Router ,private sanitizer :DomSanitizer ,private toast: NgToastService 
+    ){ }
+  timeAnalyse: number = 0;
+  // incident: Incident = new Incident();
+  
+  ngOnInit(): void {
+  }
+
+  incident:Incident ={
+    incidentImages: [],
+    id: 0,
+    incidentType: '',
+    date: new Date(),
+    title: '',
+    severityLevel: '',
+    category: '',
+    incidentID: '',
+    ticketRaised: '',
+    plantName: '',
+    raisedBy: '',
+    hostName: '',
+    userName: '',
+    hostStatus: '',
+    investigation: '',
+    remediation: '',
+    firstEvent: '',
+    acknowledge: '',
+    timeAnalyse: 0,
+    analyst: '',
+    reviewer: '',
+    remediationOwner: '',
+    dateTarget: new Date(),
+    escalation: '',
+    incidentStatus: '',
+    falsePositive: '',
+    functionalEscalation: '',
+    herarachicescalation: '',
+    resolutionandrecovery: '',
+    lessonLeraned: '',
+    managementescalation: ''
+  }
 
   prepareFormData(incident: Incident): FormData {
     const formData = new FormData();
@@ -86,15 +101,7 @@ export class CreateIncidentComponent {
       this.incident.incidentImages.push(fileHandle);
     }
   }
-  constructor(private incidentService: IncidentService, private router:Router ,private sanitizer :DomSanitizer ){ }
-  timeAnalyse: number = 0;
-  incident: Incident = new Incident();
-  logSelectedIncidentType() {
-  }
-
-  ngOnInit(): void {
-  }
-
+ 
   // saveIncident(){
 
   //     this.incidentService.createIncident(this.incident).subscribe( data =>{console.log(data);
@@ -105,7 +112,7 @@ export class CreateIncidentComponent {
   // }
   goToIncidentList(){
     this.router.navigate(['/incidentlogging']);
-    this.router.navigate(['/escalation']);
+    // this.router.navigate(['/escalation']);
   }
   // onSubmit() {
   //   console.log(this.incident);
@@ -119,10 +126,22 @@ export class CreateIncidentComponent {
 
   createIncident(incidentForm: NgForm) {
     const incidentFormData=this.prepareFormData(this.incident);
+    // if (this.incident.escalation === 'Yes') {
+    //   this.router.navigate(['/incidentlogging']);
+    //   this.router.navigate(['/escalation']);
+    // } else {
+    //   this.router.navigate(['/incidentlogging']);
+    // }
     this.incidentService.createIncident(incidentFormData).subscribe(
       (response: Incident) => {
+
         incidentForm.reset();
+        this.incident.incidentImages = [];
+        this.showSuccess(); // Show success popup after creating incident
+
+
         this.goToIncidentList();
+
 
       },
       (error: HttpErrorResponse) => {
@@ -130,10 +149,26 @@ export class CreateIncidentComponent {
       }
     );
 
+
   }
+  showSuccess() {
+   
+    this.toast.success({
+      detail:"Success Message",
+      summary:'Successful add new incident ',
+      duration:3000,
+       position:'topRight'})
+  }
+
+  
+  
+  
   removeImages(i: number) {
     this.incident.incidentImages.splice(i, 1);
   }
   
+  fileDropped(fileHandle: FileHandle) {
+    this.incident.incidentImages.push(fileHandle);
+  }
 
 }

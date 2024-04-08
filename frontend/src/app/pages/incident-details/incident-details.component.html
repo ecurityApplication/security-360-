@@ -22,7 +22,9 @@
             <div class="box">
               <tr>
                 <th>severity Level :</th>
-                <td> {{ incident.severityLevel }} </td>
+                <!-- <td > {{ incident.severityLevel }} </td> -->
+                <td [ngClass]="{'green-text': incident.severityLevel === 'Informational'}">{{ incident.severityLevel }}</td>
+
               </tr>
              
               <tr>
@@ -99,8 +101,8 @@
             <img [src]="file.url" alt="Image" width="200" height="100px" >
         </div> -->
         <div *ngFor="let file of incident.incidentImages">
-          <img [src]="file.url" alt="Image" width="200" height="100" (load)="onImageLoad($event)">
-          {{ file.url | json }}
+          <img [src]="file.url" alt="Image" width="200" height="100" >
+          
         </div>
         
         </div>

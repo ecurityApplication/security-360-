@@ -53,7 +53,8 @@ onImageLoad(event: Event) {
   @ViewChild('contentToConvert') contentToConvert!: ElementRef;
 
   constructor(private  route:ActivatedRoute, private  incidentService:IncidentService) {
-  }  incident: Incident = new Incident();
+  } 
+   incident: Incident = new Incident();
 
 
   

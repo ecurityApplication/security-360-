@@ -1,13 +1,5 @@
-<!-- <mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
-        <app-sidebar></app-sidebar>
-      </mat-drawer>
-    <mat-drawer-content>
-      <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header> -->
 
-<!-- <h2> Employee List</h2> -->
 <body>
-  <!-- <app-sidebar></app-sidebar> -->
   <div class="table">
     <div class="header-content">
       <p>Incident logging</p>
@@ -34,7 +26,6 @@
             <th>HostName</th>
             <th>UserName</th>
             <th>HostStatus</th>
-            <!-- <th>description</th> -->
             <th>Investigation</th>
             <!-- <th>Images</th> -->
             <th>Remediation</th>
@@ -55,27 +46,22 @@
           <tr *ngFor="let incident of incidents; let i = index">
             <!-- <tr *ngFor = "let incident of incidents" > -->
             <td>{{ generateIncidentID(i) }}</td>
-            <td>{{ incident.incidentType }}</td>
-            <td>{{ incident.date | date : "dd/MM/yyyy hh:mm a" }}</td>
+            <td [ngClass]="gettypeClass(incident.incidentType)">{{ incident.incidentType }}</td>
+            <td>{{ incident.date | date : "dd/MM/yyyy" }}</td>
             <td>{{ incident.title }}</td>
-            <td>{{ incident.severityLevel }}</td>
+            <td [ngClass]="getSeverityClass(incident.severityLevel)">{{ incident.severityLevel }}</td>
+
             <td>{{ incident.category }}</td>
-            <!-- <td> {{ incident.incidentID }} </td> -->
             <td>{{ incident.ticketRaised }}</td>
             <td>{{ incident.plantName }}</td>
             <td>{{ incident.raisedBy }}</td>
 
             <td>{{ incident.hostName }}</td>
             <td>{{ incident.userName }}</td>
-            <td>{{ incident.hostStatus }}</td>
-            <!-- <td>{{ incident.description}}</td> -->
+            <td [ngClass]="getHostClass(incident.hostStatus)">{{ incident.hostStatus }}</td>
             <td>{{ incident.investigation }}</td>
-            <!-- <td><button class="btn"><i class='bx bx-images'></i></button></td> -->
-            <!-- <td><mat-grid-list cols="1" rowHeight="1:1">
-              <mat-grid-tile *ngFor="let fileHandle of data.images">
-                  <img [src]="fileHandle.url" width="150px" height="150px">
-              </mat-grid-tile>
-          </mat-grid-list></td> -->
+            <!-- <td><button class="btn" (click)="showImages(incident)"><i class='bx bx-images'></i></button></td> -->
+  
 
             <td>{{ incident.remediation }}</td>
             <td>{{ incident.firstEvent }}</td>
@@ -84,18 +70,20 @@
             <td>{{ incident.analyst }}</td>
             <td>{{ incident.reviewer }}</td>
             <td>{{ incident.remediationOwner }}</td>
-            <td>{{ incident.dateTarget | date : "dd/MM/yyyy hh:mm a " }}</td>
+            <td>{{ incident.dateTarget | date : "dd/MM/yyyy " }}</td>
             <td>{{ incident.escalation }}</td>
-            <td>{{ incident.incidentStatus }}</td>
+            <td [ngClass]="getStatusClass(incident.incidentStatus)">{{ incident.incidentStatus }}</td>
             <td>{{ incident.falsePositive }}</td>
 
             <td class="btn-action">
               <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
               <i
                 class="bx bxs-trash-alt"
-                (click)="deleteIncident(incident.id)"
+                (click)="openConfirmBox(incident.id)"
               ></i>
-              <i class="bx bx-show" (click)="incidentDetails(incident.id)"></i>
+              <!-- <i class="bx bx-show" (click)="incidentDetails(incident.id)"></i> -->
+              <i class="bx bx-show" (click)="showImages(incident)"></i>
+
             </td>
           </tr>
         </tbody>
@@ -104,6 +92,4 @@
   </div>
 </body>
 
-<!-- </mat-drawer-content>
-  
-  </mat-drawer-container> -->
+

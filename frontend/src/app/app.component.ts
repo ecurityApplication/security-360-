@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from './service/auth.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { AuthService } from './service/auth.service';
 })
 export class AppComponent {
   showSidebar: boolean = true;
-  constructor(private router: Router,private authService: AuthService) { 
+  constructor(private router: Router,private authService: AuthService ) { 
     this.router.events.subscribe((event) => {
            if (event instanceof NavigationEnd) {
             this.showSidebar = !['/login', '/register','/CreateAnalyste','/incident-details/:id','/update-incident/:id','/createIncident'].includes(event.url);

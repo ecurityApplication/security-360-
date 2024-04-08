@@ -32,6 +32,7 @@ return this.httpClient.post(`${this.baseUrl}/Add-user`,analyste)
   updateAnalyste(id: number, analyste: Analyste): Observable<any> {
     return this.httpClient.put(`${this.baseUrl}/modifyuser/${id}`, analyste);
   }
+  
 
   deleteAnalyste(id: number) {
     return this.httpClient.delete(`${this.baseUrl}/remove-user/${id}`);

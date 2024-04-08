@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
   styleUrl: './escalation.component.css'
 })
 export class EscalationComponent implements OnInit{
-  incidents: Incident[] = [];
   constructor(private incidentService :IncidentService ,private router :Router ){ }
+
+  incidents: Incident[] = [];
   ngOnInit(): void {
     this.getIncident()
-    this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
-     this.incidents = data;
-   });
+  //   this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
+  //    this.incidents = data;
+  //  });
 }
  getIncident(){
  this.incidentService.getIncidentList().subscribe(data=>{

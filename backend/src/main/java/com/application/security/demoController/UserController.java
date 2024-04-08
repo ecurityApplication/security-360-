@@ -15,7 +15,7 @@
     import java.util.*;
 
 //    @CrossOrigin("*")
-    @CrossOrigin(origins = "http://localhost:4200" )
+   @CrossOrigin(origins = "http://localhost:4200" )
 
     @RestController
     @RequestMapping("/api/v1/user")
@@ -30,6 +30,7 @@
         RoleRepository roleRepository;
         @Autowired
         PasswordEncoder encoder;
+//        private Map<String, Object> userMap = new HashMap<>();
 
         @GetMapping("/retrieve-all-user")
         @ResponseBody
@@ -39,7 +40,8 @@
         }
 
         @PostMapping("/Add-user")
-          public ResponseEntity<Object> addUser(@RequestBody Map<String, Object> requestBody) {
+
+        public ResponseEntity<Object> addUser(@RequestBody Map<String, Object> requestBody) {
 
             // Extract user and role data from the request body
             Map<String, Object> userMap = (Map<String, Object>) requestBody.get("user");
