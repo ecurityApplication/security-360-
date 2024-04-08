@@ -1,17 +1,10 @@
-<body>
+
   <div class="sidebar" [ngClass]="{ open: sidebarOpen }">
     <div class="logo-details">
-      <!-- <i class='bx bxl-c-plus-plus icon'></i>
-          <div class="logo_name">CodingLab</div> -->
       <img class="logo_name" src="./assets/coficab.png" alt="Company Logo" />
       <i class="bx bx-menu" id="btn" (click)="toggleSidebar()"></i>
     </div>
     <ul class="nav-list">
-      <!-- <li>
-            <i class='bx bx-search' (click)="toggleSidebar()"></i>
-           <input type="text" placeholder="Search...">
-           <span class="tooltip">Search</span>
-        </li> -->
       <li routerLink="/incidentlogging">
         <a>
           <i class="bx bx-grid-alt"></i>
@@ -20,10 +13,6 @@
         <span class="tooltip">Incident Logging</span>
       </li>
       <li>
-        <a>
-          <i class="bx bxs-report"></i>
-          <span class="links_name">Incident report</span>
-        </a>
         <span class="tooltip">Incident report</span>
       </li>
       <li routerLink="/escalation">
@@ -68,8 +57,24 @@
         </a>
         <span class="tooltip">Profile</span>
       </li>
+      <li routerLink="/userList">
+        <a>
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Settings</span>
+        </a>
+        <span class="tooltip">Settings</span>
+      </li>
+      <li routerLink="/roleUser">
+        <a>
+          <i class='bx bx-check-shield'></i>
+          <span class="links_name">Roles</span>
+        </a>
+        <span class="tooltip">Roles</span>
+      </li>
+
+      
       <hr />
-      <div>
+      <div class="sidbar-footer">
         <li (click)="logout()">
           <a>
             <i class="bx bx-log-out"></i>
@@ -108,7 +113,5 @@
         <input placeholder="Search" type="search" class="input" />
       </div>
     </div>
-    <app-profile></app-profile>
-    <app-incident-logging></app-incident-logging>
   </section> -->
-</body>
+

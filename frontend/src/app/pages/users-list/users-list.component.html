@@ -1,0 +1,40 @@
+<app-sidebar></app-sidebar>
+<div class="table">
+  <div class="header-content">
+    <p>Users Liste</p>
+
+    <button class="Btn" routerLink="/createUser">
+      Add
+      <i class="bx bx-plus"></i>
+    </button>
+  </div>
+  <div class="table-section">
+    <table>
+      <thead class="table-header">
+        <tr>
+          <th>ID</th>
+          <th>Usernameame</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <tr *ngFor="let user of user">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.password }}</td>
+          <td>User</td>
+
+          <td class="btn-action">
+            <i class="bx bx-edit"></i>
+            <i class="bx bxs-trash-alt"></i>
+            <i class="bx bx-show"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

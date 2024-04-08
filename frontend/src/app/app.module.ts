@@ -20,7 +20,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
-import { IncidentDetailsComponent } from "./pages/incident-details/incident-details.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
@@ -29,8 +28,6 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { CreateAnalysteComponent } from './create-analyste/create-analyste.component';
-import { AnalysteListeComponent } from './analyste-liste/analyste-liste.component';
 import { NgToastModule } from "ng-angular-popup";
 // import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from "@costlydeveloper/ngx-awesome-popup";
 import {
@@ -44,10 +41,14 @@ import { ShowDialogComponent } from './show-dialog/show-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { IncidentService } from "./service/incident.service";
 import { Incident } from "./models/incident";
+import { UsersListComponent } from './pages/users-list/users-list.component';
+import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { RolesUserComponent } from './pages/roles-user/roles-user.component';
+// import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,IncidentDetailsComponent, CalendarComponent, UpdateEscalationComponent, CreateAnalysteComponent, AnalysteListeComponent, DragDirective, ShowDialogComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {

@@ -35,9 +35,7 @@ import java.util.Collections;
 public class ApplicationConfig {
 
   private final UserRepository repository;
-  //add for roles
-  @Autowired
-  UserDetailsServiceImpl userDetailsService;
+
 
 
 
@@ -46,7 +44,6 @@ public class ApplicationConfig {
     return username -> repository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
-
 
   @Bean
   public AuthenticationProvider authenticationProvider() {
@@ -65,11 +62,12 @@ public class ApplicationConfig {
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();
   }
-
+  //BCryptPasswordEncoder is a predefined class,will be required to encode our password values in other classes.
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
   @Bean
   public CorsFilter corsFilter() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -83,6 +81,4 @@ public class ApplicationConfig {
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
   }
-
-
 }

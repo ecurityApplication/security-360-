@@ -54,15 +54,13 @@ import { StorageService } from '../../service/storage.service';
     logout(): void {
       this.authService.logout().subscribe({
         next: res => {
-          console.log(res);
+          console.log(res,'Logout successful');
           this.storageService.clean();
-  
-          window.location.reload();
+          this.router.navigate(['login']);
         },
         error: err => {
-          console.log(err);
+          console.error('Logout failed:', err);
         }
       });
     }
-    
   }

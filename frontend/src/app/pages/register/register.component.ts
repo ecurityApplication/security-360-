@@ -21,9 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent {
   registerRequest: RegisterRequest = {};
   authResponse: AuthenticationResponse = {};
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
+ 
   // message = '';
   
   // otpCode = '';
@@ -65,7 +63,7 @@ export class RegisterComponent {
       return;
     }
     if (!email || !this.isGmailFormat(email)) {
-      console.log('Email is not in Gmail format.');
+      console.log('Email is not in Gmail format.');//
       // this.message = 'Email is not in Gmail format.';
       this.toastr.warning('Email is not in Gmail format');
       return;
@@ -74,9 +72,10 @@ export class RegisterComponent {
     this.authService.register(this.registerRequest).subscribe({
       next: (response) => {
         if (response) {
+          console.log("response",response);//
           this.authResponse = response;
-          this.isSuccessful = true;
-          this.isSignUpFailed = false;
+          
+          
         } else {
           // this.message = 'Account created successfully\nYou will be redirected to the Welcome page in 3 seconds';
           this.toastr.success('Account created successfully\n Please Login');
@@ -84,11 +83,7 @@ export class RegisterComponent {
             this.router.navigate(['login']);
           }, 3000);
         }
-      },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-      },
+      }
     });
   }
 

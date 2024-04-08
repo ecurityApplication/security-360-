@@ -1,5 +1,4 @@
-
-<body>
+<app-sidebar></app-sidebar>
   <div class="table">
     <div class="header-content">
       <p>Incident logging</p>
@@ -27,7 +26,7 @@
             <th>UserName</th>
             <th>HostStatus</th>
             <th>Investigation</th>
-            <!-- <th>Images</th> -->
+            
             <th>Remediation</th>
             <th>FirstEvent</th>
             <th>Acknowledge</th>
@@ -44,7 +43,7 @@
         </thead>
         <tbody class="table-body">
           <tr *ngFor="let incident of incidents; let i = index">
-            <!-- <tr *ngFor = "let incident of incidents" > -->
+           
             <td>{{ generateIncidentID(i) }}</td>
             <td [ngClass]="gettypeClass(incident.incidentType)">{{ incident.incidentType }}</td>
             <td>{{ incident.date | date : "dd/MM/yyyy" }}</td>
@@ -90,6 +89,5 @@
       </table>
     </div>
   </div>
-</body>
 
 

@@ -113,7 +113,5 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
         // TODO Auto-generated method stub
-
     }
-
 }
