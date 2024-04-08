@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/role")
 public class RoleController {
@@ -16,13 +16,11 @@ public class RoleController {
     RoleService roleService;
 
     @GetMapping("/retrieve-all-role")
-    @ResponseBody
     public List<Role> getAllRole() {
         List<Role> list = roleService.RetreiveAllRole();
         return list;
     }
     @PostMapping("/Add-role")
-    @ResponseBody
     public Role addRole(@RequestBody Role role){
         return roleService.AddRole(role);
     }

@@ -30,7 +30,6 @@ public class User implements UserDetails {
 	private String email;
 	private String password;
 	private Boolean enabled = false;
-	private Boolean locked = false;
 	private boolean mfaEnabled;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
@@ -39,9 +38,9 @@ public class User implements UserDetails {
 	@JoinTable(name = "users_roles",
 			joinColumns = { @JoinColumn(name = "user_Id") },
 			inverseJoinColumns = { @JoinColumn(name = "role_Id") })
-	@JsonManagedReference
-
+	@JsonIgnore
 	private List<Role> roles;
+	@JsonIgnore
 	@OneToMany(mappedBy = "user") // one user belongs to many tokens
 	// it's indicating that there can be multiple Token entities associated with a
 	// single User entity
@@ -60,7 +59,7 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName()))
+				.map(role -> new SimpleGrantedAuthority(role.getRoleName()))
 				.collect(Collectors.toList());
 	}
 	//@Override // Annotation indicating that this method overrides a method in the superclass
@@ -118,9 +117,7 @@ public class User implements UserDetails {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-	public void setLocked(Boolean locked) {
-		this.locked = locked;
-	}
+
 	public void setMfaEnabled(boolean mfaEnabled) {
 		this.mfaEnabled = mfaEnabled;
 	}

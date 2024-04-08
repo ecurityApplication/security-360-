@@ -5,8 +5,10 @@ import com.application.security.entity.Role;
 import com.application.security.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -23,10 +25,15 @@ public class RoleServiceImpl implements RoleService {
 
     }
     @Override
-    public List<Role> RetreiveAllRole() {
-        return roleRepository.findAll();
+    //public List<Role> RetreiveAllRole() {
+       // return roleRepository.findAll();
+   // }
+    public List<Role> RetreiveAllRole(){
+        List<Role> roles = roleRepository.findAll();
+        return roles.stream()
+                .map(role -> new ModelMapper().map(role, Role.class))
+                .collect( Collectors.toList());
     }
-
     @Override
     public Role updateRole(Role role, Long id) {
         role.setId(id);

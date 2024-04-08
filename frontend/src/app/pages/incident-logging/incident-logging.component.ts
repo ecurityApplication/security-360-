@@ -24,7 +24,7 @@ export class IncidentLoggingComponent implements OnInit {
 //  }
    getIncident(){
    this.incidentService.getIncidentList().subscribe(data=>{
-    // console.log(this.incidents);
+     console.log(this.incidents);
      this.incidents = data;
      
    } , error => {
@@ -39,7 +39,7 @@ export class IncidentLoggingComponent implements OnInit {
 
   deleteIncident(id: number) {
     this.incidentService.deleteIncident(id).subscribe(data => {
-      // console.log(data);
+       console.log(data);
       this.getIncident();
     })
 }

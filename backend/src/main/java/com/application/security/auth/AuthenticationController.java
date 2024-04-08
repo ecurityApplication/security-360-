@@ -44,11 +44,6 @@ public class AuthenticationController {
     }
   }
 
-  @GetMapping(path = "confirm")
-  public String confirm(@RequestParam("token") String token) {
-    return service.confirmToken(token);
-  }
-
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request) {

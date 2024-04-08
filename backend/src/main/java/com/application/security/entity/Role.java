@@ -16,21 +16,21 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String roleName;
     @ManyToMany(mappedBy="roles")
 //    @JsonIgnore
     @JsonBackReference
     private List<User> users;
 
-    public Role(Long id, String name) {
+    public Role(Long id, String roleName) {
         super();
         this.id = id;
-        this.name = name;
+        this.roleName = roleName;
     }
 
-    public Role(String name) {
+    public Role(String roleName) {
         super();
-        this.name = name;
+        this.roleName = roleName;
     }
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public List<User> getUsers() {
@@ -61,4 +61,5 @@ public class Role {
         super();
         // TODO Auto-generated constructor stub
     }
+
 }

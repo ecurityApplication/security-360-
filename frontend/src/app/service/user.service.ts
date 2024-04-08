@@ -16,14 +16,14 @@ export class UserService {
   }
 
   getUser(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.baseUrl}/retrieve-all-user`);
+    return this.httpClient.get<User[]>(`${this.baseUrl}/getAllUsers`);
   }
 
   updateUser(id: number, user: User): Observable<any> {
-    return this.httpClient.put(`${this.baseUrl}/modifyuser/${id}`, User);
+    return this.httpClient.put(`${this.baseUrl}/updateUser/${id}`, User);
   }
 
   deleteUser(id: number) {
-    return this.httpClient.delete(`${this.baseUrl}/remove-user/${id}`);
+    return this.httpClient.delete(`${this.baseUrl}/remove-user/{id}${id}`);
   }
 }
