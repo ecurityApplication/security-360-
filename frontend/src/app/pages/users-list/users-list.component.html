@@ -2,12 +2,14 @@
 <div class="table">
   <div class="header-content">
     <p>Users Liste</p>
-
+    <div class="end-header">
+    <input placeholder="Searth..." type="text" name="text" class="input-search">
     <button class="Btn" mat-button  color="primary" (click)="openCreate()">
       
       Add New User
       <i class="bx bx-plus"></i>
     </button>
+  </div>
   </div>
   <div class="table-section">
     <table>
@@ -32,7 +34,7 @@
 
          
           <td class="btn-action">
-            <i class="bx bx-edit" mat-button  color="primary" (click)="openEditDialog(user.id)"></i>
+            <i class="bx bx-edit" mat-button  color="primary" (click)="openEditDialog(user)"></i>
             <i class="bx bxs-trash-alt"  (click)="deleteUser(user.id)"></i>
           </td>
         </tr>

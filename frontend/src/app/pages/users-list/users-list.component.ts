@@ -15,18 +15,10 @@ export class UsersListComponent implements OnInit {
 
   user: User[] = [];
   id!:number;
-  // user: User = {
-  //   id:0,
-  //   username: '',
-  //   email: '',
-  //   password: '',
-  //   roleName: '',
-    
-  // };
+
   constructor(private userService: UserService, private router: Router,public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    
     // Call the method to fetch users on component initialization
     this.getUser();
   }
@@ -35,7 +27,6 @@ export class UsersListComponent implements OnInit {
     this.userService.getUser().subscribe(
       (user) => {
         this.user = user;
-        console.log(this.user);
       },
       (error) => {
         console.error(error);
@@ -77,7 +68,6 @@ export class UsersListComponent implements OnInit {
     });
   }
   
-
   //open dialog for creating
   openCreate(){
   this.dialog.open(CreateUserComponent,{
@@ -86,30 +76,28 @@ export class UsersListComponent implements OnInit {
   });
   } 
 
-    //open dialog for editing
-//   openEdite(){
-// this.dialog.open(EditUserComponent,{
-//   width: "40%",
-//   height:"60%",
-// });
-// } 
-//  updateUser(id: number): void {
-//     this.openEdite();
-//      this.router.navigate(['update-user', id]);
-//   }
-openEditDialog(id: number): void {
+openEditDialog(user: User): void {
   const dialogRef = this.dialog.open(EditUserComponent, {
     width: '40%',
     height: '60%',
-    data: { id: id } // Pass the user ID to the dialog
-    
-    
+    data: { user } // Pass the entire user object for editing
   });
 
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    // Handle any actions after the dialog is closed
+  dialogRef.afterClosed().subscribe(updatedUser => {
+    if (updatedUser) { // Check if user was updated in the dialog
+      this.userService.updateUser(updatedUser.id, updatedUser).subscribe(
+        () => {
+          this.getUser(); // Refresh user list after successful update
+          Swal.fire('Success!', 'User updated successfully.', 'success');
+        },
+        (error) => {
+          console.error('Error updating user:', error);
+          Swal.fire('Error!', 'Failed to update user.', 'error');
+        }
+      );
+    }
   });
 }
+
 }
 

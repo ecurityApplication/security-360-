@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 //@Getter// Generating getters  method using Lombok
 //@Setter// Generating getters, setters, equals, hashCode, and toString methods using Lombok
 @Getter
+@Setter
 @AllArgsConstructor // Generating an all-argument constructor using Lombok
 @NoArgsConstructor // Generating a no-argument constructor using Lombok
 @Entity // transform from class to table in database
@@ -96,35 +97,5 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setEnable(boolean enabled) {
-		this.enabled = enabled;
-	}
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
 
-	public void setMfaEnabled(boolean mfaEnabled) {
-		this.mfaEnabled = mfaEnabled;
-	}
-	public void setSecret(String secret) {
-		this.secret = secret;
-	}
-	public void setTokens(List<Token> tokens) {
-		this.tokens = tokens;
-	}
 }

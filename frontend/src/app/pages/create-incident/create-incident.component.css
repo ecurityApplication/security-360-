@@ -1,3 +1,10 @@
+.small-form {
+  width: 50%; /* Adjust as needed */
+}
+
+.large-form {
+  width: 100%; /* Adjust as needed */
+}
 .container {
     position: relative;
     width: 100%;
