@@ -1,6 +1,7 @@
 package com.application.security.demoController;
 import com.application.security.dto.DtoConverter;
 import com.application.security.dto.UserDTO;
+import com.application.security.entity.Incident;
 import com.application.security.entity.Role;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
@@ -36,14 +37,15 @@ UserService userService;
 
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers(){
-        return userService.getAllUser();
+        return userService.getAllUsers();
     }
+
     @DeleteMapping("/remove-user/{id}")
     public void removeUser(@PathVariable("id") Long id) {
         userService.DeleteUser( id );
     }
 
-    @PostMapping ("Add-user")
+    @PostMapping ("/Add-user")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
         userService.addUser(userDTO);
 
@@ -54,7 +56,8 @@ UserService userService;
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("updateUser/{id}")
+    @PutMapping("/updateUser/{id}")
+    @ResponseBody
     public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         userService.updateUserById(id, userDTO);
         Map<String, String> response = new HashMap<>();
@@ -63,5 +66,12 @@ UserService userService;
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // get incident by id rest api
+    @GetMapping("/getUserById/{id}")
+    @ResponseBody
+    public ResponseEntity<User> getUserById(@PathVariable(name = "id") long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not exist with id :" + id));
+        return ResponseEntity.ok(user);
+    }
 }
 

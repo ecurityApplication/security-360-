@@ -1,11 +1,18 @@
 <section class="container">
-  <header>Add User</header>
+  <div class="div">
+      <mat-dialog-actions>
+      <div class="mdiv" (click)="onNoClick()">
+        <div class="md" (click)="onNoClick()">
+        </div>
+      </div>
+  </mat-dialog-actions>
+    </div>
+  <header>Add new user</header>
   <form class="form" (ngSubmit)="onSubmit()">
     <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->
     <div class="column">
       <div class="input-box">
         <label for="Username">Username</label>
-       
         <input
           required=""
           placeholder="Enter Username"
@@ -14,18 +21,18 @@
           [(ngModel)]="user.username"
         />
       </div>
+      <div class="input-box">
+          <label for="email">Email</label>
+          <input
+            required=""
+            placeholder="Enter Email"
+            type="Email"
+            name="Email"
+            [(ngModel)]="user.email"
+          />
+        </div>
     </div>
     <div class="column">
-      <div class="input-box">
-        <label for="email">Email</label>
-        <input
-          required=""
-          placeholder="Enter Email"
-          type="Email"
-          name="Email"
-          [(ngModel)]="user.email"
-        />
-      </div>
       <div class="input-box">
         <label for="password">Password</label>
         <input
@@ -36,38 +43,21 @@
           [(ngModel)]="user.password"
         />
       </div>
-    </div>
-    <div class="input-box address">
-      <div class="column">
-        <div class="input-box">
-          <label for="roleName">Role</label>
-          <div class="select-box" >
-            <select name="Role" name="Role" [(ngModel)]="user.roleName">
-              <option hidden="">Role</option>
-              <option value="1">ROLE_ADMIN</option>
-              <option value="2">ROLE_USER</option>
-              <option value="3">ROLE_MODERATOR</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="input-box address">
-      <div class="column">
-        <div class="input-box">
-          <label>Enable</label>
-          <div class="select-box" >
-            <select name="Enable" [(ngModel)]="user.enable">
-              <option hidden="">Enabe</option>
-              <option value=true>Yes</option>
-              <option value=false>No</option>
-            </select>
-          </div>
-        </div>
-      </div>
+            <div class="input-box">
+              <label for="roleName">Role</label>
+              <div class="select-box" >
+                <select name="Role" name="Role" [(ngModel)]="user.roleName">
+                  <option hidden="">Role</option>
+                  <!-- <option *ngFor="let role of roles">{{ role }}</option> -->
+                  <option value="ROLE_USER">ROLE_USER</option>
+                  <option value="ROLE_MODERATOR">ROLE_MODERATOR</option>
+                </select>
+              </div>
+            </div>  
     </div>
     <div class="footer-container">
       <button type="submit" class="Btn btn-1">Create</button>
     </div>
   </form>
 </section>
+

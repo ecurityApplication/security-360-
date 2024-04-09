@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
 import { Router } from '@angular/router';
@@ -55,6 +55,12 @@ export class CreateIncidentComponent {
     resolutionandrecovery: '',
     lessonLeraned: '',
     managementescalation: ''
+  }
+  @Input() isOpen: boolean = false; 
+  sidebarOpen: boolean = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
   prepareFormData(incident: Incident): FormData {
@@ -155,7 +161,7 @@ export class CreateIncidentComponent {
    
     this.toast.success({
       detail:"Success Message",
-      summary:'Successful add new incident ',
+      summary:'Successfully added a new incident',
       duration:3000,
        position:'topRight'})
   }

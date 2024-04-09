@@ -1,4 +1,4 @@
-  import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+  import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
   import { Router } from '@angular/router';
   import { AuthService } from '../../service/auth.service';
   import { IncidentService } from '../../service/incident.service';
@@ -20,6 +20,8 @@ import { StorageService } from '../../service/storage.service';
       sidebarOpen = false;
       miniSidebar = false;
       incidents: Incident[] = [];
+      @Input() isOpen: boolean = false;
+
       // darkMode = false;
       // sidebarClosed = false;
      

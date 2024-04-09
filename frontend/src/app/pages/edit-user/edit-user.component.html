@@ -1,0 +1,65 @@
+<section class="container">
+    <div class="div">
+        <mat-dialog-actions>
+        <div class="mdiv" (click)="onNoClick()">
+          <div class="md" (click)="onNoClick()">
+          </div>
+        </div>
+    </mat-dialog-actions>
+      </div>
+    <header>Edite User</header>
+    <form class="form" (ngSubmit)="onSubmit()">
+      <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->
+      <div class="column">
+        <div class="input-box">
+          <label for="Username">Username</label>
+          <input
+            required=""
+            placeholder="Enter Username"
+            type="Username"
+            name="Username"
+            [(ngModel)]="user.username"
+          />
+        </div>
+        <div class="input-box">
+            <label for="email">Email</label>
+            <input
+              required=""
+              placeholder="Enter Email"
+              type="Email"
+              name="Email"
+              [(ngModel)]="user.email"
+            />
+          </div>
+      </div>
+      <div class="column">
+        <div class="input-box">
+          <label for="password">Password</label>
+          <input
+            required=""
+            placeholder="Enter Password"
+            type="Password"
+            name="Password"
+            [(ngModel)]="user.password"
+          />
+        </div>
+              <div class="input-box">
+                <label for="roleName">Role</label>
+                <div class="select-box" >
+                  <select name="Role" name="Role" [(ngModel)]="user.roleName">
+                    <!-- <option *ngFor="let role of roles" [value]="role.name">
+                      {{ role.name }}
+                    </option> -->
+                    <option hidden="">Role</option>
+                    <option value="ROLE_USER">ROLE_USER</option>
+                    <option value="ROLE_MODERATOR">ROLE_MODERATOR</option>
+                  </select>
+                </div>
+              </div>  
+      </div>
+      <div class="footer-container">
+        <button type="submit" class="Btn btn-1">Edite</button>
+      </div>
+    </form>
+  </section>
+  

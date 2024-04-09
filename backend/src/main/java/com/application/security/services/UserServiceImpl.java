@@ -1,6 +1,5 @@
 package com.application.security.services;
 
-
 import com.application.security.dto.UserDTO;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
@@ -14,30 +13,36 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    JavaMailSender emailSender;
+public class UserServiceImpl implements  UserService{
 
-    @Override
-    public void DeleteUser(Long id) {
-        userRepository.deleteById( id );
-    }
+        @Autowired
+        UserRepository userRepository;
+        @Autowired
+        RoleRepository roleRepository;
+        @Autowired
+        PasswordEncoder passwordEncoder;
+        @Autowired
+        JavaMailSender emailSender;
 
-    @Override
-    public List<User> getAllUser() {
-        return (List<User>) userRepository.findAll();
-    }
+        @Override
+        public void DeleteUser(Long id) {
+            userRepository.deleteById( id );
+        }
 
+        //@Override
+        //public List<User> getAllUser() {
+           // return (List<User>) userRepository.findAll();
+      //  }
+        public List<User> getAllUsers() {
+            return (List<User>) userRepository.findAll();
+
+        }
     @Override
     public void addUser(UserDTO userDTO) {
 
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode( userDTO.getPassword() ));
         user.setEmail( userDTO.getEmail() );
-        user.setEnable( true );
+        user.setEnabled( true );
         userRepository.save(user);
 
         Optional<Role> roleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
@@ -63,21 +68,20 @@ public class UserServiceImpl implements UserService {
         sendUserRegistrationEmail( user, userDTO.getPassword() );
     }
 
+        private void sendUserRegistrationEmail(User user,String password) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(user.getEmail());
+            message.setSubject("Welcome to Our Application");
+            message.setText("Hello " + user.getUsername() + ",\n\n"
+                    + "Welcome to our application!\n\n"
+                    + "Your username: " + user.getUsername() + "\n"
+                    + "Your password: " + password + "\n"
+                    + "Your role: " + user.getRoles().get(0).getRoleName() + "\n"
+                    + "Use this information to login to our application.\n\n"
+                    + "Thank you!");
 
-    private void sendUserRegistrationEmail(User user,String password) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
-        message.setSubject("Welcome to Our Application");
-        message.setText("Hello " + user.getUsername() + ",\n\n"
-                + "Welcome to our application!\n\n"
-                + "Your username: " + user.getUsername() + "\n"
-                + "Your password: " + password + "\n"
-                + "Your role: " + user.getRoles().get(0).getRoleName() + "\n"
-                + "Use this information to login to our application.\n\n"
-                + "Thank you!");
-
-        emailSender.send(message);
-    }
+            emailSender.send(message);
+        }
 
     @Override
     public void updateUserById(Long id, UserDTO userDTO) {
@@ -88,41 +92,46 @@ public class UserServiceImpl implements UserService {
             user.setUsername(userDTO.getUsername());
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             user.setEmail(userDTO.getEmail());
-            user.setEnable(userDTO.isEnable());
-            userRepository.save(user);
+            user.setEnabled(userDTO.isEnable());
 
             Optional<Role> roleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
-            Role role;
-            if (roleOptional.isPresent()) {
-                role = roleOptional.get();
+
+            // Only update the role if a new role name is provided:
+            if (roleOptional.isPresent() && !roleOptional.get().getRoleName().equals(userDTO.getRoleName())) {
+                user.setRoles( (List<Role>) Collections.singleton(roleOptional.get()) ); // Set the new role
             } else {
-                role = new Role(userDTO.getRoleName());
-                roleRepository.save(role);
+                // Maintain existing roles (no change)
             }
 
-            // Clear existing roles and add the new one
-            user.setRoles(new ArrayList<>());
-            user.getRoles().add(role);
             userRepository.save(user);
 
-            sendUserUpdatingEmail(user,userDTO.getPassword());
+            sendUserUpdatingEmail(user, userDTO.getPassword());
         } else {
             throw new ResponseStatusException( HttpStatus.NOT_FOUND, "User not found with id: " + id);
         }
     }
 
-    private void sendUserUpdatingEmail(User user,String newPassword) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
-        message.setSubject("\"Your account information has been updated\"");
-        message.setText("Dear " + user.getUsername() + ",\n\n" +
-                "Your account information has been updated.\n" +
-                "Username: " + user.getUsername() + "\n" +
-                "New Password: " + newPassword + "\n\n" +
-                "Thank you for using our service.");
 
-        emailSender.send(message);
+
+        private void sendUserUpdatingEmail(User user,String newPassword) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(user.getEmail());
+            message.setSubject("\"Your account information has been updated\"");
+            message.setText("Dear " + user.getUsername() + ",\n\n" +
+                    "Your account information has been updated.\n" +
+                    "Username: " + user.getUsername() + "\n" +
+                    "New Password: " + newPassword + "\n\n" +
+                    "Thank you for using our service.");
+
+            emailSender.send(message);
+        }
+
+    @Override
+    public Object getUserById(long id){
+        return userRepository.findById(id);
     }
-}
+    }
+
+
 
 
