@@ -1,3 +1,5 @@
-export class Role {
-    name!: string;
+export class Role{
+    id!:number;
+    roleName!: string;
+   
 }
