@@ -7,20 +7,36 @@
 }
 .table {
   z-index: 0;
-  margin-left: 80px;
-  width:calc(100% - 90px);
+   margin-left: 80px;
+   width: 100%;
+  /*width:calc(100% - 90px); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 18px;
+  
 }
 .header-content {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
+  width: 100%;
   padding: 18px;
   overflow: hidden;
   flex-wrap: wrap;
+  gap: 70px;
 }
 .header-content p {
-  color: #e4a814;
+  color: #470dda;
   font-size: 18px;
+}
+.end-header{
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
 }
 .Btn {
   position: relative;
@@ -63,21 +79,52 @@
   transition-duration: 0.3s;
   box-shadow: 2px 2px 0px rgb(16, 51, 165);
 }
+
+.input-search {
+  width: 100%;
+  max-width: 220px;
+  height: 40px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.input-search:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input-search:active {
+  transform: scale(0.95);
+}
+
+.input-search:focus {
+  border: 2px solid  #470dda;
+}
+
 .table-section {
-  overflow: auto; 
+  /* overflow: auto;  */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 30px;
 }
-table {
+/* table {
   table-layout: fixed;
-}
+} */
 .table-header th {
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   background-color: #fff;
   color: rgb(116, 113, 113);
   font-size: 13px;
 }
 .table-body td {
-  position: sticky;
+  /* position: sticky; */
   height: 60px;
   color: rgb(110, 108, 108);
   font-size: 13px;
@@ -85,7 +132,7 @@ table {
 }
 tr:hover td {
   cursor: pointer;
-  background: rgba(188, 183, 183, 0.539);
+  background: rgba(210, 204, 204, 0.539);
 }
 .table-body {
   overflow-x: auto;
@@ -142,3 +189,4 @@ tr:hover td {
   margin: 0 5px;
   cursor: pointer;
 }
+

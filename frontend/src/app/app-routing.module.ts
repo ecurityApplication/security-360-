@@ -46,10 +46,10 @@ const routes: Routes = [
     path:'passwprdconfirm',
     component: PasswordResetConfirmComponent
   },
-  // {
-  //   path:'update-user',
-  //   component: EditUserComponent
-  // },
+  {
+    path:'update-user/:id',
+    component: EditUserComponent
+  },
   {
     path:'profile',
     component:ProfileComponent

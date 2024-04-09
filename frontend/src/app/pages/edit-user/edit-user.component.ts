@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../../models/user';
 import { UserService } from '../../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,35 +14,39 @@ export class EditUserComponent {
 
   user: User = new  User();
   id!:number;
-  
+  //roles: Role[]; // Array to store roles
   constructor(
     private userService:UserService,
     private router:Router,
     private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<EditUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<EditUserComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { user: User } 
   ) {
-    this.id = data.id; // Assign the user ID from the dialog data
   }
    ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    console.log('User ID:', this.id);
-    
-      this.userService.getUserById(this.id).subscribe(data => {
-       console.log(data)
-       this.user = data;
-      }, error => console.log(error)
-  )}
+   // this.getRoles(); // Fetch roles on initialization
+  this.user = Object.assign({}, this.data.user); // Create a copy for editing
+}
+
+// getRoles() {
+//   this.userService.getRoles().subscribe(roles => this.roles = roles);
+// }
+
   onSubmit(): void {
-    console.log("idon",this.id);
- this.userService.updateUser(this.id,this.user).subscribe(data =>{
-//   console.log(data);
-   this.goToUserList();
- }, error => console.log(error))
+    this.userService.updateUser(this.user.id, this.user).subscribe(
+      () => {
+        this.dialogRef.close(this.user); // Close dialog with updated user data
+      },
+      (error) => {
+        console.error('Error updating user:', error);
+        // Handle update error (e.g., show error message)
+      }
+    );
   }
-   goToUserList(){
-     this.router.navigate(['/userList']);
-   }
+
+  onClose(): void {
+    this.dialogRef.close(); // Close dialog without saving changes
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
