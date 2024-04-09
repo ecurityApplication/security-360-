@@ -46,11 +46,12 @@ import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 import { NgToastModule } from "ng-angular-popup";
 import { User } from "./models/user";
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent, EditUserComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent, EditUserComponent, NavbarComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {

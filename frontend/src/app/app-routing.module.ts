@@ -19,6 +19,7 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 
 
@@ -83,8 +84,8 @@ const routes: Routes = [
     component:  UsersListComponent
   },
   {
-    path:'createUser',
-    component: CreateUserComponent
+    path:'navbar',
+    component: NavbarComponent
   },
   {
     path:'roleUser',
