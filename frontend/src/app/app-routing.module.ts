@@ -18,6 +18,7 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { RolesUserComponent } from './pages/roles-user/roles-user.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 
 
@@ -45,6 +46,10 @@ const routes: Routes = [
     path:'passwprdconfirm',
     component: PasswordResetConfirmComponent
   },
+  // {
+  //   path:'update-user',
+  //   component: EditUserComponent
+  // },
   {
     path:'profile',
     component:ProfileComponent

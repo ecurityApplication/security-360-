@@ -28,7 +28,6 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { NgToastModule } from "ng-angular-popup";
 // import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from "@costlydeveloper/ngx-awesome-popup";
 import {
   NgxAwesomePopupModule,
@@ -44,11 +43,14 @@ import { Incident } from "./models/incident";
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { RolesUserComponent } from './pages/roles-user/roles-user.component';
+import { NgToastModule } from "ng-angular-popup";
+import { User } from "./models/user";
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent, EditUserComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
@@ -97,6 +99,7 @@ import { RolesUserComponent } from './pages/roles-user/roles-user.component';
      {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
     ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
 
