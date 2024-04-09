@@ -25,13 +25,9 @@ export class UserService {
 
   deleteUser(id: number) {
     return this.httpClient.delete(`${this.baseUrl}/remove-user/${id}`);
-<<<<<<< HEAD
-
-=======
   }
 
   public getUserById(id:number) {
     return this.httpClient.get<User>(`${this.baseUrl}/getUserById/${id}`);
->>>>>>> 59b8bdc0ff09e9a63d7e432a800592a347d2d41a
   }
 }
