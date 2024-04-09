@@ -155,7 +155,7 @@ export class CreateIncidentComponent {
    
     this.toast.success({
       detail:"Success Message",
-      summary:'Successful add new incident ',
+      summary:'Successfully added a new incident',
       duration:3000,
        position:'topRight'})
   }

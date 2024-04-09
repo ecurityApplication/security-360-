@@ -1,10 +1,39 @@
 .container {
   position: relative;
   width: 100%;
-  padding: 25px;
-  border-radius: 8px;
+  padding: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  margin-top: 70px;
+}
+
+.div {
+  display: flex;
+  align-items:flex-end;
+  justify-content:flex-end;
+}
+
+.mdiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 2px;
+  margin-left: 12px;
+  background-color:black;
+  transform: rotate(45deg);
+  Z-index: 1;
+  cursor: pointer;
+}
+
+.md {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  height: 25px;
+  width: 2px;
+  background-color: black;
+  transform: rotate(90deg);
+  Z-index: 2;
+  cursor: pointer;
 }
 .container header {
   font-size: 1.2rem;
@@ -33,7 +62,7 @@
   border-radius: 6px;
   padding: 0 15px;
 }
-.input-box textarea{
+/* .input-box textarea{
   position: relative;
   height: 90px;
   width: 100%;
@@ -44,7 +73,7 @@
   border: 1px solid rgb(6,14,131);
   border-radius: 6px;
   padding: 0 15px;
-}
+} */
 .input-box input:focus,
 .input-box textarea:focus  {
   outline: none;
@@ -54,9 +83,12 @@
 }
 .form .column {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   column-gap: 15px;
 }
-.form .gender-box {
+/* .form .gender-box {
   margin-top: 10px;
 }
 .form :where(.gender-option, .gender) {
@@ -79,7 +111,7 @@
 }
 .address :where(input, .select-box) {
   margin-top: 10px;
-}
+} */
 .select-box select {
   height: 100%;
   width: 100%;
@@ -101,8 +133,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 150px;
-  height: 40px;
+  width: 120px;
+  height: 35px;
   border: none;
   padding: 0px 20px;
   background-color: rgb(16, 51, 165);
@@ -126,12 +158,12 @@
   background: rgb(16, 51, 165);
   background: linear-gradient(0deg, rgb(19, 28, 158) 0%, rgba(2,126,251,1) 100%);
  }
- mat-grid-tile {
+ /* mat-grid-tile {
   border: 1px solid #eee;
-}
+} */
 
 
-.btn-remove-image {
+/* .btn-remove-image {
 position: absolute;
 cursor: pointer;
 top: -10px;
@@ -142,6 +174,6 @@ border-radius: 50%;
 width: 20px;
 height: auto;
 text-align: center;
-}
+} */
 
 
