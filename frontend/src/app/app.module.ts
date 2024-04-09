@@ -42,7 +42,6 @@ import { IncidentService } from "./service/incident.service";
 import { Incident } from "./models/incident";
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
-import { RolesUserComponent } from './pages/roles-user/roles-user.component';
 import { NgToastModule } from "ng-angular-popup";
 import { User } from "./models/user";
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
@@ -51,7 +50,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent,RolesUserComponent, EditUserComponent, NavbarComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
