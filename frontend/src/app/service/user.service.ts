@@ -25,6 +25,7 @@ export class UserService {
   }
 
   deleteUser(id: number) {
-    return this.httpClient.delete(`${this.baseUrl}/remove-user/{id}${id}`);
+    return this.httpClient.delete(`${this.baseUrl}/remove-user/${id}`);
+
   }
 }
