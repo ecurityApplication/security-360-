@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { CreateRoleComponent } from '../create-role/create-role.component';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -75,6 +76,12 @@ export class UsersListComponent implements OnInit {
     height:"60%",
   });
   } 
+  openCreaterole(){
+    this.dialog.open(CreateRoleComponent,{
+      width: "30%",
+      height:"30%",
+    });
+    } 
 
 openEditDialog(user: User): void {
   const dialogRef = this.dialog.open(EditUserComponent, {
