@@ -14,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import java.net.http.HttpHeaders;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -43,13 +45,15 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req
-                        .requestMatchers(WHITE_LIST_URL)
+                .csrf( AbstractHttpConfigurer::disable )//kind of attack that we will disabled
+                .authorizeHttpRequests( req -> req
+                        .requestMatchers( WHITE_LIST_URL )
                         .permitAll()
+
                         //.requestMatchers( "/api/v1/user/**" )
                         /*
                          * .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(),
@@ -68,11 +72,8 @@ public class SecurityConfiguration {
                          * MANAGER_DELETE.name())
                          */
                         .anyRequest()
-                        .authenticated())
-                .cors( Customizer.withDefaults())
-                //.cors()
-                //.and()
-
+                        .authenticated() )
+                .cors( Customizer.withDefaults() )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

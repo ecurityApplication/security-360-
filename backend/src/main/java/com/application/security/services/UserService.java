@@ -11,7 +11,9 @@ public interface UserService {
     void DeleteUser(Long id);
     //List< User> getAllUser();
     public List<User> getAllUsers();
-    void addUser(UserDTO userDTO);
-    void updateUserById(Long id, UserDTO userDTO);
+    //void addUser(UserDTO userDTO);
+    public User updateUserById(Long id, UserDTO userDTO);
     Object getUserById(long id);
+    public void initRoleAndUser();
+    public User registerNewUser(UserDTO userDTO);
 }

@@ -55,31 +55,31 @@ public class AuthenticationService {
         // add roles to users
         List<String> strRoles = request.getRole();
         List<Role> roles = new ArrayList<>();
-        if (strRoles != null && !strRoles.isEmpty()) {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "moderator":
-                        Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(moderatorRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByRoleName("ROLE_USER")
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        } else {
+        // if (strRoles != null && !strRoles.isEmpty()) {
+        //     strRoles.forEach(role -> {
+        //         switch (role) {
+        //             case "admin":
+        //                 Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
+        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        //                 roles.add(adminRole);
+        //                 break;
+        //             case "moderator":
+        //                 Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
+        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        //                 roles.add(moderatorRole);
+        //                 break;
+        //             default:
+        //                 Role userRole = roleRepository.findByRoleName("ROLE_USER")
+        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        //                 roles.add(userRole);
+        //         }
+        //     });
+        // } else {
             // if any role specified, attribute default role "ROLE_ADMIN"
             Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(adminRole);
-        }
+       // }
 
         // Create a new user entity with the provided details
         var user = User.builder()

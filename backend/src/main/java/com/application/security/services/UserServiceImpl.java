@@ -13,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements  UserService{
@@ -35,38 +32,37 @@ public class UserServiceImpl implements  UserService{
             userRepository.deleteById( id );
         }
 
-        //@Override
-        //public List<User> getAllUser() {
-           // return (List<User>) userRepository.findAll();
-      //  }
+        @Override
         public List<User> getAllUsers() {
             return (List<User>) userRepository.findAll();
-
         }
-    @Override
-    public void addUser(UserDTO userDTO) {
 
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode( userDTO.getPassword() ));
-        user.setEmail( userDTO.getEmail() );
-        user.setEnabled( true );
-        userRepository.save(user);
+        @Override
+        public User registerNewUser(UserDTO userDTO) {
 
-        Optional<Role> roleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
+            User user = new User();
+            user.setUsername(userDTO.getUsername());
+            user.setPassword(passwordEncoder.encode( userDTO.getPassword() ));
+            user.setEmail( userDTO.getEmail() );
+            user.setEnabled( true );
+            userRepository.save(user);
+        // Find the "ROLE_USER" role by name
+        Optional<Role> userRole = roleRepository.findByRoleName(userDTO.getRoleName());
 
-        Role role;
-        if (roleOptional.isPresent()) {
-            role = roleOptional.get();
-        } else {
-            role = new Role( userDTO.getRoleName() );
-            roleRepository.save(role);
+        // Check if role exists
+        if (userRole.isEmpty()) {
+            throw new RuntimeException("User role  not found!");
         }
-        user.setRoles(new ArrayList<>());
-        user.getRoles().add(role);
-        userRepository.save(user);
-        sendUserRegistrationEmail( user, userDTO.getPassword() );
-    }
+
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole.get());  // Add the retrieved role to the set
+            List<Role> rolesList = new ArrayList<>(userRoles);
+        user.setRoles(rolesList);  // Set the user's roles (List<Role>)
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+            sendUserRegistrationEmail( user, userDTO.getPassword() );
+        return userRepository.save(user);
+        }
 
         private void sendUserRegistrationEmail(User user,String password) {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -84,32 +80,47 @@ public class UserServiceImpl implements  UserService{
         }
 
     @Override
-    public void updateUserById(Long id, UserDTO userDTO) {
-        Optional<User> userOptional = userRepository.findById(id);
+    public User updateUserById(Long id, UserDTO userDTO) {
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            user.setUsername(userDTO.getUsername());
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            user.setEmail(userDTO.getEmail());
-            user.setEnabled(userDTO.isEnable());
+            // Find the user by ID
+            Optional<User> existingUserOptional = userRepository.findById(id);
 
-            Optional<Role> roleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
-
-            // Only update the role if a new role name is provided:
-            if (roleOptional.isPresent() && !roleOptional.get().getRoleName().equals(userDTO.getRoleName())) {
-                user.setRoles( (List<Role>) Collections.singleton(roleOptional.get()) ); // Set the new role
-            } else {
-                // Maintain existing roles (no change)
+            // Check if user exists
+            if (existingUserOptional.isEmpty()) {
+                throw new RuntimeException("User with ID " + id + " not found!");
             }
 
-            userRepository.save(user);
+            User existingUser = existingUserOptional.get();
 
-            sendUserUpdatingEmail(user, userDTO.getPassword());
-        } else {
-            throw new ResponseStatusException( HttpStatus.NOT_FOUND, "User not found with id: " + id);
+            // Update user details (avoid overwriting password if not provided)
+            existingUser.setUsername(userDTO.getUsername() != null ? userDTO.getUsername() : existingUser.getUsername());
+            existingUser.setEmail(userDTO.getEmail() != null ? userDTO.getEmail() : existingUser.getEmail());
+
+            // Find the updated role (optional)
+            Optional<Role> updatedRoleOptional = Optional.empty(); // Initialize as empty
+            if (userDTO.getRoleName() != null) {
+                updatedRoleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
+                if (updatedRoleOptional.isEmpty()) {
+                    throw new RuntimeException("User role " + userDTO.getRoleName() + " not found!");
+                }
+            }
+
+            // Update user roles if provided
+            if (updatedRoleOptional.isPresent()) {
+                Set<Role> userRoles = new HashSet<>();
+                userRoles.add(updatedRoleOptional.get());
+                existingUser.setRoles(new ArrayList<>(userRoles));
+            }
+
+            // Encode password only if provided in DTO
+            if (userDTO.getPassword() != null) {
+                existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            }
+
+            // Save the updated user
+            return userRepository.save(existingUser);
         }
-    }
+
 
 
 
@@ -130,7 +141,28 @@ public class UserServiceImpl implements  UserService{
     public Object getUserById(long id){
         return userRepository.findById(id);
     }
+
+    @Override
+    public void initRoleAndUser() {
+
+        List<Role> roles = (List<Role>) roleRepository.findAll();
+        if (roles.isEmpty()) {
+            Role roleAdmin = new Role();
+            roleAdmin.setRoleName( "ROLE_ADMIN" );
+            roleRepository.save( roleAdmin );
+
+            Role roleUSER = new Role();
+            roleUSER.setRoleName("ROLE_USER");
+            roleRepository.save(roleUSER);
+
+            Role roleModerator = new Role();
+            roleModerator.setRoleName("ROLE_MODERATOR");
+            roleRepository.save(roleModerator);
+        }
+        }
     }
+
+
 
 
 

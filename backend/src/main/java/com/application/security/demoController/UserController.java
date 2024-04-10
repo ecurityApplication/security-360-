@@ -3,6 +3,7 @@ import com.application.security.dto.DtoConverter;
 import com.application.security.dto.UserDTO;
 import com.application.security.entity.Incident;
 import com.application.security.entity.Role;
+import jakarta.annotation.PostConstruct;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,24 +47,15 @@ UserService userService;
     }
 
     @PostMapping ("/Add-user")
-    public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO) {
-        userService.addUser(userDTO);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User added successfully");
-        response.put("status", "success");
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public User registerNewUser(@RequestBody UserDTO userDTO) {
+        return userService.registerNewUser(userDTO);
     }
 
     @PutMapping("/updateUser/{id}")
     @ResponseBody
-    public ResponseEntity<Object> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        userService.updateUserById(id, userDTO);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "User updated successfully");
-        response.put("status", "success");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public User updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+      return   userService.updateUserById(id, userDTO);
+
     }
 
     // get incident by id rest api
@@ -72,6 +64,11 @@ UserService userService;
     public ResponseEntity<User> getUserById(@PathVariable(name = "id") long id){
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not exist with id :" + id));
         return ResponseEntity.ok(user);
+    }
+
+    @PostConstruct
+    public void initRoleAndUser() {
+        userService.initRoleAndUser();
     }
 }
 
