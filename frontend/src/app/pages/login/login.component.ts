@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../service/storage.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +35,9 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService,
-    private tokenStorage: StorageService
+    // private toastr: ToastrService,
+    private tokenStorage: StorageService,
+    private toast: NgToastService
   ) {}
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -56,16 +58,19 @@ export class LoginComponent {
   
         
           this.roles = this.tokenStorage.getUser().roles;
+          this.showSuccess();
           //this.reloadPage();
         } else {
           // If login fails, show toaster message
-          this.toastr.info('Login Failed. Try again later!', 'Login Status');
+          //this.toastr.info('Login Failed. Try again later!', 'Login Status');
+          this.showInfo();
         }
       },error: (err) => {
        
         if (err.status === 403) {
           // Password is incorrect, show error message
-          this.toastr.error('Incorrect email or password!', 'Login Error');
+          //this.toastr.error('Incorrect email or password!', 'Login Error');
+          this.showError2();
           this.errorMessage = err.error.message;
         this.isLoginFailed = true;
         }
@@ -91,12 +96,45 @@ export class LoginComponent {
        
       if (error.status === 403) {
         // Password is incorrect, show error message
-        this.toastr.error('Incorrect verification code!', 'Verification Error');
+        //this.toastr.error('Incorrect verification code!', 'Verification Error');
+        this.showError2();
       }
     });
   }
 
   focusNext(nextInput: HTMLInputElement): void {
     nextInput.focus();
+  }
+
+  showSuccess() {
+    this.toast.success({
+      detail:"Success Message",
+      summary:'Account created successfully\n Please Login',
+      duration:3000,
+       position:'topRight'})
+  }
+
+  showInfo() {
+    this.toast.info({
+      detail:"Info Message",
+      summary:'Login Failed. Try again later!, Login Status',
+      duration:3000,
+       position:'topRight'})
+  }
+
+  showError1() {
+    this.toast.error({
+      detail:"Info Message",
+      summary:'Incorrect email or password! ,Login Error',
+      duration:3000,
+       position:'topRight'})
+  }
+  
+  showError2() {
+    this.toast.error({
+      detail:"Info Message",
+      summary:'Incorrect verification code!, Verification Error',
+      duration:3000,
+       position:'topRight'})
   }
 }

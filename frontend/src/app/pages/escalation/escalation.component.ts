@@ -59,10 +59,10 @@ this.router.navigate(['update-escalation', id]);
   deleteIncident(id: number) {
     this.incidentService.deleteIncident(id).subscribe((data) => {
       this.getIncident();
-      Swal.fire('Success!', 'Escalation updated successfully.', 'success');
+      Swal.fire('Success!', 'Escalation deleted successfully.', 'success');
     }, (error) => {
-      console.error('Error updating escalation:', error);
-      Swal.fire('Error!', 'Failed to update escalation.', 'error');
+      console.error('Error deleting escalation:', error);
+      Swal.fire('Error!', 'Failed to delete escalation.', 'error');
     }
   );
   }
