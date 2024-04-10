@@ -213,10 +213,10 @@ hr {
   background-color: white;
   width: calc(100% - 5px);
   min-height: 1px;
-  margin-top: 40px
+  margin-top: 100px
 }
 .sidbar-footer {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
  
 }
 .sidbar-footer .bx {

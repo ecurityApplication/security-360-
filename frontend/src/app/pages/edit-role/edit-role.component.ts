@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { Role } from '../../models/role';
-import { UserService } from '../../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoleService } from '../../service/role.service';
@@ -39,4 +38,7 @@ export class EditRoleComponent {
      );
    }
 
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

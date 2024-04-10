@@ -1,12 +1,12 @@
 <section class="container">
-    <div class="div">
-        <mat-dialog-actions>
-        <div class="mdiv" >
-          <div class="md" >
-          </div>
-        </div>
-    </mat-dialog-actions>
+  <div class="div">
+    <mat-dialog-actions>
+    <div class="mdiv" (click)="onNoClick()">
+      <div class="md" (click)="onNoClick()">
       </div>
+    </div>
+</mat-dialog-actions>
+  </div>
     <header>Add new Role</header>
     <form class="form" (ngSubmit)="onSubmit()">
       <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->

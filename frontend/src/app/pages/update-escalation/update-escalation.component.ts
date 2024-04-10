@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Incident } from '../../models/incident';
 import { IncidentService } from '../../service/incident.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-escalation',
@@ -27,7 +28,11 @@ export class UpdateEscalationComponent implements OnInit {
   onSubmit() {
 this.incidentService.updateIncident(this.id,this.incident).subscribe(data =>{
   this.goToIncidentList();
-}, error => console.log(error));
+  Swal.fire('Success!', 'Escalation updated successfully.', 'success');
+}, error => {
+  console.error('Error updating escalation:', error);
+  Swal.fire('Error!', 'Failed to update escalation.', 'error');
+});
   }
   goToIncidentList(){
     this.router.navigate(['/escalation']);

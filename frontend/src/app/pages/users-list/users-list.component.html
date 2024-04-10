@@ -12,7 +12,6 @@
       <br />
       <label> role an administrator can have access to what user needs.</label>
     </div> -->
-
     <div class="page-content">
       <div class="analytics">
         <!-- <div class="card">
@@ -27,61 +26,54 @@
             </div>
           </div>
         </div> -->
-         <div class="cards-role">
-            <div class="card">
-          <div class="card-head">
-            <i class="bx bxs-group"></i>
-            <h2>Administrator</h2>
-            <span class="las la-user-friends"></span>
-          </div>
-          <div class="card-progress">
-            <small>Total 1 user</small>
-            <div class="card-indicator">
+        <div class="cards-role">
+          <div class="card" *ngFor="let role of role">
+            <div class="card-head">
+              <i class="bx bxs-group"></i>
+              <h2>{{ role.roleName }}</h2>
+              <span class="las la-user-friends"></span>
+            </div>
+            <div class="card-progress">
+              <small>Total 1 user</small>
+              <div class="card-indicator"></div>
             </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-head">
-            <i class="bx bxs-group"></i>
-
-            <h2>Analystes</h2>
-            <span class="las la-eye"></span>
-          </div>
-          <div class="card-progress">
-            <small>Total 4 users</small>
-            <div class="card-indicator">
-              <!-- <div class="indicator two" style="width: 80%"></div> -->
+          <!-- <div class="card">
+            <div class="card-head">
+              <i class="bx bxs-group"></i>
+              <h2>Analystes</h2>
+              <span class="las la-eye"></span>
+            </div>
+            <div class="card-progress">
+              <small>Total 4 users</small>
+              <div class="card-indicator">
+              
+              </div>
             </div>
           </div>
-        </div>
+          <div class="card">
+            <div class="card-head">
+              <i class="bx bxs-group"></i>
 
-        <div class="card">
-          <div class="card-head">
-            <i class="bx bxs-group"></i>
-
-            <h2>Consultant</h2>
-            <span class="las la-shopping-cart"></span>
-          </div>
-          <div class="card-progress">
-            <small>Total 2 users</small>
-            <div class="card-indicator">
-              <!-- <div class="indicator three" style="width: 65%"></div> -->
+              <h2>Consultant</h2>
+              <span class="las la-shopping-cart"></span>
             </div>
-          </div>
+            <div class="card-progress">
+              <small>Total 2 users</small>
+              <div class="card-indicator">
+              </div>
+            </div>
+          </div> -->
         </div>
-</div>
-        
-         
-            
-<button class="Btn" mat-button  color="primary" (click)=" openCreaterole()">
-      
-  Add New Role
-  <i class="bx bx-plus"></i>
-</button>
-            
-          
-      
-      
+        <button
+          class="Btn"
+          mat-button
+          color="primary"
+          (click)="openCreaterole()"
+        >
+          Add New Role
+          <i class="bx bx-plus"></i>
+        </button>
       </div>
       <div class="card">
         <table width="100%">
@@ -89,85 +81,87 @@
             <tr>
               <th>ID</th>
               <th>ROLE</th>
-              <th> ACTIONS</th>
-
-             
+              <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let role of role">
-              <td>{{role.id}}</td>
+              <td>{{ role.id }}</td>
               <td>
                 <div class="client">
                   <div class="client-info">
-                    <h4>{{role.roleName}}</h4>
+                    <h4>{{ role.roleName }}</h4>
                   </div>
                 </div>
-              </td> 
-              
+              </td>
+
               <td>
                 <div class="actions">
-                    <i class="bx bx-edit" mat-button  color="primary" (click)="openEditRole(role)"  ></i>
-                    <i class="bx bxs-trash-alt" (click)="deleterole(role.id)"></i>
+                  <i
+                    class="bx bx-edit"
+                    mat-button
+                    color="primary"
+                    (click)="openEditRole(role)"
+                  ></i>
+                  <i class="bx bxs-trash-alt" (click)="deleterole(role.id)"></i>
                 </div>
               </td>
             </tr>
-          </tbody></table>
+          </tbody>
+        </table>
       </div>
       <div class="records table-responsive">
         <div class="record-header">
           <p>Users Liste</p>
-          <!-- <div class="add">
-            <select name="" id="">
-              <option value="">ID</option>
-            </select>
-          </div> -->
-
           <div class="browse">
             <div class="end-header">
-              <input placeholder="Search..." type="text" name="text" class="input-search">
+              <input placeholder="Search..." type="text" name="text" class="input">
               <select name="" id="">
                 <option value="">Select Role</option>
-            </select>
-              <button class="Btn" mat-button  color="primary" (click)="openCreate()">
-                
-                Add User
+              </select>
+              <button
+                class="Btn"
+                mat-button
+                color="primary"
+                (click)="openCreate()"
+              >
+                Add New User
                 <i class="bx bx-plus"></i>
               </button>
             </div>
           </div>
         </div>
-
-        <div>
+        <div class="card">
           <table width="100%">
             <thead>
               <tr>
                 <th><span class="las la-sort"></span> ID</th>
-                <th><span class="las la-sort"></span> Username</th>
-                <th><span class="las la-sort"></span> Email</th>
-                <th><span class="las la-sort"></span> Role</th>
+                <th><span class="las la-sort"></span> USERNAME</th>
+                <th><span class="las la-sort"></span> EMAIL</th>
+                <th><span class="las la-sort"></span> PASSWORD</th>
+                <th><span class="las la-sort"></span> ROLE</th>
                 <th><span class="las la-sort"></span> ACTIONS</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of user">
-                <td>
-                  <div class="client">
-                   
-                    <div class="client-info">
-                      <h4>{{ user.id }}</h4>
-                    </div>
-                  </div>
-                </td>
+                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
                 <td>{{ user.roleName }}</td>
                 <td>
                   <div class="actions">
-                    <td class="btn-action">
-                      <i class="bx bx-edit" mat-button  color="primary" (click)="openEditDialog(user)"></i>
-                      <i class="bx bxs-trash-alt"  (click)="deleteUser(user.id)"></i>
-                    </td>
+                    <i
+                      class="bx bx-edit"
+                      mat-button
+                      color="primary"
+                      (click)="openEditDialog(user)"
+                    ></i>
+                    <i
+                      class="bx bxs-trash-alt"
+                      (click)="deleteUser(user.id)"
+                    ></i>
                   </div>
                 </td>
               </tr>

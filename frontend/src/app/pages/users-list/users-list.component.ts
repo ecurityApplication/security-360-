@@ -50,39 +50,7 @@ export class UsersListComponent implements OnInit {
       }
     );
   }
-  deleterole(id: number) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Call the deleteUser method when the user confirms
-        this.roleService.deleterole(id).subscribe(() => {
-          // Show success message
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-          // Refresh user data after deletion
-          this.getUser();
-        }, (error) => {
-          // Handle error if deletion fails
-          console.error("Error deleting user:", error);
-          Swal.fire({
-            title: "Error",
-            text: "Failed to delete user.",
-            icon: "error"
-          });
-        });
-      }
-    });
-  }
+  
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {
       width: '40%',
@@ -102,6 +70,40 @@ export class UsersListComponent implements OnInit {
             Swal.fire('Error!', 'Failed to update role.', 'error');
           }
         );
+      }
+    });
+  }
+
+  deleterole(id: number) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Call the deleteRole method when the user confirms
+        this.roleService.deleterole(id).subscribe(() => {
+          // Show success message
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your role has been deleted.",
+            icon: "success"
+          });
+          // Refresh role data after deletion
+          this.getRole();
+        }, (error) => {
+          // Handle error if deletion fails
+          console.error("Error deleting role:", error);
+          Swal.fire({
+            title: "Error",
+            text: "Failed to delete role.",
+            icon: "error"
+          });
+        });
       }
     });
   }

@@ -3,19 +3,13 @@ import { Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {
-  ConfirmBoxInitializer,
-  DialogLayoutDisplay,
-  DisappearanceAnimation,
-  AppearanceAnimation,
-  IConfirmBoxPublicResponse
-} from '@costlydeveloper/ngx-awesome-popup';
 import { ShowDialogComponent } from '../../show-dialog/show-dialog.component';
-import { error } from 'jquery';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ImageProcessingService } from '../../image-processing.service';
 import { map } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
+
+import Swal from 'sweetalert2';
+import { CreateIncidentComponent } from '../create-incident/create-incident.component';
 
 
 @Component({
@@ -26,7 +20,8 @@ import { Title } from '@angular/platform-browser';
 export class IncidentLoggingComponent implements OnInit {
   constructor(private incidentService :IncidentService ,private router :Router, 
     public imagesDialog: MatDialog,
-    private imageProcessingService: ImageProcessingService
+    private imageProcessingService: ImageProcessingService,
+    public dialog: MatDialog
   ){ }
 
   incidents: Incident[] = [];
@@ -69,52 +64,49 @@ public getIncident(){
   );
 
 }
+
+
  updateIncident(id:number){
   this.router.navigate(['update-incident', id]);
 
  }
-
-  deleteIncident(id: number) {
-    this.incidentService.deleteIncident(id).subscribe(data => {
-       console.log(data);
-      this.getIncident();
-    })
+//Delete Incidents
+deleteIncident(id: number) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Call the deleteIncident method when the user confirms
+      this.incidentService.deleteIncident(id).subscribe(()=>{
+        // Show success message
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your incident has been deleted.",
+          icon: "success"
+        });
+        // Refresh user data after deletion
+        this.getIncident();
+      }, (error) => {
+        // Handle error if deletion fails
+        console.error("Error deleting incident:", error);
+        Swal.fire({
+          title: "Error",
+          text: "Failed to delete incident.",
+          icon: "error"
+        });
+      });
+    }
+  });
 }
 incidentDetails(id: number) {
   this.router.navigate(['incident-details', id]);
 }
-openConfirmBox(id : number) {
-  const newConfirmBox = new ConfirmBoxInitializer();
-
-  newConfirmBox.setTitle('Confirm Deletion');
-  newConfirmBox.setMessage('Are you sure you want to delete this incident?');
-
-  newConfirmBox.setConfig({
-    layoutType: DialogLayoutDisplay.DANGER,
-    animationIn: AppearanceAnimation.BOUNCE_IN,
-    animationOut: DisappearanceAnimation.BOUNCE_OUT,
-  });
-  //  newConfirmBox.openConfirmBox$();
-  let confirmed = false;
-
-  const subscription = newConfirmBox.openConfirmBox$().subscribe(() => {
-    confirmed = true;
-    subscription.unsubscribe(); // Unsubscribe to prevent multiple calls if the user clicks confirm multiple times
-  });
-
-  subscription.add(() => {
-    if (confirmed) {
-      this.deleteIncident(id); // Trigger deletion if confirmed
-    } else {
-      // Handle case where deletion is not confirmed
-    }
-  });
-
-
-
-}
-
-
 
 //incident id + date
  // Method to generate incident ID

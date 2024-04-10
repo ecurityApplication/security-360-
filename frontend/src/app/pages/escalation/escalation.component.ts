@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Incident } from '../../models/incident';
 import { IncidentService } from '../../service/incident.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-escalation',
@@ -58,7 +59,12 @@ this.router.navigate(['update-escalation', id]);
   deleteIncident(id: number) {
     this.incidentService.deleteIncident(id).subscribe((data) => {
       this.getIncident();
-    });
+      Swal.fire('Success!', 'Escalation updated successfully.', 'success');
+    }, (error) => {
+      console.error('Error updating escalation:', error);
+      Swal.fire('Error!', 'Failed to update escalation.', 'error');
+    }
+  );
   }
   // incidentDetails(id: number) {
   // this.router.navigate(['incident-details', id]);
