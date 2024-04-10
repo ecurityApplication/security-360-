@@ -32,6 +32,7 @@ import java.util.Collections;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationConfig {
 
   private final UserRepository repository;

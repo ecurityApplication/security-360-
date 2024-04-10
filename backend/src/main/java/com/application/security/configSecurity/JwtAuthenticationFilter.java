@@ -25,6 +25,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+//class that try to retreive  the authorization header and from it return the Bearer token(check the username,jwtToken->valid the token check if it expired or not
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
@@ -45,20 +46,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
+    //make sur if the header start with bearer
     if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
       filterChain.doFilter(request, response);
       return;
     }
-    jwt = authHeader.substring(7);
+    jwt = authHeader.substring(7);//count letters of Bearer that is 6 +space = 7
     userEmail = jwtService.extractUsername(jwt);
-    System.out.println("email " + userEmail);
+    //System.out.println("email " + userEmail);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);//fetching the userDetails from the database
       var isTokenValid = tokenRepository.findByToken(jwt)//fetch the token from the database by the generated token
               .map(t -> !t.isExpired() && !t.isRevoked())
               .orElse(false);//return a boolean to check if the token is valid or not
       if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {//check if the action is valid(available) or not on the database
-        System.out.println("enter security set");
+        //System.out.println("enter security set");
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,

@@ -1,4 +1,4 @@
-package com.application.security.jwt;
+package com.application.security.configSecurity;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +10,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);

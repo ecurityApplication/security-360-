@@ -25,24 +25,24 @@ public class SecurityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SecurityApplication.class, args);
 	}
-	@Bean
-	CommandLineRunner start() {
+	// @Bean
+	// CommandLineRunner start() {
 
 
-		return args -> {
-			System.out.println("run");
-			List<Role> roles = (List<Role>) roleRepository.findAll();
-			if (roles.isEmpty()) {
-				Role roleAdmin = new Role();
-				roleAdmin.setRoleName("ROLE_ADMIN");
-				roleRepository.save(roleAdmin);
-				Role roleUSER = new Role();
-				roleUSER.setRoleName("ROLE_USER");
-				roleRepository.save(roleUSER);
-				Role roleModerator = new Role();
-				roleModerator.setRoleName("ROLE_MODERATOR");
-				roleRepository.save(roleModerator);
-			}
+	// 	return args -> {
+	// 		System.out.println("run");
+	// 		List<Role> roles = (List<Role>) roleRepository.findAll();
+	// 		if (roles.isEmpty()) {
+	// 			Role roleAdmin = new Role();
+	// 			roleAdmin.setRoleName("ROLE_ADMIN");
+	// 			roleRepository.save(roleAdmin);
+	// 			Role roleUSER = new Role();
+	// 			roleUSER.setRoleName("ROLE_USER");
+	// 			roleRepository.save(roleUSER);
+	// 			Role roleModerator = new Role();
+	// 			roleModerator.setRoleName("ROLE_MODERATOR");
+	// 			roleRepository.save(roleModerator);
+	// 		}
 
 
 //			if (!userRepository.existsByEmail("sirinerezgui585@gmail.com")) {
@@ -59,7 +59,7 @@ public class SecurityApplication {
 //				userRepository.save(user);
 //			}
 
-		};
+		// };
 
-	}
+	//}
 }
