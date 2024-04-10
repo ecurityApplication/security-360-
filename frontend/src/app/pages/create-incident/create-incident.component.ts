@@ -7,23 +7,26 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-incident',
   templateUrl: './create-incident.component.html',
-  styleUrl: './create-incident.component.css'
+  styleUrl: './create-incident.component.css',
 })
 export class CreateIncidentComponent {
-  constructor(private incidentService: IncidentService, private router:Router ,private sanitizer :DomSanitizer ,private toast: NgToastService 
-    ){ }
+  constructor(
+    private incidentService: IncidentService,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private toast: NgToastService
+  ) {}
   timeAnalyse: number = 0;
   // incident: Incident = new Incident();
-  
-  ngOnInit(): void {
-  }
 
-  incident:Incident ={
+  ngOnInit(): void {}
+
+  incident: Incident = {
     incidentImages: [],
     id: 0,
     incidentType: '',
@@ -54,9 +57,9 @@ export class CreateIncidentComponent {
     herarachicescalation: '',
     resolutionandrecovery: '',
     lessonLeraned: '',
-    managementescalation: ''
-  }
-  @Input() isOpen: boolean = false; 
+    managementescalation: '',
+  };
+  @Input() isOpen: boolean = false;
   sidebarOpen: boolean = false;
 
   toggleSidebar() {
@@ -66,34 +69,30 @@ export class CreateIncidentComponent {
   prepareFormData(incident: Incident): FormData {
     const formData = new FormData();
     formData.append(
-      "incident",
-      new Blob([JSON.stringify(incident)], { type: "application/json" })
+      'incident',
+      new Blob([JSON.stringify(incident)], { type: 'application/json' })
     );
     for (var i = 0; i < this.incident.incidentImages.length; i++) {
       formData.append(
-        
         'imageFile',
         incident.incidentImages[i].file,
         incident.incidentImages[i].file.name
-
-        
-    
-        );
+      );
     }
 
-  return formData;
+    return formData;
   }
 
-// prepareFormData(incident: Incident): FormData {
-//   const formData = new FormData();
-//   formData.append("incident", JSON.stringify(incident));
+  // prepareFormData(incident: Incident): FormData {
+  //   const formData = new FormData();
+  //   formData.append("incident", JSON.stringify(incident));
 
-//   for (const file of this.incident.incidentImages) {
-//     formData.append('imageFile', file.file, file.file.name);
-//   }
+  //   for (const file of this.incident.incidentImages) {
+  //     formData.append('imageFile', file.file, file.file.name);
+  //   }
 
-//   return formData;
-// }
+  //   return formData;
+  // }
 
   onFileSelected(event: any) {
     if (event.target.files) {
@@ -102,12 +101,13 @@ export class CreateIncidentComponent {
         file: file,
         url: this.sanitizer.bypassSecurityTrustUrl(
           window.URL.createObjectURL(file)
-        ),}
+        ),
+      };
       // };
       this.incident.incidentImages.push(fileHandle);
     }
   }
- 
+
   // saveIncident(){
 
   //     this.incidentService.createIncident(this.incident).subscribe( data =>{console.log(data);
@@ -116,7 +116,7 @@ export class CreateIncidentComponent {
   //   error => console.log(error));
 
   // }
-  goToIncidentList(){
+  goToIncidentList() {
     this.router.navigate(['/incidentlogging']);
     // this.router.navigate(['/escalation']);
   }
@@ -128,10 +128,8 @@ export class CreateIncidentComponent {
   //   this.incident.timeAnalyse += 5;
   // }
 
-
-
   createIncident(incidentForm: NgForm) {
-    const incidentFormData=this.prepareFormData(this.incident);
+    const incidentFormData = this.prepareFormData(this.incident);
     // if (this.incident.escalation === 'Yes') {
     //   this.router.navigate(['/incidentlogging']);
     //   this.router.navigate(['/escalation']);
@@ -140,41 +138,33 @@ export class CreateIncidentComponent {
     // }
     this.incidentService.createIncident(incidentFormData).subscribe(
       (response: Incident) => {
-
         incidentForm.reset();
         this.incident.incidentImages = [];
-        this.showSuccess(); // Show success popup after creating incident
-
+        //this.showSuccess(); // Show success popup after creating incident
+        Swal.fire('Success!', 'Incident added successfully.', 'success');
 
         this.goToIncidentList();
-
-
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        console.error('Error creating incident:', error);
+        Swal.fire('Error!', 'Failed to create incident.', 'error');
       }
     );
-
-
   }
-  showSuccess() {
-   
-    this.toast.success({
-      detail:"Success Message",
-      summary:'Successfully added a new incident',
-      duration:3000,
-       position:'topRight'})
-  }
+  // showSuccess() {
 
-  
-  
-  
+  //   this.toast.success({
+  //     detail:"Success Message",
+  //     summary:'Successfully added a new incident',
+  //     duration:3000,
+  //      position:'topRight'})
+  // }
+
   removeImages(i: number) {
     this.incident.incidentImages.splice(i, 1);
   }
-  
+
   fileDropped(fileHandle: FileHandle) {
     this.incident.incidentImages.push(fileHandle);
   }
-
 }

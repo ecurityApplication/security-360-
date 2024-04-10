@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Incident} from "../../models/incident";
 import {IncidentService} from "../../service/incident.service";
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -28,7 +29,12 @@ export class UpdateIncidentComponent implements OnInit{
   onSubmit() {
 this.incidentService.updateIncident(this.id,this.incident).subscribe(data =>{
   this.goToIncidentList();
-}, error => console.log(error));
+  Swal.fire('Success!', 'Incident updated successfully.', 'success');
+}, (error) => {
+  console.error('Error updating incident:', error);
+  Swal.fire('Error!', 'Failed to update incident.', 'error');
+}
+);
   }
   goToIncidentList(){
     this.router.navigate(['/incidentlogging']);

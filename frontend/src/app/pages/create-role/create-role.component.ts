@@ -1,7 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { UserService } from '../../service/user.service';
 import { Router } from '@angular/router';
-import { NgToastService } from 'ng-angular-popup';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Role } from '../../models/role';
 import Swal from 'sweetalert2';
@@ -17,7 +15,6 @@ export class CreateRoleComponent {
   constructor(
     private roleService:RoleService,
     private router:Router,
-    private toast: NgToastService,
     public dialogRef: MatDialogRef<CreateRoleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
@@ -49,5 +46,7 @@ export class CreateRoleComponent {
     console.log(this.role);
     this.createRole(); // Call the "createUser" method with parentheses
   }
-  
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
