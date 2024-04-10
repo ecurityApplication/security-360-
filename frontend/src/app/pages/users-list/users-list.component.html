@@ -1,8 +1,8 @@
 <app-sidebar></app-sidebar>
 <div class="main-content">
   <main>
-    <div class="page-header">
-      <h1>Roles List</h1>
+    <!-- <div class="page-header">
+      <h5>Roles List</h5>
       <br />
 
       <label
@@ -11,26 +11,35 @@
       >
       <br />
       <label> role an administrator can have access to what user needs.</label>
-    </div>
+    </div> -->
 
     <div class="page-content">
       <div class="analytics">
-        <div class="card">
+        <!-- <div class="card">
           <div class="card-head">
             <i class="bx bxs-group"></i>
-
             <h2>Administrator</h2>
             <span class="las la-user-friends"></span>
           </div>
           <div class="card-progress">
             <small>Total 1 user</small>
-
             <div class="card-indicator">
-              <!-- <div class="indicator one" style="width: 60%"></div> -->
+            </div>
+          </div>
+        </div> -->
+         <div class="cards-role">
+            <div class="card">
+          <div class="card-head">
+            <i class="bx bxs-group"></i>
+            <h2>Administrator</h2>
+            <span class="las la-user-friends"></span>
+          </div>
+          <div class="card-progress">
+            <small>Total 1 user</small>
+            <div class="card-indicator">
             </div>
           </div>
         </div>
-
         <div class="card">
           <div class="card-head">
             <i class="bx bxs-group"></i>
@@ -60,32 +69,72 @@
             </div>
           </div>
         </div>
-
-        <div class="card">
-          <div class="main-top">
-            <div class="main-top-date">
-              <button class="cssbuttons-io-button">Add New Role</button>
-              <label>Add role, if it does not exist </label>
-            </div>
-          </div>
-        </div>
+</div>
+        
+         
+            
+<button class="Btn" mat-button  color="primary" (click)=" openCreaterole()">
+      
+  Add New Role
+  <i class="bx bx-plus"></i>
+</button>
+            
+          
+      
+      
       </div>
+      <div class="card">
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>ROLE</th>
+              <th> ACTIONS</th>
 
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of role">
+              <td>{{role.id}}</td>
+              <td>
+                <div class="client">
+                  <div class="client-info">
+                    <h4>{{role.roleName}}</h4>
+                  </div>
+                </div>
+              </td> 
+              
+              <td>
+                <div class="actions">
+                    <i class="bx bx-edit" mat-button  color="primary" (click)="openEditRole(role)"  ></i>
+                    <i class="bx bxs-trash-alt" (click)="deleterole(role.id)"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody></table>
+      </div>
       <div class="records table-responsive">
         <div class="record-header">
-          <div class="add">
+          <p>Users Liste</p>
+          <!-- <div class="add">
             <select name="" id="">
               <option value="">ID</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="browse">
-            <span>Search</span>
-
-            <input type="search" placeholder="Search" class="record-search" />
-            <select name="" id="">
-              <option value="">Status</option>
+            <div class="end-header">
+              <input placeholder="Search..." type="text" name="text" class="input-search">
+              <select name="" id="">
+                <option value="">Select Role</option>
             </select>
+              <button class="Btn" mat-button  color="primary" (click)="openCreate()">
+                
+                Add User
+                <i class="bx bx-plus"></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -93,85 +142,32 @@
           <table width="100%">
             <thead>
               <tr>
-                <th><span class="las la-sort"></span> CLIENT</th>
-                <th><span class="las la-sort"></span> TOTAL</th>
-                <th><span class="las la-sort"></span> ISSUED DATE</th>
-                <th><span class="las la-sort"></span> BALANCE</th>
+                <th><span class="las la-sort"></span> ID</th>
+                <th><span class="las la-sort"></span> Username</th>
+                <th><span class="las la-sort"></span> Email</th>
+                <th><span class="las la-sort"></span> Role</th>
                 <th><span class="las la-sort"></span> ACTIONS</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let user of user">
                 <td>
                   <div class="client">
-                    <div
-                      class="client-img bg-img"
-                      style="background-image: url(img/3.jpeg)"
-                    ></div>
+                   
                     <div class="client-info">
-                      <h4>Andrew Bruno</h4>
-                      <small>brunocrossover.org</small>
+                      <h4>{{ user.id }}</h4>
                     </div>
                   </div>
                 </td>
-                <td>$3171</td>
-                <td>19 April, 2022</td>
-                <td>-$205</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roleName }}</td>
                 <td>
                   <div class="actions">
-                    <span class="lab la-telegram-plane"></span>
-                    <span class="las la-eye"></span>
-                    <span class="las la-ellipsis-v"></span>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="client">
-                    <div
-                      class="client-img bg-img"
-                      style="background-image: url(img/1.jpeg)"
-                    ></div>
-                    <div class="client-info">
-                      <h4>Exty Bruno</h4>
-                      <small>extycrossover.org</small>
-                    </div>
-                  </div>
-                </td>
-                <td>$3171</td>
-                <td>19 April, 2022</td>
-                <td>-$205</td>
-                <td>
-                  <div class="actions">
-                    <span class="lab la-telegram-plane"></span>
-                    <span class="las la-eye"></span>
-                    <span class="las la-ellipsis-v"></span>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="client">
-                    <div
-                      class="client-img bg-img"
-                      style="background-image: url(img/1.jpeg)"
-                    ></div>
-                    <div class="client-info">
-                      <h4>Exty Bruno</h4>
-                      <small>extycrossover.org</small>
-                    </div>
-                  </div>
-                </td>
-                <td>$3171</td>
-                <td>19 April, 2022</td>
-                <td>
-                  <span class="paid">Paid</span>
-                </td>
-                <td>
-                  <div class="actions">
-                    <span class="lab la-telegram-plane"></span>
-                    <span class="las la-eye"></span>
-                    <span class="las la-ellipsis-v"></span>
+                    <td class="btn-action">
+                      <i class="bx bx-edit" mat-button  color="primary" (click)="openEditDialog(user)"></i>
+                      <i class="bx bxs-trash-alt"  (click)="deleteUser(user.id)"></i>
+                    </td>
                   </div>
                 </td>
               </tr>
@@ -185,17 +181,7 @@
 <!--
 <app-navbar></app-navbar>
 <div class="table">
-  <div class="header-content">
-    <p>Users Liste</p>
-    <div class="end-header">
-    <input placeholder="Searth..." type="text" name="text" class="input-search">
-    <button class="Btn" mat-button  color="primary" (click)="openCreate()">
-      
-      Add User
-      <i class="bx bx-plus"></i>
-    </button>
-  </div>
-  </div>
+ 
   <div class="table-section">
     <table>
       <thead class="table-header">
