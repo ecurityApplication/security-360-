@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
 <div class="main-content">
   <main>
-    <div class="page-header">
+    <!-- <div class="page-header">
       <h5>Roles List</h5>
       <br />
 
@@ -11,7 +11,7 @@
       >
       <br />
       <label> role an administrator can have access to what user needs.</label>
-    </div>
+    </div> -->
 
     <div class="page-content">
       <div class="analytics">
@@ -28,6 +28,18 @@
           </div>
         </div> -->
          <div class="cards-role">
+            <div class="card">
+          <div class="card-head">
+            <i class="bx bxs-group"></i>
+            <h2>Administrator</h2>
+            <span class="las la-user-friends"></span>
+          </div>
+          <div class="card-progress">
+            <small>Total 1 user</small>
+            <div class="card-indicator">
+            </div>
+          </div>
+        </div>
         <div class="card">
           <div class="card-head">
             <i class="bx bxs-group"></i>
@@ -61,7 +73,7 @@
         
          
             
-<button class="Btn" mat-button  color="primary" >
+<button class="Btn" mat-button  color="primary" (click)=" openCreaterole()">
       
   Add New Role
   <i class="bx bx-plus"></i>
@@ -71,7 +83,37 @@
       
       
       </div>
+      <div class="card">
+        <table width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>ROLE</th>
+              <th> ACTIONS</th>
 
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of role">
+              <td>{{role.id}}</td>
+              <td>
+                <div class="client">
+                  <div class="client-info">
+                    <h4>{{role.roleName}}</h4>
+                  </div>
+                </div>
+              </td> 
+              
+              <td>
+                <div class="actions">
+                    <i class="bx bx-edit" mat-button  color="primary" (click)="openEditRole(role)"  ></i>
+                    <i class="bx bxs-trash-alt" (click)="deleterole(role.id)"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody></table>
+      </div>
       <div class="records table-responsive">
         <div class="record-header">
           <p>Users Liste</p>
@@ -83,7 +125,10 @@
 
           <div class="browse">
             <div class="end-header">
-              <input placeholder="Searth..." type="text" name="text" class="input-search">
+              <input placeholder="Search..." type="text" name="text" class="input-search">
+              <select name="" id="">
+                <option value="">Select Role</option>
+            </select>
               <button class="Btn" mat-button  color="primary" (click)="openCreate()">
                 
                 Add User

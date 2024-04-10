@@ -180,7 +180,7 @@ tr:hover td {
 .card {
 	position: relative;
     box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
-    background: #f1eeee;
+    background: white;
     width: 100%;
     padding: 1rem;
     border-radius: 5px;
@@ -305,6 +305,13 @@ tr:hover td {
 .add, .browse {
     display: flex;
     align-items: center;
+}
+.browse .end-header input {
+  width: 100px;
+}
+
+.browse .end-header select {
+  width: 150px;
 }
 .end-header{
   display: flex;
