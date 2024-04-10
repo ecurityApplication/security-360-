@@ -7,6 +7,7 @@ import { AuthenticationResponse } from '../../models/authentication-response';
 import { VerificationRequest } from '../../models/verification-request';
 import { AuthService } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgToastService } from 'ng-angular-popup';
 // import { NgToastService } from 'ng-angular-popup';
 
 @Component({
@@ -30,7 +31,8 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    // private toastr: ToastrService
+    private toast: NgToastService
   ) {}
 
   @ViewChild('input1') input1!: ElementRef;
@@ -56,19 +58,18 @@ export class RegisterComponent {
       console.log(
         'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.'
       );
-      // this.message = 'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.';
-      this.toastr.warning(
-        'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character'
-      );
+      // this.toastr.warning(
+      //   'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character'
+      // );
+      this.showWarning1() ;
       return;
     }
     if (!email || !this.isGmailFormat(email)) {
       console.log('Email is not in Gmail format.');//
-      // this.message = 'Email is not in Gmail format.';
-      this.toastr.warning('Email is not in Gmail format');
+      // this.toastr.warning('Email is not in Gmail format');
+      this.showWarning2() 
       return;
     }
-    // this.message = '';
     this.authService.register(this.registerRequest).subscribe({
       next: (response) => {
         if (response) {
@@ -77,8 +78,7 @@ export class RegisterComponent {
           
           
         } else {
-          // this.message = 'Account created successfully\nYou will be redirected to the Welcome page in 3 seconds';
-          this.toastr.success('Account created successfully\n Please Login');
+          this.showSuccess();
           setTimeout(() => {
             this.router.navigate(['login']);
           }, 3000);
@@ -88,7 +88,6 @@ export class RegisterComponent {
   }
 
   verifyTfa() {
-    // this.message = '';
     const verifyRequest: VerificationRequest = {
       email: this.registerRequest.email,
       // code:this.otpCode
@@ -96,8 +95,8 @@ export class RegisterComponent {
     };
     this.authService.verifyCode(verifyRequest).subscribe({
       next: (response) => {
-        // this.message = 'Account created successfully\nYou will be redirected to the Login page in 3 seconds';
-        this.toastr.success('Account created successfully\n Please Login');
+        this.showSuccess();
+        //this.toastr.success('Account created successfully\n Please Login');
         setTimeout(() => {
           localStorage.setItem('token', response.accessToken as string);
           this.router.navigate(['login']);
@@ -108,4 +107,27 @@ export class RegisterComponent {
   focusNext(nextInput: HTMLInputElement): void {
     nextInput.focus();
   }
+
+    showSuccess() {
+    this.toast.success({
+      detail:"Success Message",
+      summary:'Account created successfully\n Please Login',
+      duration:3000,
+       position:'topRight'})
+  }
+    showWarning1() {
+    this.toast.warning({
+      detail:"Warning Message",
+      summary:'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character',
+      duration:3000,
+       position:'topRight'})
+  }
+    showWarning2() {
+    this.toast.warning({
+      detail:"Warning Message",
+      summary:'Email is not in Gmail format',
+      duration:3000,
+       position:'topRight'})
+  }
+   
 }
