@@ -1,6 +1,7 @@
 package com.application.security.services;
 
 
+import com.application.security.auth.AuthenticationResponse;
 import com.application.security.dto.UserDTO;
 import com.application.security.entity.User;
 
@@ -15,5 +16,5 @@ public interface UserService {
     public User updateUserById(Long id, UserDTO userDTO);
     Object getUserById(long id);
     public void initRoleAndUser();
-    public User registerNewUser(UserDTO userDTO);
+    public AuthenticationResponse registerNewUser(UserDTO userDTO);
 }

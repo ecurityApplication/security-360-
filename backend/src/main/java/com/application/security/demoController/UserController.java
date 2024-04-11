@@ -1,4 +1,6 @@
 package com.application.security.demoController;
+import com.application.security.auth.AuthenticationResponse;
+import com.application.security.auth.RegisterRequest;
 import com.application.security.dto.DtoConverter;
 import com.application.security.dto.UserDTO;
 import com.application.security.entity.Incident;
@@ -47,8 +49,9 @@ UserService userService;
     }
 
     @PostMapping ("/Add-user")
-    public User registerNewUser(@RequestBody UserDTO userDTO) {
-        return userService.registerNewUser(userDTO);
+    public ResponseEntity<?> registerNewUser(@RequestBody UserDTO userDTO) {
+        AuthenticationResponse response =  userService.registerNewUser(userDTO);
+        return ResponseEntity.accepted().build();
     }
 
     @PutMapping("/updateUser/{id}")
