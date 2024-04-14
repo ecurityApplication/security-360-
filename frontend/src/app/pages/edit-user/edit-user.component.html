@@ -47,7 +47,7 @@
                 <label for="roleName">Role</label>
                 <div class="select-box" >
                   <select name="Role" name="Role" [(ngModel)]="user.roleName">
-                    <option *ngFor="let role of role" [value]="role.roleName">
+                    <option *ngFor="let role of roles" >
                       {{ role.roleName }}
                     </option>
                     <!-- <option hidden="">Role</option>

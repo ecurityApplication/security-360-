@@ -18,7 +18,7 @@
           placeholder="Enter Username"
           type="Username"
           name="Username"
-          [(ngModel)]="user.username"
+          [(ngModel)]="newUser.username"
         />
       </div>
       <div class="input-box">
@@ -28,7 +28,7 @@
             placeholder="Enter Email"
             type="Email"
             name="Email"
-            [(ngModel)]="user.email"
+            [(ngModel)]="newUser.email"
           />
         </div>
     </div>
@@ -40,17 +40,17 @@
           placeholder="Enter Password"
           type="Password"
           name="Password"
-          [(ngModel)]="user.password"
+          [(ngModel)]="newUser.password"
         />
       </div>
             <div class="input-box">
               <label for="roleName">Role</label>
               <div class="select-box" >
-                <select name="Role" name="Role" [(ngModel)]="user.roleName">
+                <select name="Role" name="Role" [(ngModel)]="newUser.roleName">
                   <option hidden="">Role</option>
-                  <!-- <option *ngFor="let role of roles">{{ role }}</option> -->
-                  <option value="ROLE_USER">ROLE_USER</option>
-                  <option value="ROLE_MODERATOR">ROLE_MODERATOR</option>
+                  <option *ngFor="let role of roles"  >{{ role.roleName }}</option>
+                  <!-- <option  value="ROLE_USER">ROLE_USER</option>
+                  <option value="ROLE_MODERATOR">ROLE_MODERATOR</option> -->
                 </select>
               </div>
             </div>  

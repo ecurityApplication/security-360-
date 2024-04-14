@@ -7,30 +7,28 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-password-reset-confirm',
   templateUrl: './password-reset-confirm.component.html',
-  styleUrl: './password-reset-confirm.component.css'
+  styleUrl: './password-reset-confirm.component.css',
 })
 export class PasswordResetConfirmComponent {
-  requestnewpassword : PasswordRequestUtilnewpassword={
-    newPassword:'',
-    codeemail: ''
+  requestnewpassword: PasswordRequestUtilnewpassword = {
+    newPassword: '',
+    codeemail: '',
   };
-  
+
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private router:Router
-    ) { }
-    
-  resetPassword(){
+    private router: Router
+  ) {}
+
+  resetPassword() {
     this.authService.resetPassword(this.requestnewpassword).subscribe({
-      next:(response)=>{
+      next: (response) => {
         console.log('response ', response);
-        this.requestnewpassword=response;
-      }
-
-    })
+        this.requestnewpassword = response;
+      },
+    });
     this.router.navigate(['login']);
-
   }
 
 }

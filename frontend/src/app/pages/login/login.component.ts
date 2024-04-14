@@ -19,60 +19,53 @@ import { NgToastService } from 'ng-angular-popup';
 })
 export class LoginComponent {
   authRequest: AuthenticationRequest = {};
-  // otpCode: any;
   otpCode: string[] = ['', '', '', '', '', '']; // Array to store individual digits
   authResponse: AuthenticationResponse = {};
-  // message = '';
+
   isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
+  username?: string;
+  showUser = true;
   roles: string[] = [];
+
   @ViewChild('input1') input1!: ElementRef;
   @ViewChild('input2') input2!: ElementRef;
   @ViewChild('input3') input3!: ElementRef;
   @ViewChild('input4') input4!: ElementRef;
   @ViewChild('input5') input5!: ElementRef;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     // private toastr: ToastrService,
-    private tokenStorage: StorageService,
+    private storageService: StorageService,
     private toast: NgToastService
   ) {}
+
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
+    if (this.storageService.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      //this.roles = this.storageService.getAuthorities();
+     // this.router.navigate(['./u/prg']);
     }
   }
+
   authenticate() {
     this.authService.login(this.authRequest).subscribe({
-      next: (response) => {
+      next: (response:any) => {
         console.log('response login  ', response);
         this.authResponse = response;
-        if (this.authResponse.mfaEnabled) {
-          localStorage.setItem('token', response.accessToken as string);
-          //this.router.navigate(['welcome']);
-          //this.tokenStorage.saveToken(response.accessToken);
-          this.tokenStorage.saveUser(response);
-  
-        
-          this.roles = this.tokenStorage.getUser().roles;
-          this.showSuccess();
-          //this.reloadPage();
-        } else {
-          // If login fails, show toaster message
-          //this.toastr.info('Login Failed. Try again later!', 'Login Status');
-          this.showInfo();
-        }
-      },error: (err) => {
-       
+         if (this.authResponse.mfaEnabled) {
+          this.storageService.saveToken(response.accessToken);
+          this.storageService.saveUsername(response.username);
+          this.storageService.saveAuthorities(response.authorities);
+
+         } else {
+       // If login fails, show toaster message
+           this.showInfo();
+         }
+      },error: (err) => { 
         if (err.status === 403) {
-          // Password is incorrect, show error message
-          //this.toastr.error('Incorrect email or password!', 'Login Error');
           this.showError2();
-          this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
         }
       }
     });
@@ -106,13 +99,7 @@ export class LoginComponent {
     nextInput.focus();
   }
 
-  showSuccess() {
-    this.toast.success({
-      detail:"Success Message",
-      summary:'Account created successfully\n Please Login',
-      duration:3000,
-       position:'topRight'})
-  }
+ 
 
   showInfo() {
     this.toast.info({
@@ -136,5 +123,9 @@ export class LoginComponent {
       summary:'Incorrect verification code!, Verification Error',
       duration:3000,
        position:'topRight'})
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

@@ -12,22 +12,23 @@ import { User } from '../../models/user';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
- 
-registerRequest : RegisterRequest = {}
-  constructor(private authService :AuthService ,private router :Router , private userService :UserService,private storageService: StorageService){ }
-  user : User[] = [];
-  ngOnInit(): void {
-    this.getUser();
-  //  this.getUser();
-    // this.AuthService.g
-  }
-  getUser(){
-    this.userService.getUser().subscribe(data=>{
-      console.log("user data",data)
-      this.user = data;
-    }, error => {
-      console.error("Error fetching user data:", error);
-      // Handle error appropriately, such as displaying an error message to the user
-    })
-  }
+//   currentUser: any;
+// registerRequest : RegisterRequest = {}
+//   constructor(private authService :AuthService ,private router :Router , private userService :UserService,private storageService: StorageService){ }
+//   user : User[] = [];
+//   ngOnInit(): void {
+//     //this.currentUser = this.storageService.getRole();
+//     this.getUser();
+//   //  this.getUser();
+//     // this.AuthService.g
+//   }
+//   getUser(){
+//     this.userService.getUser().subscribe(data=>{
+//       console.log("user data",data)
+//       this.user = data;
+//     }, error => {
+//       console.error("Error fetching user data:", error);
+//       // Handle error appropriately, such as displaying an error message to the user
+//     })
+//   }
 }

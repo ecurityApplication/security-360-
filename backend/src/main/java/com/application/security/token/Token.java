@@ -1,6 +1,7 @@
 package com.application.security.token;
 
 import com.application.security.entity.User;
+import com.application.security.token.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

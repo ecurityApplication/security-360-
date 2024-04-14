@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +22,5 @@ public class UserDTO {
     private String roleName;
 
 
-    public UserDTO(Long id, String username, String email, boolean enabled, String roleName) {
-    }
+
 }
