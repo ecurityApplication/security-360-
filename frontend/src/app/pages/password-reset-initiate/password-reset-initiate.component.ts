@@ -22,14 +22,17 @@ requestPasswordReset() {
   this.authService.resetPasswordRequest(this.passwordRequestutil).subscribe({
     next: (response)=>{
       console.log(response,'Successful Response');
+      this.passwordRequestutil=response;
+
       this.toastr.success(
         'Check your email'
       );
-      this.router.navigate(['passwprdconfirm']);
     },error: (error) => {
       console.error('Error:', error); // Log error if any
       this.toastr.error('Error occurred while processing your request.'); // Show toastr notification for error
     }
   })
+  this.router.navigate(['passwprdconfirm']);
+
 } 
 }

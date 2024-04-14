@@ -25,9 +25,12 @@ export class PasswordResetConfirmComponent {
     this.authService.resetPassword(this.requestnewpassword).subscribe({
       next:(response)=>{
         console.log('response ', response);
-        this.router.navigate(['incidentlogging']);
+        this.requestnewpassword=response;
       }
 
     })
+    this.router.navigate(['login']);
+
   }
+
 }
