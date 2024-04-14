@@ -50,10 +50,10 @@ newUser : User = new User();
       }
     );
   }
-  pushRole(role:string) {
-    this.roleName.push(role);
-    console.log("roleName",this.roleName);
-  }
+  // pushRole(role:string) {
+  //   this.roleName.push(role);
+  //   console.log("roleName",this.roleName);
+  // }
   getRole() {
     this.roleService.getRole().subscribe(
       (res) => {

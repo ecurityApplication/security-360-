@@ -1,8 +1,8 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Incident } from '../models/incident';
+import { Incident } from '../../models/incident';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IncidentService } from '../service/incident.service';
+import { IncidentService } from '../../service/incident.service';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
 

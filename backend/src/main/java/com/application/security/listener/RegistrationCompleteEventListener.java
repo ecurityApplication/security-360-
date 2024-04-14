@@ -1,6 +1,7 @@
 package com.application.security.listener;
 
 import com.application.security.auth.AuthenticationService;
+import com.application.security.email.EmailService;
 import com.application.security.entity.User;
 import com.application.security.event.RegistrationCompleteEvent;
 import jakarta.mail.MessagingException;
@@ -13,11 +14,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
+
     private final AuthenticationService service;
     private final JavaMailSender mailSender;
     private User theUser;

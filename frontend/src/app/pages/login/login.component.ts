@@ -45,7 +45,7 @@ export class LoginComponent {
     if (this.storageService.getToken()) {
       this.isLoggedIn = true;
       //this.roles = this.storageService.getAuthorities();
-      this.router.navigate(['./u/prg']);
+     // this.router.navigate(['./u/prg']);
     }
   }
 
@@ -58,7 +58,7 @@ export class LoginComponent {
           this.storageService.saveToken(response.accessToken);
           this.storageService.saveUsername(response.username);
           this.storageService.saveAuthorities(response.authorities);
-           this.showSuccess();
+
          } else {
        // If login fails, show toaster message
            this.showInfo();
@@ -99,13 +99,7 @@ export class LoginComponent {
     nextInput.focus();
   }
 
-  showSuccess() {
-    this.toast.success({
-      detail:"Success Message",
-      summary:'Account created successfully\n Please Login',
-      duration:3000,
-       position:'topRight'})
-  }
+ 
 
   showInfo() {
     this.toast.info({

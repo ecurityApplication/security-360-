@@ -1,5 +1,6 @@
-package com.application.security.demoController;
+package com.application.security.controller;
 import com.application.security.dto.UserDTO;
+import com.application.security.dto.UserGetDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 
@@ -31,7 +32,7 @@ UserService userService;
 
 
     @GetMapping("/getAllUsers")
-    public List<User> getAllUsers(){
+    public List<UserGetDTO> getAllUsers(){
         return userService.getAllUsers();
     }
 

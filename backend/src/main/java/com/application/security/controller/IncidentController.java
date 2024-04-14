@@ -1,9 +1,9 @@
-package com.application.security.demoController;
+package com.application.security.controller;
 
 import com.application.security.entity.ImageModel;
 import com.application.security.entity.Incident;
 import com.application.security.repository.Incidentrepository;
-import com.application.security.services.IncidentServiceImpl;
+import com.application.security.services.Impl.IncidentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

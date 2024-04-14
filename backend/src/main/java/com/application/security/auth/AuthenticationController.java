@@ -46,32 +46,32 @@ public class AuthenticationController {
 
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request) {
+          @RequestBody AuthenticationRequest request) {
     return ResponseEntity.ok(service.authenticate(request));
   }
 
   @PostMapping("/refresh-token")
   public void refreshToken(
-      HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
+          HttpServletRequest request,
+          HttpServletResponse response) throws IOException {
     service.refreshToken(request, response);
   }
 
   // method that allow us to verify the code
   @PostMapping("/verify")
   public ResponseEntity<?> verifyCode(
-      @RequestBody VerificationRequest verificationRequest) {
+          @RequestBody VerificationRequest verificationRequest) {
     return ResponseEntity.ok(service.verifyCode(verificationRequest));
   }
 
   public String applicationUrl(HttpServletRequest request) {
     return "http://" + request.getServerName() + ":"
-        + request.getServerPort() + request.getContextPath();
+            + request.getServerPort() + request.getContextPath();
   }
 
   @PostMapping("/password-reset-request")
   public String resetPasswordRequest(@RequestBody PasswordRequestUtil passwordRequestUtil)
-      throws MessagingException, UnsupportedEncodingException {
+          throws MessagingException, UnsupportedEncodingException {
 
     Optional<User> user = service.findByEmail(passwordRequestUtil.getEmail());
     String passwordResetUrl = "";
@@ -84,7 +84,7 @@ public class AuthenticationController {
   }
 
   private String passwordResetEmailLink(User user, String applicationUrl,
-      String passwordToken) throws MessagingException, UnsupportedEncodingException {
+                                        String passwordToken) throws MessagingException, UnsupportedEncodingException {
     String code = "votre code est : " + passwordToken;
     eventListener.sendPasswordResetVerificationEmail(code, user);
     /// log.info("Click the link to reset your password : {}", url);

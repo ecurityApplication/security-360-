@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ShowDialogComponent } from '../../show-dialog/show-dialog.component';
+import { ShowDialogComponent } from '../show-dialog/show-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ImageProcessingService } from '../../image-processing.service';
 import { map } from 'rxjs/operators';

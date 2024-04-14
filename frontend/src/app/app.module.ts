@@ -36,7 +36,7 @@ import {
   DialogConfigModule
 } from '@costlydeveloper/ngx-awesome-popup';
 import { DragDirective } from './drag.directive';
-import { ShowDialogComponent } from './show-dialog/show-dialog.component';
+import { ShowDialogComponent } from './pages/show-dialog/show-dialog.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { IncidentService } from "./service/incident.service";
 import { Incident } from "./models/incident";
