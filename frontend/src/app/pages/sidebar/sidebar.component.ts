@@ -57,7 +57,7 @@ import { StorageService } from '../../service/storage.service';
       this.authService.logout().subscribe({
         next: res => {
           console.log(res,'Logout successful');
-          this.storageService.clean();
+          this.storageService.signOut();
           this.router.navigate(['login']);
         },
         error: err => {

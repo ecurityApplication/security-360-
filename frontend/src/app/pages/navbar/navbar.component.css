@@ -1,4 +1,4 @@
-.home-section {
+/* .home-section {
     position: fixed;
     min-height: 10vh;
     top: 0;
@@ -8,8 +8,19 @@
     transition: all 0.5s ease;
     z-index: 99;
     flex-direction: column;
-  }
-
+  } */
+  .home-section {
+    position: fixed;
+    min-height: 10vh;
+    top: 0;
+    width: 100%;
+    left: 78px; /* Adjust based on your layout */
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 99;
+    flex-direction: column;
+    background-color: white; /* Ensure proper visibility */
+}
   .header-section {
     display: flex;
     flex-direction: row;

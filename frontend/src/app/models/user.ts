@@ -3,5 +3,6 @@ export class User{
     username!: string;
     password!: string;
     email!: string; 
-    roleName! : string; 
+    enable!: boolean;
+    roleName! : string[]; 
 }
