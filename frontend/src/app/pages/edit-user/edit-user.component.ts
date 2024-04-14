@@ -12,10 +12,10 @@ import { RoleService } from '../../service/role.service';
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
-
+  roleName!:string[]
   user: User = new  User();
   id!:number;
-  role:Role[]=[]; // Array to store roles
+  roles:Role[]=[]; // Array to store roles
   constructor(
     private userService:UserService,
     private router:Router,
@@ -26,14 +26,14 @@ export class EditUserComponent {
   ) {
   }
    ngOnInit(): void {
-   // this.getRoles(); // Fetch roles on initialization
+    this.getRole(); // Fetch roles on initialization
   this.user = Object.assign({}, this.data.user); // Create a copy for editing
 }
 
 getRole() {
   this.roleService.getRole().subscribe(
     (role) => {
-      this.role = role;
+      this.roles = role;
     },
     (error) => {
       console.error(error);

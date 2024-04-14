@@ -1,4 +1,4 @@
-package com.application.security.demoController;
+package com.application.security.controller;
 
 
 import org.springframework.http.HttpStatus;

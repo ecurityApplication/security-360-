@@ -22,6 +22,5 @@ public class UserDTO {
     private String roleName;
 
 
-    public UserDTO(Long id, String username, String email, boolean enabled, String roleName) {
-    }
+
 }

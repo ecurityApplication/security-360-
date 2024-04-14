@@ -1,4 +1,4 @@
-package com.application.security.demoController;
+package com.application.security.controller;
 
 import com.application.security.entity.Role;
 import com.application.security.services.RoleService;

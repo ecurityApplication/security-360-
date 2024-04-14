@@ -1,7 +1,8 @@
-package com.application.security.services;
+package com.application.security.services.Impl;
 
 import com.application.security.entity.Incident;
 import com.application.security.repository.Incidentrepository;
+import com.application.security.services.IncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;

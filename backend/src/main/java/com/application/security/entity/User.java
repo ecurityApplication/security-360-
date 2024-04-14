@@ -2,7 +2,6 @@ package com.application.security.entity;
 
 import com.application.security.token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @Entity // transform from class to table in database
 @Builder // Adding builder pattern support using Lombok (add data in database without
 // creating the requet manually
-@Table(name = "_user") // Specifying the table name for this entity in the database
+@Table(name = "appuser") // Specifying the table name for this entity in the database
 public class User implements UserDetails {
 	@Id // Marking the field as primary key
 	@GeneratedValue(strategy = GenerationType.AUTO) // Generating the value automatically for the field
@@ -31,6 +30,8 @@ public class User implements UserDetails {
 	private String email;
 	private String password;
 	private Boolean enabled = false;
+	//@Builder.Default
+	//private boolean isEnabled = false;
 	private boolean mfaEnabled;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
@@ -54,8 +55,7 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
-	public User(User user) {
-	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,7 +75,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;
+		return username;
 	}
 
 	@Override

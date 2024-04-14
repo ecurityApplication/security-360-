@@ -6,12 +6,13 @@ import com.application.security.entity.Role;
 import com.application.security.entity.User;
 //import com.application.security.repository.RoleRepository;
 import com.application.security.repository.RoleRepository;
+import com.application.security.token.Token;
+import com.application.security.token.TokenRepository;
 import com.application.security.repository.UserRepository;
 import com.application.security.services.PasswordResetTokenService;
 import com.application.security.services.UserDetailsServiceImpl;
 import com.application.security.tfa.TowFactorAuthenticationService;
-import com.application.security.token.Token;
-import com.application.security.token.TokenRepository;
+
 import com.application.security.token.TokenType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,89 +52,89 @@ public class AuthenticationService {
   private final EmailSender emailSender;
 
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        // add roles to users
-        List<String> strRoles = request.getRole();
-        List<Role> roles = new ArrayList<>();
-        // if (strRoles != null && !strRoles.isEmpty()) {
-        //     strRoles.forEach(role -> {
-        //         switch (role) {
-        //             case "admin":
-        //                 Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
-        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        //                 roles.add(adminRole);
-        //                 break;
-        //             case "moderator":
-        //                 Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
-        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        //                 roles.add(moderatorRole);
-        //                 break;
-        //             default:
-        //                 Role userRole = roleRepository.findByRoleName("ROLE_USER")
-        //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        //                 roles.add(userRole);
-        //         }
-        //     });
-        // } else {
-            // if any role specified, attribute default role "ROLE_ADMIN"
-            Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-       // }
+  public AuthenticationResponse register(RegisterRequest request) {
+    // add roles to users
+    List<String> strRoles = request.getRole();
+    List<Role> roles = new ArrayList<>();
+    // if (strRoles != null && !strRoles.isEmpty()) {
+    //     strRoles.forEach(role -> {
+    //         switch (role) {
+    //             case "admin":
+    //                 Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
+    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    //                 roles.add(adminRole);
+    //                 break;
+    //             case "moderator":
+    //                 Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
+    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    //                 roles.add(moderatorRole);
+    //                 break;
+    //             default:
+    //                 Role userRole = roleRepository.findByRoleName("ROLE_USER")
+    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    //                 roles.add(userRole);
+    //         }
+    //     });
+    // } else {
+    // if any role specified, attribute default role "ROLE_ADMIN"
+    Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    roles.add(adminRole);
+    // }
 
-        // Create a new user entity with the provided details
-        var user = User.builder()
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(roles)
-                .mfaEnabled(request.isMfaEnabled())
-                .build();
+    // Create a new user entity with the provided details
+    var user = User.builder()
+            .username(request.getUsername())
+            .email(request.getEmail())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .roles(roles)
+            .mfaEnabled(request.isMfaEnabled())
+            .build();
 
-        // Generate MFA secret if enabled
-        if (request.isMfaEnabled()) {
-            user.setSecret(tfaService.generateNewSecret());
-        }
-
-        // Save the user entity to the database
-        var savedUser = repository.save(user);
-
-        // Generate JWT token and refresh token
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-
-        // Save user token (not sure about the implementation of saveUserToken method)
-        saveUserToken(savedUser, jwtToken);
-
-        // Generate QR code image URL
-        String qrCodeImageUrl = tfaService.generateQrCodeImgUri(user.getSecret());
-
-        // Send registration details to user's email
-        String emailSubject = "Registration Confirmation";
-        String emailBody = "<html><body>"
-                + "<p>Dear " + request.getUsername() + ",</p>"
-                + "<p>Thank you for registering with us!</p>"
-                + "<p>Your registration details:</p>"
-                + "<ul>"
-                + "<li>Username: " + request.getUsername() + "</li>"
-                + "<li>Email: " + request.getEmail() + "</li>"
-                + "<li>MFA Enabled: " + request.isMfaEnabled() + "</li>"
-                + "</ul>"
-                + "<p>Please keep this information secure.</p>"
-                + "<p>Best regards,<br/>The Team</p>"
-                + "<img src=\"data:image/png;base64," + qrCodeImageUrl + "\">"
-                + "</body></html>";
-
-        emailSender.send(user.getEmail(), emailSubject, emailBody, qrCodeImageUrl);
-
-        // Return authentication response with tokens and MFA details
-        return AuthenticationResponse.builder()
-                .secretImageUri(qrCodeImageUrl)
-               // .accessToken(jwtToken)
-               // .refreshToken(refreshToken)
-                .mfaEnabled(user.isMfaEnabled())
-                .build();
+    // Generate MFA secret if enabled
+    if (request.isMfaEnabled()) {
+      user.setSecret(tfaService.generateNewSecret());
     }
+
+    // Save the user entity to the database
+    var savedUser = repository.save(user);
+
+    // Generate JWT token and refresh token
+    var jwtToken = jwtService.generateToken(user);
+    var refreshToken = jwtService.generateRefreshToken(user);
+
+    // Save user token (not sure about the implementation of saveUserToken method)
+    saveUserToken(savedUser, jwtToken);
+
+    // Generate QR code image URL
+    String qrCodeImageUrl = tfaService.generateQrCodeImgUri(user.getSecret());
+
+    // Send registration details to user's email
+    String emailSubject = "Registration Confirmation";
+    String emailBody = "<html><body>"
+            + "<p>Dear " + request.getUsername() + ",</p>"
+            + "<p>Thank you for registering with us!</p>"
+            + "<p>Your registration details:</p>"
+            + "<ul>"
+            + "<li>Username: " + request.getUsername() + "</li>"
+            + "<li>Email: " + request.getEmail() + "</li>"
+            + "<li>MFA Enabled: " + request.isMfaEnabled() + "</li>"
+            + "</ul>"
+            + "<p>Please keep this information secure.</p>"
+            + "<p>Best regards,<br/>The Team</p>"
+            + "<img src=\"data:image/png;base64," + qrCodeImageUrl + "\">"
+            + "</body></html>";
+
+    emailSender.send(user.getEmail(), emailSubject, emailBody, qrCodeImageUrl);
+
+    // Return authentication response with tokens and MFA details
+    return AuthenticationResponse.builder()
+            .secretImageUri(qrCodeImageUrl)
+            // .accessToken(jwtToken)
+            // .refreshToken(refreshToken)
+            .mfaEnabled(user.isMfaEnabled())
+            .build();
+  }
 
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -153,17 +154,17 @@ public class AuthenticationService {
     // Check if user has admin role (improved)
     if (user.getRoles().stream().anyMatch( role -> role.getRoleName().equals( "ROLE_ADMIN" )  )) {
 
-    // Admin with MFA enabled?
-    //if the user enable the mFA
-    if (user.isMfaEnabled()) {
-      return AuthenticationResponse.builder()
-              .accessToken( "" )
-              .refreshToken( "" )
-              .mfaEnabled( true )
-              .role(user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
-              .build();
+      // Admin with MFA enabled?
+      //if the user enable the mFA
+      if (user.isMfaEnabled()) {
+        return AuthenticationResponse.builder()
+                .accessToken( "" )
+                .refreshToken( "" )
+                .mfaEnabled( true )
+                .role(user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
+                .build();
+      }
     }
-  }
     // Generate JWT token and refresh token
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -181,7 +182,7 @@ public class AuthenticationService {
             //mfa Enabled
             //.mfaEnabled(false)
             .mfaEnabled(user.isMfaEnabled() &&  // Check user setting
-            user.getRoles().stream().anyMatch(role -> role.getRoleName().equals("ROLE_ADMIN")))
+                    user.getRoles().stream().anyMatch(role -> role.getRoleName().equals("ROLE_ADMIN")))
             .build();
     // Helper method to get role names as a comma-separated string
   }
@@ -254,7 +255,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .mfaEnabled(user
-            .isMfaEnabled())
+                    .isMfaEnabled())
             .build();
   }
 
@@ -271,7 +272,7 @@ public class AuthenticationService {
   }
 
   public Optional<User> findByEmail(String email) {
-        return repository.findByEmail(email);
+    return repository.findByEmail(email);
   }
 
   public String validatePasswordResetToken(String token) {
