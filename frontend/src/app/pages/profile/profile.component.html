@@ -1,7 +1,6 @@
-<body>
-  <div class="container">
+<!-- <div class="container">
     <div class="head-container">
-      <!-- <span>Welcome! {{user.username}}</span> -->
+    
     </div>
     <div class="body-container">
       <div class="left-container">
@@ -12,11 +11,11 @@
         <h5>Edit Your Profile</h5>
         <div class="group">
           <label for="Username">Username</label>
-          <!-- <label for="Username">{{user.username}}</label><br/> -->
+          <label for="Username">{{currentUser.username}}</label><br/>
         </div>
         <div class="group">
           <label for="Email">Email</label>
-          <!-- <label for="Email">{{user.email}}</label> -->
+          <label for="Email">{{currentUser.email}}</label>
         </div>
        
         <div class="group">
@@ -31,6 +30,12 @@
             <input placeholder="Confirm New Password" type="text" />
           </div>
         </div>
+        <div class="group">
+          <label for="Password">Role</label>
+          <div class="input-password">
+            <span  *ngFor="let role of currentUser.roles">{{ role }}</span>
+          </div>
+        </div>
         <div class="footer-container">
           <button type="button" routerLink="/incidentlogging" class="Btn1">
             Close
@@ -40,4 +45,7 @@
       </div>
     </div>
   </div>
-</body>
+  <ng-template #loggedOut>
+    Please login.
+  </ng-template>
+ -->

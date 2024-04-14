@@ -136,27 +136,34 @@ public class AuthenticationService {
     }
 
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  public AuthenticationResponse authenticate(AuthenticationRequest request) {
     // Perform authentication using email and password
-    Authentication authentication =authenticationManager.authenticate(
+    Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     request.getEmail(),
                     request.getPassword()
             )
     );
     // Set the authentication object in the security context
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    SecurityContextHolder.getContext().setAuthentication( authentication );
     // Retrieve the authenticated user from the repository
-    var user = repository.findByEmail(request.getEmail())
+    var user = repository.findByEmail( request.getEmail() )
             .orElseThrow();
+
+    // Check if user has admin role (improved)
+    if (user.getRoles().stream().anyMatch( role -> role.getRoleName().equals( "ROLE_ADMIN" )  )) {
+
+    // Admin with MFA enabled?
     //if the user enable the mFA
-    if(user.isMfaEnabled()) {
+    if (user.isMfaEnabled()) {
       return AuthenticationResponse.builder()
-              .accessToken("")
-              .refreshToken("")
-              .mfaEnabled(true)
+              .accessToken( "" )
+              .refreshToken( "" )
+              .mfaEnabled( true )
+              .role(user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
               .build();
     }
+  }
     // Generate JWT token and refresh token
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -169,13 +176,16 @@ public class AuthenticationService {
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
             .role(user.getRoles().stream()
-            .map(Role::getRoleName)
-            .collect(Collectors.toList()))
+                    .map(Role::getRoleName)
+                    .collect(Collectors.toList()))
             //mfa Enabled
-            .mfaEnabled(false)
+            //.mfaEnabled(false)
+            .mfaEnabled(user.isMfaEnabled() &&  // Check user setting
+            user.getRoles().stream().anyMatch(role -> role.getRoleName().equals("ROLE_ADMIN")))
             .build();
     // Helper method to get role names as a comma-separated string
   }
+
 
 
   private void saveUserToken(User user, String jwtToken) {

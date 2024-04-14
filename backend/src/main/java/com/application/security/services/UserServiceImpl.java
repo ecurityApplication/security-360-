@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements  UserService{
@@ -42,45 +43,49 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public List<User> getAllUsers() {
-        return (List<User>) userRepository.findAll();
+       return (List<User>) userRepository.findAll();
     }
 
+
     @Override
-    public AuthenticationResponse registerNewUser(UserDTO userDTO) {
+    public User registerNewUser(UserDTO userDTO) {
 
         User user = new User();
         user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode( userDTO.getPassword() ));
-        user.setEmail( userDTO.getEmail() );
-        user.setEnabled( true );
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setEmail(userDTO.getEmail());
+        user.setEnabled(true);
 
-        // Find the "ROLE_USER" role by name
-        Optional<Role> userRole = roleRepository.findByRoleName(userDTO.getRoleName());
+        // add roles to users
+       String strRoles = userDTO.getRoleName();
+        List<Role> roles = new ArrayList<>();
 
-        // Set user roles if required (optional)
-        Set<Role> userRoles = new HashSet<>();
-        userRoles.add(userRole.get());  // Add the retrieved role to the set
-        List<Role> rolesList = new ArrayList<>(userRoles);
-        user.setRoles(rolesList);  // Set the user's roles (List<Role>)
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        sendUserRegistrationEmail( user, userDTO.getPassword() );
+            if ("moderator".equals(strRoles)) {
+                Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(moderatorRole);
+            } else {
+                Role userRole = roleRepository.findByRoleName("ROLE_USER")
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            }
+
+
+        user.setRoles(roles);  // Set the user's roles (List<Role>)
         // Save the user entity to the database
         var savedUser = userRepository.save(user);
 
-
-        // Generate JWT token and refresh token
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-
         // Save user token (not sure about the implementation of saveUserToken method)
-        saveUserToken(savedUser, jwtToken);
-        // Return authentication response with tokens and MFA details
-        return AuthenticationResponse.builder()
-                 .accessToken(jwtToken)
-                 .refreshToken(refreshToken)
-                .build();
+        saveUserToken(savedUser, jwtService.generateToken(user));
+        sendUserRegistrationEmail(user, userDTO.getPassword());
+
+        // Return the saved user entity
+        return savedUser;
     }
+
+
+
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -106,47 +111,36 @@ public class UserServiceImpl implements  UserService{
         emailSender.send(message);
     }
 
+
     @Override
-    public User updateUserById(Long id, UserDTO userDTO) {
-
+    public User updateUser(Long userId, UserDTO userDTO) {
         // Find the user by ID
-        Optional<User> existingUserOptional = userRepository.findById(id);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Check if user exists
-        if (existingUserOptional.isEmpty()) {
-            throw new RuntimeException("User with ID " + id + " not found!");
-        }
+        // Update user details
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // You may want to add checks to prevent password update if not provided
+        user.setEmail(userDTO.getEmail());
+        user.setEnabled(true); // Corrected isEnable to isEnabled
 
-        User existingUser = existingUserOptional.get();
+        // Update roles
+       String strRoles = userDTO.getRoleName();
+        List<Role> roles = new ArrayList<>();
 
-        // Update user details (avoid overwriting password if not provided)
-        existingUser.setUsername(userDTO.getUsername() != null ? userDTO.getUsername() : existingUser.getUsername());
-        existingUser.setEmail(userDTO.getEmail() != null ? userDTO.getEmail() : existingUser.getEmail());
+        // Iterate through the role names provided in the DTO
 
-        // Find the updated role (optional)
-        Optional<Role> updatedRoleOptional = Optional.empty(); // Initialize as empty
-        if (userDTO.getRoleName() != null) {
-            updatedRoleOptional = roleRepository.findByRoleName(userDTO.getRoleName());
-            if (updatedRoleOptional.isEmpty()) {
-                throw new RuntimeException("User role " + userDTO.getRoleName() + " not found!");
-            }
-        }
+            Role role = roleRepository.findByRoleName(strRoles)
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + strRoles));
+            roles.add(role);
 
-        // Update user roles if provided
-        if (updatedRoleOptional.isPresent()) {
-            Set<Role> userRoles = new HashSet<>();
-            userRoles.add(updatedRoleOptional.get());
-            existingUser.setRoles(new ArrayList<>(userRoles));
-        }
 
-        // Encode password only if provided in DTO
-        if (userDTO.getPassword() != null) {
-            existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        }
-
-        // Save the updated user
-        return userRepository.save(existingUser);
+        user.setRoles(roles);
+        //sendUserRegistrationEmail(user, userDTO.getPassword());
+        // Save the updated user entity to the database
+        return userRepository.save(user);
     }
+
 
 
 
@@ -187,6 +181,8 @@ public class UserServiceImpl implements  UserService{
             roleRepository.save(roleModerator);
         }
     }
+
+
     }
 
 

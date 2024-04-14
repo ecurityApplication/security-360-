@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface UserService {
     void DeleteUser(Long id);
+    //public List<UserDTO> getAllUsers();
     //List< User> getAllUser();
     public List<User> getAllUsers();
     //void addUser(UserDTO userDTO);
-    public User updateUserById(Long id, UserDTO userDTO);
+    public User updateUser(Long userId, UserDTO userDTO);
     Object getUserById(long id);
     public void initRoleAndUser();
-    public AuthenticationResponse registerNewUser(UserDTO userDTO);
+    public   User registerNewUser(UserDTO userDTO);
+
 }

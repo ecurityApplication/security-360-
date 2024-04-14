@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,canActivate:[authGuard],data : {role : ['1']}
   },
   {
     path: 'welcome',
@@ -43,7 +43,7 @@ const routes: Routes = [
     component: PasswordResetInitiateComponent
   },
   {
-    path:'passwprdconfirm',
+    path:'passwordconfirm',
     component: PasswordResetConfirmComponent
   },
   {
@@ -80,7 +80,7 @@ const routes: Routes = [
   },
   {
     path:'userList',
-    component:  UsersListComponent
+    component:  UsersListComponent,canActivate:[authGuard],data : {role : ['1']}
   },
   {
     path:'navbar',

@@ -1,15 +1,7 @@
 package com.application.security.demoController;
-import com.application.security.auth.AuthenticationResponse;
-import com.application.security.auth.RegisterRequest;
-import com.application.security.dto.DtoConverter;
 import com.application.security.dto.UserDTO;
-import com.application.security.entity.Incident;
-import com.application.security.entity.Role;
 import jakarta.annotation.PostConstruct;
-import jakarta.mail.MessagingException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 
 import com.application.security.entity.User;
 import com.application.security.repository.RoleRepository;
@@ -49,16 +41,14 @@ UserService userService;
     }
 
     @PostMapping ("/Add-user")
-    public ResponseEntity<?> registerNewUser(@RequestBody UserDTO userDTO) {
-        AuthenticationResponse response =  userService.registerNewUser(userDTO);
-        return ResponseEntity.accepted().build();
+    public User registerNewUser(@RequestBody UserDTO userDTO) {
+
+        return userService.registerNewUser(userDTO);
     }
 
     @PutMapping("/updateUser/{id}")
-    @ResponseBody
-    public User updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-      return   userService.updateUserById(id, userDTO);
-
+    public User updateUserRolesById(@PathVariable(name = "id") Long userId, @RequestBody UserDTO userDTO){
+        return userService.updateUser(userId, userDTO );
     }
 
     // get incident by id rest api

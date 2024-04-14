@@ -20,12 +20,12 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+
   registerRequest: RegisterRequest = {};
   authResponse: AuthenticationResponse = {};
- 
-  // message = '';
-  
-  // otpCode = '';
   otpCode: string[] = ['', '', '', '', '', ''];
 
   constructor(
@@ -58,9 +58,6 @@ export class RegisterComponent {
       console.log(
         'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.'
       );
-      // this.toastr.warning(
-      //   'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character'
-      // );
       this.showWarning1() ;
       return;
     }
@@ -74,15 +71,19 @@ export class RegisterComponent {
       next: (response) => {
         if (response) {
           console.log("response",response);//
-          this.authResponse = response;
-          
-          
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          this.authResponse = response; 
+        
         } else {
           this.showSuccess();
           setTimeout(() => {
             this.router.navigate(['login']);
           }, 3000);
         }
+      }, error: err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
       }
     });
   }
@@ -90,13 +91,11 @@ export class RegisterComponent {
   verifyTfa() {
     const verifyRequest: VerificationRequest = {
       email: this.registerRequest.email,
-      // code:this.otpCode
       code: this.otpCode.join(''), // Convert otpCode array to string
     };
     this.authService.verifyCode(verifyRequest).subscribe({
       next: (response) => {
         this.showSuccess();
-        //this.toastr.success('Account created successfully\n Please Login');
         setTimeout(() => {
           localStorage.setItem('token', response.accessToken as string);
           this.router.navigate(['login']);

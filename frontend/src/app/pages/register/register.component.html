@@ -1,20 +1,17 @@
 <body>
   <div class="wrapper">
-    <!-- <ng-toast></ng-toast> -->
     <span class="bg-animate"></span>
     <span class="bg-animate2"></span>
     <div class="form-box register" *ngIf="!authResponse.mfaEnabled">
-      <!-- <div class="success-message-panel" *ngIf="message">
-        <div class="success-icon">&#10004;</div>
-        <div class="success-message">{{ message }}</div>
-      </div> -->
       <h2>Sign Up</h2>
-      <form (ngSubmit)="registerUser()">
+      <form *ngIf="!isSuccessful" (ngSubmit)="registerUser()">
         <div class="input-box">
           <input
             id="username"
             name="username"
             required
+            minlength="3"
+            maxlength="20"
             type="text"
             [(ngModel)]="registerRequest.username"
           />
@@ -48,6 +45,7 @@
             id="password"
             name="password"
             required
+            minlength="6"
             type="password"
             [(ngModel)]="registerRequest.password"
           />
@@ -77,7 +75,13 @@
             >
           </p>
         </div>
+        <div class="alert alert-warning" *ngIf=" isSignUpFailed">
+          Signup failed!<br />{{ errorMessage }}
+        </div>
       </form>
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Your registration is successful!
+      </div>
     </div>
     <div class="form-verify container" *ngIf="authResponse.mfaEnabled">
       <!-- <div class="success-message-panel" *ngIf="message">

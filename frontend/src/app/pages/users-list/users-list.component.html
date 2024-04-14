@@ -1,5 +1,5 @@
 <app-sidebar></app-sidebar>
-<div class="main-content">
+<div class="main-content" app-navbar>
   <main>
     <!-- <div class="page-header">
       <h5>Roles List</h5>
@@ -160,7 +160,7 @@
                     ></i>
                     <i
                       class="bx bxs-trash-alt"
-                      (click)="deleteUser(user.id)"
+                      (click)="deleteUser(user.id)"  
                     ></i>
                   </div>
                 </td>
