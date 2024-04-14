@@ -30,4 +30,5 @@ export class PasswordResetConfirmComponent {
     });
     this.router.navigate(['login']);
   }
+
 }

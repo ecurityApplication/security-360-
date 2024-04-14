@@ -1,4 +1,4 @@
-<app-sidebar></app-sidebar>
+<!-- <app-sidebar></app-sidebar>
   <div class="table">
     <div class="header-content">
       <p>Escalation</p>
@@ -49,4 +49,65 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div> -->
+   <app-sidebar></app-sidebar>
+
+
+<body>
+    <main class="table" id="customers_table">
+        <section class="table__header">
+            <h1>Escalation </h1>
+            
+        
+          
+        </section>
+        <section class="table__body">
+            <table>
+              <thead class="table-header">
+                <tr>
+                  <th>Incident ID</th>
+                      <th>Plant Name</th>
+                      <th>Host Name</th>
+                      <th>Functional Escalation</th>
+                      <th>Herarachic escalation</th>
+                      <th>Management escalation</th>
+                      <th>Investigation</th>
+                      <th>Resolution and recovery</th>
+                      <th>Incident Status</th>
+                      <th>Lesson Leraned</th>
+                      <th>status</th>
+                      <th>Action plan</th>
+                      <th>Owner of Action Plan</th>
+                      <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody class="table-body">
+                <tr *ngFor="let incident of incidents; let i = index">
+                  <td>{{ generateIncidentID(i) }}</td>
+                      <td>{{incident.plantName}}</td>
+                      <td>{{incident.hostName}}</td>
+                      <td>{{incident.functionalEscalation}}</td>
+                      <td>{{incident.herarachicescalation}}</td>
+                      <td>{{incident.managementescalation}}</td>
+                      <td>{{incident.investigation}}</td>
+                      <td>{{incident.resolutionandrecovery}}</td>
+                      <td>{{incident.incidentStatus}}</td>
+                      <td>{{incident.lessonLeraned}}</td>
+                      <td>{{incident.hostStatus}}</td>
+                      <td>{{incident.remediation}}</td>
+                      <td>{{incident.remediationOwner}}</td>
+                      <td class="btn-action">
+                        <i class="bx bx-edit" (click)="updateescalation(incident.id)"></i>
+                        <i
+                          class="bx bxs-trash-alt"
+                          (click)="deleteIncident(incident.id)"
+                        ></i>
+                      </td>
+                  </tr> 
+              </tbody>
+            </table>
+        </section>
+    </main>
+
+</body>
+
