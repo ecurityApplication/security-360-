@@ -3,6 +3,7 @@ import { AuthService } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { PasswordRequestUtil } from '../../models/PasswordRequestUtil';
 import { Router } from '@angular/router';
+import { ForgetPasswordService } from '../../service/forget-password.service';
 
 @Component({
   selector: 'app-password-reset-initiate',
@@ -10,18 +11,19 @@ import { Router } from '@angular/router';
   styleUrl: './password-reset-initiate.component.css',
 })
 export class PasswordResetInitiateComponent {
-  passwordRequestutil: PasswordRequestUtil = { email: '' };
 
+  email!: string;
+ 
   constructor(
-    private authService: AuthService,
+    private passwordResetService: ForgetPasswordService,
     private toastr: ToastrService,
     private router: Router
   ) {}
-  requestPasswordReset() {
-    this.authService.resetPasswordRequest(this.passwordRequestutil).subscribe({
+  sendEmailVerification() {
+    this.passwordResetService.verifyEmail(this.email).subscribe({
       next: (response) => {
         console.log(response, 'Successful Response');
-        this.passwordRequestutil = response;
+        
         this.toastr.success('Check your email');
       },
       error: (error) => {

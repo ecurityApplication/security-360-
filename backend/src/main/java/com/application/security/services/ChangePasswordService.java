@@ -1,13 +1,17 @@
 package com.application.security.services;
 
+import com.application.security.dto.ChangePasswordRequest;
 import com.application.security.entity.User;
 import com.application.security.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,10 +30,20 @@ public class ChangePasswordService {
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
             throw new IllegalStateException("Password are not the same");
         }
+
         // update the password
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         // save the new password
         repository.save(user);
+    }
+    public User fetchUser(String email) {
+        return repository.existsByEmail(email)
+                ? repository.findByEmail(email).get()
+                : null;
+    }
+
+    public static String applicationUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }

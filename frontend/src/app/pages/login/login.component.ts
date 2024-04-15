@@ -22,7 +22,7 @@ export class LoginComponent {
   otpCode: string[] = ['', '', '', '', '', '']; // Array to store individual digits
   authResponse: AuthenticationResponse = {};
 
-  isLoggedIn = false;
+
   username?: string;
   showUser = true;
   roles: string[] = [];
@@ -42,11 +42,7 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
-    if (this.storageService.getToken()) {
-      this.isLoggedIn = true;
-      //this.roles = this.storageService.getAuthorities();
-     // this.router.navigate(['./u/prg']);
-    }
+    
   }
 
   authenticate() {
@@ -55,9 +51,10 @@ export class LoginComponent {
         console.log('response login  ', response);
         this.authResponse = response;
          if (this.authResponse.mfaEnabled) {
-          this.storageService.saveToken(response.accessToken);
-          this.storageService.saveUsername(response.username);
-          this.storageService.saveAuthorities(response.authorities);
+          localStorage.setItem('token', response.accessToken as string);
+          // this.storageService.saveToken(response.accessToken);
+          // this.storageService.saveUsername(response.username);
+          // this.storageService.saveAuthorities(response.authorities);
 
          } else {
        // If login fails, show toaster message

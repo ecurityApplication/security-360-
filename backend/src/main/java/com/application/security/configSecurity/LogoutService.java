@@ -1,7 +1,7 @@
 package com.application.security.configSecurity;
 
 
-import com.application.security.token.TokenRepository;
+import com.application.security.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

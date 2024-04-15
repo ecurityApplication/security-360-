@@ -7,9 +7,9 @@ import com.application.security.entity.Role;
 import com.application.security.entity.User;
 import com.application.security.repository.RoleRepository;
 import com.application.security.repository.UserRepository;
-import com.application.security.token.Token;
-import com.application.security.token.TokenRepository;
-import com.application.security.token.TokenType;
+import com.application.security.entity.Token;
+import com.application.security.repository.TokenRepository;
+import com.application.security.entity.TokenType;
 import com.application.security.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -185,6 +185,7 @@ public class UserServiceImpl implements UserService {
             roleRepository.save( roleModerator );
         }
     }
+
 }
 
 

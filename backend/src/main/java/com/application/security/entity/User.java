@@ -1,6 +1,5 @@
 package com.application.security.entity;
 
-import com.application.security.token.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -75,7 +74,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return username;
+		return email;
 	}
 
 	@Override
