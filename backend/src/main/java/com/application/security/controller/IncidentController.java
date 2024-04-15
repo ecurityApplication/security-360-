@@ -31,14 +31,9 @@ public class IncidentController {
     @GetMapping("/getAll")
     @ResponseBody
     public List<Incident> getAllIncident(){
-        //List<Incident>list=incidentService.getAllIncident();
         return incidentService.getAllIncident();
     }
-    //   @PostMapping("/add")
-//   @ResponseBody
-//   public Incident AjouterIncident(@RequestBody Incident i){
-//       return incidentService.AjouterIncident(i);
-//  }
+
     @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseBody
     public Incident AjouterIncident(@RequestPart ("incident") Incident i, @RequestPart("imageFile") MultipartFile[] file){
@@ -52,6 +47,7 @@ public class IncidentController {
             return null;
         }
     }
+
     public Set<ImageModel> uploadImage(MultipartFile[] multipartFiles) throws IOException {
         Set<ImageModel> imageModels = new HashSet<>();
 
@@ -90,10 +86,6 @@ public class IncidentController {
         }
         return ResponseEntity.ok(incidents);
     }
-
-
-
-
 
     @PutMapping("/update/{id}")
     @ResponseBody

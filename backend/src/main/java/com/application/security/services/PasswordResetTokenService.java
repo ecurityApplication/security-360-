@@ -1,43 +1,28 @@
 package com.application.security.services;
 
-import com.application.security.entity.PasswordResetToken;
-import com.application.security.entity.User;
-import com.application.security.repository.PasswordResetTokenRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Optional;
+import com.application.security.dto.ChangePasswordResetRequest;
+import org.springframework.http.ResponseEntity;
 
-@Service
-@RequiredArgsConstructor
 
-public class PasswordResetTokenService {
-   private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-   public void createPasswordResetTokenForUser(User user, String passwordToken) {
-      PasswordResetToken passwordRestToken = new PasswordResetToken(passwordToken, user);
-      passwordResetTokenRepository
-              .save(passwordRestToken);
-   }
 
-   public String validatePasswordResetToken(String passwordResetToken) {
-      PasswordResetToken passwordToken = passwordResetTokenRepository.findByToken(passwordResetToken);
-      if(passwordToken == null){
-         return "Invalid verification token";
-      }
-      User user = passwordToken.getUser();
-      Calendar calendar = Calendar.getInstance();
-      if ((passwordToken.getExpirationTime().getTime()-calendar.getTime().getTime())<= 0){
-         return "Link already expired, resend link";
-      }
-      return "valid";
-   }
-   public Optional<User> findUserByPasswordToken(String passwordResetToken) {
-      return Optional.ofNullable(passwordResetTokenRepository.findByToken(passwordResetToken).getUser());
-   }
 
-   public PasswordResetToken findPasswordResetToken(String token){
-      return passwordResetTokenRepository.findByToken(token);
-   }
+
+
+
+public interface PasswordResetTokenService {
+   ResponseEntity<String> verifyEmail(String email);
+
+
+   ResponseEntity<String> verifyOtp(Integer otp, String email);
+
+
+   ResponseEntity<String> changePasswordHandler(
+           ChangePasswordResetRequest changePasswordResetRequest,
+           String email
+   );
+
+
 }
+
