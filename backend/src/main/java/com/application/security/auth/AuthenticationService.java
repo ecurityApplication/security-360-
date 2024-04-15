@@ -3,17 +3,15 @@ package com.application.security.auth;
 import com.application.security.configSecurity.JwtService;
 import com.application.security.email.EmailSender;
 import com.application.security.entity.Role;
+import com.application.security.entity.Token;
+import com.application.security.entity.TokenType;
 import com.application.security.entity.User;
-//import com.application.security.repository.RoleRepository;
 import com.application.security.repository.RoleRepository;
-import com.application.security.token.Token;
-import com.application.security.token.TokenRepository;
+import com.application.security.repository.TokenRepository;
 import com.application.security.repository.UserRepository;
 import com.application.security.services.PasswordResetTokenService;
 import com.application.security.services.UserDetailsServiceImpl;
 import com.application.security.tfa.TowFactorAuthenticationService;
-
-import com.application.security.token.TokenType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -259,13 +257,9 @@ public class AuthenticationService {
             .build();
   }
 
-  public User findUserByPasswordToken(String token) {
-    return passwordResetTokenService.findUserByPasswordToken(token).get();
-  }
 
-  public void createPasswordResetTokenForUser(User user, String passwordResetToken) {
-    passwordResetTokenService.createPasswordResetTokenForUser(user, passwordResetToken);
-  }
+
+
 
   public boolean oldPasswordIsValid(User user, String oldPassword){
     return passwordEncoder.matches(oldPassword, user.getPassword());
@@ -275,9 +269,7 @@ public class AuthenticationService {
     return repository.findByEmail(email);
   }
 
-  public String validatePasswordResetToken(String token) {
-    return passwordResetTokenService.validatePasswordResetToken(token);
-  }
+
 
   public void changePassword(User theUser, String newPassword) {
     theUser.setPassword(passwordEncoder.encode(newPassword));

@@ -1,4 +1,4 @@
-package com.application.security.services;
+package com.application.security.dto;
 
 import lombok.Builder;
 import lombok.Getter;

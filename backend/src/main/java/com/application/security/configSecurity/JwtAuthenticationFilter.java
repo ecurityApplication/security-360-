@@ -2,7 +2,7 @@ package com.application.security.configSecurity;
 
 
 //import com.application.security.services.UserDetailsServiceImpl;
-import com.application.security.token.TokenRepository;
+import com.application.security.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

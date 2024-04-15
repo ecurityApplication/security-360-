@@ -1,5 +1,6 @@
-package com.application.security.token;
+package com.application.security.repository;
 
+import com.application.security.entity.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
