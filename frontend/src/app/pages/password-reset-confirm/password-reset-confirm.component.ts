@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
+
 import { ToastrService } from 'ngx-toastr';
-import { PasswordRequestUtilnewpassword } from '../../models/PasswordRequestUtilnewpassword';
 import { Router } from '@angular/router';
-import { ForgetPasswordService } from '../../service/forget-password.service';
+import { ChangePasswordResetRequest } from '../../models/ChangePasswordResetRequest';
+import { PasswordResetTokenServiceService } from '../../service/password-reset-token-service.service';
 
 @Component({
   selector: 'app-password-reset-confirm',
@@ -11,37 +11,94 @@ import { ForgetPasswordService } from '../../service/forget-password.service';
   styleUrl: './password-reset-confirm.component.css',
 })
 export class PasswordResetConfirmComponent {
-  newPassword!: string;
-  confirmPassword!: string;
+ 
+ 
+  confirmationPassword!: string;
+   newPassword!: string;
+  // confirmPassword!: string;
   email!: string;
   otp!: number;
+ 
+
   constructor(
-    private forgetPasswordService: ForgetPasswordService,
+    private passwordResetTokenService: PasswordResetTokenServiceService ,
     private toastr: ToastrService,
     private router: Router
   ) {}
 
-  verifyOtp() {
-    this.forgetPasswordService.verifyOtp(this.otp, this.email).subscribe(
-      response => {
-        console.log(response);
+  // verifyOtp() {
+  //   this.passwordResetTokenService.verifyOtp(this.otp, this.email).subscribe(
+  //     response => {
+  //       // Handle successful response
+  //       console.log(response);
+  //     },
+  //     error => {
+  //       // Handle error
+  //       console.error(error);
+  //     }
+  //   );
+  // }
+ 
+  // onSubmit() {
+  //   if (this.newPassword !== this.confirmationPassword) {
+  //     // Passwords don't match, handle error
+  //     return;
+  //   }
+
+  //   const changePasswordRequest: ChangePasswordResetRequest = {
+  //     newPassword: this.newPassword,
+  //     confirmationPassword: this.confirmationPassword
+  //   };
+
+  //   this.passwordResetTokenService.changePasswordHandler(this.email, changePasswordRequest)
+  //     .subscribe(
+  //       response => {
+  //         // Password changed successfully, handle success
+  //         console.log('Password changed successfully:', response);
+  //       },
+  //       error => {
+  //         // Error occurred while changing password, handle error
+  //         console.error('Error changing password:', error);
+  //       }
+  //     );
+  // }
+   
+
+  verifyOtpAndChangePassword() {
+    // Call the verifyOtp method
+    this.passwordResetTokenService.verifyOtp(this.otp, this.email).subscribe(
+      (response) => {
+        // Handle successful OTP verification
+        if (response === 'OTP verified') {
+          // Now change the password
+          const changePasswordRequest: ChangePasswordResetRequest = {
+            newPassword: this.newPassword,
+            confirmationPassword: this.confirmationPassword,
+          };
+
+          this.passwordResetTokenService
+            .changePasswordHandler(changePasswordRequest, this.email)
+            .subscribe(
+              (passwordChangeResponse) => {
+                // Handle successful password change
+                console.log('Password changed successfully:', passwordChangeResponse);
+              },
+              (error) => {
+                // Handle password change error
+                console.error('Error changing password:', error);
+              }
+            );
+        } else {
+          // Handle OTP verification failure
+          console.error('OTP verification failed:', response);
+        }
       },
-      error => {
-        console.error(error);
+      (error) => {
+        // Handle OTP verification error
+        console.error('Error verifying OTP:', error);
       }
     );
   }
-  // changePassword() {
-  //   const changePasswordRequest: ChangePasswordResetRequest = {
-  //     newPassword: this.newPassword,
-  //     confirmationPassword: this.confirmPassword
-  //   };
-  //   this.forgetPasswordService.changePassword(changePasswordRequest, this.email).subscribe({
-  //     next: (response) => {
-  //       console.log('response ', response);
-       
-  //     },
-  //   });
-  //   this.router.navigate(['login']);
-  // }
+
 }
+

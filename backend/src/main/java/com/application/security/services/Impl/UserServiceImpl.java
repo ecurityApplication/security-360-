@@ -4,21 +4,21 @@ import com.application.security.configSecurity.JwtService;
 import com.application.security.dto.UserDTO;
 import com.application.security.dto.UserGetDTO;
 import com.application.security.entity.Role;
+import com.application.security.entity.Token;
+import com.application.security.entity.TokenType;
 import com.application.security.entity.User;
 import com.application.security.repository.RoleRepository;
-import com.application.security.repository.UserRepository;
-import com.application.security.entity.Token;
 import com.application.security.repository.TokenRepository;
-import com.application.security.entity.TokenType;
+import com.application.security.repository.UserRepository;
 import com.application.security.services.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -43,14 +43,22 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById( id );
     }
 
-    @Override
+
+   /* @Override
     public List<UserGetDTO> getAllUsers() {
         Iterable<User> users = userRepository.findAll();
         return StreamSupport.stream( users.spliterator(), false )
                 .filter( user -> !"ROLE_ADMIN".equalsIgnoreCase( user.getUsername() ) )
                 .map( user -> new ModelMapper().map( user, UserGetDTO.class ) )
                 .collect( Collectors.toList() );
-    }
+    }*/
+   @Override
+   public List<UserGetDTO> getUsers() {
+       List<User> users = StreamSupport
+               .stream(userRepository.findAll().spliterator(), false)
+               .collect(Collectors.toList());
+       return UserGetDTO.UsersToUserDtos(users);
+   }
 
     @Override
     public User registerNewUser(UserDTO userDTO) {

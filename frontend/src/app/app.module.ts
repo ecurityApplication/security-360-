@@ -2,7 +2,6 @@ import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
-import { RegisterComponent } from './pages/register/register.component';
 import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
@@ -48,11 +47,12 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { CreateRoleComponent } from './pages/create-role/create-role.component';
 import { EditRoleComponent } from './pages/edit-role/edit-role.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent],
+  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
@@ -75,7 +75,7 @@ import { EditRoleComponent } from './pages/edit-role/edit-role.component';
     RouterOutlet,
     HttpClientModule,
     FormsModule,
-    RegisterComponent,
+   
     MatDividerModule,
     MatGridListModule,
     MatDrawerContainer,

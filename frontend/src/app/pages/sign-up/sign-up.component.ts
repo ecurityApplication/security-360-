@@ -1,25 +1,17 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { RegisterRequest } from '../../models/register-request';
 import { AuthenticationResponse } from '../../models/authentication-response';
-import { VerificationRequest } from '../../models/verification-request';
 import { AuthService } from '../../service/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-// import { NgToastService } from 'ng-angular-popup';
+import { VerificationRequest } from '../../models/verification-request';
 
 @Component({
-  selector: 'app-register',
-
-  standalone: true,
-  imports: [RouterLink, FormsModule, NgIf],
-
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrl: './sign-up.component.css'
 })
-export class RegisterComponent {
+export class SignUpComponent {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
@@ -128,5 +120,4 @@ export class RegisterComponent {
       duration:3000,
        position:'topRight'})
   }
-   
 }

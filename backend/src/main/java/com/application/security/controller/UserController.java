@@ -33,7 +33,7 @@ UserService userService;
 
     @GetMapping("/getAllUsers")
     public List<UserGetDTO> getAllUsers(){
-        return userService.getAllUsers();
+        return userService.getUsers();
     }
 
     @DeleteMapping("/remove-user/{id}")

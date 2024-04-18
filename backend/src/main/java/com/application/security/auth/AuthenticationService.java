@@ -1,11 +1,13 @@
 package com.application.security.auth;
 
 import com.application.security.configSecurity.JwtService;
+import com.application.security.dto.Response;
 import com.application.security.email.EmailSender;
 import com.application.security.entity.Role;
 import com.application.security.entity.Token;
 import com.application.security.entity.TokenType;
 import com.application.security.entity.User;
+import com.application.security.event.RegistrationCompleteEvent;
 import com.application.security.repository.RoleRepository;
 import com.application.security.repository.TokenRepository;
 import com.application.security.repository.UserRepository;
@@ -17,7 +19,10 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.application.security.services.ChangePasswordService.applicationUrl;
 
 
 @Service
@@ -48,11 +55,20 @@ public class AuthenticationService {
   private final UserDetailsServiceImpl userDetailsService;
   //private final EmailValidator emailValidator;
   private final EmailSender emailSender;
+  private final ApplicationEventPublisher publisher;
 
+  public ResponseEntity<Response> register(RegisterRequest userRequest,final HttpServletRequest request) {
+    boolean userExists = repository.findAll()
+            .stream()
+            .anyMatch(user -> userRequest.getEmail().equalsIgnoreCase(user.getEmail()));
 
-  public AuthenticationResponse register(RegisterRequest request) {
+    if (userExists) {
+      return ResponseEntity.badRequest().body( Response.builder()
+              .responseMessage("User with provided email  already exists!")
+              .build());
+    }
     // add roles to users
-    List<String> strRoles = request.getRole();
+    List<String> strRoles = userRequest.getRole();
     List<Role> roles = new ArrayList<>();
     // if (strRoles != null && !strRoles.isEmpty()) {
     //     strRoles.forEach(role -> {
@@ -82,27 +98,29 @@ public class AuthenticationService {
 
     // Create a new user entity with the provided details
     var user = User.builder()
-            .username(request.getUsername())
-            .email(request.getEmail())
-            .password(passwordEncoder.encode(request.getPassword()))
+            .username(userRequest.getUsername())
+            .email(userRequest.getEmail())
+            .password(passwordEncoder.encode(userRequest.getPassword()))
             .roles(roles)
-            .mfaEnabled(request.isMfaEnabled())
+            .mfaEnabled(true)
             .build();
 
     // Generate MFA secret if enabled
-    if (request.isMfaEnabled()) {
+    //if (request.isMfaEnabled()) {
       user.setSecret(tfaService.generateNewSecret());
-    }
+   // }
 
     // Save the user entity to the database
     var savedUser = repository.save(user);
+    publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
+
 
     // Generate JWT token and refresh token
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+   // var jwtToken = jwtService.generateToken(user);
+    //var refreshToken = jwtService.generateRefreshToken(user);
 
     // Save user token (not sure about the implementation of saveUserToken method)
-    saveUserToken(savedUser, jwtToken);
+    //saveUserToken(savedUser, jwtToken);
 
     // Generate QR code image URL
     String qrCodeImageUrl = tfaService.generateQrCodeImgUri(user.getSecret());
@@ -110,13 +128,13 @@ public class AuthenticationService {
     // Send registration details to user's email
     String emailSubject = "Registration Confirmation";
     String emailBody = "<html><body>"
-            + "<p>Dear " + request.getUsername() + ",</p>"
+            + "<p>Dear " + userRequest.getUsername() + ",</p>"
             + "<p>Thank you for registering with us!</p>"
             + "<p>Your registration details:</p>"
             + "<ul>"
-            + "<li>Username: " + request.getUsername() + "</li>"
-            + "<li>Email: " + request.getEmail() + "</li>"
-            + "<li>MFA Enabled: " + request.isMfaEnabled() + "</li>"
+            + "<li>Username: " + userRequest.getUsername() + "</li>"
+            + "<li>Email: " + userRequest.getEmail() + "</li>"
+            + "<li>MFA Enabled: " + userRequest.isMfaEnabled() + "</li>"
             + "</ul>"
             + "<p>Please keep this information secure.</p>"
             + "<p>Best regards,<br/>The Team</p>"
@@ -126,12 +144,16 @@ public class AuthenticationService {
     emailSender.send(user.getEmail(), emailSubject, emailBody, qrCodeImageUrl);
 
     // Return authentication response with tokens and MFA details
-    return AuthenticationResponse.builder()
-            .secretImageUri(qrCodeImageUrl)
-            // .accessToken(jwtToken)
-            // .refreshToken(refreshToken)
-            .mfaEnabled(user.isMfaEnabled())
-            .build();
+    return new ResponseEntity<>(
+            Response.builder()
+
+                    .responseMessage("Success! Please, check your email to complete your registration")
+                    .email(savedUser.getEmail())
+                    .secretImageUri(qrCodeImageUrl)
+                    .mfaEnabled(true)
+                    .build(),
+            HttpStatus.CREATED
+    );
   }
 
 
@@ -150,19 +172,19 @@ public class AuthenticationService {
             .orElseThrow();
 
     // Check if user has admin role (improved)
-    if (user.getRoles().stream().anyMatch( role -> role.getRoleName().equals( "ROLE_ADMIN" )  )) {
+   // if (user.getRoles().stream().anyMatch( role -> role.getRoleName().equals( "ROLE_ADMIN" )  )) {
 
       // Admin with MFA enabled?
       //if the user enable the mFA
-      if (user.isMfaEnabled()) {
-        return AuthenticationResponse.builder()
-                .accessToken( "" )
-                .refreshToken( "" )
-                .mfaEnabled( true )
-                .role(user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
-                .build();
-      }
-    }
+     // if (user.isMfaEnabled()) {
+       // return AuthenticationResponse.builder()
+              //  .accessToken( "" )
+               // .refreshToken( "" )
+               // .mfaEnabled( true )
+               // .role(user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
+               // .build();
+     // }
+    //}
     // Generate JWT token and refresh token
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -179,8 +201,7 @@ public class AuthenticationService {
                     .collect(Collectors.toList()))
             //mfa Enabled
             //.mfaEnabled(false)
-            .mfaEnabled(user.isMfaEnabled() &&  // Check user setting
-                    user.getRoles().stream().anyMatch(role -> role.getRoleName().equals("ROLE_ADMIN")))
+            .mfaEnabled(true)
             .build();
     // Helper method to get role names as a comma-separated string
   }
