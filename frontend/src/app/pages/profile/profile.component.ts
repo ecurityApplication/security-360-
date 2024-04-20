@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterRequest } from '../../models/register-request';
 import { UserService } from '../../service/user.service';
 import { StorageService } from '../../service/storage.service';
 import { User } from '../../models/user';
+import { ChangePasswordResetService } from '../../service/change-password-reset.service';
+import { ChangePasswordReset } from '../../models/ChangePasswordReset';
+import { IncidentService } from '../../service/incident.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,23 +15,53 @@ import { User } from '../../models/user';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-//   currentUser: any;
-// registerRequest : RegisterRequest = {}
-//   constructor(private authService :AuthService ,private router :Router , private userService :UserService,private storageService: StorageService){ }
-//   user : User[] = [];
-//   ngOnInit(): void {
-//     //this.currentUser = this.storageService.getRole();
-//     this.getUser();
-//   //  this.getUser();
-//     // this.AuthService.g
-//   }
-//   getUser(){
-//     this.userService.getUser().subscribe(data=>{
-//       console.log("user data",data)
-//       this.user = data;
-//     }, error => {
-//       console.error("Error fetching user data:", error);
-//       // Handle error appropriately, such as displaying an error message to the user
-//     })
-//   }
+  user: User = new  User();
+  id!:number;
+  resetRequest: ChangePasswordReset = {
+    currentPassword: '',
+    newPassword: '',
+    confirmationPassword: ''
+  };
+ 
+  constructor(
+   private passwordService: ChangePasswordResetService,
+    private userService :UserService,
+    private route: ActivatedRoute,
+    private router:Router) {}
+  //  ngOnInit(): void {
+  //   this.getUser();
+  // }
+  //  getUser(): void {
+
+  //   this.userService.getUserById(this.id).subscribe(
+  //     (data: User) => {
+  //       console.log(data);
+        
+  //       this.user = data;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching user data:', error);
+  //       // Handle error appropriately, such as displaying an error message to the user
+  //     }
+  //   );
+  // }
+
+
+
+changePassword(): void {
+  console.log(this.resetRequest,"resetRequest");
+  
+  this.passwordService.changePassword(this.resetRequest).subscribe(
+     (response:any) => {
+      console.log("response",response);
+      
+     // this.resetRequest=response;
+      console.log('Password changed successfully');
+      // Handle success - redirect, show success message, etc.
+    },error => {
+      console.error('Error changing password:',error);
+      // Handle error - display error message, etc.
+    }
+  );
+}
 }

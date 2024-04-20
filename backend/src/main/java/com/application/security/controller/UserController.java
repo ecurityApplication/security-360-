@@ -1,20 +1,22 @@
 package com.application.security.controller;
+
+import com.application.security.dto.Response;
 import com.application.security.dto.UserDTO;
 import com.application.security.dto.UserGetDTO;
-import jakarta.annotation.PostConstruct;
-import org.springframework.http.ResponseEntity;
-
 import com.application.security.entity.User;
 import com.application.security.repository.RoleRepository;
 import com.application.security.repository.UserRepository;
 import com.application.security.services.UserService;
-
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 //@CrossOrigin("*")
 @RestController
@@ -33,7 +35,7 @@ UserService userService;
 
     @GetMapping("/getAllUsers")
     public List<UserGetDTO> getAllUsers(){
-        return userService.getAllUsers();
+        return userService.getUsers();
     }
 
     @DeleteMapping("/remove-user/{id}")
@@ -42,9 +44,9 @@ UserService userService;
     }
 
     @PostMapping ("/Add-user")
-    public User registerNewUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Response> registerNewUser(@RequestBody @Valid UserDTO userDTO, final HttpServletRequest request) {
 
-        return userService.registerNewUser(userDTO);
+        return userService.registerNewUser(userDTO,request);
     }
 
     @PutMapping("/updateUser/{id}")

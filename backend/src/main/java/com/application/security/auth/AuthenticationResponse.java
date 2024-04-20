@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -20,6 +19,6 @@ public class AuthenticationResponse {
     // @JsonProperty("refresh_token")
     private String refreshToken;
     private List<String> role;
-    private boolean mfaEnabled;
+    private boolean mfaEnabled=true;
     private String secretImageUri;
 }

@@ -1,5 +1,11 @@
-<section class="home-section">
+<!-- <section class="home-section">
     <div class="header-section">
+      <section class="home-section">
+        <div class="home-content">
+          <i class='bx bx-menu' (click)="toggleSidebar()"></i>
+          <span class="text">Drop Down Sidebar</span>
+        </div>
+      </section>
       <div class="text">Dashboard</div>
       <div class="group">
         <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -12,4 +18,11 @@
         <input placeholder="Search" type="search" class="input" />
       </div>
     </div>
-  </section>
+  </section> -->
+<mat-toolbar>
+    <mat-toolbar-row class="justify-content-between">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>

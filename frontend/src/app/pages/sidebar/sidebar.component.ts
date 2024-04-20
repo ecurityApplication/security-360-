@@ -25,7 +25,7 @@ import { StorageService } from '../../service/storage.service';
       // darkMode = false;
       // sidebarClosed = false;
      
-
+    
   //  ngOnInit(): void {
   //   this.getIncidentByCategory('yourCategory'); // Specify your category here
   // }

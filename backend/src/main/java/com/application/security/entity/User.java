@@ -31,7 +31,7 @@ public class User implements UserDetails {
 	private Boolean enabled = false;
 	//@Builder.Default
 	//private boolean isEnabled = false;
-	private boolean mfaEnabled;// tell the backend if the user will use the 2FA or not
+	private boolean mfaEnabled=true;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
 	// Role-Based Authentication
 	// the many user might have different role

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
+import { Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { PasswordRequestUtilnewpassword } from '../../models/PasswordRequestUtilnewpassword';
 import { Router } from '@angular/router';
-import { ForgetPasswordService } from '../../service/forget-password.service';
+import { ChangePasswordResetRequest } from '../../models/ChangePasswordResetRequest';
+import { PasswordResetTokenServiceService } from '../../service/password-reset-token-service.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-password-reset-confirm',
@@ -11,37 +12,93 @@ import { ForgetPasswordService } from '../../service/forget-password.service';
   styleUrl: './password-reset-confirm.component.css',
 })
 export class PasswordResetConfirmComponent {
-  newPassword!: string;
-  confirmPassword!: string;
-  email!: string;
   otp!: number;
-  constructor(
-    private forgetPasswordService: ForgetPasswordService,
-    private toastr: ToastrService,
-    private router: Router
-  ) {}
+  newPassword!: string;
+  confirmationPassword!: string;
+  email!: string;
 
-  verifyOtp() {
-    this.forgetPasswordService.verifyOtp(this.otp, this.email).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
-        console.error(error);
-      }
-    );
+  passwordResetForm: FormGroup;
+  constructor(
+    private passwordResetTokenService: PasswordResetTokenServiceService,
+    private toastr: ToastrService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.passwordResetForm = this.formBuilder.group({
+      otp: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
   }
-  // changePassword() {
-  //   const changePasswordRequest: ChangePasswordResetRequest = {
-  //     newPassword: this.newPassword,
-  //     confirmationPassword: this.confirmPassword
-  //   };
-  //   this.forgetPasswordService.changePassword(changePasswordRequest, this.email).subscribe({
-  //     next: (response) => {
-  //       console.log('response ', response);
-       
+
+  onSubmit() {
+    if (this.passwordResetForm.valid) {
+      const otp = this.passwordResetForm.value.otp;
+      const newPassword = this.passwordResetForm.value.newPassword;
+      const confirmationPassword = this.passwordResetForm.value.confirmPassword;
+
+      if (newPassword === confirmationPassword) {
+        const changePasswordRequest: ChangePasswordResetRequest = {
+          newPassword: newPassword,
+          confirmationPassword: confirmationPassword
+        };
+
+        this.passwordResetTokenService.verifyOtp(otp, this.email).subscribe(() => {
+          this.passwordResetTokenService.changePasswordHandler(changePasswordRequest, this.email).subscribe(() => {
+            // Password updated successfully
+            this.toastr.success('Password updated successfully');
+            this.router.navigate(['/login']); // Assuming redirection after password change
+          }, (error) => {
+            // Handle password change error
+            console.error('Error changing password:', error);
+            this.toastr.error('Error changing password');
+          });
+        }, (error) => {
+          // Handle OTP verification error
+          console.error('Error verifying OTP:', error);
+          this.toastr.error('Error verifying OTP');
+        });
+      } else {
+        // Passwords do not match
+        this.toastr.error('Passwords do not match');
+      }
+    }
+  }
+  // verifyOtpAndChangePassword() {
+  //   // Call the verifyOtp method
+  //   this.passwordResetTokenService.verifyOtp(this.otp, this.email).subscribe(
+  //     (response) => {
+  //       // Handle successful OTP verification
+  //       if (response === 'OTP verified') {
+  //         // Now change the password
+  //         const changePasswordRequest: ChangePasswordResetRequest = {
+  //           newPassword: this.newPassword,
+  //           confirmationPassword: this.confirmationPassword,
+  //         };
+
+  //         this.passwordResetTokenService
+  //           .changePasswordHandler(changePasswordRequest, this.email)
+  //           .subscribe(
+  //             (passwordChangeResponse) => {
+  //               // Handle successful password change
+  //               console.log('Password changed successfully:', passwordChangeResponse);
+  //             },
+  //             (error) => {
+  //               // Handle password change error
+  //               console.error('Error changing password:', error);
+  //             }
+  //           );
+  //       } else {
+  //         // Handle OTP verification failure
+  //         console.error('OTP verification failed:', response);
+  //       }
   //     },
-  //   });
-  //   this.router.navigate(['login']);
+  //     (error) => {
+  //       // Handle OTP verification error
+  //       console.error('Error verifying OTP:', error);
+  //     }
+  //   );
   // }
+  
 }
+

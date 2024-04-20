@@ -10,5 +10,7 @@ import lombok.Data;
 public class Response {
    private String responseMessage;
    private String email;
+   private String secretImageUri;
+   private boolean mfaEnabled=true;
 }
 

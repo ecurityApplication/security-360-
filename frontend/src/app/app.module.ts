@@ -1,15 +1,15 @@
 import {LoginComponent} from "./pages/login/login.component";
-// import {RegisterComponent} from "./pages/register/register.component";
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
-import { RegisterComponent } from './pages/register/register.component';
 import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
 import { BrowserModule , provideClientHydration} from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +17,7 @@ import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/pa
 import { NgModule } from '@angular/core';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RouterOutlet,RouterModule, Routes  } from "@angular/router";
+import { RouterOutlet,RouterModule, Routes ,RouterLinkActive } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -28,6 +28,7 @@ import { UpdateEscalationComponent } from './pages/update-escalation/update-esca
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 // import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from "@costlydeveloper/ngx-awesome-popup";
 import {
   NgxAwesomePopupModule,
@@ -48,11 +49,12 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { CreateRoleComponent } from './pages/create-role/create-role.component';
 import { EditRoleComponent } from './pages/edit-role/edit-role.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
@@ -75,17 +77,20 @@ import { EditRoleComponent } from './pages/edit-role/edit-role.component';
     RouterOutlet,
     HttpClientModule,
     FormsModule,
-    RegisterComponent,
+    MatToolbarModule,
     MatDividerModule,
     MatGridListModule,
     MatDrawerContainer,
     MatSidenavModule,
     NgToastModule,
     MatDialogModule,
-    
-
-   
-   
+    MatIconModule,
+    BrowserModule,
+    MatListModule,
+    MatSidenavModule,
+    ReactiveFormsModule,
+    RouterModule,
+    RouterLinkActive,
     // MatToolbarModule,
     CommonModule,
     // BrowserAnimationsModule, // required animations module

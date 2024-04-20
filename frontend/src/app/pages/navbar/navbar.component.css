@@ -1,25 +1,15 @@
-/* .home-section {
-    position: fixed;
-    min-height: 10vh;
-    top: 0;
-    width: 100%;
-    left: 78px;
-    width: calc(100% - 78px);
-    transition: all 0.5s ease;
-    z-index: 99;
-    flex-direction: column;
-  } */
+/* 
   .home-section {
     position: fixed;
     min-height: 10vh;
     top: 0;
     width: 100%;
-    left: 78px; /* Adjust based on your layout */
+    left: 78px; 
     width: calc(100% - 78px);
     transition: all 0.5s ease;
     z-index: 99;
     flex-direction: column;
-    background-color: white; /* Ensure proper visibility */
+    background-color: white; 
 }
   .header-section {
     display: flex;
@@ -42,7 +32,7 @@
       display: none;
     }
   }
-  /* input-search */
+
   .group {
     position: absolute;
     display: flex;
@@ -96,7 +86,7 @@
     flex-wrap: wrap;
   }
   
-  /* btn Add */
+ 
   .Btn {
     position: relative;
     display: flex;
@@ -120,7 +110,7 @@
     right: 0;
     margin-right: 20px;
     background-color: rgb(16, 51, 165);
-    /* fill: white; */
+  
     transition-duration: 0.3s;
     color: #fff;
   }
@@ -141,5 +131,54 @@
     transform: translate(3px, 3px);
     transition-duration: 0.3s;
     box-shadow: 2px 2px 0px rgb(16, 51, 165);
+  } */
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+   background: linear-gradient(#000168,rgb(49, 20, 211), #000168);
+
+   /* background: rgba(0,0,0,0.5); */
   }
+  button {
+    outline: none;
+    border: 0;
+    background: transparent;
+  }
+  .form{
+
+    position: relative;
+}
+
+.mat-icon{
+
+
+  color: #9ca3af;
+
+}
+
+
+.form .mat-icon{
+
+    position: absolute;
+    top:20px;
+    left: 20px;
+    color: #9ca3af;
+
+}
+
+
+
+.form-input{
+
+    height: 55px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:none;
+}
   
