@@ -24,6 +24,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 
 
 
+
 const routes: Routes = [
   {
     path: 'login',
@@ -86,6 +87,8 @@ const routes: Routes = [
     path:'navbar',
     component: NavbarComponent
   },
+  
+ 
   {path: 'update-escalation/:id', component: UpdateEscalationComponent},
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
  

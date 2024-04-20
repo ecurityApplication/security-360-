@@ -48,12 +48,16 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { CreateRoleComponent } from './pages/create-role/create-role.component';
 import { EditRoleComponent } from './pages/edit-role/edit-role.component';
+import { PasswordchangeService } from "./service/passwordchange.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 
 
 @NgModule({
   declarations: [AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent],
   imports: [
+    
     NgxAwesomePopupModule.forRoot({
       colorList: {
         success: '#3caea3', // optional
@@ -82,7 +86,8 @@ import { EditRoleComponent } from './pages/edit-role/edit-role.component';
     MatSidenavModule,
     NgToastModule,
     MatDialogModule,
-    
+    BrowserAnimationsModule,
+  
 
    
    
@@ -93,9 +98,17 @@ import { EditRoleComponent } from './pages/edit-role/edit-role.component';
       timeOut: 2000,
       progressBar: true,
     }),
+   
     
+    
+    // MatToolbarModule,
+   
+    // MatButtonModule,
+    // MatIconModule,
+  
   ],
   providers: [
+    // PasswordchangeService,
     HttpClient,
      provideAnimationsAsync(),
      {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
