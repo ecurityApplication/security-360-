@@ -1,4 +1,4 @@
-/* 
+
 * {
   margin: 0;
   padding: 0;
@@ -141,8 +141,8 @@ tr:hover td {
   align-items: center;
   margin: 0 5px;
   cursor: pointer;
-} */
-* {
+}
+/* * {
   margin: 0;
   padding: 0;
 
@@ -157,16 +157,10 @@ width: auto !important;
 }
 }
 
-/*@page {
-  size: landscape;
-  margin: 0; 
-}*/
 
 body {
   min-height: 100vh;
-  /* background: url(assets/880.jpg) center / cover; */
-  /* background-image: url('/assets/880.jpg') center / cover; */
-/* background-color:  #57709b; */
+ 
 background-color:  #7389ae;
 
   display: flex;
@@ -432,4 +426,4 @@ thead th span.icon-arrow {
   transform: translate(3px, 3px);
   transition-duration: 0.3s;
   box-shadow: 2px 2px 0px rgb(16, 51, 165);
-}
+} */

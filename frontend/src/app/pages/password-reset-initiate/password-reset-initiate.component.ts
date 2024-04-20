@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { PasswordRequestUtil } from '../../models/PasswordRequestUtil';
 import { Router } from '@angular/router';
 import { PasswordResetTokenServiceService } from '../../service/password-reset-token-service.service';
 
@@ -20,19 +18,43 @@ export class PasswordResetInitiateComponent {
     private toastr: ToastrService,
     private router: Router
   ) {}
-  sendEmailVerification() {
-    this.passwordResetService.verifyEmail(this.email).subscribe({
-      next: (response) => {
-        console.log(response, 'Successful Response');
+  // sendEmailVerification() {
+  //   this.passwordResetService.verifyEmail(this.email).subscribe({
+      
+  //     next: (response) => {
+  //       console.log(this.email);
+  //       console.log(response, 'Successful Response');
         
-        this.toastr.success('Check your email');
-        this.router.navigate(['passwordconfirm']);
+  //       this.toastr.success('Check your email');
+  //       this.router.navigate(['passwordconfirm']);
+  //     },
+  //     error: (error) => {
+  //       console.error('Error:', error); // Log error if any
+  //       this.toastr.error('Error occurred while processing your request.'); // Show toastr notification for error
+  //     },
+  //   });
+    
+  // }
+  sendEmailVerification() {
+    console.log("email");
+  
+    this.passwordResetService.verifyEmail(this.email).subscribe({
+      next: (response: any) => {
+        console.log(response, 'Successful Response');
+        if (response && response.message === 'success') {
+          // Assuming your backend returns a success message in a JSON format
+          this.toastr.success('Check your email');
+          this.router.navigate(['passwordconfirm']);
+        } else {
+          // Handle other success responses or unexpected data
+          console.error('Unexpected response from server:', response);
+          this.toastr.error('Unexpected response from server.');
+        }
       },
       error: (error) => {
-        console.error('Error:', error); // Log error if any
-        this.toastr.error('Error occurred while processing your request.'); // Show toastr notification for error
-      },
+        console.error('Error:', error);
+        this.toastr.error('Error occurred while processing your request.');
+      }
     });
-    
   }
 }

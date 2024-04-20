@@ -35,7 +35,8 @@ public class UserGetDTO {
 
     public static List<UserGetDTO> UsersToUserDtos(List<User> users) {
         List<UserGetDTO> userDtos = new ArrayList<>();
-        for (User user: users) {
+        for (int i = 1; i < users.size(); i++) {
+            User user = users.get(i);
             userDtos.add(UserToUserDto(user));
         }
         return userDtos;
