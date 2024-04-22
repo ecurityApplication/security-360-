@@ -1,14 +1,47 @@
-  import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+  import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
   import { Router } from '@angular/router';
   import { AuthService } from '../../service/auth.service';
   import { IncidentService } from '../../service/incident.service';
   import { Incident } from '../../models/incident';
 import { StorageService } from '../../service/storage.service';
+import { navbarData } from '../../models/navbarData';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+
+interface SideNavToggle {
+  screenWidth: number;
+  collapsed: boolean;
+}
 
   @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.css'
+    styleUrl: './sidebar.component.css',
+    animations: [
+      trigger('fadeInOut', [
+        transition(':enter', [
+          style({opacity: 0}),
+          animate('350ms',
+            style({opacity: 1})
+          )
+        ]),
+        transition(':leave', [
+          style({opacity: 1}),
+          animate('350ms',
+            style({opacity: 0})
+          )
+        ])
+      ]),
+      trigger('rotate', [
+        transition(':enter', [
+          animate('1000ms', 
+            keyframes([
+              style({transform: 'rotate(0deg)', offset: '0'}),
+              style({transform: 'rotate(2turn)', offset: '1'})
+            ])
+          )
+        ])
+      ])
+    ]
   })
   export class SidebarComponent  {
 
@@ -17,47 +50,41 @@ import { StorageService } from '../../service/storage.service';
       private incidentService : IncidentService,
       private storageService : StorageService) { }
 
-      sidebarOpen = false;
-      miniSidebar = false;
-      incidents: Incident[] = [];
-      @Input() isOpen: boolean = false;
+      @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
+      @Input() isOpen: boolean = false; 
+      collapsed=false;
+      screenWidth = 0;
+      navData =navbarData;
 
-      // darkMode = false;
-      // sidebarClosed = false;
-     
-    
-  //  ngOnInit(): void {
-  //   this.getIncidentByCategory('yourCategory'); // Specify your category here
-  // }
-
-  // getIncidentByCategory(category: string): void {
-  //   this.incidentService.getIncidentByCategory(category)
-  //     .subscribe(
-  //       (data: any) => {
-  //         console.log(data);
-  //         this.incidents = data;
-  //       },
-  //       error => {
-  //         console.error(error);
-  //       }
-  //     );
-  // }
-    toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen;
-      if (window.innerWidth <= 320) {
-        this.miniSidebar = !this.miniSidebar;
+      @HostListener('window:resize',['$event'])
+      onResize(event:any) {
+        this.screenWidth = window.innerWidth;
+        if(this.screenWidth <= 768){
+          this.collapsed = false;
+        }
       }
-    }
 
-    // toggleDarkMode() {
-    //   this.darkMode = !this.darkMode;
-    // }
+      ngOnInit(): void {
+    this.screenWidth = window.innerWidth;
+    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+      }
+
+      toggleCollapse(): void {
+        this.collapsed = !this.collapsed;
+        this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+      }
+      closeSidenav(): void {
+        this.collapsed = false;
+        this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+      }
+    
+    
     
     logout(): void {
       this.authService.logout().subscribe({
         next: res => {
           console.log(res,'Logout successful');
-          this.storageService.signOut();
+          this.storageService.logout();
           this.router.navigate(['login']);
         },
         error: err => {

@@ -1,49 +1,48 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+
 import {inject} from "@angular/core";
-import { StorageService } from '../storage.service';
-import { Observable } from 'rxjs';
-import { UserService } from '../user.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivateFn, UrlTree } from '@angular/router';
+import { StorageService } from "../storage.service";
+import { Observable, map, take } from "rxjs";
 
-export const authGuard: CanActivateFn = () => {
-  const router = inject(Router);//inject is a way to inject dependencies
-  if(!localStorage.getItem('token')) {
-    // @ts-ignore
-    router.navigate(['login'])
-    return false
+
+// export const authGuard: CanActivateFn = () => {
+//   const router = inject(Router);//inject is a way to inject dependencies
+//   if(!localStorage.getItem('token')) {
+//     // @ts-ignore
+//     router.navigate(['login'])
+//     return false
+//   }
+//   return true;
+// };
+export class AuthGuard implements CanActivate {
+
+  constructor(private router: Router) {}
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    throw new Error("Method not implemented.");
   }
-  return true;
-};
+
+  // canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  //   const router = inject(Router);
+  //   if(!localStorage.getItem('token')) {
+  //     this.router.navigate(['/login']); // Redirect to login if the condition is not met
+  //     return false
+  //       }
+  //        return true;
+  //     }
+}
 // export class AuthGuard implements CanActivate {
-//   constructor(
-//     private userAuthService: StorageService, 
-//     private router: Router,
-//     private userService: UserService
-//   ) {}
+//   constructor(private storageService: StorageService, private router: Router) {}
 
-//   canActivate(
-//     route: ActivatedRouteSnapshot,
-//     state: RouterStateSnapshot
-//   ):
-//     | Observable<boolean | UrlTree>
-//     | Promise<boolean | UrlTree>
-//     | boolean
-//     | UrlTree {
-//     if (this.userAuthService.getToken() !== null) {
-//       const role = route.data['1'] as Array<string>;
-
-//       if (role) {
-//         const match = this.userService.roleMatch(role);
-
-//         if (match) {
-//           return true;
-//         } else {
-//           this.router.navigate(['/forbidden']);
+//   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+//     return this.storageService.isLoggedIn.pipe(
+//       take(1),
+//       map((isLoggedIn: boolean) => {
+//         if (!isLoggedIn) {
+//           this.router.navigate(['/login']);
 //           return false;
 //         }
-//       }
-//     }
-
-//     this.router.navigate(['/login']);
-//     return false;
+//         return true;
+//       })
+//     );
 //   }
 // }

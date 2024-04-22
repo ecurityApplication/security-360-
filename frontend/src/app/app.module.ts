@@ -2,7 +2,6 @@ import {LoginComponent} from "./pages/login/login.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
-import {authGuard} from "./service/auth/auth.guard";
 import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
@@ -50,11 +49,18 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 import { CreateRoleComponent } from './pages/create-role/create-role.component';
 import { EditRoleComponent } from './pages/edit-role/edit-role.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BodyComponent } from './pages/body/body.component';
+import { PasswordResetVerifyCodeComponent } from './pages/password-reset-verify-code/password-reset-verify-code.component';
+import { OverlayModule } from "@angular/cdk/overlay";
+import { CdkMenuModule } from "@angular/cdk/menu";
+import { LoggedInLayoutComponent } from './pages/logged-in-layout/logged-in-layout.component';
+import { MenubarModule } from 'primeng/menubar';
 // import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
-
-
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
@@ -91,9 +97,12 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     ReactiveFormsModule,
     RouterModule,
     RouterLinkActive,
+  OverlayModule,
+  CdkMenuModule,
+  MatFormFieldModule, MatSelectModule,
     // MatToolbarModule,
     CommonModule,
-    // BrowserAnimationsModule, // required animations module
+     BrowserAnimationsModule, 
     ToastrModule.forRoot({
       timeOut: 2000,
       progressBar: true,
