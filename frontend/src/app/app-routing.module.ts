@@ -4,7 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {authGuard} from "./service/auth/auth.guard";
-import { RegisterComponent } from './pages/register/register.component';
+
 import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/password-reset-initiate.component';
 import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
@@ -19,6 +19,7 @@ import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 
 
@@ -30,10 +31,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'register',
-    component: RegisterComponent,canActivate:[authGuard],data : {role : ['1']}
-  },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent,canActivate:[authGuard],data : {role : ['1']}
+  // },
   {
     path: 'welcome',
     component: WelcomeComponent,
@@ -76,6 +77,10 @@ const routes: Routes = [
     component:CreateIncidentComponent
   },
   {
+    path:'signup',
+    component:SignUpComponent
+  },
+  {
     path:'calendar',
     component:CalendarComponent
   },
@@ -92,7 +97,7 @@ const routes: Routes = [
   {path: 'update-escalation/:id', component: UpdateEscalationComponent},
   {path: 'update-incident/:id', component: UpdateIncidentComponent},
  
-  { path: '', redirectTo: 'register', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

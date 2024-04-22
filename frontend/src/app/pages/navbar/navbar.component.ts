@@ -1,11 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-//import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  // toggleSidebar() {
+  //   this.toggleSidebarForMe.emit();
+  // }
 
   // constructor() { }
 

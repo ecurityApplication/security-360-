@@ -20,10 +20,10 @@ public class PasswordResetTokenController {
 
     }
 
-    @PostMapping("/verifyOtp/{otp}/{email}")
-    public ResponseEntity<String> verifyOtp(@PathVariable Integer otp,@PathVariable String email){
-        return passwordResetTokenService.verifyOtp(otp, email);
-    }
+        @PostMapping("/verifyOtp/{otp}/{email}")
+        public ResponseEntity<String> verifyOtp(@PathVariable Integer otp,@PathVariable String email){
+            return passwordResetTokenService.verifyOtp(otp, email);
+        }
 
     //Now User Can change the password
 

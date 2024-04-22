@@ -1,5 +1,4 @@
-<app-sidebar></app-sidebar>
-<app-navbar></app-navbar>
+<!-- <app-sidebar></app-sidebar> -->
   <div class="table">
     <div class="header-content">
       <p>Incident logging</p>
@@ -60,6 +59,7 @@
             <td>{{ incident.userName }}</td>
             <td [ngClass]="getHostClass(incident.hostStatus)">{{ incident.hostStatus }}</td>
             <td>{{ incident.investigation }}</td>
+            <!-- <td><button class="btn" (click)="showImages(incident)"><i class='bx bx-images'></i></button></td> -->
   
 
             <td>{{ incident.remediation }}</td>
@@ -80,6 +80,7 @@
                 class="bx bxs-trash-alt"
                 (click)="deleteIncident(incident.id)"
               ></i>
+              <!-- <i class="bx bx-show" (click)="incidentDetails(incident.id)"></i> -->
               <i class="bx bx-show" (click)="showImages(incident)"></i>
 
             </td>
@@ -88,108 +89,3 @@
       </table>
     </div>
   </div>
-
-
-
-<!-- 
- <app-sidebar></app-sidebar>
-
-
-<body>
-    <main class="table" id="customers_table">
-        <section class="table__header">
-            <h1>Incident logging</h1>
-            
-            <div class="input-group">
-                <input type="search" placeholder="Search Data...">
-               
-               
-            </div>
-            <button class="Btn" routerLink="/createIncident">
-              Add Incident
-              <i class="bx bx-plus"></i>
-            </button>
-           
-        </section>
-        <section class="table__body">
-            <table>
-                 <thead class="table-header">
-          <tr>
-            <th>IncidentID</th>
-            <th>IncidentType</th>
-            <th>Date</th>
-            <th>Title</th>
-            <th>SeverityLevel</th>
-            <th>Category</th>
-            <th>TicketRaised</th>
-            <th>PlantName</th>
-            <th>RaisedBy</th>
-            <th>HostName</th>
-            <th>UserName</th>
-            <th>HostStatus</th>
-            <th>Investigation</th>
-            
-            <th>Remediation</th>
-            <th>FirstEvent</th>
-            <th>Acknowledge</th>
-            <th>TimeAnalyse</th>
-            <th>Analyst</th>
-            <th>Reviewer</th>
-            <th>RemediationOwner</th>
-            <th>DateTarget</th>
-            <th>Escalation</th>
-            <th>IncidentStatus</th>
-            <th>FalsePositive</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody class="table-body">
-          <tr *ngFor="let incident of incidents; let i = index">
-           
-            <td>{{ generateIncidentID(i) }}</td>
-            <td [ngClass]="gettypeClass(incident.incidentType)">{{ incident.incidentType }}</td>
-            <td>{{ incident.date | date : "dd/MM/yyyy" }}</td>
-            <td>{{ incident.title }}</td>
-            <td [ngClass]="getSeverityClass(incident.severityLevel)">{{ incident.severityLevel }}</td>
-
-            <td>{{ incident.category }}</td>
-            <td>{{ incident.ticketRaised }}</td>
-            <td>{{ incident.plantName }}</td>
-            <td>{{ incident.raisedBy }}</td>
-
-            <td>{{ incident.hostName }}</td>
-            <td>{{ incident.userName }}</td>
-            <td [ngClass]="getHostClass(incident.hostStatus)">{{ incident.hostStatus }}</td>
-            <td>{{ incident.investigation }}</td>
-  
-
-            <td>{{ incident.remediation }}</td>
-            <td>{{ incident.firstEvent }}</td>
-            <td>{{ incident.acknowledge }}</td>
-            <td>{{ incident.timeAnalyse }}</td>
-            <td>{{ incident.analyst }}</td>
-            <td>{{ incident.reviewer }}</td>
-            <td>{{ incident.remediationOwner }}</td>
-            <td>{{ incident.dateTarget | date : "dd/MM/yyyy " }}</td>
-            <td>{{ incident.escalation }}</td>
-            <td [ngClass]="getStatusClass(incident.incidentStatus)">{{ incident.incidentStatus }}</td>
-            <td>{{ incident.falsePositive }}</td>
-
-            <td class="btn-action">
-              <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
-              <i
-                class="bx bxs-trash-alt"
-                (click)="deleteIncident(incident.id)"
-              ></i>
-              <i class="bx bx-show" (click)="showImages(incident)"></i>
-
-            </td>
-          </tr>
-        </tbody>
-            </table>
-        </section>
-    </main>
-
-</body>
- -->

@@ -1,11 +1,13 @@
 package com.application.security.auth;
 
 import com.application.security.configSecurity.LogoutService;
+import com.application.security.dto.Response;
 import com.application.security.entity.User;
 import com.application.security.listener.RegistrationCompleteEventListener;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +33,15 @@ public class AuthenticationController {
 
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-    AuthenticationResponse response = service.register(request);
-    if (request.isMfaEnabled()) {
-      return ResponseEntity.ok(response);
-    } else {
-      return ResponseEntity.accepted().build();
-    }
+  public ResponseEntity<Response> register( @RequestBody @Valid RegisterRequest userRequest,
+                                            HttpServletRequest request) {
+    ///AuthenticationResponse response = service.register(request);
+    //if (request.isMfaEnabled()) {
+    //  return ResponseEntity.ok(response);
+   // } else {
+    //  return ResponseEntity.accepted().build();
+   // }
+    return service.register(userRequest,request);
   }
 
   @PostMapping("/authenticate")

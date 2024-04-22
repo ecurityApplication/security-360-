@@ -5,89 +5,63 @@ import { RegisterRequest } from '../../models/register-request';
 import { UserService } from '../../service/user.service';
 import { StorageService } from '../../service/storage.service';
 import { User } from '../../models/user';
-import { PasswordchangeService } from '../../service/passwordchange.service';
-import { ChangePasswordRequest } from '../../models/ChangePasswordRequest';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Incident } from '../../models/incident';
+import { ChangePasswordResetService } from '../../service/change-password-reset.service';
+import { ChangePasswordReset } from '../../models/ChangePasswordReset';
+import { IncidentService } from '../../service/incident.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
-  id!: number;
-  // user: User = new  User();
-  user: User[] = [];
-
-  currentPassword: string ='';
-  newPassword: string ='';
-  confirmationPassword: string='';
-  ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.userService.getUser().subscribe(data => {
-      console.log(data)
-      this.user = data;
-    }, error => console.log(error));
-   
-
-  }
-  // ngOnInit(): void {
-  //   // Call the method to fetch users on component initialization
+export class ProfileComponent {
+  user: User = new  User();
+  id!:number;
+  resetRequest: ChangePasswordReset = {
+    currentPassword: '',
+    newPassword: '',
+    confirmationPassword: ''
+  };
+ 
+  constructor(
+   private passwordService: ChangePasswordResetService,
+    private userService :UserService,
+    private route: ActivatedRoute,
+    private router:Router) {}
+  //  ngOnInit(): void {
   //   this.getUser();
-
   // }
+  //  getUser(): void {
 
-  // getUser() {
-  //   this.userService.getUser().subscribe(
-  //     (user) => {
-       
-  //       this.user = user;
-
-  //       console.log(this.user);
+  //   this.userService.getUserById(this.id).subscribe(
+  //     (data: User) => {
+  //       console.log(data);
         
+  //       this.user = data;
   //     },
   //     (error) => {
-  //       console.error(error);
+  //       console.error('Error fetching user data:', error);
+  //       // Handle error appropriately, such as displaying an error message to the user
   //     }
   //   );
   // }
-  constructor(private passwordService: PasswordchangeService,private userService:UserService,  private route: ActivatedRoute,) {}
-// changePassword() {
-//   const request: ChangePasswordRequest = {
-//     currentPassword: this.currentPassword,
-//       newPassword: this.newPassword,
-//       confirmationPassword: this.confirmationPassword
-//   };
 
-//   this.passwordService.changePassword(request).subscribe({
-//     next: () => {
-//     },
-//     error: (error) => {
-//       console.error('Error:', error);
-//     },
-//   });
-// }
 
-Onsumbit() {
-  const request = {
-    currentPassword: this.currentPassword,
-    newPassword: this.newPassword,
-    confirmationPassword: this.confirmationPassword
-  };
 
-  this.passwordService.changePassword(request).subscribe({
-    next: (response) => {
-      console.log('Password change successful:', response);
-      // Reset the form or perform any other actions after successful password change
-    },
-    error: (error) => {
-      console.error('Error changing password:', error);
-      // Handle error, show error message, etc.
+changePassword(): void {
+  console.log(this.resetRequest,"resetRequest");
+  
+  this.passwordService.changePassword(this.resetRequest).subscribe(
+     (response:any) => {
+      console.log("response",response);
+      
+     // this.resetRequest=response;
+      console.log('Password changed successfully');
+      // Handle success - redirect, show success message, etc.
+    },error => {
+      console.error('Error changing password:',error);
+      // Handle error - display error message, etc.
     }
-  });
+  );
 }
-
-
 }

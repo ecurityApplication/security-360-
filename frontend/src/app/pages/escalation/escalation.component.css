@@ -142,7 +142,7 @@ tr:hover td {
   margin: 0 5px;
   cursor: pointer;
 }
-* {
+/* * {
   margin: 0;
   padding: 0;
 
@@ -161,8 +161,9 @@ h1{
   font-size: 18px;
 }
 
-/* 
+
 body {
+  min-height: 100vh;
  
 background-color:  #7389ae;
 
