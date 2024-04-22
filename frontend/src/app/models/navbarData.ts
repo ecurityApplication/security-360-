@@ -1,37 +1,37 @@
 export const navbarData = [
     {
-        routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
+        routeLink: 'incidentlogging',
+        icon: 'bx bx-grid-alt',
+        label: 'Incident logging'
     },
     {
-        routeLink: 'products',
-        icon: 'fal fa-box-open',
-        label: 'Products'
+        routeLink: 'escalation',
+        icon: 'bx bx-table',
+        label: 'Escalation'
     },
     {
-        routeLink: 'statistics',
-        icon: 'fal fa-chart-bar',
-        label: 'Statistics'
+        routeLink: 'calendar',
+        icon: 'bx bx-calendar',
+        label: 'Calendar'
     },
     {
-        routeLink: 'coupens',
-        icon: 'fal fa-tags',
-        label: 'Coupens'
+        routeLink: 'userList',
+        icon: 'bx bx-user',
+        label: 'Roles and Users List'
     },
     {
-        routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages'
+        routeLink: 'userList',
+        icon: 'bx bx-pie-chart-alt-2',
+        label: 'Analytics'
     },
     {
-        routeLink: 'media',
-        icon: 'fal fa-camera',
-        label: 'Media'
+        routeLink: 'userList',
+        icon: 'bx bxs-bar-chart-alt-2',
+        label: 'Monthly KPIs'
     },
     {
-        routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings'
-    },
+        routeLink: 'userList',
+        icon: 'bx bx-line-chart',
+        label: 'Yearly KPIs'
+    }
 ];

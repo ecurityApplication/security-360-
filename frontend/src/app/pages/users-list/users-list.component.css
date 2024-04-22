@@ -9,8 +9,9 @@
 
 .main-content {
   position: relative;
-  margin-left: 80px;
+  margin-left: 40px;
   width: calc(100% - 90px);
+  
 }
 
 .page-content {
@@ -34,7 +35,7 @@
   flex-direction: row;
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 2rem;
   gap: 20px;
   padding: 15px;

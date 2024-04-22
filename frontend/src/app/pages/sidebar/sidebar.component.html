@@ -1,103 +1,30 @@
-
-  <div class="sidebar" [ngClass]="{ open: sidebarOpen }">
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-details">
-      <img class="logo_name" src="./assets/coficab.png" alt="Company Logo" />
-      <i class="bx bx-menu" id="btn" (click)="toggleSidebar()"></i>
-    </div>
-    <ul class="nav-list">
-      <li routerLink="/incidentlogging">
-        <a>
-          <i class="bx bx-grid-alt"></i>
-          <span class="links_name">Incident Logging</span>
-        </a>
-        <span class="tooltip">Incident Logging</span>
+        <img class="logo_name" src="../../../assets/coficab.png"  />
+        <i class="bx bx-menu" id="btn" (click)="toggleCollapse()"></i>
+      </div>
+  <ul class="sidenav-nav">
+      <li class="sidenav-nav-item" *ngFor="let data of navData">
+          <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}"
+          >
+              <i class="sidenav-link-icon" [class]="data.icon"></i>
+              <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+                  {{data.label}}
+              </span>
+             
+          </a>
       </li>
-      <li>
-        <span class="tooltip">Incident report</span>
-      </li>
-      <li routerLink="/escalation">
-        <a>
-          <i class="bx bx-table"></i>
-          <span class="links_name">Escalation</span>
-        </a>
-        <span class="tooltip">Escalation</span>
-      </li>
-      <li>
-        <a>
-          <i class="bx bx-pie-chart-alt-2"></i>
-          <span class="links_name">Analytics</span>
-        </a>
-        <span class="tooltip">Analytics</span>
-      </li>
-      <li>
-        <a>
-          <i class="bx bxs-bar-chart-alt-2"></i>
-          <span class="links_name">Monthly KPIs</span>
-        </a>
-        <span class="tooltip">Monthly KPIs</span>
-      </li>
-      <li>
-        <a>
-          <i class="bx bx-line-chart"></i>
-          <span class="links_name">Yearly KPIs</span>
-        </a>
-        <span class="tooltip">Yearly KPIs</span>
-      </li>
-      <li routerLink="/calendar">
-        <a>
-          <i class="bx bx-calendar"></i>
-          <span class="links_name">Calendar</span>
-        </a>
-        <span class="tooltip">Calendar</span>
-      </li>
-      <li routerLink="/profile">
-        <a>
-          <i class='bx bx-cog'></i>
-          <span class="links_name">Profile</span>
-        </a>
-        <span class="tooltip">Profile</span>
-      </li>
-      <li routerLink="/userList">
-        <a>
-          <i class="bx bx-user"></i>
-          <span class="links_name">Roles and Users List </span>
-        </a>
-        <span class="tooltip">Roles and Users List</span>
-      </li>
-      <!-- <li routerLink="/roleUser">
-        <a>
-          <i class='bx bx-check-shield'></i>
-          <span class="links_name">Roles</span>
-        </a>
-        <span class="tooltip">Roles</span>
-      </li> -->
-
-      
       <hr />
       <div class="sidbar-footer">
-        <li (click)="logout()">
-          <a>
-            <i class="bx bx-log-out"></i>
-            <span class="links_name">Logout</span>
+        <li (click)="logout()"  >
+          <a >
+            <i class="bx bx-log-out" ></i>
+            <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">Logout</span>
           </a>
-          <span class="tooltip">Logout</span>
+         
         </li>
       </div>
-
-      <!-- <li class="footer" (click)=" logout()">
-      <a>
-          <i class='bx bx-log-out icon' ></i> -->
-      <!-- <li class="profile">
-           <div class="profile-details">
-             <img src="profile.jpg" alt="profileImg">
-             <div class="name_job">
-               <div class="name">Prem Shahi</div>
-               <div class="job">Web designer</div>
-             </div>
-           </div>
-           <i class='bx bx-log-out' id="log_out" ></i>
-       </li> -->
-    </ul>
-  </div>
-  
-
+  </ul>
+</div>

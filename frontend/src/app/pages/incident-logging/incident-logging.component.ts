@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 import { CreateIncidentComponent } from '../create-incident/create-incident.component';
+
 
 
 @Component({
@@ -231,6 +232,12 @@ showImages(incident: Incident) {
 //     },
 
 //   }
+// }
+// isSideNavCollapsed = false;
+// screenWidth = 0;
+// onToggleSideNav(data:SideNavToggle): void {
+// this.screenWidth = data.screenWidth;
+// this.isSideNavCollapsed = data.collapsed;
 // }
 
 }
