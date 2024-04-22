@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 // const TOKEN_KEY = 'token';
 // const USERNAME_KEY = 'AuthUsername';
@@ -10,10 +12,18 @@ import { Injectable } from '@angular/core';
 export class StorageService {
 
   private roles: Array<string> = [];
-  constructor() { }
+  constructor( private router: Router) { }
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  signOut() {
-    localStorage.clear();
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
+  // signOut() {
+  //   localStorage.clear();
+  // }
+  logout() {                            // {4}
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 
   // public saveToken(token: string) {

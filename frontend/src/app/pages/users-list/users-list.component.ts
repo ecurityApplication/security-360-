@@ -17,10 +17,10 @@ import { EditRoleComponent } from '../edit-role/edit-role.component';
 })
 export class UsersListComponent implements OnInit {
 
-  user: User[] = [];
+  users: User[] = [];
   role:Role[]=[];
   id!:number;
-
+  roleUserCounts: { [key: string]: number } = {}; // Object to store user counts for each role
   constructor(private userService: UserService, private roleService : RoleService, private router: Router,public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -34,9 +34,9 @@ export class UsersListComponent implements OnInit {
     this.userService.getUser().subscribe(
       (user) => {
        
-        this.user = user;
-
-        console.log(this.user);
+        this.users = user;
+       // this.calculateRoleUserCounts(); // Calculate user counts for each role
+        console.log(this.users);
         
       },
       (error) => {
@@ -48,12 +48,26 @@ export class UsersListComponent implements OnInit {
     this.roleService.getRole().subscribe(
       (role) => {
         this.role = role;
+        //this.calculateRoleUserCounts(); // Calculate user counts for each role
       },
       (error) => {
         console.error(error);
       }
     );
   }
+  
+  // calculateRoleUserCounts() {
+  //   // Reset counts
+  //   this.roleUserCounts = {};
+
+  //   // Calculate counts
+  //   this.users.forEach((user) => {
+  //     if (!this.roleUserCounts[user.roleName]) {
+  //       this.roleUserCounts[user.roleName] = 0;
+  //     }
+  //     this.roleUserCounts[user.roleName]++;
+  //   });
+  // }
   
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {

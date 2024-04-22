@@ -1,56 +1,46 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { StorageService } from '../../service/storage.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
-  @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
+export class NavbarComponent implements OnInit {
+ @Input() collapsed = false;
+ @Input() screenWidth = 0;
 
-  constructor(private router: Router) {}
+ canShowSearchAsOverlay = false;
+  constructor(private router: Router,private storageService: StorageService) {}
 
-  ngOnInit(): void {}
-
-  // toggleSidebar() {
-  //   this.toggleSidebarForMe.emit();
-  // }
-
-  // constructor() { }
-
-  // ngOnInit(): void {
-  //   initMDB({ Dropdown, Collapse });
-  // }
-  sidebarOpen = false;
-  miniSidebar = false;
-  
-  @Input() isOpen: boolean = false;
-
-  // darkMode = false;
-  // sidebarClosed = false;
- 
-
-//  ngOnInit(): void {
-//   this.getIncidentByCategory('yourCategory'); // Specify your category here
-// }
-
-// getIncidentByCategory(category: string): void {
-//   this.incidentService.getIncidentByCategory(category)
-//     .subscribe(
-//       (data: any) => {
-//         console.log(data);
-//         this.incidents = data;
-//       },
-//       error => {
-//         console.error(error);
-//       }
-//     );
-// }
-toggleSidebar() {
-  this.sidebarOpen = !this.sidebarOpen;
-  if (window.innerWidth <= 320) {
-    this.miniSidebar = !this.miniSidebar;
+ getHeadClass() : string{
+  let styleClass = '';
+  if(this.collapsed && this.screenWidth > 768) {
+    styleClass = 'head-trimmed';
+  } else {
+    styleClass = 'head-md-screen'
+  }
+  return styleClass;
+ }
+checkCanShowSearchAsOverlay(innerWidth: number) : void{
+  if(innerWidth < 845){
+    this.canShowSearchAsOverlay=true;
+  }else{
+    this.canShowSearchAsOverlay=false;
   }
 }
+
+  isLoggedIn$!: Observable<boolean>;
+
+
+ngOnInit() {
+  this.isLoggedIn$ = this.storageService.isLoggedIn;
+}
+
+onLogout() {
+  this.storageService.logout();
+}
+selected = 'option2';
 }

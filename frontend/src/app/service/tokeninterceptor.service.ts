@@ -9,7 +9,7 @@ export class TokeninterceptorService implements HttpInterceptor{
   constructor(){}
    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //  console.log('Interceptor is being executed.');
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem('accessToken');
     // console.log('Retrieved JWT token:', jwtToken);
     if (jwtToken != null) {
       // console.log('JWT token exists. Attaching to request headers.'); // Log that the JWT token exists

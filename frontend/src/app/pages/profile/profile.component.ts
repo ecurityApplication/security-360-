@@ -18,6 +18,7 @@ export class ProfileComponent {
   user: User = new  User();
   id!:number;
   resetRequest: ChangePasswordReset = {
+    email: '',
     currentPassword: '',
     newPassword: '',
     confirmationPassword: ''
@@ -48,7 +49,7 @@ export class ProfileComponent {
 
 
 
-changePassword(): void {
+changePassword() {
   console.log(this.resetRequest,"resetRequest");
   
   this.passwordService.changePassword(this.resetRequest).subscribe(

@@ -1,47 +1,47 @@
-<!-- <app-sidebar></app-sidebar> -->
-  <div class="table">
-    <div class="header-content">
-      <p>Incident logging</p>
 
-      <button class="Btn" routerLink="/createIncident">
-        Add Incident
-        <i class="bx bx-plus"></i>
-      </button>
-    </div>
+<div class="table">
+  <div class="header-content">
+    <h4>Incident logging</h4>
 
+    <button class="Btn" routerLink="/createIncident">
+      Add Incident
+      <i class="bx bx-plus"></i>
+    </button>
+  </div>
+  <div class="card">
     <div class="table-section">
-      <table>
-        <thead class="table-header">
-          <tr>
-            <th>IncidentID</th>
-            <th>IncidentType</th>
-            <th>Date</th>
-            <th>Title</th>
-            <th>SeverityLevel</th>
-            <th>Category</th>
-            <th>TicketRaised</th>
-            <th>PlantName</th>
-            <th>RaisedBy</th>
-            <th>HostName</th>
-            <th>UserName</th>
-            <th>HostStatus</th>
-            <th>Investigation</th>
-            
-            <th>Remediation</th>
-            <th>FirstEvent</th>
-            <th>Acknowledge</th>
-            <th>TimeAnalyse</th>
-            <th>Analyst</th>
-            <th>Reviewer</th>
-            <th>RemediationOwner</th>
-            <th>DateTarget</th>
-            <th>Escalation</th>
-            <th>IncidentStatus</th>
-            <th>FalsePositive</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
+    <table >
+      <thead>
+        <tr>
+          <th>IncidentID</th>
+          <th>IncidentType</th>
+          <th>Date</th>
+          <th>Title</th>
+          <th>SeverityLevel</th>
+          <th>Category</th>
+          <th>TicketRaised</th>
+          <th>PlantName</th>
+          <th>RaisedBy</th>
+          <th>HostName</th>
+          <th>UserName</th>
+          <th>HostStatus</th>
+          <th>Investigation</th>
+          
+          <th>Remediation</th>
+          <th>FirstEvent</th>
+          <th>Acknowledge</th>
+          <th>TimeAnalyse</th>
+          <th>Analyst</th>
+          <th>Reviewer</th>
+          <th>RemediationOwner</th>
+          <th>DateTarget</th>
+          <th>Escalation</th>
+          <th>IncidentStatus</th>
+          <th>FalsePositive</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
           <tr *ngFor="let incident of incidents; let i = index">
            
             <td>{{ generateIncidentID(i) }}</td>
@@ -59,7 +59,7 @@
             <td>{{ incident.userName }}</td>
             <td [ngClass]="getHostClass(incident.hostStatus)">{{ incident.hostStatus }}</td>
             <td>{{ incident.investigation }}</td>
-            <!-- <td><button class="btn" (click)="showImages(incident)"><i class='bx bx-images'></i></button></td> -->
+  
   
 
             <td>{{ incident.remediation }}</td>
@@ -73,19 +73,22 @@
             <td>{{ incident.escalation }}</td>
             <td [ngClass]="getStatusClass(incident.incidentStatus)">{{ incident.incidentStatus }}</td>
             <td>{{ incident.falsePositive }}</td>
-
-            <td class="btn-action">
+          <td>
+            <div class="actions">
               <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
               <i
                 class="bx bxs-trash-alt"
                 (click)="deleteIncident(incident.id)"
               ></i>
-              <!-- <i class="bx bx-show" (click)="incidentDetails(incident.id)"></i> -->
+           
               <i class="bx bx-show" (click)="showImages(incident)"></i>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  </div>
+</div>
+
+  

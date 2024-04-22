@@ -44,7 +44,7 @@ export class PasswordResetInitiateComponent {
         if (response && response.message === 'success') {
           // Assuming your backend returns a success message in a JSON format
           this.toastr.success('Check your email');
-          this.router.navigate(['passwordconfirm']);
+          this.router.navigate(['passwordverifycode']);
         } else {
           // Handle other success responses or unexpected data
           console.error('Unexpected response from server:', response);
