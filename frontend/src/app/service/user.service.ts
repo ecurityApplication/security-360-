@@ -48,5 +48,4 @@ export class UserService {
     return this.httpClient.get(`${this.baseUrl}/forMod`);
   }
 
- 
 }
