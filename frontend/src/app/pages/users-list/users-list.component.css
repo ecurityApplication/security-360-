@@ -19,7 +19,10 @@
   padding: 1.3rem 1rem;
   background: #f1f4f9;
 }
-
+.page-content p {
+  color: #470dda;
+  font-size: 18px;
+}
 .analytics {
   position: relative;
   display: grid;

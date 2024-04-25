@@ -32,6 +32,10 @@ export class UserService {
     return this.httpClient.get<User>(`${this.baseUrl}/getUserById/${id}`);
   }
 
+  countUsersByRole(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/countByRole`);
+  }
+
   public forUser() {
     return this.httpClient.get(`${this.baseUrl}/forUser`);
   }

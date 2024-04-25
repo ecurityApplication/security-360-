@@ -1,7 +1,7 @@
-<body>
+<!-- <body>
   <div class="container">
     <div class="head-container">
-      <span>Welcome! {{user.username}}</span>
+      <span>Welcome! {{ user.username }}</span>
     </div>
     <div class="body-container">
       <div class="left-container">
@@ -12,116 +12,94 @@
         <h5>Edit Your Profile</h5>
         <div class="group">
           <label for="Username">Username</label>
-          <label for="Username">{{user.username}}</label><br/>
+          <label for="Username">{{ user.username }}</label
+          ><br />
         </div>
-        <!-- <div class="group">
-          <label for="Email">Email</label>
-          <label for="Email">{{user.email}}</label>
-        </div> -->
+
         <div class="group">
           <label for="Password">Email</label>
           <div class="input-password">
-            <input placeholder="Email" type="text"[(ngModel)]="resetRequest.email" />
+            <input
+              placeholder="Email"
+              type="text"
+              [(ngModel)]="resetRequest.email"
+            />
           </div>
         </div>
         <div class="group">
           <label for="Password">Current Password</label>
           <div class="input-password">
-            <input placeholder="New Password" type="text"[(ngModel)]="resetRequest.currentPassword" />
+            <input
+              placeholder="New Password"
+              type="text"
+              [(ngModel)]="resetRequest.currentPassword"
+            />
           </div>
         </div>
         <div class="group">
           <label for="Password">New Password </label>
           <div class="input-password">
-            <input placeholder="New Password" type="text" [(ngModel)]="resetRequest.newPassword"/>
+            <input
+              placeholder="New Password"
+              type="text"
+              [(ngModel)]="resetRequest.newPassword"
+            />
           </div>
         </div>
         <div class="group">
-          <label for="Password">Confirm  Password</label>
+          <label for="Password">Confirm Password</label>
           <div class="input-password">
-            <input placeholder="Confirm New Password" type="text" [(ngModel)]="resetRequest.confirmationPassword"/>
+            <input
+              placeholder="Confirm New Password"
+              type="text"
+              [(ngModel)]="resetRequest.confirmationPassword"
+            />
           </div>
         </div>
         <div class="group">
           <label for="Password">Role</label>
-          <!-- <div class="input-password">
-            <span  *ngFor="let role of currentUser.roles">{{ role }}</span>
-          </div> -->
         </div>
         <div class="footer-container">
           <button type="button" routerLink="/incidentlogging" class="Btn1">
             Close
           </button>
-          <button (click)="changePassword()" class="Btn2 btn-1">Save Changes</button>
+          <button (click)="changePassword()" class="Btn2 btn-1">
+            Save Changes
+          </button>
         </div>
-   
       </div>
     </div>
   </div>
-</body>
-
-
-
-<!-- 
-<body>
-    <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3 mb-4">
-            Account settings
-        </h4>
-        <div class="card overflow-hidden">
-            <div class="row no-gutters row-bordered row-border-light">
-               
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
-                                    class="d-block ui-w-80">
-                                
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" class="form-control mb-1"  >
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1"  >
-                                 
-                                </div>
-                                <form (submit)="changePassword()">
-                                <div class="form-group">
-                                  <label class="form-label">Current password</label>
-                                  <input type="text" class="form-control" [(ngModel)]="resetRequest.currentPassword">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-label">New password</label>
-                                <input type="text" class="form-control" [(ngModel)]="resetRequest.newPassword">
-                            </div>
-                            <div class="form-group">
-                              <label class="form-label">Repeat new password</label>
-                              <input type="text" class="form-control" [(ngModel)]="resetRequest.confirmationPassword">
-                          </div>
-</form>
-
-                            </div>
-                        </div>
-                     
-                       
-                           
-                        
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-right mt-3">
-            <button type="button" class="btn btn-primary" >Save changes</button>&nbsp;
-            <button type="button" class="btn btn-default">Cancel</button>
-        </div>
-    </div>
-    
 </body> -->
 
+
+<section class="container" >
+  <div class="header-content">
+    <h4>Profile</h4>
+  </div>
+  
+    <form class="form" >
+      <div class="input-box ">
+        <label>Current Password</label>
+        <input required=""  placeholder="Current Password"
+        type="text"
+        [(ngModel)]="resetRequest.currentPassword">
+      </div>
+      <div class="input-box ">
+        <label>New Password</label>
+        <input required=""  placeholder="New Password"
+        type="text"
+        [(ngModel)]="resetRequest.newPassword">
+      </div>
+      <div class="input-box ">
+        <label>Confirm Password</label>
+        <input required="" placeholder="Confirm  Password"
+        type="text"
+        [(ngModel)]="resetRequest.confirmationPassword"
+       >
+      </div>
+      <div class="footer-container">
+        <button (click)="changePassword()" class="Btn btn-1">Edit</button>
+      </div>
+  </form>
+</section>

@@ -223,6 +223,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int getUserCountByRole(String roleName) {
+        return userRepository.countUsersByRole(roleName);
+    }
+
+    @Override
     public void initRoleAndUser() {
 
         List<Role> roles = (List<Role>) roleRepository.findAll();

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
-import { Router } from '@angular/router';
+
 import { User } from '../../models/user';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { CreateRoleComponent } from '../create-role/create-role.component';
 import { Role } from '../../models/role';
 import { RoleService } from '../../service/role.service';
 import { EditRoleComponent } from '../edit-role/edit-role.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -20,14 +21,14 @@ export class UsersListComponent implements OnInit {
   users: User[] = [];
   role:Role[]=[];
   id!:number;
-  roleUserCounts: { [key: string]: number } = {}; // Object to store user counts for each role
+  roleCounts: any = {};
   constructor(private userService: UserService, private roleService : RoleService, private router: Router,public dialog: MatDialog) {}
 
   ngOnInit(): void {
     // Call the method to fetch users on component initialization
     this.getUser();
     this.getRole();
-
+    this.loadRoleCounts();
   }
 
   getUser() {
@@ -56,18 +57,20 @@ export class UsersListComponent implements OnInit {
     );
   }
   
-  // calculateRoleUserCounts() {
-  //   // Reset counts
-  //   this.roleUserCounts = {};
-
-  //   // Calculate counts
-  //   this.users.forEach((user) => {
-  //     if (!this.roleUserCounts[user.roleName]) {
-  //       this.roleUserCounts[user.roleName] = 0;
-  //     }
-  //     this.roleUserCounts[user.roleName]++;
-  //   });
-  // }
+    //count users based on their roles 
+    loadRoleCounts() {
+      this.userService.countUsersByRole().subscribe(
+        (data) => {
+          console.log(data);
+          
+          this.roleCounts = data;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  
   
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {
@@ -76,7 +79,7 @@ export class UsersListComponent implements OnInit {
       data: { role } // Pass the entire user object for editing
     });
   
-    dialogRef.afterClosed().subscribe(updateRole => {
+    dialogRef.afterClosed().subscribe((updateRole: Role) => {
       if (updateRole) { // Check if user was updated in the dialog
         this.roleService.updateRole(updateRole.id, updateRole).subscribe(
           () => {
@@ -180,7 +183,7 @@ openEditDialog(user: User): void {
     data: { user } // Pass the entire user object for editing
   });
 
-  dialogRef.afterClosed().subscribe(updatedUser => {
+  dialogRef.afterClosed().subscribe((updatedUser: User) => {
     if (updatedUser) { // Check if user was updated in the dialog
       this.userService.updateUser(updatedUser.id, updatedUser).subscribe(
         () => {
@@ -195,6 +198,5 @@ openEditDialog(user: User): void {
     }
   });
 }
-
 }
 

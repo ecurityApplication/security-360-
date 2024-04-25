@@ -67,5 +67,9 @@ UserService userService;
         userService.initRoleAndUser();
     }
 
+    @GetMapping("/countByRole")
+    public int getUserCountByRole(@RequestParam String roleName) {
+        return userService.getUserCountByRole(roleName);
+    }
 }
 
