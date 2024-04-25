@@ -1,5 +1,4 @@
 .signUpContainer {
- 
   background: #000168;
   display: flex;
   align-items: center;
@@ -10,7 +9,6 @@
 .body{
   width: calc(100% - 5rem);
       height: 100vh;  
-    /* margin-top: 5075rem; */
     margin-top: 3%;
     margin-left: 5rem;
     z-index: 0;
@@ -249,19 +247,7 @@
     text-align: right;
     padding: 0 40px 60px 150px;
   }
-  /* .wrapper.active .info-text.register .animation {
-    transform: translateX(-120%);
-    opacity: 0;
-    filter: blur(10px);
-    transition-delay: calc(0.1s * var(--i));
-  } */
-  /* .wrapper .info-text.register{
-      left: 0;
-       text-align: left;
-      padding: 0 150px 60px 40px;
-     display: none;
-    }  */
-  
+
   .info-text p {
     font-size: 36px;
     color: #fff;
@@ -279,8 +265,6 @@
     transform: rotate(8deg) skewY(40deg);
     transform-origin: bottom right;
   }
-  
-  
   
   .wrapper .form-verify {
     position: absolute;
@@ -398,24 +382,3 @@
   .btn:hover::before {
     top: 0;
   }
-  
-  /* .success-message-panel {
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-    padding: 15px;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  } */
-  
-  /* .success-icon {
-    font-size: 32px;
-    margin-bottom: 10px;
-  } */
-  
-  /* .success-message {
-    font-size: 18px;
-    font-weight: bold;
-  } */
-  

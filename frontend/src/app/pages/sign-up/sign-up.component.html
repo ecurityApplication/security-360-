@@ -1,4 +1,3 @@
-
 <div clas="body">
   <div class="signUpContainer">
     <div class="wrapper">
@@ -20,17 +19,6 @@
             <label class="input-fieled" for="username">Username</label>
             <i class="bx bxs-user"></i>
           </div>
-          <!-- <div class="input-box">
-            <input
-              id="lastname"
-              name="lastname"
-              required
-              type="text"
-              [(ngModel)]="registerRequest.lastname"
-            />
-            <label for="lastname">Last name</label>
-            <i class="bx bxs-user"></i>
-          </div> -->
           <div class="input-box">
             <input
               id="email"
@@ -54,7 +42,7 @@
             <label for="password">Password</label>
             <i class="bx bxs-lock-alt"></i>
           </div>
-  
+
           <!-- mfa -->
           <!-- <div class="form-group">
             <div class="toggle-switch">
@@ -77,19 +65,9 @@
               >
             </p>
           </div>
-          <!-- <div class="alert alert-warning" *ngIf=" isSignUpFailed">
-            Signup failed!<br />{{ errorMessage }}
-          </div> -->
         </form>
-        <!-- <div class="alert alert-success" *ngIf="isSuccessful">
-          Your registration is successful!
-        </div> -->
       </div>
       <div class="form-verify container" *ngIf="authResponse.mfaEnabled">
-        <!-- <div class="success-message-panel" *ngIf="message">
-          <div class="success-icon">&#10004;</div>
-          <div class="success-message">{{ message }}</div>
-        </div> -->
         <div class="form-verify container">
           <h4 class="towfa-text">Set Up Two-Factor Authentication</h4>
           <div class="qr-code">
@@ -180,5 +158,4 @@
       </div>
     </div>
   </div>
-  </div>
-  
+</div>

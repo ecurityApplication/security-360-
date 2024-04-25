@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+
 import {LoginComponent} from "./pages/login/login.component";
 // import {RegisterComponent} from "./pages/register/register.component";
 import {WelcomeComponent} from "./pages/welcome/welcome.component";
@@ -22,10 +22,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PasswordResetVerifyCodeComponent } from './pages/password-reset-verify-code/password-reset-verify-code.component';
 import { LoggedInLayoutComponent } from './pages/logged-in-layout/logged-in-layout.component';
-
-
-
-
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -75,11 +72,14 @@ const routes: Routes = [
         path:'navbar',
         component: NavbarComponent
       },
-      {path: 'update-escalation/:id', component: UpdateEscalationComponent},
-      {path: 'update-incident/:id', component: UpdateIncidentComponent},
+      {path: 'update-escalation/:id',
+       component: UpdateEscalationComponent
+      },
+      {path: 'update-incident/:id',
+       component: UpdateIncidentComponent
+      },
     ]
   },
- 
       {
         path:'passwordreset',
         component: PasswordResetInitiateComponent
@@ -100,12 +100,10 @@ const routes: Routes = [
         path: 'login',
         component: LoginComponent,
       },
-      
-  
-  
-  
- 
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '',
+   redirectTo: 'login',
+    pathMatch: 'full' 
+  }
 ];
 
 @NgModule({

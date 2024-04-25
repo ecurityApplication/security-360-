@@ -6,10 +6,6 @@
 }
 .table {
   width: 100%;
-
-  /* z-index: 0;
-  margin-left: 80px;
-  width:calc(100% - 90px); */
 }
 .header-content {
   display: flex;
@@ -21,48 +17,6 @@
 }
 .header-content h4 {
   color:rgb(24, 58, 168);
-  /* font-size: 18px; */
-}
-.Btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 170px;
-  height: 40px;
-  border: none;
-  padding: 0px 20px;
-  background-color: rgb(24, 58, 168);
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 10px;
-  box-shadow: 1px 1px 0px rgb(52, 125, 220);
-  transition-duration: 0.3s;
-}
-.Btn i {
-  width: 13px;
-  position: absolute;
-  right: 0;
-  margin-right: 20px;
-  background-color: rgb(16, 51, 165);
-  transition-duration: 0.3s;
-  color: #fff;
-}
-.Btn:hover {
-  color: transparent;
-}
-.Btn:hover i {
-  right: 43%;
-  margin: 0;
-  padding: 0;
-  border: none;
-  transition-duration: 0.3s;
-}
-.Btn:active {
-  transform: translate(3px, 3px);
-  transition-duration: 0.3s;
-  box-shadow: 2px 2px 0px rgb(16, 51, 165);
 }
 
 .header-content {
