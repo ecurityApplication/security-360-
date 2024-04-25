@@ -1,31 +1,8 @@
-<!-- <app-sidebar></app-sidebar> -->
 <div class="main-content" app-navbar>
   <main>
-    <!-- <div class="page-header">
-      <h5>Roles List</h5>
-      <br />
-
-      <label
-        >A role provided access to predefined menus and features so that
-        depending on</label
-      >
-      <br />
-      <label> role an administrator can have access to what user needs.</label>
-    </div> -->
     <div class="page-content">
+      <p>Roles Liste</p>
       <div class="analytics">
-        <!-- <div class="card">
-          <div class="card-head">
-            <i class="bx bxs-group"></i>
-            <h2>Administrator</h2>
-            <span class="las la-user-friends"></span>
-          </div>
-          <div class="card-progress">
-            <small>Total 1 user</small>
-            <div class="card-indicator">
-            </div>
-          </div>
-        </div> -->
         <div class="cards-role">
           <div class="card" *ngFor="let role of role">
             <div class="card-head">
@@ -34,36 +11,10 @@
               <span class="las la-user-friends"></span>
             </div>
             <div class="card-progress">
-              <small>Total 1 user</small>
+              <small>Total {{ roleCounts[role.roleName] || 0 }} users</small>
               <div class="card-indicator"></div>
             </div>
           </div>
-          <!-- <div class="card">
-            <div class="card-head">
-              <i class="bx bxs-group"></i>
-              <h2>Analystes</h2>
-              <span class="las la-eye"></span>
-            </div>
-            <div class="card-progress">
-              <small>Total 4 users</small>
-              <div class="card-indicator">
-              
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-head">
-              <i class="bx bxs-group"></i>
-
-              <h2>Consultant</h2>
-              <span class="las la-shopping-cart"></span>
-            </div>
-            <div class="card-progress">
-              <small>Total 2 users</small>
-              <div class="card-indicator">
-              </div>
-            </div>
-          </div> -->
         </div>
         <button
           class="Btn"
@@ -94,7 +45,6 @@
                   </div>
                 </div>
               </td>
-
               <td>
                 <div class="actions">
                   <i
@@ -115,7 +65,12 @@
           <p>Users Liste</p>
           <div class="browse">
             <div class="end-header">
-              <input placeholder="Search..." type="text" name="text" class="input">
+              <input
+                placeholder="Search..."
+                type="text"
+                name="text"
+                class="input"
+              />
               <select name="" id="">
                 <option value="">Select Role</option>
               </select>
@@ -158,7 +113,7 @@
                     ></i>
                     <i
                       class="bx bxs-trash-alt"
-                      (click)="deleteUser(user.id)"  
+                      (click)="deleteUser(user.id)"
                     ></i>
                   </div>
                 </td>
@@ -170,38 +125,3 @@
     </div>
   </main>
 </div>
-<!--
-<app-navbar></app-navbar>
-<div class="table">
- 
-  <div class="table-section">
-    <table>
-      <thead class="table-header">
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>Role</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody class="table-body">
-        <tr *ngFor="let user of user">
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.password }}</td>
-          <td>{{ user.roleName }}</td>
-         
-
-         
-          <td class="btn-action">
-            <i class="bx bx-edit" mat-button  color="primary" (click)="openEditDialog(user)"></i>
-            <i class="bx bxs-trash-alt"  (click)="deleteUser(user.id)"></i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div> -->

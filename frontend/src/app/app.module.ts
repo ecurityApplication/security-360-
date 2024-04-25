@@ -6,9 +6,9 @@ import { PasswordResetInitiateComponent } from './pages/password-reset-initiate/
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { IncidentLoggingComponent } from './pages/incident-logging/incident-logging.component';
-import { BrowserModule , provideClientHydration} from '@angular/platform-browser';
+// import { BrowserModule , provideClientHydration} from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,7 @@ import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/pa
 import { NgModule } from '@angular/core';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RouterOutlet,RouterModule, Routes ,RouterLinkActive } from "@angular/router";
+// import { RouterOutlet,RouterModule, Routes ,RouterLinkActive } from "@angular/router";
 import {MatDividerModule} from '@angular/material/divider';
 import { UpdateIncidentComponent } from "./pages/update-incident/update-incident.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -55,10 +55,12 @@ import { PasswordResetVerifyCodeComponent } from './pages/password-reset-verify-
 import { OverlayModule } from "@angular/cdk/overlay";
 import { CdkMenuModule } from "@angular/cdk/menu";
 import { LoggedInLayoutComponent } from './pages/logged-in-layout/logged-in-layout.component';
-import { MenubarModule } from 'primeng/menubar';
-// import { CreateanalysteComponent } from './createanalyste/createanalyste.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
+
 @NgModule({
   declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent],
   imports: [

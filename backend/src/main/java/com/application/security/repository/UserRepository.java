@@ -24,6 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query("update User u set u.password = ?2 where u.email = ?1 ")
     void updatePassword(String email, String password);
-
+    // Define the method to count users by role
+    @Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.roleName = ?1")
+    int countUsersByRole(String roleName);
 
 }
