@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import html2canvas from 'html2canvas';
 import jspdf from 'jspdf';
+import { asBlob } from 'html-docx-js-typescript';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-show-dialog',
@@ -62,6 +65,25 @@ export class ShowDialogComponent implements OnInit {
     });
 
 
+}
+public convertToWord() {
+  if (!this.contentToConvert) {
+    console.error('Content element not found.');
+    return;
+  }
+
+  const contentElement = this.contentToConvert.nativeElement;
+  const htmlContent = contentElement.innerHTML;
+
+  asBlob(htmlContent).then((blobOrBuffer: Blob | Buffer) => { // Adjust parameter type to Blob | Buffer
+    if (blobOrBuffer instanceof Blob) {
+      saveAs(blobOrBuffer, 'new-file.docx'); // Download the generated Word file
+    } else {
+      console.error('Error generating Word file: Invalid blob type.');
+    }
+  }).catch(error => {
+    console.error('Error generating Word file:', error);
+  });
 }
 getHostClass(hostStatus: string): string {
   switch (hostStatus) {

@@ -32,8 +32,16 @@ return  repIncident.save(i);
     }
 
     @Override
-    public List<Incident> getAllIncident() {
-        return (List<Incident>) repIncident.findAll();
+    public List<Incident> getAllIncident(String searchKey) {
+        if(searchKey.equals("")) {
+
+            return (List<Incident>) repIncident.findAll();
+        }
+        else {
+            return (List<Incident>) repIncident. findByAnalystContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+                    searchKey, searchKey);
+
+        }
     }
 
     @Override
