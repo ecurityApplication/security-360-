@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgToastService } from 'ng-angular-popup';
 import Swal from 'sweetalert2';
+import { User } from '../../models/user';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-create-incident',
@@ -19,7 +21,8 @@ export class CreateIncidentComponent {
     private incidentService: IncidentService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private userService: UserService,
   ) {}
   timeAnalyse: number = 0;
   // incident: Incident = new Incident();
@@ -59,6 +62,7 @@ export class CreateIncidentComponent {
     lessonLeraned: '',
     managementescalation: '',
   };
+  users:User[]=[];
   @Input() isOpen: boolean = false;
   sidebarOpen: boolean = false;
 
@@ -117,7 +121,7 @@ export class CreateIncidentComponent {
 
   // }
   goToIncidentList() {
-    this.router.navigate(['/incidentlogging']);
+    this.router.navigate(['layout/incidentlogging']);
     // this.router.navigate(['/escalation']);
   }
   // onSubmit() {
@@ -159,6 +163,18 @@ export class CreateIncidentComponent {
   //     duration:3000,
   //      position:'topRight'})
   // }
+  getUser() {
+    this.userService.getUser().subscribe(
+      (user) => {
+        this.users = user;
+        // this.calculateRoleUserCounts(); // Calculate user counts for each role
+        //console.log(this.users);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
   removeImages(i: number) {
     this.incident.incidentImages.splice(i, 1);

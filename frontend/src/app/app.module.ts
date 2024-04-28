@@ -60,9 +60,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
-
+import { MonthlyKPIsComponent } from './pages/monthly-kpis/monthly-kpis.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { HighchartsChartModule } from 'highcharts-angular';
+import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
+import { NgChartjsModule } from 'ng-chartjs';
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
   imports: [
     NgxAwesomePopupModule.forRoot({
       colorList: {
@@ -101,7 +105,12 @@ import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
     RouterLinkActive,
   OverlayModule,
   CdkMenuModule,
-  MatFormFieldModule, MatSelectModule,
+  MatFormFieldModule,
+   MatSelectModule,
+   NgApexchartsModule,
+   HighchartsChartModule,
+   NgChartjsModule,
+    // Add this line
     // MatToolbarModule,
     CommonModule,
      BrowserAnimationsModule, 

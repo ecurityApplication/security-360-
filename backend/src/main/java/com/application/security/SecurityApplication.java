@@ -31,7 +31,7 @@ public class SecurityApplication {
 
 	// 	return args -> {
 	// 		System.out.println("run");
-	// 		List<Role> roles = (List<Role>) roleRepository.findAll();
+	// 		List<Role> roles = (List<Role>) r oleRepository.findAll();
 	// 		if (roles.isEmpty()) {
 	// 			Role roleAdmin = new Role();
 	// 			roleAdmin.setRoleName("ROLE_ADMIN");

@@ -23,11 +23,15 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PasswordResetVerifyCodeComponent } from './pages/password-reset-verify-code/password-reset-verify-code.component';
 import { LoggedInLayoutComponent } from './pages/logged-in-layout/logged-in-layout.component';
 import { RouterModule, Routes } from '@angular/router';
+import { MonthlyKPIsComponent } from './pages/monthly-kpis/monthly-kpis.component';
+import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
+
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'layout',
     component: LoggedInLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'incidentlogging',
@@ -69,6 +73,14 @@ const routes: Routes = [
         component:  UsersListComponent,
       },
       {
+        path:'monthlyKPIs',
+        component:  MonthlyKPIsComponent,
+      },
+      {
+        path:'yearlyKPIs',
+        component:  YearlyKpisComponent,
+      },
+      {
         path:'navbar',
         component: NavbarComponent
       },
@@ -96,14 +108,8 @@ const routes: Routes = [
         path:'signup',
         component:SignUpComponent
       },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-  { path: '',
-   redirectTo: 'login',
-    pathMatch: 'full' 
-  }
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

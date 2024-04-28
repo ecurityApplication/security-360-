@@ -90,14 +90,14 @@ public class UserServiceImpl implements UserService {
 
 
             switch (strRoles) {
-                case "ROLE_MODERATOR":
-                    Role adminRole = roleRepository.findByRoleName("ROLE_MODERATOR")
+                case "GUEST":
+                    Role adminRole = roleRepository.findByRoleName("GUEST")
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(adminRole);
                     break;
 
                 default:
-                    Role userRole = roleRepository.findByRoleName("ROLE_USER")
+                    Role userRole = roleRepository.findByRoleName("ANALYST")
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     roles.add(userRole);
                     break;
@@ -237,11 +237,11 @@ public class UserServiceImpl implements UserService {
             roleRepository.save( roleAdmin );
 
             Role roleUSER = new Role();
-            roleUSER.setRoleName( "ROLE_USER" );
+            roleUSER.setRoleName( "ANALYST" );
             roleRepository.save( roleUSER );
 
             Role roleModerator = new Role();
-            roleModerator.setRoleName( "ROLE_MODERATOR" );
+            roleModerator.setRoleName( "GUEST" );
             roleRepository.save( roleModerator );
         }
     }

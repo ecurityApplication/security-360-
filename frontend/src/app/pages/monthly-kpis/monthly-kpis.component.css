@@ -1,0 +1,54 @@
+.container {
+   position: relative;
+  /* margin-top: 5%; */
+  width: 100%;
+  /* padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);  */
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+.header-content h4 {
+  color:rgb(24, 58, 168);
+}
+/* 
+.container .frame {
+  margin-top: 15px;
+} */
+
+#chart {
+  max-width: 380px;
+  margin: 35px auto;
+  padding: 0;
+}
+/* .chart{
+  background-color: brown;
+} */
+.chart{
+  width: 30%;
+  height: 20%;
+  border-radius: 20px;
+  border: 2px solid rgb(13, 13, 192);
+}
+.charts-bottom{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: row;
+  gap: 10px;
+}
+
+
+
+
+
+
+
+
+

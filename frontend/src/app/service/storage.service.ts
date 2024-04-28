@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 // const TOKEN_KEY = 'token';
 // const USERNAME_KEY = 'AuthUsername';
@@ -11,54 +10,43 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class StorageService {
 
-  private roles: Array<string> = [];
-  constructor( private router: Router) { }
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
-  // signOut() {
-  //   localStorage.clear();
-  // }
-  logout() {                            // {4}
-    this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+ 
+  set token(token: string) {
+    localStorage.setItem('token', token);
   }
 
-  // public saveToken(token: string) {
-  //   localStorage.removeItem(TOKEN_KEY);
-  //   localStorage.setItem(TOKEN_KEY, token);
-  // }
+  get token() {
+    return localStorage.getItem('token') as string;
+  }
 
-  // public getToken(): any {
-  //   return localStorage.getItem(TOKEN_KEY);
-  // }
+  isTokenValid() {
+    const token = this.token;
+    if (!token) {
+      return false;
+    }
+    // decode the token
+    const jwtHelper = new JwtHelperService();
+    // check expiry date
+    const isTokenExpired = jwtHelper.isTokenExpired(token);
+    if (isTokenExpired) {
+      localStorage.clear();
+      return false;
+    }
+    return true;
+  }
 
-  // public saveUsername(username: string) {
-  //   window.localStorage.removeItem(USERNAME_KEY);
-  //   window.localStorage.setItem(USERNAME_KEY, username);
-  // }
+  isTokenNotValid() {
+    return !this.isTokenValid();
+  }
 
-  // public getUsername(): any {
-  //   return localStorage.getItem(USERNAME_KEY);
-    
-  // }
-
-  // public saveAuthorities(authorities: string[]) {
-  //  localStorage.removeItem(AUTHORITIES_KEY);
-  //  localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
-  // }
-
-  // public getAuthorities(): string[] {
-  //   this.roles = [];
-
-  //   if (sessionStorage.getItem(TOKEN_KEY)?.toString()) {
-  //     JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach((authority: { authority: string; }) => {
-  //       this.roles.push(authority.authority);
-  //     });
-  //   }
-
-  //   return this.roles;
-  // }
+  get userRoles(): string[] {
+    const token = this.token;
+    if (token) {
+      const jwtHelper = new JwtHelperService();
+      const decodedToken = jwtHelper.decodeToken(token);
+      console.log(decodedToken.authorities);
+      return decodedToken.authorities;
+    }
+    return [];
+  }
 }

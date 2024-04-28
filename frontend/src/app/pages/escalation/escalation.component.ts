@@ -21,7 +21,7 @@ export class EscalationComponent implements OnInit{
 }
  getIncident(){
  this.incidentService.getIncidentList().subscribe(data=>{
-  console.log(this.incidents);
+ // console.log(this.incidents);
    this.incidents = data;
    
  } , error => {

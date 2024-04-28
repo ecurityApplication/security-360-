@@ -55,7 +55,7 @@ public getIncident(){
   
   .subscribe(
     (resp:Incident[])=>{
-      console.log(resp);
+      //console.log(resp);
       this.incidents = resp;
     },(error:HttpErrorResponse)=>
       {console.log(error);
@@ -68,7 +68,7 @@ public getIncident(){
 
 
  updateIncident(id:number){
-  this.router.navigate(['update-incident', id]);
+  this.router.navigate(['/layout/update-incident', id]);
 
  }
 //Delete Incidents

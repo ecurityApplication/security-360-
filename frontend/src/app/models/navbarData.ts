@@ -25,12 +25,12 @@ export const navbarData = [
         label: 'Analytics'
     },
     {
-        routeLink: 'userList',
+        routeLink: 'monthlyKPIs',
         icon: 'bx bxs-bar-chart-alt-2',
         label: 'Monthly KPIs'
     },
     {
-        routeLink: 'userList',
+        routeLink: 'yearlyKPIs',
         icon: 'bx bx-line-chart',
         label: 'Yearly KPIs'
     }

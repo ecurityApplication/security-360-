@@ -1,4 +1,5 @@
 import { FileHandle } from "./file-handle";
+import { User } from "./user";
 
 export class Incident{
 
@@ -23,7 +24,7 @@ export class Incident{
   firstEvent!: string;
   acknowledge!: string;
   timeAnalyse!: number;
-  analyst!: string;
+  analyst!:'';
   reviewer!:string;
   remediationOwner!: string;
   // dateTarget!:Date ;
@@ -41,7 +42,6 @@ export class Incident{
    lessonLeraned!: string;
    managementescalation!: string;
 
-
-
+  
 }
 

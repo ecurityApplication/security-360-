@@ -35,6 +35,6 @@ this.incidentService.updateIncident(this.id,this.incident).subscribe(data =>{
 });
   }
   goToIncidentList(){
-    this.router.navigate(['/escalation']);
+    this.router.navigate(['/layout/escalation']);
   }
 }

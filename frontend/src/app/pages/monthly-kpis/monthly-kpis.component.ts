@@ -1,0 +1,184 @@
+import { Component, OnInit } from '@angular/core';
+import { IncidentService } from '../../service/incident.service';
+import * as Highcharts from 'highcharts';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+@Component({
+  selector: 'app-monthly-kpis',
+  templateUrl: './monthly-kpis.component.html',
+  styleUrl: './monthly-kpis.component.css',
+})
+export class MonthlyKPIsComponent implements OnInit {
+  incidentCount!: any[];
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions!: Highcharts.Options;
+  incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
+  ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
+  constructor(private incidentService: IncidentService) {}
+
+  ngOnInit() {
+   this.getIncidentCount();
+    this.getEventsPerAnalyst();
+    this.getIncidentCountByPlantNameAndMonth();
+    this.getTicketRaisedPerIncident();
+  }
+
+
+  getIncidentCount() {
+    this.incidentService.getCurrentMonthIncidentCounts().subscribe(
+      (data) => {
+        this.incidentCount = data;
+      },
+      (error) => {
+        console.error('Error fetching incident count:', error);
+      }
+    );
+  }
+
+  //Number of events per analyst method call
+  getEventsPerAnalyst() {
+    this.incidentService.getEventsPerAnalyst().subscribe((data) => {
+      this.initializeChart(data);
+    });
+  }
+  //Number of events per analyst highcharts
+  initializeChart(data: { [key: string]: number }) {
+    this.chartOptions = {
+      chart: {
+        type: 'column',
+      },
+      title: {
+        text: 'Number of events per analyst',
+      },
+      xAxis: {
+        categories: Object.keys(data).sort(),
+        title: {
+          text: 'Analyst',
+        },
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Events',
+        },
+      },
+      series: [
+        {
+          type: 'column',
+          // name: 'Events',
+          data: Object.values(data),
+          color: '#0077b6',
+        },
+      ],
+    };
+
+    (Highcharts as any).chart('incident-chart', this.chartOptions);
+  }
+
+  //Number of alerts per plant method call
+  getIncidentCountByPlantNameAndMonth() {
+    this.incidentService
+      .getIncidentCountByPlantNameAndMonth()
+      .subscribe((data) => {
+        this.createIncidentCountByPlantAndMonthChart(data);
+      });
+  }
+  //Number of alerts per plant highcharts
+  createIncidentCountByPlantAndMonthChart(data: {
+    [key: string]: { [key: string]: number };
+  }) {
+    this.incidentCountByPlantAndMonthChartOptions =
+      this.createHighchartsOptions(
+        'Number of alerts per plant',
+        Object.keys(data).sort(),
+        'Incident Count',
+        Object.values(data).flatMap((plantData) =>
+          Object.values(plantData).sort()
+        )
+      );
+    this.renderHighchartsChart(
+      'incident-count-by-plant-and-month-chart',
+      this.incidentCountByPlantAndMonthChartOptions
+    );
+  }
+
+  createHighchartsOptions(
+    title: string,
+    categories: string[],
+    seriesName: string,
+    data: number[]
+  ): Highcharts.Options {
+    return {
+      chart: {
+        type: 'column',
+      },
+      title: {
+        text: title,
+      },
+      xAxis: {
+        categories: categories,
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: seriesName,
+        },
+      },
+      series: [
+        {
+          type: 'column',
+          name: seriesName,
+          data: data,
+          color: '#0077b6',
+        },
+      ],
+    };
+  }
+
+  renderHighchartsChart(containerId: string, chartOptions: Highcharts.Options) {
+    (Highcharts as any).chart(containerId, chartOptions);
+  }
+
+  
+  ticketRaisedChartOptions: Highcharts.Options = {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Ticket Raised Per Incident'
+    },
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Count'
+      }
+    },
+    series: [] as Highcharts.SeriesColumnOptions[]
+  };
+
+  getTicketRaisedPerIncident(): void {
+    this.incidentService.getTicketRaisedPerIncident().subscribe(data => {
+      this.ticketRaisedChartOptions.series = [
+        {
+          type: 'column',
+          name: 'Ticket Raised',
+          data: Object.values(data),  
+        }
+      ];
+      this.ticketRaisedChartOptions.xAxis = {
+        categories: Object.keys(data)
+      };
+      this.updateChart();
+    });
+  }
+
+  updateChart(): void {
+    this.Highcharts.chart('incident-chart-ticket-raised', this.ticketRaisedChartOptions);
+  }
+
+
+
+  
+}

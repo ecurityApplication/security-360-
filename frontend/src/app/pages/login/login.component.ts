@@ -48,15 +48,13 @@ export class LoginComponent {
   authenticate() {
     this.authService.login(this.authRequest).subscribe({
       next: (response:any) => {
-        console.log('response login  ', response);
+        //console.log('response login  ', response);
         this.authResponse = response;
          if (this.authResponse.mfaEnabled) {
-          localStorage.setItem('accessToken', response.accessToken as string);
-          localStorage.setItem('refreshToken', response.refreshToken as string);
-          localStorage.setItem('role', response.role as string);
-          // this.storageService.saveToken(response.accessToken);
-          // this.storageService.saveUsername(response.username);
-          // this.storageService.saveAuthorities(response.authorities);
+          localStorage.setItem('token', response.accessToken as string);
+          //localStorage.setItem('refreshToken', response.refreshToken as string);
+          //localStorage.setItem('role', response.role as string);
+          
 
          } else {
        // If login fails, show toaster message
@@ -81,8 +79,8 @@ export class LoginComponent {
  
         // this.message = 'You will be redirected to the Dashboard page ';
         // console.log('token');
-        localStorage.setItem('accessToken', res.accessToken as string);
-        this.router.navigate(['incidentlogging']);
+        localStorage.setItem('token', res.accessToken as string);
+        this.router.navigate(['/layout/incidentlogging']);
       
     } ,  (error) => {
        

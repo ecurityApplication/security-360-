@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit {
 
  canShowSearchAsOverlay = false;
   constructor(private router: Router,private storageService: StorageService) {}
+  ngOnInit(): void {
+   
+  }
 
  getHeadClass() : string{
   let styleClass = '';
@@ -35,12 +38,5 @@ checkCanShowSearchAsOverlay(innerWidth: number) : void{
   isLoggedIn$!: Observable<boolean>;
 
 
-ngOnInit() {
-  this.isLoggedIn$ = this.storageService.isLoggedIn;
-}
 
-onLogout() {
-  this.storageService.logout();
-}
-selected = 'option2';
 }

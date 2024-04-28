@@ -10,16 +10,21 @@ import { Role } from '../../models/role';
 import { RoleService } from '../../service/role.service';
 import { EditRoleComponent } from '../edit-role/edit-role.component';
 import { Router } from '@angular/router';
+interface RoleCount {
+  roleName: string;
+  count: number;
+}
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css',
 })
+
 export class UsersListComponent implements OnInit {
   users: User[] = [];
   role: Role[] = [];
   id!: number;
-  roleCounts: any = {};
+  roleCounts: { [key: string]: number } = {};
   constructor(
     private userService: UserService,
     private roleService: RoleService,
@@ -39,7 +44,7 @@ export class UsersListComponent implements OnInit {
       (user) => {
         this.users = user;
         // this.calculateRoleUserCounts(); // Calculate user counts for each role
-        console.log(this.users);
+        //console.log(this.users);
       },
       (error) => {
         console.error(error);
