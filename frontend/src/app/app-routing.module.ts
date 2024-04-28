@@ -26,6 +26,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MonthlyKPIsComponent } from './pages/monthly-kpis/monthly-kpis.component';
 import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
 
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
     component: LoggedInLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'Stat',
+        component: StatisticsComponent,
+      },
       {
         path: 'incidentlogging',
         component:IncidentLoggingComponent

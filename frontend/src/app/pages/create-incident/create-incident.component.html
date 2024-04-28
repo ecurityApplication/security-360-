@@ -115,8 +115,8 @@ name="incidentID"/>
             <label>Raised By</label>
             <div class="select-box">
               <select [(ngModel)]="incident.raisedBy"
-              name="raisedBy">
-                <option hidden="" >Raised By</option>
+              name="raisedBy" required>
+                <option hidden disabled [ngValue]="null">Raised By</option>
                 <option value="Crowdstrike">Crowdstrike</option>
                 <option value="Proofpoint">Proofpoint</option>
                 <option value="Siem">Siem</option>
@@ -125,6 +125,9 @@ name="incidentID"/>
                 <option value="Azure">Azure</option>
                 <option value="whatsAppGold">whatsAppGold</option>
               </select>
+            </div>
+            <div *ngIf="incidentForm.controls['incidentType'].invalid && incidentForm.controls['incidentType'].touched" class="error-message">
+              Please select an incident type.
             </div>
           </div> 
       </div>

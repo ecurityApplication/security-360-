@@ -47,8 +47,12 @@ export class IncidentLoggingComponent implements OnInit {
 //    })
 
 //  }
-public getIncident(){
-  this.incidentService.getIncidentList()
+searchByKeyword(searchkeyword: string) {
+  console.log(searchkeyword);
+  this.getIncident(searchkeyword);}
+
+public getIncident(searchKey: string = ""){
+  this.incidentService.getIncidentList(searchKey)
   .pipe(
     map((x: Incident[], i) => x.map((incident: Incident) => this.imageProcessingService.createImages(incident)))
   )

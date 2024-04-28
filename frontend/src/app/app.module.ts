@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 // import { RouterOutlet,RouterModule, Routes ,RouterLinkActive } from "@angular/router";
@@ -65,9 +65,12 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
 import { NgChartjsModule } from 'ng-chartjs';
+import { Chart } from 'chart.js';
+import { StatisticsComponent } from "./pages/statistics/statistics.component";
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
   imports: [
+    
     NgxAwesomePopupModule.forRoot({
       colorList: {
         success: '#3caea3', // optional
@@ -103,7 +106,9 @@ import { NgChartjsModule } from 'ng-chartjs';
     ReactiveFormsModule,
     RouterModule,
     RouterLinkActive,
-  OverlayModule,
+    NgChartjsModule,
+    HighchartsChartModule,
+    OverlayModule,
   CdkMenuModule,
   MatFormFieldModule,
    MatSelectModule,
@@ -118,15 +123,26 @@ import { NgChartjsModule } from 'ng-chartjs';
       timeOut: 2000,
       progressBar: true,
     }),
+   
     
+    
+    // MatToolbarModule,
+   
+    // MatButtonModule,
+    // MatIconModule,
+  
   ],
+  
   providers: [
+    // PasswordchangeService,
     HttpClient,
      provideAnimationsAsync(),
      {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
     ],
   bootstrap: [AppComponent],
   
+schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add CUSTOM_ELEMENTS_SCHEMA here
+// Other configurations...
 })
 export class AppModule { }
 

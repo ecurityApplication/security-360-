@@ -1,0 +1,21 @@
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: row;margin-top: 80px;">
+  <!-- First Highcharts chart -->
+  <div style="margin-right: 40px;">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      [oneToOne]="oneToOne"
+      [(update)]="updateFlag"
+    ></highcharts-chart>
+  </div>
+
+  <!-- Second Highcharts chart -->
+  <div>
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="secondChartOptions"
+      [oneToOne]="oneToOne"
+      [(update)]="updateFlag"
+    ></highcharts-chart>
+  </div>
+</div>

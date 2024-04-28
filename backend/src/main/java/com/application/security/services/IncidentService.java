@@ -14,6 +14,7 @@ public interface IncidentService {
 
     List<Incident> getAllIncident();
 
+    List<Incident> getAllIncident(String searchKey);
     Incident updateIncident(Long id, Incident updatedIncident);
 
     Object getIncidentById(long id);

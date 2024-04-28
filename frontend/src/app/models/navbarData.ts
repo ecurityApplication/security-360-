@@ -20,7 +20,7 @@ export const navbarData = [
         label: 'Roles and Users List'
     },
     {
-        routeLink: 'userList',
+        routeLink: 'Stat',
         icon: 'bx bx-pie-chart-alt-2',
         label: 'Analytics'
     },

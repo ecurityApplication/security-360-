@@ -29,8 +29,8 @@ public class IncidentController {
 
     @GetMapping("/getAll")
     @ResponseBody
-    public List<Incident> getAllIncident(){
-        return incidentService.getAllIncident();
+    public List<Incident> getAllIncident( @RequestParam(defaultValue = "") String searchKey){
+        return incidentService.getAllIncident(searchKey);
     }
 
     @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -158,5 +158,24 @@ public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear()
     @GetMapping("/count-per-month")
     public List<Object[]> countIncidentsPerMonth() {
         return incidentService.countIncidentsPerMonth();
+    }
+    @GetMapping("/countByCategory")
+    public ResponseEntity<Map<String, Long>> countIncidentsByCategory() {
+        Map<String, Long> incidentCountsByCategory = new HashMap<>();
+        List<Object[]> counts = incidentrepository.countIncidentsByCategory();
+        for (Object[] row : counts) {
+            incidentCountsByCategory.put((String) row[0], (Long) row[1]);
+        }
+        return ResponseEntity.ok(incidentCountsByCategory);
+    }
+
+    @GetMapping("/countByRaisedBy")
+    public ResponseEntity<Map<String, Long>> countIncidentsByRaisedBy() {
+        Map<String, Long> incidentCountsByRaisedBy = new HashMap<>();
+        List<Object[]> counts = incidentrepository.countIncidentsByRaisedBy();
+        for (Object[] row : counts) {
+            incidentCountsByRaisedBy.put((String) row[0], (Long) row[1]);
+        }
+        return ResponseEntity.ok(incidentCountsByRaisedBy);
     }
 }
