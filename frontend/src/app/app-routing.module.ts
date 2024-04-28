@@ -23,12 +23,17 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { PasswordResetVerifyCodeComponent } from './pages/password-reset-verify-code/password-reset-verify-code.component';
 import { LoggedInLayoutComponent } from './pages/logged-in-layout/logged-in-layout.component';
 import { RouterModule, Routes } from '@angular/router';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoggedInLayoutComponent,
     children: [
+      {
+        path: 'Stat',
+        component: StatisticsComponent,
+      },
       {
         path: 'incidentlogging',
         component:IncidentLoggingComponent

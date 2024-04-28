@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class EscalationComponent implements OnInit{
   constructor(private incidentService :IncidentService ,private router :Router ){ }
+  incident: Incident = new  Incident();
+
 
   incidents: Incident[] = [];
   ngOnInit(): void {
@@ -29,6 +31,20 @@ export class EscalationComponent implements OnInit{
  })
 
 }
+// getIncident() {
+//   if (this.incident.escalation === 'Yes') {
+//     this.incidentService.getIncidentList().subscribe(data => {
+//       console.log(this.incidents);
+//       this.incidents = data;
+//     }, error => {
+//       console.error(error);
+//     });
+//   } else if (this.incident.escalation === 'No') {
+//     // Do nothing or handle the case where escalation is 'No'
+//     console.log('Escalation is set to "No". No data fetched.');
+//   }
+// }
+
 updateescalation(id:number){
 this.router.navigate(['update-escalation', id]);
 

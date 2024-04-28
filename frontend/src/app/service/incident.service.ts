@@ -12,8 +12,8 @@ export class IncidentService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getIncidentList(): Observable<Incident[]> {
-    return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll`);
+  public getIncidentList(searchKeyword: string = ""): Observable<Incident[]> {
+    return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll?searchKey=`+searchKeyword);
   }
 
   public createIncident(incident:FormData){
@@ -60,7 +60,22 @@ export class IncidentService {
   deleteIncident(id: number) {
     return this.httpClient.delete(`${this.baseURL}/delete/${id}`);
   }
-
+  // getIncidentCountsByCategory(): Observable<any> {
+  //   return this.httpClient.get<any>(`${this.baseURL}/countByCategory`);
+  // }
+  getIncidentCountsByCategory(): Observable<Array<any>> {
+    return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByCategory`, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })});
+  }
+  
+  getIncidentCountsByraisedby(): Observable<Array<any>> {
+    return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByRaisedBy`, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })});
+  }
 
   getIncidentByCategory(category: string): Observable<Incident> {
     return this.httpClient.get<Incident>(

@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PasswordResetConfirmComponent } from './pages/password-reset-confirm/password-reset-confirm.component';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 // import { RouterOutlet,RouterModule, Routes ,RouterLinkActive } from "@angular/router";
@@ -60,10 +60,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
+import { NgChartsModule } from 'ng2-charts';
+import { Chart } from 'chart.js';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { StatisticsComponent } from "./pages/statistics/statistics.component";
+
+
 
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent],
   imports: [
+    
     NgxAwesomePopupModule.forRoot({
       colorList: {
         success: '#3caea3', // optional
@@ -99,8 +106,11 @@ import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
     ReactiveFormsModule,
     RouterModule,
     RouterLinkActive,
-  OverlayModule,
+    NgChartsModule,
+    HighchartsChartModule,
+    OverlayModule,
   CdkMenuModule,
+
   MatFormFieldModule, MatSelectModule,
     // MatToolbarModule,
     CommonModule,
@@ -109,15 +119,26 @@ import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
       timeOut: 2000,
       progressBar: true,
     }),
+   
     
+    
+    // MatToolbarModule,
+   
+    // MatButtonModule,
+    // MatIconModule,
+  
   ],
+  
   providers: [
+    // PasswordchangeService,
     HttpClient,
      provideAnimationsAsync(),
      {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
     ],
   bootstrap: [AppComponent],
   
+schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add CUSTOM_ELEMENTS_SCHEMA here
+// Other configurations...
 })
 export class AppModule { }
 
