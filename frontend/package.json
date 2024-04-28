@@ -28,6 +28,7 @@
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "jspdf": "^2.5.1",
+    "mdb-ui-kit": "^7.2.0",
     "ng-angular-popup": "^0.5.2",
     "ng2-charts": "^3.1.2",
     "ngx-toastr": "^18.0.0",

@@ -70,6 +70,7 @@ import { StatisticsComponent } from "./pages/statistics/statistics.component";
 @NgModule({
   declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent],
   imports: [
+    
     NgxAwesomePopupModule.forRoot({
       colorList: {
         success: '#3caea3', // optional
@@ -118,10 +119,18 @@ import { StatisticsComponent } from "./pages/statistics/statistics.component";
       timeOut: 2000,
       progressBar: true,
     }),
+   
     
+    
+    // MatToolbarModule,
+   
+    // MatButtonModule,
+    // MatIconModule,
+  
   ],
   
   providers: [
+    // PasswordchangeService,
     HttpClient,
      provideAnimationsAsync(),
      {provide:HTTP_INTERCEPTORS, useClass:TokeninterceptorService,multi:true}
