@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -27,5 +28,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Define the method to count users by role
     @Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.roleName = ?1")
     int countUsersByRole(String roleName);
+
+
 
 }

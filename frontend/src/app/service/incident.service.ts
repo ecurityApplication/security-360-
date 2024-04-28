@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient,  HttpErrorResponse } from '@angular/common/http';
 import { Incident } from '../models/incident';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -65,16 +64,18 @@ export class IncidentService {
   // }
   getIncidentCountsByCategory(): Observable<Array<any>> {
     return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByCategory`, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })});
+      // headers: new HttpHeaders({
+      //   "Content-Type": "application/json"
+      // })
+    });
   }
   
   getIncidentCountsByraisedby(): Observable<Array<any>> {
     return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByRaisedBy`, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })});
+      // headers: new HttpHeaders({
+      //   "Content-Type": "application/json"
+      // })
+    });
   }
 
   getIncidentByCategory(category: string): Observable<Incident> {
@@ -86,4 +87,43 @@ export class IncidentService {
   getIncidentByDate(date: Date): Observable<Incident> {
     return this.httpClient.get<Incident>(`${this.baseURL}/byDate`, { params: { date: date.toISOString() } });
   }
+
+  //Number of events per analyst
+  getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
+    return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
+  }
+
+//Number of alerts per plant
+getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: string]: number } }> {
+  return this.httpClient.get<{ [key: string]: { [key: string]: number } }>(`${this.baseURL}/count-by-plant-and-month`);
+}
+
+//Tickets raised/incidents
+getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/tickets-raised-per-month`);
+}
+
+//Number of treated incidents by severity
+getIncidentsBySeverityLevel(): Observable<[string, number][]> {
+  return this.httpClient.get<[string, number][]>(`${this.baseURL}//count-by-severity-level"`);
+}
+
+//
+getCurrentMonthIncidentCounts(): Observable<any[]> {
+  return this.httpClient.get<any[]>(`${this.baseURL}/monthly-counts/current`);
+}
+getEventsPerAnalystYearly(): Observable<any[]> {
+  return this.httpClient.get<any[]>(`${this.baseURL}/events-per-analyst-yearly`);
+}
+//Tickets raised/incidents Yearly
+getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]> {
+  return this.httpClient.get<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]>(`${this.baseURL}/tickets-raised-in-current-year`);
+}
+
+getIncidentCountForCurrentYear() {
+  return this.httpClient.get<number>(`${this.baseURL}/incident/count/currentYear`);
+}
+getIncidentCountByMonthForCurrentYear(): Observable<Map<number, number>> {
+  return this.httpClient.get<Map<number, number>>(`${this.baseURL}/incident/count/month/currentYear`);
+}
 }

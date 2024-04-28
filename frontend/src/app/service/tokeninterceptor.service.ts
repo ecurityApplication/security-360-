@@ -1,29 +1,34 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor, HttpHeaders
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable} from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokeninterceptorService implements HttpInterceptor{
-  constructor(){}
-   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //  console.log('Interceptor is being executed.');
-    const jwtToken = localStorage.getItem('accessToken');
-    // console.log('Retrieved JWT token:', jwtToken);
-    if (jwtToken != null) {
-      // console.log('JWT token exists. Attaching to request headers.'); // Log that the JWT token exists
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${jwtToken}`
-        }
+  constructor(
+    private storageService : StorageService 
+  ) {}
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const token = this.storageService.token;
+    if (token) {
+      console.log(token);
+      
+      const authReq = request.clone({
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + token
+        })
       });
-    // } else {
-    //   console.log('No JWT token found.'); // Log if no JWT token is found
+      return next.handle(authReq);
     }
-    // console.log('Request sent to server');
-     return next.handle(request);
-   
+    return next.handle(request);
   }
 }
 

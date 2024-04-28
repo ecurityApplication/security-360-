@@ -35,13 +35,10 @@ newUser : User = new User();
     console.log(this.newUser);
     this.userService.createUser(this.newUser).subscribe(
       user => {
-       console.log('User created successfully:', user);
-
-        //console.log(this.user); 
-       // this.users.push(user);
-        //this.showSuccess();
-        Swal.fire('Success!', 'User added successfully.', 'success');
+        console.log('User created successfully:', user);
+        // Close the dialog after user creation
         this.dialogRef.close();
+        Swal.fire('Success!', 'User added successfully.', 'success');
         this.goToUserList();
       },
       error => {
@@ -66,16 +63,17 @@ newUser : User = new User();
   }
 
   goToUserList() {
-      // Navigate back to the same route to force component reload
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/userList']);
-      });
-  }
+    // Navigate back to the same route to force component reload
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/layout/userList']);
+    });
+}
 
-  onSubmit() {
-    console.log(this.newUser);
-    this.createUser(); // Call the "createUser" method with parentheses
-  }
+onSubmit() {
+  console.log(this.newUser);
+  this.createUser(); // Call the "createUser" method with parentheses
+}
+
 
   // showSuccess() {
   //   this.toast.success({

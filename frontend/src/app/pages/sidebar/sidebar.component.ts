@@ -85,17 +85,20 @@ interface SideNavToggle {
       }
     
     
-    
-    logout(): void {
-      this.authService.logout().subscribe({
-        next: (res: any) => {
-          console.log(res,'Logout successful');
-          this.storageService.logout();
-          this.router.navigate(['login']);
-        },
-        error: (err: any) => {
-          console.error('Logout failed:', err);
-        }
-      });
-    }
+      logout() {
+        localStorage.removeItem('token');
+        window.location.reload();
+      }
+    // logout(): void {
+    //   this.authService.logout().subscribe({
+    //     next: (res: any) => {
+    //       console.log(res,'Logout successful');
+    //       this.storageService.logout();
+    //       this.router.navigate(['login']);
+    //     },
+    //     error: (err: any) => {
+    //       console.error('Logout failed:', err);
+    //     }
+    //   });
+    // }
   }

@@ -32,9 +32,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> RetreiveAllRole(){
         List<Role> roles = roleRepository.findAll();
         return roles.stream()
-                .filter(role -> !role.getRoleName().equalsIgnoreCase("ROLE_ADMIN")) 
+                .filter(role -> role.getRoleName() != null && !role.getRoleName().equalsIgnoreCase("ROLE_ADMIN"))
                 .map(role -> new ModelMapper().map(role, Role.class))
-                .collect( Collectors.toList());
+                .collect(Collectors.toList());
     }
     @Override
     public Role updateRole(Role role, Long id) {

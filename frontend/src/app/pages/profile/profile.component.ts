@@ -29,25 +29,7 @@ export class ProfileComponent {
     private userService :UserService,
     private route: ActivatedRoute,
     private router:Router) {}
-  //  ngOnInit(): void {
-  //   this.getUser();
-  // }
-  //  getUser(): void {
-
-  //   this.userService.getUserById(this.id).subscribe(
-  //     (data: User) => {
-  //       console.log(data);
-        
-  //       this.user = data;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching user data:', error);
-  //       // Handle error appropriately, such as displaying an error message to the user
-  //     }
-  //   );
-  // }
-
-
+  
 
 changePassword() {
   console.log(this.resetRequest,"resetRequest");

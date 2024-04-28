@@ -5,7 +5,7 @@
     <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)">
       <div class="input-box">
       <label>Incident ID</label>
-      <input required="" placeholder="Enter ID" type="text" id="incidentID" [(ngModel)]="incident.incidentID"
+      <input required placeholder="Enter ID" type="text" id="incidentID" [(ngModel)]="incident.incidentID"
 name="incidentID"/>
     </div>
     <div class="column">
@@ -231,6 +231,7 @@ name="incidentID"/>
           <select [(ngModel)]="incident.analyst"
           name="analyst">
             <option hidden="" >Analyst</option>
+            <!-- <option *ngFor="let user of users"  >{{ user.username }}</option> -->
             <option value="Oussema DOUGGUI">Oussema DOUGGUI</option>
             <option value="Amal BELAID">Amal BELAID</option>
             <option value="Souhail DAKHLAOUI">Souhail DAKHLAOUI</option>

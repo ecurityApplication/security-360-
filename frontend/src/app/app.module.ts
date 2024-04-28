@@ -60,15 +60,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterLinkActive, RouterModule, RouterOutlet } from "@angular/router";
-import { NgChartsModule } from 'ng2-charts';
-import { Chart } from 'chart.js';
+import { MonthlyKPIsComponent } from './pages/monthly-kpis/monthly-kpis.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 import { HighchartsChartModule } from 'highcharts-angular';
+import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
+import { NgChartjsModule } from 'ng-chartjs';
+import { Chart } from 'chart.js';
 import { StatisticsComponent } from "./pages/statistics/statistics.component";
-
-
-
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
   imports: [
     
     NgxAwesomePopupModule.forRoot({
@@ -106,12 +106,16 @@ import { StatisticsComponent } from "./pages/statistics/statistics.component";
     ReactiveFormsModule,
     RouterModule,
     RouterLinkActive,
-    NgChartsModule,
+    NgChartjsModule,
     HighchartsChartModule,
     OverlayModule,
   CdkMenuModule,
-
-  MatFormFieldModule, MatSelectModule,
+  MatFormFieldModule,
+   MatSelectModule,
+   NgApexchartsModule,
+   HighchartsChartModule,
+   NgChartjsModule,
+    // Add this line
     // MatToolbarModule,
     CommonModule,
      BrowserAnimationsModule, 

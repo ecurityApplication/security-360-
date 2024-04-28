@@ -38,7 +38,7 @@ export class CreateRoleComponent {
   goToUserList() {
       // Navigate back to the same route to force component reload
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/userList']);
+        this.router.navigate(['/layout/userList']);
       });
   }
 
