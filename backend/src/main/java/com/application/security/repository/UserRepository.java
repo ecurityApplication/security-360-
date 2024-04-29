@@ -35,6 +35,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "GROUP BY r.roleName")
     List<Object[]> countUsersPerRole();
 
-
-
+//enabled previous admin
+@Modifying
+@Transactional
+@Query("UPDATE User u SET u.enabled = true WHERE u.id <> ?1 AND u.id = (SELECT u2.id FROM User u2 JOIN u2.roles r WHERE r.roleName = 'ROLE_ADMIN' AND u2.id <> ?1)")
+void enablePreviousAdminAccount(Long newAdminId);
 }
