@@ -1,9 +1,10 @@
 package com.application.security.controller;
 
-import com.application.security.dto.ChartData;
 import com.application.security.entity.ImageModel;
 import com.application.security.entity.Incident;
+import com.application.security.entity.User;
 import com.application.security.repository.Incidentrepository;
+import com.application.security.repository.UserRepository;
 import com.application.security.services.Impl.IncidentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -26,6 +28,8 @@ public class IncidentController {
     IncidentServiceImpl incidentService;
     @Autowired
     Incidentrepository incidentrepository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/getAll")
     @ResponseBody
@@ -98,67 +102,7 @@ public class IncidentController {
             return ResponseEntity.notFound().build();
         }
     }
-    //MONTHLY
-    //Number of Incidents This month
-    @GetMapping("/monthly-counts/current")
-    public ResponseEntity<List<Map<String, Object>>> getCurrentMonthIncidentCounts() {
-        List<Map<String, Object>> currentMonthIncidentCounts = incidentService.getCurrentMonthIncidentCounts();
-        return new ResponseEntity<>(currentMonthIncidentCounts, HttpStatus.OK);
-    }
 
-    //get Tickets Raised Per Month
-    /*@GetMapping("/tickets-raised-per-month")
-    public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedPerMonth() {
-        List<Map<String, Object>> result = incidentService.getTicketsRaisedPerMonth();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }*/
-    @GetMapping("tickets-raised-per-month")
-    public Map<String, Long> getTicketRaisedPerIncident() {
-        return incidentService.getTicketRaisedPerIncident();
-    }
-
-    //count Events PerAnalyst
-    @GetMapping("/events-per-analyst")
-    public Map<String, Long> getEventsPerAnalyst() {
-        return incidentService.countEventsPerAnalyst();
-    }
-
-    //Number of alerts per plant
-    @GetMapping("/count-by-plant-and-month")
-    public ResponseEntity<Map<String, Map<String, Long>>> getIncidentCountByPlantNameAndMonth() {
-        Map<String, Map<String, Long>> incidentCountByPlantNameAndMonth = incidentService.getIncidentCountByPlantNameAndMonth();
-        return new ResponseEntity<>(incidentCountByPlantNameAndMonth, HttpStatus.OK);
-    }
-
-    //Number of treated incidents by severity
-    @GetMapping("/count-by-severity-level")
-    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
-        return incidentService.countIncidentsBySeverityLevelForCurrentMonth();
-    }
-
-    //Yearly
-//Number of Incident this  year
-    @GetMapping("/incident/count/currentYear")
-    public int getIncidentCountForCurrentYear() {
-        return incidentService.countIncidentsForCurrentYear();
-    }
-    //Tickets Raised /incident
-@GetMapping("/tickets-raised-in-current-year")
-public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear() {
-    List<Map<String, Object>> result = incidentService.getTicketsRaisedInCurrentYear();
-    return new ResponseEntity<>(result, HttpStatus.OK);
-}
-
-    //Number of Events per analyst
-   /* @GetMapping("/analyst-count-in-current-year")
-    public List<Object[]> getIncidentCountPerAnalystForCurrentYear() {
-        return incidentService.getIncidentCountPerAnalystForCurrentYear();
-    }*/
-    //Number of incidents per month of the current year
-    @GetMapping("/count-per-month")
-    public List<Object[]> countIncidentsPerMonth() {
-        return incidentService.countIncidentsPerMonth();
-    }
     @GetMapping("/countByCategory")
     public ResponseEntity<Map<String, Long>> countIncidentsByCategory() {
         Map<String, Long> incidentCountsByCategory = new HashMap<>();
@@ -178,4 +122,75 @@ public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear()
         }
         return ResponseEntity.ok(incidentCountsByRaisedBy);
     }
+    //MONTHLY
+    //MTTA
+    @GetMapping("/average-time-analyse-current-month")
+    public double getAverageTimeAnalyseCurrentMonth() {
+        return incidentService.getAverageTimeAnalyseCurrentMonth();
+    }
+    //Number of Incidents This month
+    @GetMapping("/monthly-counts/current")
+    public ResponseEntity<List<Map<String, Object>>> getCurrentMonthIncidentCounts() {
+        List<Map<String, Object>> currentMonthIncidentCounts = incidentService.getCurrentMonthIncidentCounts();
+        return new ResponseEntity<>(currentMonthIncidentCounts, HttpStatus.OK);
+    }
+
+    //get Tickets Raised Per Month
+    @GetMapping("tickets-raised-per-month")
+    public Map<String, Long> getTicketRaisedPerIncident() {
+        return incidentService.getTicketRaisedPerIncident();
+    }
+
+    //count Events PerAnalyst
+
+
+    //Number of alerts per plant
+    @GetMapping("/count-by-plant-and-month")
+    public ResponseEntity<Map<String, Map<String, Long>>> getIncidentCountByPlantNameAndMonth() {
+        Map<String, Map<String, Long>> incidentCountByPlantNameAndMonth = incidentService.getIncidentCountByPlantNameAndMonth();
+        return new ResponseEntity<>(incidentCountByPlantNameAndMonth, HttpStatus.OK);
+    }
+
+    //Number of treated incidents by severity
+    @GetMapping("/count-by-severity-level")
+    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
+        return incidentService.countIncidentsBySeverityLevelForCurrentMonth();
+    }
+
+    //Yearly
+    //MTTA
+    @GetMapping("/averageTimeAnalyse-year")
+    public Double getAverageTimeAnalyseForCurrentYear() {
+        return incidentService.getAverageTimeAnalyseForCurrentYear();
+    }
+//Number of Incident this  year
+    @GetMapping("/incident/count/currentYear")
+    public int getIncidentCountForCurrentYear() {
+        return incidentService.countIncidentsForCurrentYear();
+    }
+    //Tickets Raised /incident
+@GetMapping("/tickets-raised-in-current-year")
+public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear() {
+    List<Map<String, Object>> result = incidentService.getTicketsRaisedInCurrentYear();
+    return new ResponseEntity<>(result, HttpStatus.OK);
+}
+
+    //Number of Events per analyst
+
+//Number of treated incidents by severity
+@GetMapping("/severity-level-count-year")
+public ResponseEntity<Map<String, Long>> getIncidentCountBySeverityLevelForCurrentYear() {
+    Map<String, Long> incidentCountBySeverityLevel = incidentService.getIncidentCountBySeverityLevelForCurrentYear();
+    return ResponseEntity.ok(incidentCountBySeverityLevel);
+}
+
+    //Number of incidents per month of the current year
+    @GetMapping("/count-per-month-current-year")
+    public List<Object[]> countIncidentsPerMonth() {
+        return incidentService.countIncidentsPerMonth();
+    }
+
+//MTTD
+
+
 }

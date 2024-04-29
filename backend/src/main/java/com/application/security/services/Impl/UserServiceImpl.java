@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -222,9 +223,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById( id );
     }
 
+    //count user per role
     @Override
-    public int getUserCountByRole(String roleName) {
-        return userRepository.countUsersByRole(roleName);
+    public Map<String, Long> countUsersPerRole() {
+        List<Object[]> results = userRepository.countUsersPerRole();
+        return results.stream()
+                .collect(Collectors.toMap(
+                        r -> (String) r[0],
+                        r -> (Long) r[1]
+                ));
     }
 
     @Override

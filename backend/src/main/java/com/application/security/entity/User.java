@@ -33,6 +33,9 @@ public class User implements UserDetails {
 	//private boolean isEnabled = false;
 	private boolean mfaEnabled=true;// tell the backend if the user will use the 2FA or not
 	private String secret;// if the user use mFA it generate a new secrete
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Incident> incidents;
 	// Role-Based Authentication
 	// the many user might have different role
 	@ManyToMany(fetch = FetchType.EAGER)//indicates that while fetching User object, also fetch roles simultaneously

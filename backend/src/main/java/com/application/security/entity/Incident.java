@@ -31,6 +31,7 @@ public class Incident {
     private String userName;
     private String hostStatus;
     private String investigation;
+    private String roadCauseAnalysis;
     private String remediation;
     private String firstEvent;
     private String acknowledge;
@@ -42,6 +43,7 @@ public class Incident {
     private Date dateTarget;
     private String escalation ;
     private String incidentStatus ;
+    private String timeOfClosure ;
     private String  falsePositive ;
     private String functionalEscalation;
     private String herarachicescalation;
@@ -61,7 +63,9 @@ public class Incident {
     )
 
     private Set<ImageModel>incidentImages;
-
+    @ManyToOne//Many token belongs to the same user
+    @JoinColumn(name = "user_id")
+    public User user;
     public Incident orElseThrow(Object object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");

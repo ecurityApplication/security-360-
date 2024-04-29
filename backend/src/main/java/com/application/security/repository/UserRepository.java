@@ -21,13 +21,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     User findUserByUsername(String username);
+
     @Modifying
     @Transactional
     @Query("update User u set u.password = ?2 where u.email = ?1 ")
     void updatePassword(String email, String password);
+
     // Define the method to count users by role
-    @Query("SELECT COUNT(u) FROM User u JOIN u.roles r WHERE r.roleName = ?1")
-    int countUsersByRole(String roleName);
+    @Query("SELECT r.roleName, COUNT(u) AS userCount " +
+            "FROM Role r " +
+            "JOIN r.users u " +
+            "WHERE r.roleName IN ('GUEST', 'ANALYST') " +
+            "GROUP BY r.roleName")
+    List<Object[]> countUsersPerRole();
 
 
 

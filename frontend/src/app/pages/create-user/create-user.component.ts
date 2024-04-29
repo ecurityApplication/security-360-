@@ -11,46 +11,48 @@ import { RoleService } from '../../service/role.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrl: './create-user.component.css'
+  styleUrl: './create-user.component.css',
 })
-export class CreateUserComponent  implements OnInit {
- // user: User = new User();
- roleName!:string[]
-newUser : User = new User();
+export class CreateUserComponent implements OnInit {
+  // user: User = new User();
+  roleName!: string[];
+  newUser: User = new User();
   id!: number;
-  roles:Role[]=[];
+  roles: Role[] = [];
   constructor(
-    private userService:UserService,
-    private router:Router,
+    private userService: UserService,
+    private router: Router,
     private toast: NgToastService,
     public dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private roleService :RoleService
+    private roleService: RoleService
   ) {}
 
   ngOnInit(): void {
     this.getRole();
   }
+  //add new user
   createUser() {
     console.log(this.newUser);
     this.userService.createUser(this.newUser).subscribe(
-      user => {
-        console.log('User created successfully:', user);
+      (user) => {
         // Close the dialog after user creation
         this.dialogRef.close();
         Swal.fire('Success!', 'User added successfully.', 'success');
         this.goToUserList();
       },
-      error => {
+      (error) => {
         console.error('Error creating user:', error);
         Swal.fire('Error!', 'Failed to create user.', 'error');
       }
     );
   }
+
   // pushRole(role:string) {
   //   this.roleName.push(role);
   //   console.log("roleName",this.roleName);
   // }
+
   getRole() {
     this.roleService.getRole().subscribe(
       (res) => {
@@ -62,29 +64,19 @@ newUser : User = new User();
     );
   }
 
+  // Navigate back to the same route to force component reload
   goToUserList() {
-    // Navigate back to the same route to force component reload
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/layout/userList']);
     });
-}
+  }
 
-onSubmit() {
-  console.log(this.newUser);
-  this.createUser(); // Call the "createUser" method with parentheses
-}
-
-
-  // showSuccess() {
-  //   this.toast.success({
-  //     detail:"Success Message",
-  //     summary:"Successfully added a new user",
-  //     duration:2000,
-  //      position:'topRight'})
-  // }
+  onSubmit() {
+    console.log(this.newUser);
+    this.createUser(); // Call the "createUser" method with parentheses
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

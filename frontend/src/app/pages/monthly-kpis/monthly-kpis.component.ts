@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IncidentService } from '../../service/incident.service';
 import * as Highcharts from 'highcharts';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { ChartOptions, ChartType, ChartData } from 'chart.js';
 @Component({
   selector: 'app-monthly-kpis',
   templateUrl: './monthly-kpis.component.html',
@@ -13,16 +13,23 @@ export class MonthlyKPIsComponent implements OnInit {
   chartOptions!: Highcharts.Options;
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
   ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
-  constructor(private incidentService: IncidentService) {}
+  averageTimeAnalyse!: number;
+
+  constructor(private incidentService: IncidentService) { }
 
   ngOnInit() {
    this.getIncidentCount();
-    this.getEventsPerAnalyst();
+    // this.getEventsPerAnalyst();
     this.getIncidentCountByPlantNameAndMonth();
     this.getTicketRaisedPerIncident();
+    this.getAverageTimeAnalyseCurrentMonth();
+      this.getIncidentsBySeverityLevel();
+    
+    
   }
 
 
+  //Number of Incidents This month 
   getIncidentCount() {
     this.incidentService.getCurrentMonthIncidentCounts().subscribe(
       (data) => {
@@ -33,46 +40,58 @@ export class MonthlyKPIsComponent implements OnInit {
       }
     );
   }
-
+//MTTA
+getAverageTimeAnalyseCurrentMonth() {
+  this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
+    (data) => {
+      this.averageTimeAnalyse = data;
+      console.log(data);
+      
+    },
+    (error) => {
+      console.error('Error fetching average time analyse:', error);
+    }
+  );
+}
   //Number of events per analyst method call
-  getEventsPerAnalyst() {
-    this.incidentService.getEventsPerAnalyst().subscribe((data) => {
-      this.initializeChart(data);
-    });
-  }
+  // getEventsPerAnalyst() {
+  //   this.incidentService.getEventsPerAnalyst().subscribe((data) => {
+  //     this.initializeChart(data);
+  //   });
+  // }
   //Number of events per analyst highcharts
-  initializeChart(data: { [key: string]: number }) {
-    this.chartOptions = {
-      chart: {
-        type: 'column',
-      },
-      title: {
-        text: 'Number of events per analyst',
-      },
-      xAxis: {
-        categories: Object.keys(data).sort(),
-        title: {
-          text: 'Analyst',
-        },
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Events',
-        },
-      },
-      series: [
-        {
-          type: 'column',
-          // name: 'Events',
-          data: Object.values(data),
-          color: '#0077b6',
-        },
-      ],
-    };
+  // initializeChart(data: { [key: string]: number }) {
+  //   this.chartOptions = {
+  //     chart: {
+  //       type: 'column',
+  //     },
+  //     title: {
+  //       text: 'Number of events per analyst',
+  //     },
+  //     xAxis: {
+  //       categories: Object.keys(data).sort(),
+  //       title: {
+  //         text: 'Analyst',
+  //       },
+  //     },
+  //     yAxis: {
+  //       min: 0,
+  //       title: {
+  //         text: 'Events',
+  //       },
+  //     },
+  //     series: [
+  //       {
+  //         type: 'column',
+  //         // name: 'Events',
+  //         data: Object.values(data),
+  //         color: '#0077b6',
+  //       },
+  //     ],
+  //   };
 
-    (Highcharts as any).chart('incident-chart', this.chartOptions);
-  }
+  //   (Highcharts as any).chart('incident-chart', this.chartOptions);
+  // }
 
   //Number of alerts per plant method call
   getIncidentCountByPlantNameAndMonth() {
@@ -138,7 +157,7 @@ export class MonthlyKPIsComponent implements OnInit {
     (Highcharts as any).chart(containerId, chartOptions);
   }
 
-  
+  //Tickets raised/incidents
   ticketRaisedChartOptions: Highcharts.Options = {
     chart: {
       type: 'column'
@@ -178,7 +197,47 @@ export class MonthlyKPIsComponent implements OnInit {
     this.Highcharts.chart('incident-chart-ticket-raised', this.ticketRaisedChartOptions);
   }
 
+//Number of treated incidents by severity
 
 
-  
+
+
+
+
+
+
+
+
+  pieChartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  chartType: ChartType = 'pie';
+  chartData: ChartData<'pie'> = {
+    labels: [],
+    datasets: []
+  };
+
+ 
+
+  getIncidentsBySeverityLevel() {
+    this.incidentService.getIncidentsBySeverityLevel().subscribe(data => {
+      this.chartData.labels = data.map(item => item[0].toString());
+      this.chartData.datasets = [
+        {
+          data: data.map(item => item[1]),
+          backgroundColor: this.getRandomColors(data.length)
+        }
+      ];
+    });
+  }
+
+  private getRandomColors(count: number): string[] {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(randomColor);
+    }
+    return colors;
+  }
 }

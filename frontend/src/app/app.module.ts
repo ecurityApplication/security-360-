@@ -65,7 +65,6 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { HighchartsChartModule } from 'highcharts-angular';
 import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
 import { NgChartjsModule } from 'ng-chartjs';
-import { Chart } from 'chart.js';
 import { StatisticsComponent } from "./pages/statistics/statistics.component";
 @NgModule({
   declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
@@ -112,7 +111,6 @@ import { StatisticsComponent } from "./pages/statistics/statistics.component";
   CdkMenuModule,
   MatFormFieldModule,
    MatSelectModule,
-   NgApexchartsModule,
    HighchartsChartModule,
    NgChartjsModule,
     // Add this line

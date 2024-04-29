@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 //@CrossOrigin("*")
 @RestController
@@ -67,9 +68,10 @@ UserService userService;
         userService.initRoleAndUser();
     }
 
-    @GetMapping("/countByRole")
-    public int getUserCountByRole(@RequestParam String roleName) {
-        return userService.getUserCountByRole(roleName);
-    }
+    //count user per role
+   @GetMapping("/user-count")
+   public Map<String, Long> getUserCountPerRole() {
+       return userService.countUsersPerRole();
+   }
 }
 

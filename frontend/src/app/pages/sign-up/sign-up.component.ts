@@ -46,13 +46,13 @@ export class SignUpComponent {
     const password = this.registerRequest.password;
     const email = this.registerRequest.email;
 
-    if (!password || !this.isPasswordStrong(password)) {
-      console.log(
-        'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.'
-      );
-      this.showWarning1() ;
-      return;
-    }
+    // if (!password || !this.isPasswordStrong(password)) {
+    //   console.log(
+    //     'Password is not strong. It should be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.'
+    //   );
+    //   this.showWarning1() ;
+    //   return;
+    // }
     if (!email || !this.isGmailFormat(email)) {
       console.log('Email is not in Gmail format.');//
       // this.toastr.warning('Email is not in Gmail format');
