@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     void DeleteUser(Long id);
@@ -23,5 +24,6 @@ public interface UserService {
     public void initRoleAndUser();
     //public   User registerNewUser(UserDTO userDTO);
     public  ResponseEntity<Response> registerNewUser(UserDTO userDTO, final HttpServletRequest request);
-    int getUserCountByRole(String roleName);
+    //int getUserCountByRole(String roleName);
+    public Map<String, Long> countUsersPerRole();
 }

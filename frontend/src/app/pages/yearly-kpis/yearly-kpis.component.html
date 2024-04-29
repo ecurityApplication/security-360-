@@ -1,12 +1,24 @@
 <div>
+    <!-- Number of Incidents This year -->
     <h2>Number of Incidents for Current Year: {{ incidentCount }}</h2>
-    <!-- Add your line chart component here -->
-  
+    <!--Tickets Raised in Current Year  -->
 <div class="container">
     <h2>Tickets Raised in Current Year</h2>
     <div id="tickets-raised-per-year-chart" style="width: 70%; height: 50%;"></div>
-    <div>
-        <canvas id="incidentLineChart" style="width: 70%; height: 50%;"></canvas>
+    <div class="line-chart">
+        <canvas #incidentLineChart></canvas>
       </div>
   </div>
+  <!-- MTTD -->
+  <div class="container">
+    <h2>Incident Dashboard</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Average Time Analyse (Current Month)</h5>
+        <p class="card-text">{{ averageTimeAnalyse }}</p>
+      </div>
+    </div>
 </div>
+<div style="width: 80%; height: 100%; margin: 20px auto;">
+    <canvas id="MyChart"></canvas>
+  </div>

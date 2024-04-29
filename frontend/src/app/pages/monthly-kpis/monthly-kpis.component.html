@@ -3,17 +3,15 @@
       <h4>Monthly KPIs</h4>
     </div>
       <!-- events-per-analyst -->
-      <div class="chart" id="incident-chart"></div>
+      <!-- <div class="chart" id="incident-chart"></div> -->
     <div class="charts-bottom">
-  
     <!-- Number of alerts per plant -->
     <div class="chart" id="incident-count-by-plant-and-month-chart"></div>
     <!-- Tickets raised/incidents -->
     <!-- <div class="chart" id="tickets-raised-per-month-chart"></div>   -->
     <div class="chart" id="incident-chart-ticket-raised" ></div>
-    
-
   </div>
+  <!-- Number of Incidents This month  -->
   <div class="container">
     <h2>Current Month Incident Count</h2>
     <table class="table table-striped">
@@ -31,4 +29,17 @@
       </tbody>
     </table>
   </div>
+  <div class="container">
+    <h2>Incident Dashboard</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Average Time Analyse (Current Month)</h5>
+        <p class="card-text">{{ averageTimeAnalyse }}</p>
+      </div>
+    </div>
+  </div>
+  <div style="width: 100%; height: 100%;margin: 0 auto;">
+    <canvas id="incidentChart"></canvas>
+  </div>
+ 
 </div>

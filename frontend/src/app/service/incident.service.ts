@@ -87,11 +87,16 @@ export class IncidentService {
   getIncidentByDate(date: Date): Observable<Incident> {
     return this.httpClient.get<Incident>(`${this.baseURL}/byDate`, { params: { date: date.toISOString() } });
   }
-
+  
+  //MTTA
+  getAverageTimeAnalyseCurrentMonth(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseURL}/average-time-analyse-current-month`);
+  }
   //Number of events per analyst
   getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
     return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
   }
+
 
 //Number of alerts per plant
 getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: string]: number } }> {
@@ -104,10 +109,11 @@ getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
 }
 
 //Number of treated incidents by severity
-getIncidentsBySeverityLevel(): Observable<[string, number][]> {
-  return this.httpClient.get<[string, number][]>(`${this.baseURL}//count-by-severity-level"`);
-}
 
+
+    getIncidentsBySeverityLevel(): Observable<any[]> {
+      return this.httpClient.get<any[]>(`${this.baseURL}/count-by-severity-level`);
+    }
 //
 getCurrentMonthIncidentCounts(): Observable<any[]> {
   return this.httpClient.get<any[]>(`${this.baseURL}/monthly-counts/current`);
@@ -123,7 +129,16 @@ getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: nu
 getIncidentCountForCurrentYear() {
   return this.httpClient.get<number>(`${this.baseURL}/incident/count/currentYear`);
 }
-getIncidentCountByMonthForCurrentYear(): Observable<Map<number, number>> {
-  return this.httpClient.get<Map<number, number>>(`${this.baseURL}/incident/count/month/currentYear`);
+
+// getIncidentCountByMonthForCurrentYear(): Observable<Map<number, number>> {
+//   return this.httpClient.get<Map<number, number>>(`${this.baseURL}/incident/count/month/currentYear`);
+// }
+
+getIncidentsPerMonth(){
+  return this.httpClient.get<Object[]>(`${this.baseURL}/count-per-month-current-year`);
 }
+  //MTTA
+  getAverageTimeAnalyseCurrentYear(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseURL}/averageTimeAnalyse-year`);
+  }
 }

@@ -19,7 +19,7 @@ export class TokeninterceptorService implements HttpInterceptor{
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.storageService.token;
     if (token) {
-      console.log(token);
+      // console.log(token);
       
       const authReq = request.clone({
         headers: new HttpHeaders({

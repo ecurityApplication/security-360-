@@ -4,14 +4,14 @@
       <p>Roles Liste</p>
       <div class="analytics">
         <div class="cards-role">
-          <div class="card" *ngFor="let role of role">
+          <div class="card" *ngFor="let role of userCountPerRole | keyvalue">
             <div class="card-head">
               <i class="bx bxs-group"></i>
-              <h2>{{ role.roleName }}</h2>
+              <h2>{{ role.key }}</h2>
               <span class="las la-user-friends"></span>
             </div>
             <div class="card-progress">
-              <small>Total {{ roleCounts[role.roleName] || 0 }} users</small>
+              <small>Total users: {{ role.value }}</small>
               <div class="card-indicator"></div>
             </div>
           </div>

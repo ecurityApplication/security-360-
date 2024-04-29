@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
-import { IncidentService } from '../../service/incident.service';
-import * as Highcharts from 'highcharts';
-import { ChartDataset, ChartOptions } from 'chart.js';
-@Component({
-  selector: 'app-yearly-kpis',
-  templateUrl: './yearly-kpis.component.html',
-  styleUrl: './yearly-kpis.component.css'
-})
-export class YearlyKpisComponent {
-  Highcharts: typeof Highcharts = Highcharts;
-  ticketsRaisedPerYearChartOptions!: Highcharts.Options;
-  incidentCount!: number;
-  incidentCountByMonth!: Map<number, number>;
-  chartData!: ChartDataset[];
-  chartOptions!: ChartOptions;
-  constructor(private incidentService: IncidentService) {}
+  import { Component } from '@angular/core';
+  import { IncidentService } from '../../service/incident.service';
+  import * as Highcharts from 'highcharts';
+  import { ChartDataset, ChartOptions } from 'chart.js';
+  import { Chart } from 'chart.js';
 
-  ngOnInit() {
-    this.NumberOfIncidentInCurrentYear();
-    this.getTicketsRaisedInCurrentYear();
-    this.get();
-  }
+  @Component({
+    selector: 'app-yearly-kpis',
+    templateUrl: './yearly-kpis.component.html',
+    styleUrl: './yearly-kpis.component.css'
+  })
+  export class YearlyKpisComponent {
+    Highcharts: typeof Highcharts = Highcharts;
+    ticketsRaisedPerYearChartOptions!: Highcharts.Options;
+    incidentCount!: number;
+    incidentCountByMonth!: Map<number, number>;
+    chartData!: ChartDataset[];
+    chartOptions!: ChartOptions;
+    averageTimeAnalyse!: number;
+    constructor(private incidentService: IncidentService) {}
+
+    ngOnInit() {
+      this.NumberOfIncidentInCurrentYear();
+      this.getTicketsRaisedInCurrentYear();
+      this.getAverageTimeAnalyseCurrentYear()
+      this.createChart();
+      this.getIncidentsPerMonth();
+      this.createChart();
+    }
 
   getTicketsRaisedInCurrentYear() {
     this.incidentService.getTicketsRaisedInCurrentYear().subscribe((data) => {
@@ -28,6 +34,20 @@ export class YearlyKpisComponent {
     });
 
   }
+  //MTTA
+  getAverageTimeAnalyseCurrentYear() {
+    this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
+      (data) => {
+        this.averageTimeAnalyse = data;
+        console.log(data);
+        
+      },
+      (error) => {
+        console.error('Error fetching average time analyse:', error);
+      }
+    );
+  }
+
   NumberOfIncidentInCurrentYear() {
     this.incidentService.getIncidentCountForCurrentYear().subscribe(count => {
       this.incidentCount = count;
@@ -69,51 +89,58 @@ export class YearlyKpisComponent {
     Highcharts.chart('tickets-raised-per-year-chart', this.ticketsRaisedPerYearChartOptions);
   }
 
-  get() {
-    this.incidentService.getIncidentCountByMonthForCurrentYear().subscribe(data => {
-      this.incidentCountByMonth = data;
-      this.initializeChart();
-    });
-  }
+  
+  //Number of incidents per month of the current year
+  chart: any;
+  incidentsPerMonth!: any[];
 
-  initializeChart() {
-    this.chartData = [
-      {
-        label: 'Incidents',
-        data: Array.from(this.incidentCountByMonth.values()),
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }
-    ];
-
-    this.chartOptions = {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true,
-          text: 'Incidents for Current Year'
-        }
-      },
-      scales: {
-        x: {
-          type: 'category',
-          labels: Array.from(this.incidentCountByMonth.keys()).map(month => this.getMonthName(month))
+  getIncidentsPerMonth() {
+    this.incidentService.getIncidentsPerMonth() // Replace with your actual base URL
+      .subscribe(
+        (data) => {
+          this.incidentsPerMonth = data;
+          this.createChart();
         },
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Number of Incidents'
-          }
+        (error) => {
+          console.error('Error fetching incidents per month:', error);
         }
-      }
-    };
+      );
   }
 
-  getMonthName(month: number): string {
+  createChart() {
+    if (this.incidentsPerMonth && this.incidentsPerMonth.length > 0) {
+      const labels = this.incidentsPerMonth.map(item => this.getMonthName(item.month));
+      const data = this.incidentsPerMonth.map(item => item.totalIncidents);
+      console.log(data, "line");
+
+      if (this.chart) {
+        this.chart.data.labels = labels;
+        this.chart.data.datasets[0].data = data;
+        this.chart.update();
+      } else {
+        this.chart = new Chart("MyChart", {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Total Incidents',
+              data: data,
+              borderColor: 'blue',
+              fill: false
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+      }
+    }
+  }
+
+  getMonthName(monthNumber: number): string {
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                       'July', 'August', 'September', 'October', 'November', 'December'];
-    return monthNames[month - 1];
+      'July', 'August', 'September', 'October', 'November', 'December'];
+    return monthNames[monthNumber - 1];
   }
 }

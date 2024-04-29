@@ -1,6 +1,5 @@
 package com.application.security.services;
 
-import com.application.security.dto.ChartData;
 import com.application.security.entity.Incident;
 
 import java.util.Date;
@@ -12,7 +11,7 @@ public interface IncidentService {
 
     void DeleteIncident(Long id);
 
-    List<Incident> getAllIncident();
+
 
     List<Incident> getAllIncident(String searchKey);
     Incident updateIncident(Long id, Incident updatedIncident);
@@ -25,20 +24,23 @@ public interface IncidentService {
 //MONTHLY
     List<Map<String, Object>> getCurrentMonthIncidentCounts();
 
-    /*List<Map<String, Object>> getTicketsRaisedPerMonth();*/
     Map<String, Long> getTicketRaisedPerIncident();
 
-    Map<String, Long> countEventsPerAnalyst();
+
 
     Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
 
      List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
 //YEARLY
+     Double getAverageTimeAnalyseForCurrentYear();
      int countIncidentsForCurrentYear();
 
      List<Map<String, Object>> getTicketsRaisedInCurrentYear();
-    /* List<Object[]> getIncidentCountPerAnalystForCurrentYear();*/
+     Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
      List<Object[]> countIncidentsPerMonth();
+
+     double getAverageTimeAnalyseCurrentMonth();
+
 
 }
 

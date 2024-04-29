@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   users: User[] = [];
   role: Role[] = [];
   id!: number;
-  roleCounts: { [key: string]: number } = {};
+  userCountPerRole: any;
   constructor(
     private userService: UserService,
     private roleService: RoleService,
@@ -36,7 +36,7 @@ export class UsersListComponent implements OnInit {
     // Call the method to fetch users on component initialization
     this.getUser();
     this.getRole();
-    this.loadRoleCounts();
+    this. CountUserPerRole();
   }
 
   getUser() {
@@ -64,18 +64,11 @@ export class UsersListComponent implements OnInit {
   }
 
   //count users based on their roles
-  loadRoleCounts() {
-    this.userService.countUsersByRole().subscribe(
-      (data) => {
-        console.log(data);
-        this.roleCounts = data;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  CountUserPerRole() {
+    this.userService.getUserCountPerRole().subscribe(data => {
+      this.userCountPerRole = data;
+    });
   }
-
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {
       width: '40%',

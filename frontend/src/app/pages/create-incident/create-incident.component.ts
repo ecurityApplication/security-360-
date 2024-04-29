@@ -17,18 +17,7 @@ import { UserService } from '../../service/user.service';
   styleUrl: './create-incident.component.css',
 })
 export class CreateIncidentComponent {
-  constructor(
-    private incidentService: IncidentService,
-    private router: Router,
-    private sanitizer: DomSanitizer,
-    private toast: NgToastService,
-    private userService: UserService,
-  ) {}
   timeAnalyse: number = 0;
-  // incident: Incident = new Incident();
-
-  ngOnInit(): void {}
-
   incident: Incident = {
     incidentImages: [],
     id: 0,
@@ -45,6 +34,8 @@ export class CreateIncidentComponent {
     userName: '',
     hostStatus: '',
     investigation: '',
+    roadCauseAnalysis:'',
+    timeOfClosure :'',
     remediation: '',
     firstEvent: '',
     acknowledge: '',
@@ -62,9 +53,21 @@ export class CreateIncidentComponent {
     lessonLeraned: '',
     managementescalation: '',
   };
-  users:User[]=[];
+  users!: User[];
   @Input() isOpen: boolean = false;
   sidebarOpen: boolean = false;
+
+  constructor(
+    private incidentService: IncidentService,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private toast: NgToastService,
+    private userService: UserService
+  ) {}
+
+  ngOnInit(): void {
+    this.getUser();
+  }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -155,20 +158,11 @@ export class CreateIncidentComponent {
       }
     );
   }
-  // showSuccess() {
 
-  //   this.toast.success({
-  //     detail:"Success Message",
-  //     summary:'Successfully added a new incident',
-  //     duration:3000,
-  //      position:'topRight'})
-  // }
   getUser() {
     this.userService.getUser().subscribe(
       (user) => {
         this.users = user;
-        // this.calculateRoleUserCounts(); // Calculate user counts for each role
-        //console.log(this.users);
       },
       (error) => {
         console.error(error);

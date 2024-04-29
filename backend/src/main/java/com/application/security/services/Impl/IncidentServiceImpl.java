@@ -1,16 +1,19 @@
 package com.application.security.services.Impl;
 
 import com.application.security.entity.Incident;
+import com.application.security.entity.User;
 import com.application.security.repository.Incidentrepository;
+import com.application.security.repository.UserRepository;
 import com.application.security.services.IncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.ZoneId;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +30,7 @@ return  repIncident.save(i);
     public void DeleteIncident(Long id) {
         repIncident.deleteById(id);
     }
+
 
     @Override
     public List<Incident> getAllIncident(String searchKey) {
@@ -110,6 +114,20 @@ public Object getIncidentById(long id){
     }
 
     //MONTHLY
+    //MTTA
+    public double getAverageTimeAnalyseCurrentMonth() {
+        List<Incident> incidents = repIncident.findIncidentsInCurrentMonth();
+        if (incidents.isEmpty()) {
+            return 0.0;
+        }
+
+        int totalTimeAnalyse = 0;
+        for (Incident incident : incidents) {
+            totalTimeAnalyse += incident.getTimeAnalyse();
+        }
+
+        return (double) totalTimeAnalyse / incidents.size();
+    }
     //Number of Incidents This month
     @Override
     public List<Map<String, Object>> getCurrentMonthIncidentCounts() {
@@ -118,9 +136,6 @@ public Object getIncidentById(long id){
 
     //get Tickets Raised Per Month
     @Override
-    /*public List<Map<String, Object>> getTicketsRaisedPerMonth() {
-        return repIncident.getTicketsRaisedPerMonth();
-    }*/
     public Map<String, Long> getTicketRaisedPerIncident() {
         List<Object[]> results = repIncident.getTicketRaisedPerIncident();
         Map<String, Long> ticketRaisedCounts = new HashMap<>();
@@ -133,13 +148,9 @@ public Object getIncidentById(long id){
     }
 
     //count Events PerAnalyst
-    @Override
-    public Map<String, Long> countEventsPerAnalyst() {
-        List<Incident> allIncidents = getAllIncident();
-        // Group incidents by analyst and count occurrences
-        return allIncidents.stream()
-                .collect( Collectors.groupingBy(Incident::getAnalyst, Collectors.counting()));
-    }
+
+
+
 
     //Number of alerts per plant
     @Override
@@ -170,6 +181,10 @@ public Object getIncidentById(long id){
     }
 
 //Yearly
+    //MTTA
+public Double getAverageTimeAnalyseForCurrentYear() {
+    return repIncident.getAverageTimeAnalyseForCurrentYear();
+}
 //Number of Incident this  year
 @Override
 public int countIncidentsForCurrentYear() {
@@ -182,31 +197,27 @@ public List<Map<String, Object>> getTicketsRaisedInCurrentYear() {
     return repIncident.getTicketsRaisedInCurrentYear();
 }
 
+
     //count Events PerAnalyst
-   /* @Override
-    public List<Object[]> getIncidentCountPerAnalystForCurrentYear() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
-        calendar.set(Calendar.MONTH, 0);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        Date startDate = calendar.getTime();
-        Date endDate = new Date(); // Current date
+//Number of treated incidents by severity
+@Override
+    public Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear() {
+        List<Object[]> results = repIncident.getIncidentCountBySeverityLevelForCurrentYear();
+        Map<String, Long> incidentCountBySeverityLevel = new HashMap<>();
 
-        return repIncident.getIncidentCountPerAnalyst(startDate, endDate, "ANALYST");
-    }*/
+        for (Object[] row : results) {
+            String severityLevel = (String) row[0];
+            Long count = (Long) row[1];
+            incidentCountBySeverityLevel.put(severityLevel, count);
+        }
 
+        return incidentCountBySeverityLevel;
+    }
     //Number of incidents per month of the current year
     @Override
     public List<Object[]> countIncidentsPerMonth() {
         return repIncident.countIncidentsPerMonth();
     }
-
-    @Override
-    public List<Incident> getAllIncident() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllIncident'");
-    }
-
 
 
 }
