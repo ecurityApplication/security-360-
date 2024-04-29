@@ -67,6 +67,7 @@ public class AuthenticationService {
               .responseMessage("User with provided email  already exists!")
               .build());
     }
+
     // add roles to users
     List<String> strRoles = userRequest.getRole();
     List<Role> roles = new ArrayList<>();
@@ -114,7 +115,8 @@ public class AuthenticationService {
     var savedUser = repository.save(user);
     publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
 
-
+// Enable the previous admin account
+    repository.enablePreviousAdminAccount(savedUser.getId());
     // Generate JWT token and refresh token
    // var jwtToken = jwtService.generateToken(user);
     //var refreshToken = jwtService.generateRefreshToken(user);
