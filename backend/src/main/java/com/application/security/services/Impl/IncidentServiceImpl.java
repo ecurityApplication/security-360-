@@ -174,11 +174,6 @@ public Object getIncidentById(long id){
         return incidentCountByPlantNameAndMonth;
     }
 
-    //Number of treated incidents by severity
-    @Override
-    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
-        return repIncident.countIncidentsBySeverityLevelForCurrentMonth();
-    }
 
 //Yearly
     //MTTA
@@ -199,7 +194,7 @@ public List<Map<String, Object>> getTicketsRaisedInCurrentYear() {
 
 
     //count Events PerAnalyst
-//Number of treated incidents by severity
+//Number of treated incidents by severity year
 @Override
     public Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear() {
         List<Object[]> results = repIncident.getIncidentCountBySeverityLevelForCurrentYear();
@@ -213,6 +208,26 @@ public List<Map<String, Object>> getTicketsRaisedInCurrentYear() {
 
         return incidentCountBySeverityLevel;
     }
+    //Number of treated incidents by severity month
+    @Override
+    public Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth() {
+        List<Object[]> results = repIncident.countIncidentsBySeverityLevelForCurrentMonth();
+        Map<String, Long> incidentCountBySeverityLevel = new HashMap<>();
+
+        for (Object[] row : results) {
+            String severityLevel = (String) row[0];
+            Long count = (Long) row[1];
+            incidentCountBySeverityLevel.put(severityLevel, count);
+        }
+
+        return incidentCountBySeverityLevel;
+    }
+    //    //Number of treated incidents by severity
+//    @Override
+//    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
+//        return repIncident.countIncidentsBySeverityLevelForCurrentMonth();
+//    }
+
     //Number of incidents per month of the current year
     @Override
     public List<Object[]> countIncidentsPerMonth() {
