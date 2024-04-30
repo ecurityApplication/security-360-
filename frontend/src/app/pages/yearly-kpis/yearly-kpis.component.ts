@@ -17,6 +17,8 @@
     chartData!: ChartDataset[];
     chartOptions!: ChartOptions;
     averageTimeAnalyse!: number;
+    customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+
     constructor(private incidentService: IncidentService) {}
 
     ngOnInit() {
@@ -26,6 +28,8 @@
       this.createChart();
       this.getIncidentsPerMonth();
       this.createChart();
+      this.getIncidentsBySeverityLevel();
+
     }
 
   getTicketsRaisedInCurrentYear() {
@@ -88,6 +92,50 @@
 
     Highcharts.chart('tickets-raised-per-year-chart', this.ticketsRaisedPerYearChartOptions);
   }
+  // Number of treated incidents by severity
+SeverityLevelChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'pie'
+  },
+  title: {
+    text: 'Number of treated incidents by severity'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[],
+  colors: this.customColors // Set custom colors here
+};
+
+getIncidentsBySeverityLevel(): void {
+  this.incidentService.getIncidentsBySeverityLevelyear().subscribe(data => {
+    const formattedData = Object.entries(data).map(([key, value]) => ({
+      name: key,
+      y: value
+    }));
+    this.SeverityLevelChartOptions.series = [
+      {
+        type: 'pie',
+        name: 'Severity',
+        data: formattedData,
+      }
+    ];
+    this.SeverityLevelChartOptions.xAxis = {
+      categories: formattedData.map(item => item.name)
+    };
+    this.updateChartpie();
+  });
+}
+
+updateChartpie(): void {
+  this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
+}
 
   
   //Number of incidents per month of the current year

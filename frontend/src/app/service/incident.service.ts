@@ -108,12 +108,19 @@ getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
   return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/tickets-raised-per-month`);
 }
 
-//Number of treated incidents by severity
+//Number of treated incidents by severity year
+getIncidentsBySeverityLevelyear(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/severity-level-count-year`);
+}
+//Number of treated incidents by severity month
+getIncidentsBySeverityLevelmonth(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/severity-level-count-year`);
+}
 
 
-    getIncidentsBySeverityLevel(): Observable<any[]> {
-      return this.httpClient.get<any[]>(`${this.baseURL}/count-by-severity-level`);
-    }
+    // getIncidentsBySeverityLevel(): Observable<any[]> {
+    //   return this.httpClient.get<any[]>(`${this.baseURL}/count-by-severity-level`);
+    // }
 //
 getCurrentMonthIncidentCounts(): Observable<any[]> {
   return this.httpClient.get<any[]>(`${this.baseURL}/monthly-counts/current`);
