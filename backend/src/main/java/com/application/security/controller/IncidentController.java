@@ -151,11 +151,6 @@ public class IncidentController {
         return new ResponseEntity<>(incidentCountByPlantNameAndMonth, HttpStatus.OK);
     }
 
-    //Number of treated incidents by severity
-    @GetMapping("/count-by-severity-level")
-    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
-        return incidentService.countIncidentsBySeverityLevelForCurrentMonth();
-    }
 
     //Yearly
     //MTTA
@@ -177,12 +172,23 @@ public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear()
 
     //Number of Events per analyst
 
-//Number of treated incidents by severity
+//Number of treated incidents by severity per year
 @GetMapping("/severity-level-count-year")
 public ResponseEntity<Map<String, Long>> getIncidentCountBySeverityLevelForCurrentYear() {
     Map<String, Long> incidentCountBySeverityLevel = incidentService.getIncidentCountBySeverityLevelForCurrentYear();
     return ResponseEntity.ok(incidentCountBySeverityLevel);
 }
+    //Number of treated incidents by severity per month
+
+    @GetMapping("/count-by-severity-level")
+    public ResponseEntity<Map<String, Long>> countIncidentsBySeverityLevelForCurrentMonth() {
+        Map<String, Long> incidentCountBySeverityLevel = incidentService.countIncidentsBySeverityLevelForCurrentMonth();
+        return ResponseEntity.ok(incidentCountBySeverityLevel);
+    }
+//    @GetMapping("/count-by-severity-level")
+//    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
+//        return incidentService.countIncidentsBySeverityLevelForCurrentMonth();
+//    }
 
     //Number of incidents per month of the current year
     @GetMapping("/count-per-month-current-year")

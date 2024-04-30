@@ -14,6 +14,8 @@ export class MonthlyKPIsComponent implements OnInit {
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
   ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
+  customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+
 
   constructor(private incidentService: IncidentService) { }
 
@@ -198,6 +200,50 @@ getAverageTimeAnalyseCurrentMonth() {
   }
 
 //Number of treated incidents by severity
+// Number of treated incidents by severity
+SeverityLevelChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'pie'
+  },
+  title: {
+    text: 'Number of treated incidents by severity'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[],
+  colors: this.customColors // Set custom colors here
+};
+
+getIncidentsBySeverityLevel(): void {
+  this.incidentService.getIncidentsBySeverityLevelmonth().subscribe(data => {
+    const formattedData = Object.entries(data).map(([key, value]) => ({
+      name: key,
+      y: value
+    }));
+    this.SeverityLevelChartOptions.series = [
+      {
+        type: 'pie',
+        name: 'Severity',
+        data: formattedData,
+      }
+    ];
+    this.SeverityLevelChartOptions.xAxis = {
+      categories: formattedData.map(item => item.name)
+    };
+    this.updateChartpie();
+  });
+}
+
+updateChartpie(): void {
+  this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
+}
 
 
 
@@ -208,36 +254,36 @@ getAverageTimeAnalyseCurrentMonth() {
 
 
 
-  pieChartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-  chartType: ChartType = 'pie';
-  chartData: ChartData<'pie'> = {
-    labels: [],
-    datasets: []
-  };
+  // pieChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   maintainAspectRatio: false
+  // };
+  // chartType: ChartType = 'pie';
+  // chartData: ChartData<'pie'> = {
+  //   labels: [],
+  //   datasets: []
+  // };
 
  
 
-  getIncidentsBySeverityLevel() {
-    this.incidentService.getIncidentsBySeverityLevel().subscribe(data => {
-      this.chartData.labels = data.map(item => item[0].toString());
-      this.chartData.datasets = [
-        {
-          data: data.map(item => item[1]),
-          backgroundColor: this.getRandomColors(data.length)
-        }
-      ];
-    });
-  }
+  // getIncidentsBySeverityLevel() {
+  //   this.incidentService.getIncidentsBySeverityLevel().subscribe(data => {
+  //     this.chartData.labels = data.map(item => item[0].toString());
+  //     this.chartData.datasets = [
+  //       {
+  //         data: data.map(item => item[1]),
+  //         backgroundColor: this.getRandomColors(data.length)
+  //       }
+  //     ];
+  //   });
+  // }
 
-  private getRandomColors(count: number): string[] {
-    const colors = [];
-    for (let i = 0; i < count; i++) {
-      const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      colors.push(randomColor);
-    }
-    return colors;
-  }
+  // private getRandomColors(count: number): string[] {
+  //   const colors = [];
+  //   for (let i = 0; i < count; i++) {
+  //     const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+  //     colors.push(randomColor);
+  //   }
+  //   return colors;
+  // }
 }

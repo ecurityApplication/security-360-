@@ -1,14 +1,26 @@
-<div>
     <!-- Number of Incidents This year -->
     <h2>Number of Incidents for Current Year: {{ incidentCount }}</h2>
     <!--Tickets Raised in Current Year  -->
-<div class="container">
+    <div class="charts-bottom">
+    
+      <!-- Tickets raised/incidents year-->
+      <div class="chart" id="tickets-raised-per-year-chart" ></div>
+            <!-- Tickets raised/incidents year-->
+
+
+      <div class="chart" id="incident-chart-severity" ></div>
+  
+    </div>
+
+
+
+<!-- <div class="container">
     <h2>Tickets Raised in Current Year</h2>
     <div id="tickets-raised-per-year-chart" style="width: 70%; height: 50%;"></div>
     <div class="line-chart">
         <canvas #incidentLineChart></canvas>
       </div>
-  </div>
+  </div> -->
   <!-- MTTD -->
   <div class="container">
     <h2>Incident Dashboard</h2>

@@ -29,14 +29,16 @@ public interface IncidentService {
 
 
     Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
+    Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
+    Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth();
 
-     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
+
+    //     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
 //YEARLY
      Double getAverageTimeAnalyseForCurrentYear();
      int countIncidentsForCurrentYear();
 
      List<Map<String, Object>> getTicketsRaisedInCurrentYear();
-     Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
      List<Object[]> countIncidentsPerMonth();
 
      double getAverageTimeAnalyseCurrentMonth();

@@ -116,7 +116,7 @@ public class AuthenticationService {
     publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
 
 // Enable the previous admin account
-    repository.enablePreviousAdminAccount(savedUser.getId());
+//    repository.enablePreviousAdminAccount(savedUser.getId());
     // Generate JWT token and refresh token
    // var jwtToken = jwtService.generateToken(user);
     //var refreshToken = jwtService.generateRefreshToken(user);
