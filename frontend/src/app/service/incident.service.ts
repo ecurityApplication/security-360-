@@ -92,10 +92,7 @@ export class IncidentService {
   getAverageTimeAnalyseCurrentMonth(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseURL}/average-time-analyse-current-month`);
   }
-  //Number of events per analyst
-  getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
-    return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
-  }
+ 
 
 
 //Number of alerts per plant
@@ -103,7 +100,7 @@ getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: strin
   return this.httpClient.get<{ [key: string]: { [key: string]: number } }>(`${this.baseURL}/count-by-plant-and-month`);
 }
 
-//Tickets raised/incidents
+//Tickets raised/incidents monthly
 getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
   return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/tickets-raised-per-month`);
 }
@@ -114,7 +111,7 @@ getIncidentsBySeverityLevelyear(): Observable<{ [key: string]: number }> {
 }
 //Number of treated incidents by severity month
 getIncidentsBySeverityLevelmonth(): Observable<{ [key: string]: number }> {
-  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/severity-level-count-year`);
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/count-by-severity-level`);
 }
 
 
@@ -125,9 +122,23 @@ getIncidentsBySeverityLevelmonth(): Observable<{ [key: string]: number }> {
 getCurrentMonthIncidentCounts(): Observable<any[]> {
   return this.httpClient.get<any[]>(`${this.baseURL}/monthly-counts/current`);
 }
-getEventsPerAnalystYearly(): Observable<any[]> {
-  return this.httpClient.get<any[]>(`${this.baseURL}/events-per-analyst-yearly`);
+//EVENT PER ANALYSTE YEARLY 
+// getEventsPerAnalystYearly(): Observable<any[]> {
+//   return this.httpClient.get<any[]>(`${this.baseURL}/events-per-analyst-yearly`);
+// }
+
+getEventsPerAnalystYearly(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst-year`);
 }
+ //Number of events per analyst monthly 
+
+getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
+}
+
+//  getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
+//   return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
+// }
 //Tickets raised/incidents Yearly
 getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]> {
   return this.httpClient.get<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]>(`${this.baseURL}/tickets-raised-in-current-year`);

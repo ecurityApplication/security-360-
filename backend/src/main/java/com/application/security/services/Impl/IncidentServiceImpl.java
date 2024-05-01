@@ -147,7 +147,7 @@ public Object getIncidentById(long id){
         return ticketRaisedCounts;
     }
 
-    //count Events PerAnalyst
+
 
 
 
@@ -222,6 +222,37 @@ public List<Map<String, Object>> getTicketsRaisedInCurrentYear() {
 
         return incidentCountBySeverityLevel;
     }
+    //count Events PerAnalyst
+
+    @Override
+    public Map<String, Long> getNumeventsperanalyst() {
+        List<Object[]> results = repIncident.getNumeventsperanalyst();
+        Map<String, Long> Numeventsperanalyst = new HashMap<>();
+
+        for (Object[] row : results) {
+            String analyst = (String) row[0];
+            Long count = (Long) row[1];
+            Numeventsperanalyst.put(analyst, count);
+        }
+
+        return Numeventsperanalyst;
+    }
+    //count Events PerAnalyst per year
+
+    @Override
+    public Map<String, Long> getNumeventsperanalystCurrentYear() {
+        List<Object[]> results = repIncident.getNumeventsperanalystCurrentYear();
+        Map<String, Long> Numeventsperanalyst = new HashMap<>();
+
+        for (Object[] row : results) {
+            String analyst = (String) row[0];
+            Long count = (Long) row[1];
+            Numeventsperanalyst.put(analyst, count);
+        }
+
+        return Numeventsperanalyst;
+    }
+
     //    //Number of treated incidents by severity
 //    @Override
 //    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {

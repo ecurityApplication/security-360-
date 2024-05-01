@@ -17,7 +17,7 @@
     chartData!: ChartDataset[];
     chartOptions!: ChartOptions;
     averageTimeAnalyse!: number;
-    customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+    customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'];
 
     constructor(private incidentService: IncidentService) {}
 
@@ -29,6 +29,9 @@
       this.getIncidentsPerMonth();
       this.createChart();
       this.getIncidentsBySeverityLevel();
+      this.getanalystPerIncident();
+
+      
 
     }
 
@@ -135,6 +138,46 @@ getIncidentsBySeverityLevel(): void {
 
 updateChartpie(): void {
   this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
+}
+
+//getEventsPerAnalyst yearly
+analysteChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Number of events per analyst'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[]
+};
+
+getanalystPerIncident(): void {
+  this.incidentService.getEventsPerAnalystYearly().subscribe(data => {
+    this.analysteChartOptions.series = [
+      {
+        type: 'column',
+        name: 'Number of events',
+        data: Object.values(data),  
+      }
+    ];
+    this.analysteChartOptions.xAxis = {
+      categories: Object.keys(data)
+    };
+    this.updateChartanalyste();
+  });
+}
+
+updateChartanalyste(): void {
+  this.Highcharts.chart('incident-count-by-analyst', this.analysteChartOptions);
 }
 
   
