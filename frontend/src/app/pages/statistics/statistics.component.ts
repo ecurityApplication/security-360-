@@ -18,16 +18,12 @@ export class StatisticsComponent implements OnInit {
     xAxis: {
     type: 'category'
   },
-
-
   title: {
     text: 'Number of incident per type'
-  
 },
   series: [
     {
       name: 'Category',
-
       type: 'line'
     }
   ]
@@ -40,14 +36,10 @@ secondChartOptions: Highcharts.Options = {
 
 title: {
   text: 'Number of alerts per source'
-
-
 },
 series: [
   {
     name: 'RaisedBy',
-
-
     type: 'line'
   }
 ]
@@ -56,7 +48,6 @@ series: [
   ngOnInit(): void {
     this.getCaregory();
     this.getRaisedby();
-
   }
 
   getCaregory(): void {
@@ -65,14 +56,13 @@ series: [
       for (let key in data) {
         chartData.push([key, data[key]]);
       }
-
       this.chartOptions.series = [
         {
           type: 'column',
           data: chartData,
         },
       ];
-          this.updateFlag = true;
+      this.updateFlag = true;
     });
   }
   getRaisedby(): void {
@@ -81,7 +71,6 @@ series: [
       for (let key in data) {
         charte.push([key, data[key]]);
       }
-
       this.secondChartOptions.series = [
         {
           type: 'column',

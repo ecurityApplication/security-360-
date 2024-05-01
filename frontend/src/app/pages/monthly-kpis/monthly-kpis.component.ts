@@ -8,38 +8,36 @@ import { ChartOptions, ChartType, ChartData } from 'chart.js';
   styleUrl: './monthly-kpis.component.css',
 })
 export class MonthlyKPIsComponent implements OnInit {
-  incidentCount!: any[];
+  incidentsCount!: number;
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
   ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
-
+  averageMttr!: number;
+  
   constructor(private incidentService: IncidentService) { }
 
   ngOnInit() {
    this.getIncidentCount();
-    // this.getEventsPerAnalyst();
     this.getIncidentCountByPlantNameAndMonth();
     this.getTicketRaisedPerIncident();
-    this.getAverageTimeAnalyseCurrentMonth();
-      this.getIncidentsBySeverityLevel();
-    
-    
+    this.getAverageTimeAnalyseCurrentMonth(); 
+    this.getAverageMttr();
   }
-
 
   //Number of Incidents This month 
   getIncidentCount() {
     this.incidentService.getCurrentMonthIncidentCounts().subscribe(
       (data) => {
-        this.incidentCount = data;
+        this.incidentsCount = data;
       },
       (error) => {
         console.error('Error fetching incident count:', error);
       }
     );
   }
+
 //MTTA
 getAverageTimeAnalyseCurrentMonth() {
   this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
@@ -53,46 +51,17 @@ getAverageTimeAnalyseCurrentMonth() {
     }
   );
 }
-  //Number of events per analyst method call
-  // getEventsPerAnalyst() {
-  //   this.incidentService.getEventsPerAnalyst().subscribe((data) => {
-  //     this.initializeChart(data);
-  //   });
-  // }
-  //Number of events per analyst highcharts
-  // initializeChart(data: { [key: string]: number }) {
-  //   this.chartOptions = {
-  //     chart: {
-  //       type: 'column',
-  //     },
-  //     title: {
-  //       text: 'Number of events per analyst',
-  //     },
-  //     xAxis: {
-  //       categories: Object.keys(data).sort(),
-  //       title: {
-  //         text: 'Analyst',
-  //       },
-  //     },
-  //     yAxis: {
-  //       min: 0,
-  //       title: {
-  //         text: 'Events',
-  //       },
-  //     },
-  //     series: [
-  //       {
-  //         type: 'column',
-  //         // name: 'Events',
-  //         data: Object.values(data),
-  //         color: '#0077b6',
-  //       },
-  //     ],
-  //   };
-
-  //   (Highcharts as any).chart('incident-chart', this.chartOptions);
-  // }
-
+  //MTTR
+  getAverageMttr() {
+    this.incidentService.getAverageMttr().subscribe(
+      (data) => {
+        this.averageMttr = data;
+      },
+      (error) => {
+        console.error('Error fetching average MTTR:', error);
+      }
+    );
+  }
   //Number of alerts per plant method call
   getIncidentCountByPlantNameAndMonth() {
     this.incidentService
@@ -163,7 +132,7 @@ getAverageTimeAnalyseCurrentMonth() {
       type: 'column'
     },
     title: {
-      text: 'Ticket Raised Per Incident'
+      text: 'Ticket Raised/Incidents'
     },
     xAxis: {
       type: 'category'
@@ -207,37 +176,4 @@ getAverageTimeAnalyseCurrentMonth() {
 
 
 
-
-  pieChartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
-  chartType: ChartType = 'pie';
-  chartData: ChartData<'pie'> = {
-    labels: [],
-    datasets: []
-  };
-
- 
-
-  getIncidentsBySeverityLevel() {
-    this.incidentService.getIncidentsBySeverityLevel().subscribe(data => {
-      this.chartData.labels = data.map(item => item[0].toString());
-      this.chartData.datasets = [
-        {
-          data: data.map(item => item[1]),
-          backgroundColor: this.getRandomColors(data.length)
-        }
-      ];
-    });
-  }
-
-  private getRandomColors(count: number): string[] {
-    const colors = [];
-    for (let i = 0; i < count; i++) {
-      const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      colors.push(randomColor);
-    }
-    return colors;
-  }
 }

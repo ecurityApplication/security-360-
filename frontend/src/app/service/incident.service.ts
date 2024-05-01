@@ -63,11 +63,7 @@ export class IncidentService {
   //   return this.httpClient.get<any>(`${this.baseURL}/countByCategory`);
   // }
   getIncidentCountsByCategory(): Observable<Array<any>> {
-    return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByCategory`, {
-      // headers: new HttpHeaders({
-      //   "Content-Type": "application/json"
-      // })
-    });
+    return this.httpClient.get<any[]>(`${this.baseURL}/countByCategory`);
   }
   
   getIncidentCountsByraisedby(): Observable<Array<any>> {
@@ -92,6 +88,10 @@ export class IncidentService {
   getAverageTimeAnalyseCurrentMonth(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseURL}/average-time-analyse-current-month`);
   }
+  //MTTR
+  getAverageMttr(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseURL}/average-mttr`);
+  }
   //Number of events per analyst
   getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
     return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/events-per-analyst`);
@@ -108,15 +108,14 @@ getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
   return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/tickets-raised-per-month`);
 }
 
-//Number of treated incidents by severity
+//Number of treated incidents by severity 
+  getIncidentsBySeverity(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.baseURL}/countBySeverityForCurrentMonth`);
+  }
 
-
-    getIncidentsBySeverityLevel(): Observable<any[]> {
-      return this.httpClient.get<any[]>(`${this.baseURL}/count-by-severity-level`);
-    }
 //
-getCurrentMonthIncidentCounts(): Observable<any[]> {
-  return this.httpClient.get<any[]>(`${this.baseURL}/monthly-counts/current`);
+getCurrentMonthIncidentCounts(): Observable<number> {
+  return this.httpClient.get<number>(`${this.baseURL}/current-month-count`);
 }
 getEventsPerAnalystYearly(): Observable<any[]> {
   return this.httpClient.get<any[]>(`${this.baseURL}/events-per-analyst-yearly`);
@@ -126,16 +125,21 @@ getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: nu
   return this.httpClient.get<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]>(`${this.baseURL}/tickets-raised-in-current-year`);
 }
 
-getIncidentCountForCurrentYear() {
+numberOfIncidentCountForCurrentYear() {
   return this.httpClient.get<number>(`${this.baseURL}/incident/count/currentYear`);
 }
+// getIncidentCountForCurrentYear() {
+//   return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-incident-per-month-year`);
+// }
 
 // getIncidentCountByMonthForCurrentYear(): Observable<Map<number, number>> {
 //   return this.httpClient.get<Map<number, number>>(`${this.baseURL}/incident/count/month/currentYear`);
 // }
 
-getIncidentsPerMonth(){
-  return this.httpClient.get<Object[]>(`${this.baseURL}/count-per-month-current-year`);
+getIncidentsPerMonthCurrentYear(){
+  return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-per-month-current-year`);
+
+  
 }
   //MTTA
   getAverageTimeAnalyseCurrentYear(): Observable<number> {

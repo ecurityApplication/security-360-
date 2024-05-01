@@ -17,6 +17,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User>	findByEmail(String email);
+    Optional<User> getUserById(Long id);
     Optional<User> findByUsername(String username);
     Boolean existsByUsername(String username);
     boolean existsByEmail(String email);
@@ -36,8 +37,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<Object[]> countUsersPerRole();
 
 //enabled previous admin
-@Modifying
-@Transactional
-@Query("UPDATE User u SET u.enabled = true WHERE u.id <> ?1 AND u.id = (SELECT u2.id FROM User u2 JOIN u2.roles r WHERE r.roleName = 'ROLE_ADMIN' AND u2.id <> ?1)")
-void enablePreviousAdminAccount(Long newAdminId);
+
 }

@@ -9,15 +9,18 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface Incidentrepository extends CrudRepository<Incident,Long> {
+    //search filter
     public List<Incident> findByAnalystContainingIgnoreCaseOrCategoryContainingIgnoreCase(
             String key1, String key2);
 
+    //find by date
     List<Incident> findByDate(Date date);
 
     //find by category
@@ -25,23 +28,20 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
 
     @Query(value = "SELECT category, COUNT(*) as count FROM incident GROUP BY category", nativeQuery = true)
     List<Object[]> countIncidentsByCategory();
+
     //find by ticket raised
     @Query(value = "SELECT raised_by, COUNT(*) as count FROM incident GROUP BY raised_by", nativeQuery = true)
     List<Object[]> countIncidentsByRaisedBy();
 
-//MONTHLY
+    //MONTHLY
 //MTTA
-@Query("SELECT i FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE)")
-List<Incident> findIncidentsInCurrentMonth();
+    @Query("SELECT i FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE)")
+    List<Incident> findIncidentsInCurrentMonth();
 
-//Number of incident Monthly
-@Query("SELECT DATE_FORMAT(date, '%Y-%m') AS month, COUNT(*) AS count " +
-        "FROM Incident " +
-        "WHERE DATE_FORMAT(date, '%Y-%m') = DATE_FORMAT(CURRENT_DATE(), '%Y-%m') " +
-        "GROUP BY month " +
-        "ORDER BY month")
-List<Map<String, Object>> getIncidentCountByCurrentMonth();
-     //Number of incident per user
+    //Number of incident Monthly
+    @Query("SELECT COUNT(i) FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE)")
+    int countIncidentsForCurrentMonth();
+    //Number of incident per user
 
 
     //Tickets raised/incidents
@@ -62,18 +62,27 @@ List<Map<String, Object>> getIncidentCountByCurrentMonth();
             "GROUP BY i.severityLevel")
     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth();
 
+    //MTTR
+    @Query("SELECT i FROM Incident i WHERE i.date BETWEEN :startDate AND :endDate")
+    List<Incident> findIncidentsByMonthRange(Date startDate, Date endDate);
+    //
+    @Query("SELECT AVG(CAST(i.falsePositive AS DOUBLE)) " +
+            "FROM Incident i " +
+            "WHERE i.date BETWEEN :startDate AND :endDate")
+    double getAverageFalsePositiveForCurrentMonth(Date startDate, Date endDate);
 
-//Yearly
+    //Yearly
     //MTTA
-@Query("SELECT AVG(i.timeAnalyse) FROM Incident i WHERE YEAR(i.date) = YEAR(CURRENT_DATE)")
-Double getAverageTimeAnalyseForCurrentYear();
-//Incident of current Year
-@Query("SELECT COUNT(i) FROM Incident i WHERE YEAR(i.date) = YEAR(CURRENT_DATE)")
-int countIncidentsForCurrentYear();
+    @Query("SELECT AVG(i.timeAnalyse) FROM Incident i WHERE YEAR(i.date) = YEAR(CURRENT_DATE)")
+    Double getAverageTimeAnalyseForCurrentYear();
+
+    //Incident of current Year
+    @Query("SELECT COUNT(i) FROM Incident i WHERE YEAR(i.date) = YEAR(CURRENT_DATE)")
+    int countIncidentsForCurrentYear();
 
     //Tickets raised/incidents
-@Query("SELECT DATE_FORMAT(date, '%Y') AS year, COUNT(CASE WHEN ticketRaised = 'yes' THEN 1 END) AS ticketsRaisedYes, COUNT(CASE WHEN ticketRaised = 'no' THEN 1 END) AS ticketsRaisedNo FROM Incident WHERE DATE_FORMAT(date, '%Y') = DATE_FORMAT(CURDATE(), '%Y') GROUP BY year ORDER BY year")
-List<Map<String, Object>> getTicketsRaisedInCurrentYear();
+    @Query("SELECT DATE_FORMAT(date, '%Y') AS year, COUNT(CASE WHEN ticketRaised = 'yes' THEN 1 END) AS ticketsRaisedYes, COUNT(CASE WHEN ticketRaised = 'no' THEN 1 END) AS ticketsRaisedNo FROM Incident WHERE DATE_FORMAT(date, '%Y') = DATE_FORMAT(CURDATE(), '%Y') GROUP BY year ORDER BY year")
+    List<Map<String, Object>> getTicketsRaisedInCurrentYear();
 
     //incident per analyst
 
@@ -85,11 +94,15 @@ List<Map<String, Object>> getTicketsRaisedInCurrentYear();
     List<Object[]> getIncidentCountBySeverityLevelForCurrentYear();
 
     // Incident per month of the current year
-    @Query(value = "SELECT MONTH(date) as month, COUNT(*) as totalIncidents " +
+    @Query(value = "SELECT DATE_FORMAT(date, '%Y-%m') AS month, COUNT(*) AS count " +
             "FROM Incident " +
-            "WHERE YEAR(date) = YEAR(CURRENT_DATE) " +
-            "GROUP BY MONTH(date)")
-    List<Object[]> countIncidentsPerMonth();
+            "WHERE YEAR(date) = YEAR(CURRENT_DATE()) " +
+            "GROUP BY month " +
+            "ORDER BY month ASC", nativeQuery = true)
+    List<Object[]> getIncidentCountPerMonthForCurrentYear();
 
+    //MTTR
+    //MTTR
+//FPR
 
 }

@@ -191,6 +191,7 @@
           />
         </div>
       </div>
+      <div class="column">
       <div class="input-box">
         <label>Host Status</label>
         <div class="select-box">
@@ -201,6 +202,16 @@
           </select>
         </div>
       </div>
+      <div class="input-box">
+        <label>Time of closure</label>
+        <input
+          type="datetime-local"
+          id="timeOfClosure"
+          [(ngModel)]="incident.timeOfClosure"
+          name="timeOfClosure"
+        />
+      </div>
+    </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Investigation</label>
         <textarea

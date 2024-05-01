@@ -46,7 +46,7 @@ export class EscalationComponent implements OnInit{
 // }
 
 updateescalation(id:number){
-this.router.navigate(['update-escalation', id]);
+this.router.navigate(['/layout/update-escalation', id]);
 
 }
 
@@ -72,15 +72,43 @@ this.router.navigate(['update-escalation', id]);
   //   this.router.navigate(['update-escalation', id]);
   // }
 
-  deleteIncident(id: number) {
-    this.incidentService.deleteIncident(id).subscribe((data) => {
-      this.getIncident();
-      Swal.fire('Success!', 'Escalation deleted successfully.', 'success');
-    }, (error) => {
-      console.error('Error deleting escalation:', error);
-      Swal.fire('Error!', 'Failed to delete escalation.', 'error');
-    }
-  );
+
+  //Delete Escalation
+  deleteEscalation(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Call the deleteIncident method when the user confirms
+        this.incidentService.deleteIncident(id).subscribe(
+          () => {
+            // Show success message
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your incident has been deleted.',
+              icon: 'success',
+            });
+            // Refresh user data after deletion
+            this.getIncident();
+          },
+          (error) => {
+            // Handle error if deletion fails
+            console.error('Error deleting incident:', error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Failed to delete incident.',
+              icon: 'error',
+            });
+          }
+        );
+      }
+    });
   }
   // incidentDetails(id: number) {
   // this.router.navigate(['incident-details', id]);

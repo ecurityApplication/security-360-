@@ -20,7 +20,6 @@
           <th>Incident Status</th>
           <th>Lesson Leraned</th>
           <th>Status</th>
-          <th>Time of closure</th>
           <th>Action plan</th>
           <th>Owner of Action Plan</th>
           <th>Actions</th>
@@ -41,7 +40,6 @@
           <td>{{incident.incidentStatus}}</td>
           <td>{{incident.lessonLeraned}}</td>
           <td>{{incident.hostStatus}}</td>
-          <td>{{incident.timeOfClosure}}</td>
           <td>{{incident.remediation}}</td>
           <td>{{incident.remediationOwner}}</td> 
           <td>
@@ -49,7 +47,7 @@
               <i class="bx bx-edit" (click)="updateescalation(incident.id)"></i>
                 <i
                   class="bx bxs-trash-alt"
-                  (click)="deleteIncident(incident.id)"
+                  (click)="deleteEscalation(incident.id)"
                 ></i>
             </div>
           </td>

@@ -11,36 +11,39 @@ public interface IncidentService {
 
     void DeleteIncident(Long id);
 
-
-
     List<Incident> getAllIncident(String searchKey);
-    Incident updateIncident(Long id, Incident updatedIncident);
 
     Object getIncidentById(long id);
+
+    Incident updateIncident(Long id, Incident updatedIncident);
 
     List<Incident> getIncidentsByDate(Date date);
 
     List<Incident> getIncidentsByCategory(String category);
-//MONTHLY
-    List<Map<String, Object>> getCurrentMonthIncidentCounts();
-
-    Map<String, Long> getTicketRaisedPerIncident();
-
-
-
-    Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
-
-     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
-//YEARLY
-     Double getAverageTimeAnalyseForCurrentYear();
-     int countIncidentsForCurrentYear();
-
-     List<Map<String, Object>> getTicketsRaisedInCurrentYear();
-     Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
-     List<Object[]> countIncidentsPerMonth();
+    //MONTHLY
+    public int getIncidentsCountForCurrentMonth();
 
      double getAverageTimeAnalyseCurrentMonth();
 
+    Map<String, Long> getTicketRaisedPerIncident();
+
+    Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
+
+    Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth();
+
+   double calculateAverageMTTR();
+    public double getAverageFalsePositiveForCurrentMonth();
+//YEARLY
+
+    int countIncidentsForCurrentYear();
+
+    Double getAverageTimeAnalyseForCurrentYear();
+
+    List<Map<String, Object>> getTicketsRaisedInCurrentYear();
+
+    Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
+
+     Map<String, Integer> getIncidentCountPerMonthForCurrentYear();
+
 
 }
-

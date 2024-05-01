@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Incident } from '../../models/incident';
 import { IncidentService } from '../../service/incident.service';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/service/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-update-incident',
@@ -12,14 +14,20 @@ import Swal from 'sweetalert2';
 export class UpdateIncidentComponent implements OnInit {
   incident: Incident = new Incident();
   id!: number;
-
+  users!: User[];
+  
   constructor(
     private incidentService: IncidentService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.getById();
+    this.getUser();
+  }
+  getById(): void {
     this.id = this.route.snapshot.params['id'];
     this.incidentService.getIncidentById(this.id).subscribe(
       (data) => {
@@ -28,7 +36,17 @@ export class UpdateIncidentComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
+  getUser() {
+    this.userService.getUser().subscribe(
+      (user) => {
+        this.users = user;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
   //update incident
   onSubmit() {
     this.incidentService.updateIncident(this.id, this.incident).subscribe(

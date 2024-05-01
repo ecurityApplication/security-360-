@@ -1,24 +1,28 @@
-<div>
-    <!-- Number of Incidents This year -->
-    <h2>Number of Incidents for Current Year: {{ incidentCount }}</h2>
-    <!--Tickets Raised in Current Year  -->
 <div class="container">
-    <h2>Tickets Raised in Current Year</h2>
-    <div id="tickets-raised-per-year-chart" style="width: 70%; height: 50%;"></div>
-    <div class="line-chart">
-        <canvas #incidentLineChart></canvas>
-      </div>
+  <div class="header-content">
+    <h4>Soc Yearly KPI</h4>
   </div>
-  <!-- MTTD -->
-  <div class="container">
-    <h2>Incident Dashboard</h2>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Average Time Analyse (Current Month)</h5>
-        <p class="card-text">{{ averageTimeAnalyse }}</p>
-      </div>
+  <div class="content">
+    <!-- MTTA -->
+    <div class="count">
+          <h6 class="title">MTTA</h6>
+          <hr />
+          <h6>{{ averageTimeAnalyse }}</h6>
+        </div>
+    <!-- Number of Incidents This year -->
+    <div class="count">
+      <h6 class="title">Current Year Incident Count</h6>
+      <hr />
+        <h6>{{ incidentCount }}</h6>
     </div>
-</div>
-<div style="width: 80%; height: 100%; margin: 20px auto;">
-    <canvas id="MyChart"></canvas>
   </div>
+    <!--Tickets Raised in Current Year  -->
+<div class="content">
+    <div class="chart" id="tickets-raised-per-year-chart" ></div>
+    <div style="width: 80% ;height: 70%;">
+      <canvas class="chart" id="lineChart"></canvas>
+    </div>
+
+  </div>
+
+</div>

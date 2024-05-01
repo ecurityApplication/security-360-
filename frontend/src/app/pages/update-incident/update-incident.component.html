@@ -182,6 +182,7 @@
           />
         </div>
       </div>
+      <div class="column">
       <div class="input-box">
         <label>Host Status</label>
         <div class="select-box">
@@ -191,6 +192,16 @@
             <option value="NOT-Contained">NOT-Contained</option>
           </select>
         </div>
+      </div>
+      <div class="input-box">
+        <label>Time of closure</label>
+        <input
+          type="datetime-local"
+          id="timeOfClosure"
+          [(ngModel)]="incident.timeOfClosure"
+          name="timeOfClosure"
+        />
+      </div>
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Investigation</label>
@@ -247,10 +258,7 @@
           <div class="select-box">
             <select [(ngModel)]="incident.analyst" name="analyst">
               <option hidden="">Analyst</option>
-              <option value="Oussema DOUGGUI">Oussema DOUGGUI</option>
-              <option value="Amal BELAID">Amal BELAID</option>
-              <option value="Souhail DAKHLAOUI">Souhail DAKHLAOUI</option>
-              <option value="Rami MANSOURI">Rami MANSOURI</option>
+              <option *ngFor="let user of users"  >{{ user.username }}</option>
             </select>
           </div>
         </div>
