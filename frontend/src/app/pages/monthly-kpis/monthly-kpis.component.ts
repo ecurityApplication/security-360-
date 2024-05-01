@@ -12,9 +12,10 @@ export class MonthlyKPIsComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
-  ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
+  // ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
+  // analysteChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
-  customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'];
 
 
   constructor(private incidentService: IncidentService) { }
@@ -26,6 +27,10 @@ export class MonthlyKPIsComponent implements OnInit {
     this.getTicketRaisedPerIncident();
     this.getAverageTimeAnalyseCurrentMonth();
       this.getIncidentsBySeverityLevel();
+      this.getanalystPerIncident();
+
+
+      
     
     
   }
@@ -199,7 +204,45 @@ getAverageTimeAnalyseCurrentMonth() {
     this.Highcharts.chart('incident-chart-ticket-raised', this.ticketRaisedChartOptions);
   }
 
-//Number of treated incidents by severity
+//getEventsPerAnalyst
+analysteChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Number of events per analyst'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[]
+};
+
+getanalystPerIncident(): void {
+  this.incidentService.getEventsPerAnalyst().subscribe(data => {
+    this.analysteChartOptions.series = [
+      {
+        type: 'column',
+        name: 'Number of events',
+        data: Object.values(data),  
+      }
+    ];
+    this.analysteChartOptions.xAxis = {
+      categories: Object.keys(data)
+    };
+    this.updateChartanalyste();
+  });
+}
+
+updateChartanalyste(): void {
+  this.Highcharts.chart('incident-count-by-analyst', this.analysteChartOptions);
+}
 // Number of treated incidents by severity
 SeverityLevelChartOptions: Highcharts.Options = {
   chart: {

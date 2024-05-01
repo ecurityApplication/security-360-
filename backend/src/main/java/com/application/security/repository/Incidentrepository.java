@@ -48,12 +48,31 @@ List<Map<String, Object>> getIncidentCountByCurrentMonth();
     @Query("SELECT i.ticketRaised, COUNT(i) FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE) GROUP BY i.ticketRaised")
     List<Object[]> getTicketRaisedPerIncident();
 
-    //Number of alerts per plant
+    //Number of alerts per plant monthly
     @Query("SELECT i.plantName, COUNT(i) AS incidentCount, DATE_FORMAT(i.date, '%Y-%m') AS month " +
             "FROM Incident i " +
             "GROUP BY i.plantName, DATE_FORMAT(i.date, '%Y-%m') " +
             "ORDER BY i.plantName, DATE_FORMAT(i.date, '%Y-%m')")
     List<Object[]> getIncidentCountByPlantNameAndMonth();
+
+    //count Events PerAnalyst monthly
+
+    @Query("SELECT i.analyst, COUNT(i) FROM Incident i " +
+            "WHERE MONTH(i.date) = MONTH(CURRENT_DATE) " +
+            "AND YEAR(i.date) = YEAR(CURRENT_DATE) " +
+            "GROUP BY i.analyst")
+    List<Object[]> getNumeventsperanalyst();
+    //count Events PerAnalyst yearly
+    @Query("SELECT i.analyst, COUNT(i) AS count " +
+            "FROM Incident i " +
+            "WHERE YEAR(i.date) = YEAR(CURRENT_DATE) " +
+            "GROUP BY i.analyst")
+    List<Object[]> getNumeventsperanalystCurrentYear();
+
+
+
+
+
 
     //Number of treated incidents by severity
     @Query("SELECT i.severityLevel, COUNT(i) FROM Incident i " +
@@ -83,6 +102,8 @@ List<Map<String, Object>> getTicketsRaisedInCurrentYear();
             "WHERE YEAR(i.date) = YEAR(CURRENT_DATE) " +
             "GROUP BY i.severityLevel")
     List<Object[]> getIncidentCountBySeverityLevelForCurrentYear();
+
+
 
     // Incident per month of the current year
     @Query(value = "SELECT MONTH(date) as month, COUNT(*) as totalIncidents " +
