@@ -18,9 +18,9 @@ export class YearlyKpisComponent {
   chartOptions!: ChartOptions;
   averageTimeAnalyse!: number;
   lineChart: any;
-  customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
-  ticket = ['#0707f1', '#46a2ee'];
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'] 
   falsePositiveRating!: number;
+  ticket = ['#0707f1', '#46a2ee'];
   constructor(private incidentService: IncidentService) {}
 
   ngOnInit() {
@@ -30,6 +30,7 @@ export class YearlyKpisComponent {
     this.getIncidentPerMonth();
     this.getIncidentsBySeverityLevel();
     this.falsePositiveRatingYear();
+    this.getanalystPerIncident();
   }
 
   //MTTA
@@ -111,53 +112,88 @@ export class YearlyKpisComponent {
     );
   }
   // Number of treated incidents by severity-year
-  SeverityLevelChartOptions: Highcharts.Options = {
-    chart: {
-      type: 'pie',
-    },
+  // Number of treated incidents by severity
+SeverityLevelChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'pie'
+  },
+  title: {
+    text: 'Number of treated incidents by severity'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
     title: {
-      text: 'Number of treated incidents by severity',
-    },
-    xAxis: {
-      type: 'category',
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Count',
-      },
-    },
-    series: [] as Highcharts.SeriesColumnOptions[],
-    colors: this.customColors, // Set custom colors here
-  };
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[],
+  colors: this.customColors // Set custom colors here
+};
 
-  getIncidentsBySeverityLevel(): void {
-    this.incidentService.getIncidentsBySeverityLevelyear().subscribe((data) => {
-      const formattedData = Object.entries(data).map(([key, value]) => ({
-        name: key,
-        y: value,
-      }));
-      this.SeverityLevelChartOptions.series = [
-        {
-          type: 'pie',
-          name: 'Severity',
-          data: formattedData,
-        },
-      ];
-      this.SeverityLevelChartOptions.xAxis = {
-        categories: formattedData.map((item) => item.name),
-      };
-      this.updateChartpie();
-    });
-  }
+getIncidentsBySeverityLevel(): void {
+  this.incidentService.getIncidentsBySeverityLevelyear().subscribe(data => {
+    const formattedData = Object.entries(data).map(([key, value]) => ({
+      name: key,
+      y: value
+    }));
+    this.SeverityLevelChartOptions.series = [
+      {
+        type: 'pie',
+        name: 'Severity',
+        data: formattedData,
+      }
+    ];
+    this.SeverityLevelChartOptions.xAxis = {
+      categories: formattedData.map(item => item.name)
+    };
+    this.updateChartpie();
+  });
+}
 
-  updateChartpie(): void {
-    this.Highcharts.chart(
-      'incident-chart-severity',
-      this.SeverityLevelChartOptions
-    );
-  }
+updateChartpie(): void {
+  this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
+}
+//getEventsPerAnalyst yearly
+analysteChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Number of events per analyst'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[]
+};
+getanalystPerIncident(): void {
+  this.incidentService.getEventsPerAnalystYearly().subscribe(data => {
+    this.analysteChartOptions.series = [
+      {
+        type: 'column',
+        name: 'Number of events',
+        data: Object.values(data),  
+      }
+    ];
+    this.analysteChartOptions.xAxis = {
+      categories: Object.keys(data)
+    };
+    this.updateChartanalyste();
+  });
+}
 
+updateChartanalyste(): void {
+  this.Highcharts.chart('incident-count-by-analyst', this.analysteChartOptions);
+}
   //chart of incidents per month of the current year chart
   getIncidentPerMonth(): void {
     this.incidentService.getIncidentsPerMonthCurrentYear().subscribe((data) => {

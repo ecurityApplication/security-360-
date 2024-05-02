@@ -12,10 +12,10 @@ export class MonthlyKPIsComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
-  ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
+  // ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
+  // analysteChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
-  customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
-  averageMttr!: number;
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'];  averageMttr!: number;
   falsePositiveRating!: number;
   ticket = ['#0707f1', '#46a2ee'];
 
@@ -28,6 +28,8 @@ export class MonthlyKPIsComponent implements OnInit {
     this.getAverageTimeAnalyseCurrentMonth();
     this.getAverageMttr();
     this.falsePositiveRatingMonth();
+    this.getIncidentsBySeverityLevel();
+    this.getanalystPerIncident();
   }
 
   //Number of Incidents This month
@@ -183,54 +185,87 @@ export class MonthlyKPIsComponent implements OnInit {
         Highcharts.chart('chartContainer', this.ticketchartOptions);
       });
   }
-
-  //Number of treated incidents by severity-month
-  SeverityLevelChartOptions: Highcharts.Options = {
-    chart: {
-      type: 'pie',
-    },
+//getEventsPerAnalyst
+analysteChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'column'
+  },
+  title: {
+    text: 'Number of events per analyst'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
     title: {
-      text: 'Number of treated incidents by severity',
-    },
-    xAxis: {
-      type: 'category',
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Count',
-      },
-    },
-    series: [] as Highcharts.SeriesColumnOptions[],
-    colors: this.customColors, // Set custom colors here
-  };
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[]
+};
 
-  getIncidentsBySeverityLevel(): void {
-    this.incidentService
-      .getIncidentsBySeverityLevelmonth()
-      .subscribe((data) => {
-        const formattedData = Object.entries(data).map(([key, value]) => ({
-          name: key,
-          y: value,
-        }));
-        this.SeverityLevelChartOptions.series = [
-          {
-            type: 'pie',
-            name: 'Severity',
-            data: formattedData,
-          },
-        ];
-        this.SeverityLevelChartOptions.xAxis = {
-          categories: formattedData.map((item) => item.name),
-        };
-        this.updateChartpie();
-      });
-  }
+getanalystPerIncident(): void {
+  this.incidentService.getEventsPerAnalyst().subscribe(data => {
+    this.analysteChartOptions.series = [
+      {
+        type: 'column',
+        name: 'Number of events',
+        data: Object.values(data),  
+      }
+    ];
+    this.analysteChartOptions.xAxis = {
+      categories: Object.keys(data)
+    };
+    this.updateChartanalyste();
+  });
+}
 
-  updateChartpie(): void {
-    this.Highcharts.chart(
-      'incident-chart-severity',
-      this.SeverityLevelChartOptions
-    );
-  }
+updateChartanalyste(): void {
+  this.Highcharts.chart('incident-count-by-analyst', this.analysteChartOptions);
+}
+  // Number of treated incidents by severity
+SeverityLevelChartOptions: Highcharts.Options = {
+  chart: {
+    type: 'pie'
+  },
+  title: {
+    text: 'Number of treated incidents by severity'
+  },
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Count'
+    }
+  },
+  series: [] as Highcharts.SeriesColumnOptions[],
+  colors: this.customColors // Set custom colors here
+};
+
+getIncidentsBySeverityLevel(): void {
+  this.incidentService.getIncidentsBySeverityLevelmonth().subscribe(data => {
+    const formattedData = Object.entries(data).map(([key, value]) => ({
+      name: key,
+      y: value
+    }));
+    this.SeverityLevelChartOptions.series = [
+      {
+        type: 'pie',
+        name: 'Severity',
+        data: formattedData,
+      }
+    ];
+    this.SeverityLevelChartOptions.xAxis = {
+      categories: formattedData.map(item => item.name)
+    };
+    this.updateChartpie();
+  });
+}
+
+updateChartpie(): void {
+  this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
+}
 }

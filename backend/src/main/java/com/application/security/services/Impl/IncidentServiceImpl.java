@@ -142,7 +142,7 @@ public class IncidentServiceImpl implements IncidentService {
         return repIncident.getTicketsRaisedInCurrentMonth();
     }
 
-    //count Events PerAnalyst
+
 
 
     //Number of alerts per plant
@@ -234,7 +234,6 @@ public class IncidentServiceImpl implements IncidentService {
 
         return incidentCountBySeverityLevel;
     }
-
     //Number of treated incidents by severity month
     @Override
     public Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth() {
@@ -244,11 +243,43 @@ public class IncidentServiceImpl implements IncidentService {
         for (Object[] row : results) {
             String severityLevel = (String) row[0];
             Long count = (Long) row[1];
-            incidentCountBySeverityLevel.put( severityLevel, count );
+            incidentCountBySeverityLevel.put(severityLevel, count);
         }
 
         return incidentCountBySeverityLevel;
     }
+    //count Events PerAnalyst
+
+    @Override
+    public Map<String, Long> getNumeventsperanalyst() {
+        List<Object[]> results = repIncident.getNumeventsperanalyst();
+        Map<String, Long> Numeventsperanalyst = new HashMap<>();
+
+        for (Object[] row : results) {
+            String analyst = (String) row[0];
+            Long count = (Long) row[1];
+            Numeventsperanalyst.put(analyst, count);
+        }
+
+        return Numeventsperanalyst;
+    }
+    //count Events PerAnalyst per year
+
+    @Override
+    public Map<String, Long> getNumeventsperanalystCurrentYear() {
+        List<Object[]> results = repIncident.getNumeventsperanalystCurrentYear();
+        Map<String, Long> Numeventsperanalyst = new HashMap<>();
+
+        for (Object[] row : results) {
+            String analyst = (String) row[0];
+            Long count = (Long) row[1];
+            Numeventsperanalyst.put(analyst, count);
+        }
+
+        return Numeventsperanalyst;
+    }
+
+
 
     //Number of incidents per month of the current year
     @Override

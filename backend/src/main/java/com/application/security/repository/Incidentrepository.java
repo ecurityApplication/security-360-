@@ -49,12 +49,31 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
     @Query("SELECT DATE_FORMAT(date, '%Y-%m') AS yearMonth, COUNT(CASE WHEN ticketRaised = 'yes' THEN 1 END) AS ticketsRaisedYes, COUNT(CASE WHEN ticketRaised = 'no' THEN 1 END) AS ticketsRaisedNo FROM Incident WHERE DATE_FORMAT(date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') GROUP BY yearMonth ORDER BY yearMonth")
     List<Map<String, Object>> getTicketsRaisedInCurrentMonth();
 
-    //Number of alerts per plant
+    //Number of alerts per plant monthly
     @Query("SELECT i.plantName, COUNT(i) AS incidentCount, DATE_FORMAT(i.date, '%Y-%m') AS month " +
             "FROM Incident i " +
             "GROUP BY i.plantName, DATE_FORMAT(i.date, '%Y-%m') " +
             "ORDER BY i.plantName, DATE_FORMAT(i.date, '%Y-%m')")
     List<Object[]> getIncidentCountByPlantNameAndMonth();
+
+    //count Events PerAnalyst monthly
+
+    @Query("SELECT i.analyst, COUNT(i) FROM Incident i " +
+            "WHERE MONTH(i.date) = MONTH(CURRENT_DATE) " +
+            "AND YEAR(i.date) = YEAR(CURRENT_DATE) " +
+            "GROUP BY i.analyst")
+    List<Object[]> getNumeventsperanalyst();
+    //count Events PerAnalyst yearly
+    @Query("SELECT i.analyst, COUNT(i) AS count " +
+            "FROM Incident i " +
+            "WHERE YEAR(i.date) = YEAR(CURRENT_DATE) " +
+            "GROUP BY i.analyst")
+    List<Object[]> getNumeventsperanalystCurrentYear();
+
+
+
+
+
 
     //Number of treated incidents by severity
     @Query("SELECT i.severityLevel, COUNT(i) FROM Incident i " +
@@ -91,6 +110,8 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
             "WHERE YEAR(i.date) = YEAR(CURRENT_DATE) " +
             "GROUP BY i.severityLevel")
     List<Object[]> getIncidentCountBySeverityLevelForCurrentYear();
+
+
 
     // Incident per month of the current year
     @Query(value = "SELECT DATE_FORMAT(date, '%Y-%m') AS month, COUNT(*) AS count " +

@@ -47,44 +47,6 @@
 	</div>
 </div>
 
-
-
-
-
-
-
-
-
-
-  <!-- <div class="content">
-   
-      <div class="count">
-        <h6 class="title">MTTA</h6>
-        <hr />
-        <h6>{{ averageTimeAnalyse }}</h6>
-      </div>
-   
-      <div class="count">
-        <h6 class="title">MTTR</h6>
-        <hr />
-        <h6>{{ averageMttr }}</h6>
-      </div>
- 
-  <div class="count">
-    <h6 class="title">Current Month Incident Count</h6>
-    <hr />
-    <div>
-      <h6>{{ incidentsCount }}</h6>
-    </div>
-  </div>
-  <div class="count">
-    <h6 class="title">FPR</h6>
-    <hr />
-    <div>
-      <h6>{{ falsePositiveRating }} %</h6>
-    </div>
-  </div>
-</div> -->
   <div class="charts">
     <!-- events-per-analyst -->
     <img class="img-coficab" src="../../../assets/coficab_img.jpg" />
@@ -97,13 +59,25 @@
     <div class="chart" id="chartContainer" style="height: 400px;"></div>
 
     
+    <!-- <div class="chart" id="tickets-raised-per-month-chart"></div>   -->
+    <!-- <div class="chart" id="incident-chart-ticket-raised" ></div> -->
+    <div class="chart" id="incident-chart-severity" ></div>
+    <div class="chart" id="incident-count-by-analyst"></div>
+
+
+  </div>
+  
+      
+    <div class="charts-bottom">
+      <!-- Number of events per analyst monthly  -->
+  
 
   </div>
   <!-- Number of Incidents This month  -->
   <div class="content">
-  <div class="chart" id="incident-chart-severity" ></div>
-  <div style="width: 100%; height: 100%;margin: 0 auto;">
+  <!-- <div class="chart" id="incident-chart-severity" ></div> -->
+  <!-- <div style="width: 100%; height: 100%;margin: 0 auto;">
     <canvas id="incidentChart"></canvas>
-  </div>
+  </div> -->
   </div>
 </div>

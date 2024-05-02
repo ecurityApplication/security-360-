@@ -45,35 +45,21 @@
             </div>
         </div>
 	</div>
-</div>
-
-
-
-  <div class="content">
    
-    <!-- <div class="count">
-      <h6 class="title">MTTA</h6>
-      <hr />
-      <h6>{{ averageTimeAnalyse }}</h6>
-    </div> -->
+    <div class="charts-bottom">
+    
+      <!-- Tickets raised/incidents year-->
+      <div class="chart" id="tickets-raised-per-year-chart" ></div>
+            <!-- Tickets raised/incidents year-->
 
 
-    <!-- Number of Incidents This year -->
-    <!-- <div class="count">
-      <h6 class="title">Current Year Incident Count</h6>
-      <hr />
-      <h6>{{ incidentCount }}</h6>
+      <div class="chart" id="incident-chart-severity" ></div>
+      <div class="chart" id="incident-count-by-analyst" ></div>
+
+  
     </div>
-    <div class="count">
-      <h6 class="title">FPR</h6>
-      <hr />
-      <h6>{{ falsePositiveRating }}%</h6>
-    </div> -->
-  </div>
-  <!--Tickets Raised in Current Year  -->
+
   <div class="content">
-    <div class="chart" id="tickets-raised-per-year-chart"></div>
-    <div class="chart" id="incident-chart-severity"></div>
     <div style="width: 60%; height: 70%">
       <canvas class="chart" id="lineChart"></canvas>
     </div>

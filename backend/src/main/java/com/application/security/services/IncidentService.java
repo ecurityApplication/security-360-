@@ -29,11 +29,20 @@ public int getIncidentsCountForCurrentMonth();
 
 
     Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
-    Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
-    Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth();
+    
     Double calculateAverageFalsePositiveCurrentMonth();
     double calculateAverageMTTR();
 
+     Map<String, Long> getNumeventsperanalyst();
+
+    Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
+    Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth();
+    Map<String, Long> getNumeventsperanalystCurrentYear();
+
+
+
+
+    //     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
 //YEARLY
      Double getAverageTimeAnalyseForCurrentYear();
      int countIncidentsForCurrentYear();
