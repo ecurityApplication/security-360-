@@ -1,53 +1,44 @@
-  import { Component } from '@angular/core';
-  import { IncidentService } from '../../service/incident.service';
-  import * as Highcharts from 'highcharts';
-  import { ChartDataset, ChartOptions } from 'chart.js';
-  import { Chart } from 'chart.js';
+import { Component } from '@angular/core';
+import { IncidentService } from '../../service/incident.service';
+import * as Highcharts from 'highcharts';
+import { ChartDataset, ChartOptions } from 'chart.js';
+import { Chart } from 'chart.js';
 
-  @Component({
-    selector: 'app-yearly-kpis',
-    templateUrl: './yearly-kpis.component.html',
-    styleUrl: './yearly-kpis.component.css'
-  })
-  export class YearlyKpisComponent {
-    Highcharts: typeof Highcharts = Highcharts;
-    ticketsRaisedPerYearChartOptions!: Highcharts.Options;
-    incidentCount!: number;
-    incidentCountByMonth!: Map<number, number>;
-    chartData!: ChartDataset[];
-    chartOptions!: ChartOptions;
-    averageTimeAnalyse!: number;
-    customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'];
+@Component({
+  selector: 'app-yearly-kpis',
+  templateUrl: './yearly-kpis.component.html',
+  styleUrl: './yearly-kpis.component.css',
+})
+export class YearlyKpisComponent {
+  Highcharts: typeof Highcharts = Highcharts;
+  ticketsRaisedPerYearChartOptions!: Highcharts.Options;
+  incidentCount!: number;
+  incidentCountByMonth!: Map<number, number>;
+  chartData!: ChartDataset[];
+  chartOptions!: ChartOptions;
+  averageTimeAnalyse!: number;
+  lineChart: any;
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'] 
+  falsePositiveRating!: number;
+  ticket = ['#0707f1', '#46a2ee'];
+  constructor(private incidentService: IncidentService) {}
 
-    constructor(private incidentService: IncidentService) {}
-
-    ngOnInit() {
-      this.NumberOfIncidentInCurrentYear();
-      this.getTicketsRaisedInCurrentYear();
-      this.getAverageTimeAnalyseCurrentYear()
-      this.createChart();
-      this.getIncidentsPerMonth();
-      this.createChart();
-      this.getIncidentsBySeverityLevel();
-      this.getanalystPerIncident();
-
-      
-
-    }
-
-  getTicketsRaisedInCurrentYear() {
-    this.incidentService.getTicketsRaisedInCurrentYear().subscribe((data) => {
-      this.createTicketsRaisedPerYearChart(data);
-    });
-
+  ngOnInit() {
+    this.NumberOfIncidentInCurrentYear();
+    this.getTicketsRaisedInCurrentYear();
+    this.getAverageTimeAnalyseCurrentYear();
+    this.getIncidentPerMonth();
+    this.getIncidentsBySeverityLevel();
+    this.falsePositiveRatingYear();
+    this.getanalystPerIncident();
   }
+
   //MTTA
   getAverageTimeAnalyseCurrentYear() {
     this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
       (data) => {
         this.averageTimeAnalyse = data;
         console.log(data);
-        
       },
       (error) => {
         console.error('Error fetching average time analyse:', error);
@@ -55,46 +46,72 @@
     );
   }
 
+  //FPR
+  falsePositiveRatingYear() {
+    this.incidentService.falsePositiveRatingOfCurrentYear().subscribe(
+      (data) => {
+        this.falsePositiveRating = data;
+      },
+      (error) => {
+        console.error('Error fetching average FPR:', error);
+      }
+    );
+  }
+  //Number of incident
   NumberOfIncidentInCurrentYear() {
-    this.incidentService.getIncidentCountForCurrentYear().subscribe(count => {
-      this.incidentCount = count;
-      // Use the incidentCount to update your line chart
-    });
+    this.incidentService
+      .numberOfIncidentCountForCurrentYear()
+      .subscribe((count) => {
+        this.incidentCount = count;
+      });
   }
 
-  createTicketsRaisedPerYearChart(data: { year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]) {
+  //Ticket raised per year
+  getTicketsRaisedInCurrentYear() {
+    this.incidentService.getTicketsRaisedInCurrentYear().subscribe((data) => {
+      this.createTicketsRaisedPerYearChart(data);
+    });
+  }
+  createTicketsRaisedPerYearChart(
+    data: { year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]
+  ) {
     this.ticketsRaisedPerYearChartOptions = {
       chart: {
-        type: 'column'
+        type: 'column',
       },
       title: {
-        text: 'Tickets Raised in Current Year'
+        text: 'Ticket Raised/Incidents',
       },
       xAxis: {
-        categories: data.map((item) => item.year)
+        categories: data.map((item) => item.year),
       },
       yAxis: {
         min: 0,
         title: {
-          text: 'Tickets Raised'
-        }
+          text: 'Tickets Raised',
+        },
       },
       series: [
         {
           type: 'column',
           name: 'Tickets Raised Yes',
-          data: data.map((item) => item.ticketsRaisedYes)
+          data: data.map((item) => item.ticketsRaisedYes),
         },
         {
           type: 'column',
           name: 'Tickets Raised No',
-          data: data.map((item) => item.ticketsRaisedNo)
-        }
-      ]
+          data: data.map((item) => item.ticketsRaisedNo),
+        },
+      ],
+      colors: this.ticket,
     };
 
-    Highcharts.chart('tickets-raised-per-year-chart', this.ticketsRaisedPerYearChartOptions);
+    Highcharts.chart(
+      'tickets-raised-per-year-chart',
+      this.ticketsRaisedPerYearChartOptions
+    );
   }
+  // Number of treated incidents by severity-year
   // Number of treated incidents by severity
 SeverityLevelChartOptions: Highcharts.Options = {
   chart: {
@@ -139,7 +156,6 @@ getIncidentsBySeverityLevel(): void {
 updateChartpie(): void {
   this.Highcharts.chart('incident-chart-severity', this.SeverityLevelChartOptions);
 }
-
 //getEventsPerAnalyst yearly
 analysteChartOptions: Highcharts.Options = {
   chart: {
@@ -159,7 +175,6 @@ analysteChartOptions: Highcharts.Options = {
   },
   series: [] as Highcharts.SeriesColumnOptions[]
 };
-
 getanalystPerIncident(): void {
   this.incidentService.getEventsPerAnalystYearly().subscribe(data => {
     this.analysteChartOptions.series = [
@@ -179,59 +194,37 @@ getanalystPerIncident(): void {
 updateChartanalyste(): void {
   this.Highcharts.chart('incident-count-by-analyst', this.analysteChartOptions);
 }
+  //chart of incidents per month of the current year chart
+  getIncidentPerMonth(): void {
+    this.incidentService.getIncidentsPerMonthCurrentYear().subscribe((data) => {
+      const months = Object.keys(data);
+      const counts = Object.values(data);
 
-  
-  //Number of incidents per month of the current year
-  chart: any;
-  incidentsPerMonth!: any[];
-
-  getIncidentsPerMonth() {
-    this.incidentService.getIncidentsPerMonth() // Replace with your actual base URL
-      .subscribe(
-        (data) => {
-          this.incidentsPerMonth = data;
-          this.createChart();
-        },
-        (error) => {
-          console.error('Error fetching incidents per month:', error);
-        }
-      );
-  }
-
-  createChart() {
-    if (this.incidentsPerMonth && this.incidentsPerMonth.length > 0) {
-      const labels = this.incidentsPerMonth.map(item => this.getMonthName(item.month));
-      const data = this.incidentsPerMonth.map(item => item.totalIncidents);
-      console.log(data, "line");
-
-      if (this.chart) {
-        this.chart.data.labels = labels;
-        this.chart.data.datasets[0].data = data;
-        this.chart.update();
-      } else {
-        this.chart = new Chart("MyChart", {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Total Incidents',
-              data: data,
+      this.lineChart = new Chart('lineChart', {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: 'Incident Count',
+              data: counts,
               borderColor: 'blue',
-              fill: false
-            }]
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Months',
+              },
+            },
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false
-          }
-        });
-      }
-    }
-  }
-
-  getMonthName(monthNumber: number): string {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'];
-    return monthNames[monthNumber - 1];
+        },
+      });
+    });
   }
 }

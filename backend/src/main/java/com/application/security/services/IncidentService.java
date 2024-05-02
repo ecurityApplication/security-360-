@@ -11,24 +11,28 @@ public interface IncidentService {
 
     void DeleteIncident(Long id);
 
-
-
     List<Incident> getAllIncident(String searchKey);
-    Incident updateIncident(Long id, Incident updatedIncident);
 
     Object getIncidentById(long id);
+
+    Incident updateIncident(Long id, Incident updatedIncident);
 
     List<Incident> getIncidentsByDate(Date date);
 
     List<Incident> getIncidentsByCategory(String category);
 //MONTHLY
-    List<Map<String, Object>> getCurrentMonthIncidentCounts();
+public int getIncidentsCountForCurrentMonth();
 
-    Map<String, Long> getTicketRaisedPerIncident();
+
+    public List<Map<String, Object>> getTicketsRaisedInCurrentMonth() ;
 
 
 
     Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
+    
+    Double calculateAverageFalsePositiveCurrentMonth();
+    double calculateAverageMTTR();
+
      Map<String, Long> getNumeventsperanalyst();
 
     Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
@@ -44,10 +48,14 @@ public interface IncidentService {
      int countIncidentsForCurrentYear();
 
      List<Map<String, Object>> getTicketsRaisedInCurrentYear();
-     List<Object[]> countIncidentsPerMonth();
 
+    public Map<String, Integer> getIncidentCountPerMonthForCurrentYear();
      double getAverageTimeAnalyseCurrentMonth();
 
+    Double calculateAverageFalsePositiveCurrentYear();
+
+
+
+  
 
 }
-

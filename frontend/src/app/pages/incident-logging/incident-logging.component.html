@@ -34,7 +34,6 @@
           <th>UserName</th>
           <th>HostStatus</th>
           <th>Investigation</th>
-          
           <th>Remediation</th>
           <th>FirstEvent</th>
           <th>Acknowledge</th>
@@ -46,6 +45,7 @@
           <th>Escalation</th>
           <th>IncidentStatus</th>
           <th>FalsePositive</th>
+          <th>Time of closure</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -67,12 +67,9 @@
             <td>{{ incident.userName }}</td>
             <td [ngClass]="getHostClass(incident.hostStatus)">{{ incident.hostStatus }}</td>
             <td>{{ incident.investigation }}</td>
-  
-  
-
             <td>{{ incident.remediation }}</td>
-            <td>{{ incident.firstEvent }}</td>
-            <td>{{ incident.acknowledge }}</td>
+            <td>{{ incident.firstEvent | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ incident.acknowledge| date:'dd/MM/yyyy HH:mm' }}</td>
             <td>{{ incident.timeAnalyse }}</td>
             <td>{{ incident.analyst }}</td>
             <td>{{ incident.reviewer }}</td>
@@ -81,6 +78,7 @@
             <td>{{ incident.escalation }}</td>
             <td [ngClass]="getStatusClass(incident.incidentStatus)">{{ incident.incidentStatus }}</td>
             <td>{{ incident.falsePositive }}</td>
+            <td>{{incident.timeOfClosure| date:'dd/MM/yyyy HH:mm' }}</td>
           <td>
             <div class="actions">
               <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>

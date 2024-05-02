@@ -63,9 +63,12 @@ public class Incident {
     )
 
     private Set<ImageModel>incidentImages;
-    @ManyToOne//Many token belongs to the same user
-    @JoinColumn(name = "user_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)//Many incident belongs to the same user
+    @JoinColumn(name = "user_id",nullable = false)
+
     public User user;
+
     public Incident orElseThrow(Object object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");

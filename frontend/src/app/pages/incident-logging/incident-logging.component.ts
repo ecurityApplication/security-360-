@@ -194,6 +194,7 @@ export class IncidentLoggingComponent implements OnInit {
         firstEvent: incident.firstEvent,
         acknowledge: incident.acknowledge,
         timeAnalyse: incident.timeAnalyse,
+        timeOfClosure:incident.timeOfClosure,
         analyst: incident.analyst,
         reviewer: incident.reviewer,
       },
