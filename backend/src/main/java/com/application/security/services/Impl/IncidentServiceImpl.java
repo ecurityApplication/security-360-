@@ -138,15 +138,8 @@ public class IncidentServiceImpl implements IncidentService {
 
     //get Tickets Raised Per Month
     @Override
-    public Map<String, Long> getTicketRaisedPerIncident() {
-        List<Object[]> results = repIncident.getTicketRaisedPerIncident();
-        Map<String, Long> ticketRaisedCounts = new HashMap<>();
-        for (Object[] row : results) {
-            String ticketRaised = (String) row[0];
-            Long count = (Long) row[1];
-            ticketRaisedCounts.put( ticketRaised, count );
-        }
-        return ticketRaisedCounts;
+    public List<Map<String, Object>> getTicketsRaisedInCurrentMonth() {
+        return repIncident.getTicketsRaisedInCurrentMonth();
     }
 
     //count Events PerAnalyst
@@ -175,19 +168,7 @@ public class IncidentServiceImpl implements IncidentService {
     }
 
     //Number of treated incidents by severity month
-    @Override
-    public Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth() {
-        List<Object[]> results = repIncident.countIncidentsBySeverityLevelForCurrentMonth();
-        Map<String, Long> incidentCountBySeverityLevel = new HashMap<>();
 
-        for (Object[] row : results) {
-            String severityLevel = (String) row[0];
-            Long count = (Long) row[1];
-            incidentCountBySeverityLevel.put( severityLevel, count );
-        }
-
-        return incidentCountBySeverityLevel;
-    }
 
     //MTTR
     @Override
@@ -212,18 +193,12 @@ public class IncidentServiceImpl implements IncidentService {
         return averageMTTR.orElse( 0.0 );
     }
 
-    //
+    //FPR
     @Override
-    public double getAverageFalsePositiveForCurrentMonth() {
-        LocalDate now = LocalDate.now();
-        LocalDate startOfMonth = now.withDayOfMonth(1);
-        LocalDate endOfMonth = now.withDayOfMonth(now.lengthOfMonth());
-
-        Date startDate = Date.from(startOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date endDate = Date.from(endOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        return repIncident.getAverageFalsePositiveForCurrentMonth(startDate, endDate);
+    public Double calculateAverageFalsePositiveCurrentMonth() {
+        return repIncident.findAverageFalsePositiveCurrentMonth();
     }
+
     //Yearly
     @Override
     public int countIncidentsForCurrentYear() {
@@ -245,8 +220,7 @@ public class IncidentServiceImpl implements IncidentService {
     }
 
 
-    //count Events PerAnalyst
-//Number of treated incidents by severity year
+    //    //Number of treated incidents by severity
     @Override
     public Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear() {
         List<Object[]> results = repIncident.getIncidentCountBySeverityLevelForCurrentYear();
@@ -261,11 +235,20 @@ public class IncidentServiceImpl implements IncidentService {
         return incidentCountBySeverityLevel;
     }
 
-    //    //Number of treated incidents by severity
-//    @Override
-//    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
-//        return repIncident.countIncidentsBySeverityLevelForCurrentMonth();
-//    }
+    //Number of treated incidents by severity month
+    @Override
+    public Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth() {
+        List<Object[]> results = repIncident.countIncidentsBySeverityLevelForCurrentMonth();
+        Map<String, Long> incidentCountBySeverityLevel = new HashMap<>();
+
+        for (Object[] row : results) {
+            String severityLevel = (String) row[0];
+            Long count = (Long) row[1];
+            incidentCountBySeverityLevel.put( severityLevel, count );
+        }
+
+        return incidentCountBySeverityLevel;
+    }
 
     //Number of incidents per month of the current year
     @Override
@@ -282,10 +265,18 @@ public class IncidentServiceImpl implements IncidentService {
         return incidentCountPerMonth;
     }
 
-    //MTTR
-//fpr
+    //FPR
+    @Override
+    public Double calculateAverageFalsePositiveCurrentYear() {
+        return repIncident.findAverageFalsePositiveCurrentYear();
+    }
+//MTTR
 
 }
+
+
+
+
 
 
 

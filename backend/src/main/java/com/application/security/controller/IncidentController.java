@@ -137,8 +137,9 @@ public class IncidentController {
 
     //get Tickets Raised Per Month
     @GetMapping("tickets-raised-per-month")
-    public Map<String, Long> getTicketRaisedPerIncident() {
-        return incidentService.getTicketRaisedPerIncident();
+    public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentMonth() {
+        List<Map<String, Object>> result = incidentService.getTicketsRaisedInCurrentMonth();
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //Number of alerts per plant
@@ -150,22 +151,17 @@ public class IncidentController {
 
     //Number of treated incidents by severity per month
 
-    // @GetMapping("/count-by-severity-level")
-    // public ResponseEntity<Map<String, Long>> countIncidentsBySeverityLevelForCurrentMonth() {
-    //     Map<String, Long> incidentCountBySeverityLevel = incidentService.countIncidentsBySeverityLevelForCurrentMonth();
-    //     return ResponseEntity.ok(incidentCountBySeverityLevel);
-    // }
+
     //MTTR
     @GetMapping("/average-mttr")
     public ResponseEntity<Double> getAverageMTTR() {
         double averageMTTR = incidentService.calculateAverageMTTR();
         return new ResponseEntity<>(averageMTTR, HttpStatus.OK);
     }
-    //
-    @GetMapping("/average-false-positive")
-    public ResponseEntity<Double> getAverageFalsePositiveForCurrentMonth() {
-        double averageFalsePositive = incidentService.getAverageFalsePositiveForCurrentMonth();
-        return new ResponseEntity<>(averageFalsePositive, HttpStatus.OK);
+    //FPR
+    @GetMapping("/averageFalsePositiveCurrentMonth")
+    public Double getAverageFalsePositiveCurrentMonth() {
+        return incidentService.calculateAverageFalsePositiveCurrentMonth();
     }
     //Yearly
     //Number of Incident this  year
@@ -186,25 +182,21 @@ public class IncidentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    //Number of Events per analyst
-
 //Number of treated incidents by severity per year
 @GetMapping("/severity-level-count-year")
 public ResponseEntity<Map<String, Long>> getIncidentCountBySeverityLevelForCurrentYear() {
     Map<String, Long> incidentCountBySeverityLevel = incidentService.getIncidentCountBySeverityLevelForCurrentYear();
     return ResponseEntity.ok(incidentCountBySeverityLevel);
 }
+
     //Number of treated incidents by severity per month
 
-    @GetMapping("/count-by-severity-level")
+    @GetMapping("/count-by-severity-level-month")
     public ResponseEntity<Map<String, Long>> countIncidentsBySeverityLevelForCurrentMonth() {
         Map<String, Long> incidentCountBySeverityLevel = incidentService.countIncidentsBySeverityLevelForCurrentMonth();
         return ResponseEntity.ok(incidentCountBySeverityLevel);
     }
-//    @GetMapping("/count-by-severity-level")
-//    public List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() {
-//        return incidentService.countIncidentsBySeverityLevelForCurrentMonth();
-//    }
+
 
     //Number of incidents per month of the current year
     @GetMapping("/count-per-month-current-year")
@@ -213,8 +205,13 @@ public ResponseEntity<Map<String, Long>> getIncidentCountBySeverityLevelForCurre
         return new ResponseEntity<>(incidentCountPerMonth, HttpStatus.OK);
     }
 
-//MTTR
 //FPR
+
+    @GetMapping("/averageFalsePositiveCurrentYear")
+    public Double getAverageFalsePositiveCurrentYear() {
+        return incidentService.calculateAverageFalsePositiveCurrentYear();
+    }
+//MTTR
 
 
 

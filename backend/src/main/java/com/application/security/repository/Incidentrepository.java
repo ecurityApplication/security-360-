@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +46,8 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
 
 
     //Tickets raised/incidents
-    @Query("SELECT i.ticketRaised, COUNT(i) FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE) GROUP BY i.ticketRaised")
-    List<Object[]> getTicketRaisedPerIncident();
+    @Query("SELECT DATE_FORMAT(date, '%Y-%m') AS yearMonth, COUNT(CASE WHEN ticketRaised = 'yes' THEN 1 END) AS ticketsRaisedYes, COUNT(CASE WHEN ticketRaised = 'no' THEN 1 END) AS ticketsRaisedNo FROM Incident WHERE DATE_FORMAT(date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') GROUP BY yearMonth ORDER BY yearMonth")
+    List<Map<String, Object>> getTicketsRaisedInCurrentMonth();
 
     //Number of alerts per plant
     @Query("SELECT i.plantName, COUNT(i) AS incidentCount, DATE_FORMAT(i.date, '%Y-%m') AS month " +
@@ -65,11 +66,9 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
     //MTTR
     @Query("SELECT i FROM Incident i WHERE i.date BETWEEN :startDate AND :endDate")
     List<Incident> findIncidentsByMonthRange(Date startDate, Date endDate);
-    //
-    @Query("SELECT AVG(CAST(i.falsePositive AS DOUBLE)) " +
-            "FROM Incident i " +
-            "WHERE i.date BETWEEN :startDate AND :endDate")
-    double getAverageFalsePositiveForCurrentMonth(Date startDate, Date endDate);
+    //FPR
+    @Query("SELECT AVG(CAST(i.falsePositive AS double)) FROM Incident i WHERE MONTH(i.date) = MONTH(CURRENT_DATE) AND YEAR(i.date) = YEAR(CURRENT_DATE)")
+    Double findAverageFalsePositiveCurrentMonth();
 
     //Yearly
     //MTTA
@@ -102,7 +101,10 @@ public interface Incidentrepository extends CrudRepository<Incident,Long> {
     List<Object[]> getIncidentCountPerMonthForCurrentYear();
 
     //MTTR
-    //MTTR
-//FPR
 
+
+
+//FPR
+@Query("SELECT AVG(CAST(i.falsePositive AS double)) FROM Incident i WHERE YEAR(i.date) = YEAR(CURRENT_DATE)")
+Double findAverageFalsePositiveCurrentYear();
 }

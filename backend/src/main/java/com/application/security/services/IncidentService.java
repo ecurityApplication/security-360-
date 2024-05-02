@@ -21,36 +21,31 @@ public interface IncidentService {
 
     List<Incident> getIncidentsByCategory(String category);
 //MONTHLY
-    List<Map<String, Object>> getCurrentMonthIncidentCounts();
+public int getIncidentsCountForCurrentMonth();
 
-    Map<String, Long> getTicketRaisedPerIncident();
+
+    public List<Map<String, Object>> getTicketsRaisedInCurrentMonth() ;
 
 
 
     Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
     Map<String, Long> getIncidentCountBySeverityLevelForCurrentYear();
     Map<String, Long> countIncidentsBySeverityLevelForCurrentMonth();
+    Double calculateAverageFalsePositiveCurrentMonth();
+    double calculateAverageMTTR();
 
-
-    //     List<Object[]> countIncidentsBySeverityLevelForCurrentMonth() ;
 //YEARLY
      Double getAverageTimeAnalyseForCurrentYear();
      int countIncidentsForCurrentYear();
 
      List<Map<String, Object>> getTicketsRaisedInCurrentYear();
-     List<Object[]> countIncidentsPerMonth();
 
+    public Map<String, Integer> getIncidentCountPerMonthForCurrentYear();
      double getAverageTimeAnalyseCurrentMonth();
 
-   
+    Double calculateAverageFalsePositiveCurrentYear();
 
-    
 
- 
-
-   double calculateAverageMTTR();
-    public double getAverageFalsePositiveForCurrentMonth();
-//YEARLY
 
   
 
