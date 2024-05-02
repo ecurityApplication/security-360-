@@ -14,19 +14,23 @@ export class MonthlyKPIsComponent implements OnInit {
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
   ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
+  customColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
   averageMttr!: number;
-  
-  constructor(private incidentService: IncidentService) { }
+  falsePositiveRating!: number;
+  ticket = ['#0707f1', '#46a2ee'];
+
+  constructor(private incidentService: IncidentService) {}
 
   ngOnInit() {
-   this.getIncidentCount();
+    this.getIncidentCount();
     this.getIncidentCountByPlantNameAndMonth();
-    this.getTicketRaisedPerIncident();
-    this.getAverageTimeAnalyseCurrentMonth(); 
+    this.ticketsRaisedInCurrentMonth();
+    this.getAverageTimeAnalyseCurrentMonth();
     this.getAverageMttr();
+    this.falsePositiveRatingMonth();
   }
 
-  //Number of Incidents This month 
+  //Number of Incidents This month
   getIncidentCount() {
     this.incidentService.getCurrentMonthIncidentCounts().subscribe(
       (data) => {
@@ -38,27 +42,39 @@ export class MonthlyKPIsComponent implements OnInit {
     );
   }
 
-//MTTA
-getAverageTimeAnalyseCurrentMonth() {
-  this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
-    (data) => {
-      this.averageTimeAnalyse = data;
-      console.log(data);
-      
-    },
-    (error) => {
-      console.error('Error fetching average time analyse:', error);
-    }
-  );
-}
+  //MTTA
+  getAverageTimeAnalyseCurrentMonth() {
+    this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
+      (data) => {
+        this.averageTimeAnalyse = data;
+      },
+      (error) => {
+        console.error('Error fetching average time analyse:', error);
+      }
+    );
+  }
   //MTTR
   getAverageMttr() {
     this.incidentService.getAverageMttr().subscribe(
       (data) => {
+        console.log("mttr",data);
+        
         this.averageMttr = data;
       },
       (error) => {
         console.error('Error fetching average MTTR:', error);
+      }
+    );
+  }
+
+  //FPR
+  falsePositiveRatingMonth() {
+    this.incidentService.falsePositiveRatingOfCurrentMonth().subscribe(
+      (data) => {
+        this.falsePositiveRating = data;
+      },
+      (error) => {
+        console.error('Error fetching average FPR:', error);
       }
     );
   }
@@ -78,7 +94,7 @@ getAverageTimeAnalyseCurrentMonth() {
       this.createHighchartsOptions(
         'Number of alerts per plant',
         Object.keys(data).sort(),
-        'Incident Count',
+        'Alert',
         Object.values(data).flatMap((plantData) =>
           Object.values(plantData).sort()
         )
@@ -104,6 +120,9 @@ getAverageTimeAnalyseCurrentMonth() {
       },
       xAxis: {
         categories: categories,
+        title: {
+          text: 'Plant Name',
+        },
       },
       yAxis: {
         min: 0,
@@ -116,7 +135,7 @@ getAverageTimeAnalyseCurrentMonth() {
           type: 'column',
           name: seriesName,
           data: data,
-          color: '#0077b6',
+          color: 'blue',
         },
       ],
     };
@@ -127,53 +146,91 @@ getAverageTimeAnalyseCurrentMonth() {
   }
 
   //Tickets raised/incidents
-  ticketRaisedChartOptions: Highcharts.Options = {
+  ticketchartOptions: any;
+
+  ticketsRaisedInCurrentMonth() {
+    this.incidentService
+      .getTicketsRaisedInCurrentMonth()
+      .subscribe((data: any) => {
+        this.ticketchartOptions = {
+          chart: {
+            type: 'column',
+          },
+          title: {
+            text: 'Tickets Raised in Current Month',
+          },
+          xAxis: {
+            categories: data.map((item: any) => item.yearMonth),
+          },
+          yAxis: {
+            title: {
+              text: 'Number of Tickets',
+            },
+          },
+          series: [
+            {
+              name: 'Tickets Raised (Yes)',
+              data: data.map((item: any) => item.ticketsRaisedYes),
+              color: '#0707f1',
+            },
+            {
+              name: 'Tickets Raised (No)',
+              data: data.map((item: any) => item.ticketsRaisedNo),
+              color: '#46a2ee',
+            },
+          ],
+        };
+        Highcharts.chart('chartContainer', this.ticketchartOptions);
+      });
+  }
+
+  //Number of treated incidents by severity-month
+  SeverityLevelChartOptions: Highcharts.Options = {
     chart: {
-      type: 'column'
+      type: 'pie',
     },
     title: {
-      text: 'Ticket Raised/Incidents'
+      text: 'Number of treated incidents by severity',
     },
     xAxis: {
-      type: 'category'
+      type: 'category',
     },
     yAxis: {
       min: 0,
       title: {
-        text: 'Count'
-      }
+        text: 'Count',
+      },
     },
-    series: [] as Highcharts.SeriesColumnOptions[]
+    series: [] as Highcharts.SeriesColumnOptions[],
+    colors: this.customColors, // Set custom colors here
   };
 
-  getTicketRaisedPerIncident(): void {
-    this.incidentService.getTicketRaisedPerIncident().subscribe(data => {
-      this.ticketRaisedChartOptions.series = [
-        {
-          type: 'column',
-          name: 'Ticket Raised',
-          data: Object.values(data),  
-        }
-      ];
-      this.ticketRaisedChartOptions.xAxis = {
-        categories: Object.keys(data)
-      };
-      this.updateChart();
-    });
+  getIncidentsBySeverityLevel(): void {
+    this.incidentService
+      .getIncidentsBySeverityLevelmonth()
+      .subscribe((data) => {
+        const formattedData = Object.entries(data).map(([key, value]) => ({
+          name: key,
+          y: value,
+        }));
+        this.SeverityLevelChartOptions.series = [
+          {
+            type: 'pie',
+            name: 'Severity',
+            data: formattedData,
+          },
+        ];
+        this.SeverityLevelChartOptions.xAxis = {
+          categories: formattedData.map((item) => item.name),
+        };
+        this.updateChartpie();
+      });
   }
 
-  updateChart(): void {
-    this.Highcharts.chart('incident-chart-ticket-raised', this.ticketRaisedChartOptions);
+  updateChartpie(): void {
+    this.Highcharts.chart(
+      'incident-chart-severity',
+      this.SeverityLevelChartOptions
+    );
   }
-
-//Number of treated incidents by severity
-
-
-
-
-
-
-
-
-
 }

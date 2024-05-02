@@ -115,7 +115,6 @@ public class AuthenticationService {
     var savedUser = repository.save(user);
     publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
 
-
     // Generate JWT token and refresh token
    // var jwtToken = jwtService.generateToken(user);
     //var refreshToken = jwtService.generateRefreshToken(user);

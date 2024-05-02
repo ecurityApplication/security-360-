@@ -2,27 +2,80 @@
   <div class="header-content">
     <h4>Soc Yearly KPI</h4>
   </div>
-  <div class="content">
-    <!-- MTTA -->
-    <div class="count">
-          <h6 class="title">MTTA</h6>
-          <hr />
-          <h6>{{ averageTimeAnalyse }}</h6>
+  <div class="content-card">
+    <div class="row">
+       <!-- MTTA -->
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Current Year Incident Count</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{ incidentCount }}</span></h2>
+                    
+                </div>
+            </div>
         </div>
+          <!-- Number of Incidents This year -->
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">MTTA</h6>
+                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span> {{ averageTimeAnalyse }}</span></h2>
+                    <p class="m-b-0">Target<span class="f-right">60 min</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- MTTR-->
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">MTTR</h6>
+                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span></span></h2>
+                    <p class="m-b-0">Target<span class="f-right"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- FPR  -->
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">FPR</h6>
+                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ falsePositiveRating }}%</span></h2>
+                    <p class="m-b-0">Target<span class="f-right">45%</span></p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+
+  <div class="content">
+   
+    <!-- <div class="count">
+      <h6 class="title">MTTA</h6>
+      <hr />
+      <h6>{{ averageTimeAnalyse }}</h6>
+    </div> -->
+
+
     <!-- Number of Incidents This year -->
-    <div class="count">
+    <!-- <div class="count">
       <h6 class="title">Current Year Incident Count</h6>
       <hr />
-        <h6>{{ incidentCount }}</h6>
+      <h6>{{ incidentCount }}</h6>
     </div>
+    <div class="count">
+      <h6 class="title">FPR</h6>
+      <hr />
+      <h6>{{ falsePositiveRating }}%</h6>
+    </div> -->
   </div>
-    <!--Tickets Raised in Current Year  -->
-<div class="content">
-    <div class="chart" id="tickets-raised-per-year-chart" ></div>
-    <div style="width: 80% ;height: 70%;">
+  <!--Tickets Raised in Current Year  -->
+  <div class="content">
+    <div class="chart" id="tickets-raised-per-year-chart"></div>
+    <div class="chart" id="incident-chart-severity"></div>
+    <div style="width: 60%; height: 70%">
       <canvas class="chart" id="lineChart"></canvas>
     </div>
-
   </div>
-
 </div>

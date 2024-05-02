@@ -37,5 +37,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<Object[]> countUsersPerRole();
 
 //enabled previous admin
-
 }

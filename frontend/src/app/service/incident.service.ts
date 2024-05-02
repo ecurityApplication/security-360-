@@ -59,18 +59,13 @@ export class IncidentService {
   deleteIncident(id: number) {
     return this.httpClient.delete(`${this.baseURL}/delete/${id}`);
   }
-  // getIncidentCountsByCategory(): Observable<any> {
-  //   return this.httpClient.get<any>(`${this.baseURL}/countByCategory`);
-  // }
+ 
   getIncidentCountsByCategory(): Observable<Array<any>> {
     return this.httpClient.get<any[]>(`${this.baseURL}/countByCategory`);
   }
   
   getIncidentCountsByraisedby(): Observable<Array<any>> {
     return this.httpClient.get<any[]>(`http://localhost:8080/api/v1/incidents/countByRaisedBy`, {
-      // headers: new HttpHeaders({
-      //   "Content-Type": "application/json"
-      // })
     });
   }
 
@@ -104,14 +99,22 @@ getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: strin
 }
 
 //Tickets raised/incidents
-getTicketRaisedPerIncident(): Observable<{ [key: string]: number }> {
-  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/tickets-raised-per-month`);
+getTicketsRaisedInCurrentMonth() {
+  return this.httpClient.get(`${this.baseURL}/tickets-raised-per-month`);
+}
+//FPR
+falsePositiveRatingOfCurrentMonth(): Observable<number> {
+  return this.httpClient.get<number>(`${this.baseURL}/averageFalsePositiveCurrentMonth`);
 }
 
-//Number of treated incidents by severity 
-  getIncidentsBySeverity(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.baseURL}/countBySeverityForCurrentMonth`);
-  }
+//Number of treated incidents by severity year
+getIncidentsBySeverityLevelyear(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/severity-level-count-year`);
+}
+//Number of treated incidents by severity month
+getIncidentsBySeverityLevelmonth(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/count-by-severity-level-month`);
+}
 
 //
 getCurrentMonthIncidentCounts(): Observable<number> {
@@ -128,21 +131,13 @@ getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: nu
 numberOfIncidentCountForCurrentYear() {
   return this.httpClient.get<number>(`${this.baseURL}/incident/count/currentYear`);
 }
-// getIncidentCountForCurrentYear() {
-//   return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-incident-per-month-year`);
-// }
-
-// getIncidentCountByMonthForCurrentYear(): Observable<Map<number, number>> {
-//   return this.httpClient.get<Map<number, number>>(`${this.baseURL}/incident/count/month/currentYear`);
-// }
 
 getIncidentsPerMonthCurrentYear(){
-  return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-per-month-current-year`);
-
-  
+  return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-per-month-current-year`); 
 }
   //MTTA
-  getAverageTimeAnalyseCurrentYear(): Observable<number> {
-    return this.httpClient.get<number>(`${this.baseURL}/averageTimeAnalyse-year`);
+  falsePositiveRatingOfCurrentYear(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseURL}/averageFalsePositiveCurrentYear`);
   }
+  //FPR
 }
