@@ -35,10 +35,10 @@ export class CreateIncidentComponent {
     hostStatus: '',
     investigation: '',
     roadCauseAnalysis:'',
-    timeOfClosure :'',
+    timeOfClosure :new Date(),
     remediation: '',
-    firstEvent: '',
-    acknowledge: '',
+    firstEvent: new Date(),
+    acknowledge:new Date(),
     timeAnalyse: 0,
     analyst: '',
     reviewer: '',
@@ -66,7 +66,7 @@ export class CreateIncidentComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getUser();
+    this.getAnalyst();
   }
 
   toggleSidebar() {
@@ -136,6 +136,11 @@ export class CreateIncidentComponent {
   // }
 
   createIncident(incidentForm: NgForm) {
+    if (incidentForm.invalid) {
+      // Form is invalid, show alert or handle error message
+      alert('All champs are obligatoire ');
+      return;
+    }
     const incidentFormData = this.prepareFormData(this.incident);
     // if (this.incident.escalation === 'Yes') {
     //   this.router.navigate(['/incidentlogging']);
@@ -159,8 +164,8 @@ export class CreateIncidentComponent {
     );
   }
 
-  getUser() {
-    this.userService.getUser().subscribe(
+  getAnalyst() {
+    this.userService.getAnalyst().subscribe(
       (user) => {
         this.users = user;
       },

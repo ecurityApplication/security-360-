@@ -17,10 +17,10 @@ export class Incident {
   hostStatus!: string;
   investigation!: string;
   roadCauseAnalysis!:string;
-  timeOfClosure !:string;
+  timeOfClosure !:Date;
   remediation!: string;
-  firstEvent!: string;
-  acknowledge!: string;
+  firstEvent!: Date;
+  acknowledge!: Date;
   timeAnalyse!: number;
   analyst!: '';
   reviewer!: string;

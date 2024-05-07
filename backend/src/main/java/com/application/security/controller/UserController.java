@@ -38,6 +38,17 @@ UserService userService;
     public List<UserGetDTO> getAllUsers(){
         return userService.getUsers();
     }
+    //select analyste
+
+    @GetMapping("/getAnalyste")
+    public List<User> getAnalyste() {
+    return userService.getAnalyste();
+}
+//    @GetMapping("/getanalyst")
+
+//    public List<UserGetDTO> getUsersByRole( String roleName) {
+//        return userService.getUsersByRoleName(roleName);
+//    }
 
     @DeleteMapping("/remove-user/{id}")
     public void removeUser(@PathVariable("id") Long id) {
