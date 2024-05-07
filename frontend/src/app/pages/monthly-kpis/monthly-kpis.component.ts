@@ -81,71 +81,71 @@ export class MonthlyKPIsComponent implements OnInit {
     );
   }
   //Number of alerts per plant method call
-  getIncidentCountByPlantNameAndMonth() {
-    this.incidentService
-      .getIncidentCountByPlantNameAndMonth()
-      .subscribe((data) => {
-        this.createIncidentCountByPlantAndMonthChart(data);
-      });
-  }
+  // getIncidentCountByPlantNameAndMonth() {
+  //   this.incidentService
+  //     .getIncidentCountByPlantNameAndMonth()
+  //     .subscribe((data) => {
+  //       this.createIncidentCountByPlantAndMonthChart(data);
+  //     });
+  // }
   //Number of alerts per plant highcharts
-  createIncidentCountByPlantAndMonthChart(data: {
-    [key: string]: { [key: string]: number };
-  }) {
-    this.incidentCountByPlantAndMonthChartOptions =
-      this.createHighchartsOptions(
-        'Number of alerts per plant',
-        Object.keys(data).sort(),
-        'Alert',
-        Object.values(data).flatMap((plantData) =>
-          Object.values(plantData).sort()
-        )
-      );
-    this.renderHighchartsChart(
-      'incident-count-by-plant-and-month-chart',
-      this.incidentCountByPlantAndMonthChartOptions
-    );
-  }
+  // createIncidentCountByPlantAndMonthChart(data: {
+  //   [key: string]: { [key: string]: number };
+  // }) {
+  //   this.incidentCountByPlantAndMonthChartOptions =
+  //     this.createHighchartsOptions(
+  //       'Number of alerts per plant',
+  //       Object.keys(data).sort(),
+  //       'Alert',
+  //       Object.values(data).flatMap((plantData) =>
+  //         Object.values(plantData).sort()
+  //       )
+  //     );
+  //   this.renderHighchartsChart(
+  //     'incident-count-by-plant-and-month-chart',
+  //     this.incidentCountByPlantAndMonthChartOptions
+  //   );
+  // }
 
-  createHighchartsOptions(
-    title: string,
-    categories: string[],
-    seriesName: string,
-    data: number[]
-  ): Highcharts.Options {
-    return {
-      chart: {
-        type: 'column',
-      },
-      title: {
-        text: title,
-      },
-      xAxis: {
-        categories: categories,
-        title: {
-          text: 'Plant Name',
-        },
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: seriesName,
-        },
-      },
-      series: [
-        {
-          type: 'column',
-          name: seriesName,
-          data: data,
-          color: 'blue',
-        },
-      ],
-    };
-  }
+  // createHighchartsOptions(
+  //   title: string,
+  //   categories: string[],
+  //   seriesName: string,
+  //   data: number[]
+  // ): Highcharts.Options {
+  //   return {
+  //     chart: {
+  //       type: 'column',
+  //     },
+  //     title: {
+  //       text: title,
+  //     },
+  //     xAxis: {
+  //       categories: categories,
+  //       title: {
+  //         text: 'Plant Name',
+  //       },
+  //     },
+  //     yAxis: {
+  //       min: 0,
+  //       title: {
+  //         text: seriesName,
+  //       },
+  //     },
+  //     series: [
+  //       {
+  //         type: 'column',
+  //         name: seriesName,
+  //         data: data,
+  //         color: 'blue',
+  //       },
+  //     ],
+  //   };
+  // }
 
-  renderHighchartsChart(containerId: string, chartOptions: Highcharts.Options) {
-    (Highcharts as any).chart(containerId, chartOptions);
-  }
+  // renderHighchartsChart(containerId: string, chartOptions: Highcharts.Options) {
+  //   (Highcharts as any).chart(containerId, chartOptions);
+  // }
 
   //Tickets raised/incidents
   ticketchartOptions: any;
@@ -185,6 +185,46 @@ export class MonthlyKPIsComponent implements OnInit {
         Highcharts.chart('chartContainer', this.ticketchartOptions);
       });
   }
+    //Number of alerts per plant highcharts
+    plantChartOptions: Highcharts.Options = {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Number of alerts per plant'
+      },
+      xAxis: {
+        type: 'category'
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Count'
+        }
+      },
+      series: [] as Highcharts.SeriesColumnOptions[]
+    };
+    
+    getIncidentCountByPlantNameAndMonth(): void {
+      this.incidentService.getIncidentCountByPlantNameAndMonth().subscribe(data => {
+        this.plantChartOptions.series = [
+          {
+            type: 'column',
+            name: 'seriesName',
+            data: Object.values(data),  
+          }
+        ];
+        this.plantChartOptions.xAxis = {
+          categories: Object.keys(data)
+        };
+        this.updateChartplant();
+      });
+    }
+    
+    updateChartplant(): void {
+      this.Highcharts.chart('incident-count-by-plant-and-month-chart', this.plantChartOptions);
+    }
+
 //getEventsPerAnalyst
 analysteChartOptions: Highcharts.Options = {
   chart: {

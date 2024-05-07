@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.*;
 
 @RestController
@@ -36,6 +37,70 @@ public class IncidentController {
     public List<Incident> getAllIncident( @RequestParam(defaultValue = "") String searchKey){
         return incidentService.getAllIncident(searchKey);
     }
+    @GetMapping("/getEscalations")
+    public List<Incident> getEscalations() {
+        return incidentService.getEscalations();
+    }
+// MTTA Yearly
+    @GetMapping("/mtta/low-informationalyear")
+    public ResponseEntity<Double> getMTTALowInformational() {
+    double mTTA = incidentService.calculateMTTA("low-informational");
+    return ResponseEntity.ok(mTTA);
+}
+    @GetMapping("/mtta/mediumyear")
+    public ResponseEntity<Double> getMTTAMedium() {
+
+        double mTTA = incidentService.calculateMTTA("medium");
+        return ResponseEntity.ok(mTTA);
+    }
+
+    @GetMapping("/mtta/high-criticalyear")
+    public ResponseEntity<Double> getMTTAHighCritical() {
+
+        double mTTA = incidentService.calculateMTTA("high-critical");
+        return ResponseEntity.ok(mTTA);
+    }
+//Mttd Yearly
+    @GetMapping("/mttd/lowInformationalyear")
+    public ResponseEntity<String> getMTTDForLowAndInformational() {
+        String mTTD = incidentService.calculateMTTDForLowAndInformational();
+        return ResponseEntity.ok(mTTD);
+    }
+
+    @GetMapping("/mttd/mediumyear")
+    public ResponseEntity<String> getMTTDForMedium() {
+        String mTTD = incidentService.calculateMTTDForMedium();
+        return ResponseEntity.ok(mTTD);
+    }
+
+    @GetMapping("/mttd/highCriticalyear")
+    public ResponseEntity<String> getMTTDForHighAndCritical() {
+        String mTTD = incidentService.calculateMTTDForHighAndCritical();
+        return ResponseEntity.ok(mTTD);
+    }
+    //Mttr Yearly
+    @GetMapping("/mttr/lowInformationalyear")
+    public ResponseEntity<String> getMTTRForLowAndInformational() {
+        String mTTR = incidentService.calculateMTTRForLowAndInformational();
+        return ResponseEntity.ok(mTTR);
+    }
+
+    @GetMapping("/mttr/mediumyear")
+    public ResponseEntity<String> getMTTRForMedium() {
+        String mTTR = incidentService.calculateMTTRForMedium();
+        return ResponseEntity.ok(mTTR);
+    }
+
+    @GetMapping("/mttr/highCriticalyear")
+    public ResponseEntity<String> getMTTRForHighAndCritical() {
+        String mTTR = incidentService.calculateMTTRForHighAndCritical();
+        return ResponseEntity.ok(mTTR);
+    }
+
+
+
+
+
 
     @PostMapping(value = {"/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseBody
@@ -102,7 +167,7 @@ public class IncidentController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    //count by category
     @GetMapping("/countByCategory")
     public ResponseEntity<Map<String, Long>> countIncidentsByCategory() {
         Map<String, Long> incidentCountsByCategory = new HashMap<>();
@@ -112,7 +177,7 @@ public class IncidentController {
         }
         return ResponseEntity.ok(incidentCountsByCategory);
     }
-
+    //count raised by
     @GetMapping("/countByRaisedBy")
     public ResponseEntity<Map<String, Long>> countIncidentsByRaisedBy() {
         Map<String, Long> incidentCountsByRaisedBy = new HashMap<>();
@@ -122,18 +187,6 @@ public class IncidentController {
         }
         return ResponseEntity.ok(incidentCountsByRaisedBy);
     }
-    //MONTHLY
-    //Number of Incidents This month
-    @GetMapping("/current-month-count")
-    public ResponseEntity<Integer> getCurrentMonthIncidentsCount() {
-        int incidentsCount = incidentService.getIncidentsCountForCurrentMonth();
-        return ResponseEntity.ok(incidentsCount);
-    }
-    //MTTA
-    @GetMapping("/average-time-analyse-current-month")
-    public double getAverageTimeAnalyseCurrentMonth() {
-        return incidentService.getAverageTimeAnalyseCurrentMonth();
-    }
 
     //get Tickets Raised Per Month
     @GetMapping("tickets-raised-per-month")
@@ -142,11 +195,23 @@ public class IncidentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    //Tickets Raised /incident
+    @GetMapping("/tickets-raised-in-current-year")
+    public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear() {
+        List<Map<String, Object>> result = incidentService.getTicketsRaisedInCurrentYear();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     //Number of alerts per plant
+//    @GetMapping("/count-by-plant-and-month")
+//    public ResponseEntity<Map<String, Map<String, Long>>> getIncidentCountByPlantNameAndMonth() {
+//        Map<String, Map<String, Long>> incidentCountByPlantNameAndMonth = incidentService.getIncidentCountByPlantNameAndMonth();
+//        return new ResponseEntity<>(incidentCountByPlantNameAndMonth, HttpStatus.OK);
+//    }
     @GetMapping("/count-by-plant-and-month")
-    public ResponseEntity<Map<String, Map<String, Long>>> getIncidentCountByPlantNameAndMonth() {
-        Map<String, Map<String, Long>> incidentCountByPlantNameAndMonth = incidentService.getIncidentCountByPlantNameAndMonth();
-        return new ResponseEntity<>(incidentCountByPlantNameAndMonth, HttpStatus.OK);
+    public ResponseEntity<Map<String, Long>>getIncidentCountByPlantNameAndMonth() {
+        Map<String, Long> incidentCountByPlantNameAndMonth = incidentService.getIncidentCountByPlantNameAndMonth();
+        return ResponseEntity.ok(incidentCountByPlantNameAndMonth);
     }
     //count Events PerAnalyst monthly
     @GetMapping("/events-per-analyst")
@@ -173,39 +238,49 @@ public class IncidentController {
         Map<String, Long> incidentCountBySeverityLevel = incidentService.countIncidentsBySeverityLevelForCurrentMonth();
         return ResponseEntity.ok(incidentCountBySeverityLevel);
     }
-
-
-
-
-    //MTTR
-    @GetMapping("/average-mttr")
-    public ResponseEntity<Double> getAverageMTTR() {
-        double averageMTTR = incidentService.calculateAverageMTTR();
-        return new ResponseEntity<>(averageMTTR, HttpStatus.OK);
-    }
-    //FPR
-    @GetMapping("/averageFalsePositiveCurrentMonth")
-    public Double getAverageFalsePositiveCurrentMonth() {
-        return incidentService.calculateAverageFalsePositiveCurrentMonth();
-    }
-    //Yearly
     //Number of Incident this  year
     @GetMapping("/incident/count/currentYear")
     public int getIncidentCountForCurrentYear() {
         return incidentService.countIncidentsForCurrentYear();
     }
+
+    //Number of Incidents This month
+    @GetMapping("/current-month-count")
+    public ResponseEntity<Integer> getCurrentMonthIncidentsCount() {
+        int incidentsCount = incidentService.getIncidentsCountForCurrentMonth();
+        return ResponseEntity.ok(incidentsCount);
+
+    }
+    //MTTA
+    @GetMapping("/average-time-analyse-current-month")
+    public double getAverageTimeAnalyseCurrentMonth() {
+        return incidentService.getAverageTimeAnalyseCurrentMonth();
+    }
+
     //MTTA
     @GetMapping("/averageTimeAnalyse-year")
     public Double getAverageTimeAnalyseForCurrentYear() {
         return incidentService.getAverageTimeAnalyseForCurrentYear();
     }
 
-    //Tickets Raised /incident
-    @GetMapping("/tickets-raised-in-current-year")
-    public ResponseEntity<List<Map<String, Object>>> getTicketsRaisedInCurrentYear() {
-        List<Map<String, Object>> result = incidentService.getTicketsRaisedInCurrentYear();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+
+
+
+    //MTTR
+//    @GetMapping("/average-mttr")
+//    public ResponseEntity<Double> getAverageMTTR() {
+//        double averageMTTR = incidentService.calculateAverageMTTR();
+//        return new ResponseEntity<>(averageMTTR, HttpStatus.OK);
+//    }
+    //FPR
+    @GetMapping("/averageFalsePositiveCurrentMonth")
+    public Double getAverageFalsePositiveCurrentMonth() {
+        return incidentService.calculateAverageFalsePositiveCurrentMonth();
     }
+    //Yearly
+
+
+
 
 
     //Number of incidents per month of the current year
@@ -222,6 +297,10 @@ public class IncidentController {
         return incidentService.calculateAverageFalsePositiveCurrentYear();
     }
 //MTTR
+//MONTHLY
+
+
+
 
 
 

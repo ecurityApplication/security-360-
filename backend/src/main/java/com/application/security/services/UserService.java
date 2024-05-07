@@ -14,6 +14,13 @@ import java.util.Map;
 public interface UserService {
     void DeleteUser(Long id);
     public List<UserGetDTO> getUsers();
+
+    //select analyste
+    public List<User> getAnalyste() ;
+
+
+//    public List<UserGetDTO> getUsersByRoleName(String roleName);
+
     //public List<UserDTO> getAllUsers();
     //List< User> getAllUser();
     //public List<User> getAllUsers();

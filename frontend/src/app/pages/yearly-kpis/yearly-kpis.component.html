@@ -4,7 +4,8 @@
   </div>
   <div class="content-card">
     <div class="row">
-       <!-- MTTA -->
+                <!-- Number of Incidents This year -->
+
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
@@ -14,7 +15,8 @@
                 </div>
             </div>
         </div>
-          <!-- Number of Incidents This year -->
+               <!-- MTTA -->
+
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
@@ -47,21 +49,86 @@
 	</div>
    
     <div class="charts-bottom">
-    
       <!-- Tickets raised/incidents year-->
       <div class="chart" id="tickets-raised-per-year-chart" ></div>
             <!-- Tickets raised/incidents year-->
-
-
       <div class="chart" id="incident-chart-severity" ></div>
       <div class="chart" id="incident-count-by-analyst" ></div>
-
-  
     </div>
+    <br>
 
-  <div class="content">
+  <div class="charts-bottom">
     <div style="width: 60%; height: 70%">
-      <canvas class="chart" id="lineChart"></canvas>
+      <canvas class="card" id="lineChart"></canvas>
     </div>
+  </div>
+  <br>
+
+
+  <div class="card">
+    <table width="100%">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Informational&Low</th>
+          <th>Medium</th>
+          <th>High&Critical</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+          <tr>
+            <th>MTTD</th>
+            <td>{{ MTTDlowinformationel }}</td>
+            <td>{{ MTTDMedium }}</td>
+            <td>{{ MTTDhighcritical }}</td>
+          </tr>
+      
+        <tr>
+          <th>MTTA (in min)</th>
+          <td>{{ MTTAlowinformationel }}</td>
+          <td>{{ MTTAMedium }}</td>
+          <td>{{ MTTAhighcritical }}</td>
+        </tr>
+        <tr>
+          <th>MTTR</th>
+          <td>{{ MTTRlowinformationel }}</td>
+          <td>{{ MTTRMedium }}</td>
+          <td>{{ MTTRhighcritical }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <table width="100%">
+      <thead>
+        <tr>
+          <th>Target</th>
+          <th>Informational&Low </th>
+          <th>Medium </th>
+          <th>High&Critical </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>MTTD (Hours)</th>
+          <td>24 </td>
+          <td>2-4h </td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>MTTA (Minutes)</th>
+          <td>60</td>
+          <td>60</td>
+          <td>60</td>
+        </tr>
+        <tr>
+          <th>MTTR (Hours)</th>
+          <td>N/A(or>24)</td>
+          <td>4-8h</td>
+          <td>2</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

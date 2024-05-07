@@ -5,6 +5,7 @@ import com.application.security.dto.Response;
 import com.application.security.dto.UserDTO;
 import com.application.security.dto.UserGetDTO;
 import com.application.security.email.EmailSender;
+import com.application.security.entity.Incident;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
 import com.application.security.event.RegistrationCompleteEvent;
@@ -73,6 +74,17 @@ public class UserServiceImpl implements UserService {
                .collect(Collectors.toList());
        return UserGetDTO.UsersToUserDtos(users);
    }
+    //select analyste
+    @Override
+    public List<User> getAnalyste() { return userRepository.findByRolesRoleName("ANALYST");}
+
+
+
+//    @Override
+//    public List<UserGetDTO> getUsersByRoleName(String roleName) {
+//        List<User> users = userRepository.findByRolesRoleName("ANALYST");
+//        return UserGetDTO.UsersToUserDtos(users);
+//    }
 
     @Override
     public  ResponseEntity<Response> registerNewUser(UserDTO userDTO, final HttpServletRequest request) {

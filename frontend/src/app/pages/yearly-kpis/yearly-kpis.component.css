@@ -102,6 +102,8 @@ body{
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   height: 70%;
+  border-radius: 20px;
+  border: 2px solid rgb(13, 13, 192);
 }
 
 .card .card-block {
