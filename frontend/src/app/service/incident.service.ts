@@ -14,7 +14,10 @@ export class IncidentService {
   public getIncidentList(searchKeyword: string = ""): Observable<Incident[]> {
     return this.httpClient.get<Incident[]>(`${this.baseURL}/getAll?searchKey=`+searchKeyword);
   }
-
+  //getEscalations
+  public getEscalations(): Observable<Incident[]> {
+    return this.httpClient.get<Incident[]>(`${this.baseURL}/getEscalations`);
+  }
   public createIncident(incident:FormData){
     return this.httpClient.post<Incident>("http://localhost:8080/api/v1/incidents/add",incident);
   }
