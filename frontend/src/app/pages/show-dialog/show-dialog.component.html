@@ -1,8 +1,3 @@
-<!-- <mat-grid-list cols="4" rowHeight="1:1">
-    <mat-grid-tile *ngFor="let fileHandle of data.images">
-        <img [src]="fileHandle.url" width="150px" height="150px">
-    </mat-grid-tile>
-</mat-grid-list> -->
 <div class="container">
   <div #contentToConvert>
     <div class="main">
@@ -121,8 +116,8 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ data.firstEvent }}</td>
-              <td>{{ data.acknowledge }}</td>
+              <td>{{ data.firstEvent | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ data.acknowledge | date:'dd/MM/yyyy HH:mm'}}</td>
               <td>{{ data.timeAnalyse }}</td>
               <td>{{ data.analyst }}</td>
               <td>{{ data.reviewer }}</td>
@@ -137,10 +132,10 @@
     </div>
   </div>
   <div class="btn-download">
-    <button class="Btn" type="button" value="Convert" (click)="convertToPDF()">
+    <button class="Btn btn-1" type="button" value="Convert" (click)="convertToPDF()">
       <i class="bx bxs-cloud-download">Download PDF</i>
     </button>
-    <button class="Btn" type="button" value="Convert" (click)="convertToWord()">
+    <button class="Btn btn-1" type="button" value="Convert" (click)="convertToWord()">
       <i class="bx bxs-cloud-download">Download Word</i>
     </button>
   </div>

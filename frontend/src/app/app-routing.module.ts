@@ -13,7 +13,7 @@ import { EscalationComponent } from './pages/escalation/escalation.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UpdateIncidentComponent } from './pages/update-incident/update-incident.component';
 import { CreateIncidentComponent } from './pages/create-incident/create-incident.component';
-import { CalendarComponent } from './pages/calendar/calendar.component';
+
 import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
@@ -68,10 +68,6 @@ const routes: Routes = [
       {
         path:'createIncident',
         component:CreateIncidentComponent
-      },
-      {
-        path:'calendar',
-        component:CalendarComponent
       },
       {
         path:'userList',

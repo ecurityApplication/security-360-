@@ -3,6 +3,8 @@ import { IncidentService } from '../../service/incident.service';
 import * as Highcharts from 'highcharts';
 import { ChartDataset, ChartOptions } from 'chart.js';
 import { Chart } from 'chart.js';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-yearly-kpis',
@@ -17,6 +19,15 @@ export class YearlyKpisComponent {
   chartData!: ChartDataset[];
   chartOptions!: ChartOptions;
   averageTimeAnalyse!: number;
+  MTTAMedium!: number;
+  MTTAhighcritical!: number;
+  MTTAlowinformationel!: number;
+  MTTDMedium!: string;
+  MTTDhighcritical!: string;
+  MTTDlowinformationel!: string;
+  MTTRMedium!: string;
+  MTTRhighcritical!: string;
+  MTTRlowinformationel!: string;
   lineChart: any;
   customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'] 
   falsePositiveRating!: number;
@@ -26,25 +37,151 @@ export class YearlyKpisComponent {
   ngOnInit() {
     this.NumberOfIncidentInCurrentYear();
     this.getTicketsRaisedInCurrentYear();
-    this.getAverageTimeAnalyseCurrentYear();
+    // this.getAverageTimeAnalyseCurrentYear();
     this.getIncidentPerMonth();
     this.getIncidentsBySeverityLevel();
     this.falsePositiveRatingYear();
     this.getanalystPerIncident();
+    this.getMTTAMedium();
+    this.getMTTAhighcritical();
+    this.getMTTAlowinformationel();
+    this.getMTTDMedium();
+    this.getMTTDhighcritical();
+    this.getMTTDlowinformationel();
+    this.getMTTRMedium();
+    this.getMTTRhighcritical();
+    this.getMTTRlowinformationel();
+
+    
+
+
   }
 
   //MTTA
-  getAverageTimeAnalyseCurrentYear() {
-    this.incidentService.getAverageTimeAnalyseCurrentMonth().subscribe(
-      (data) => {
-        this.averageTimeAnalyse = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching average time analyse:', error);
+  // getAverageTimeAnalyseCurrentYear() {
+  //   this.incidentService.getAverageTimeAnalyseCurrentYear().subscribe(
+  //     (data) => {
+  //       this.averageTimeAnalyse = data;
+    
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching average time analyse:', error);
+  //     }
+  //   );
+  // }
+      //MTTA year Medium
+      getMTTAMedium() {
+        this.incidentService.getMTTAYearMedium().subscribe(
+          (data) => {
+            this.MTTAMedium = data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTAMedium:', error);
+          }
+        );
       }
-    );
-  }
+      //MTTA year high-critical
+      getMTTAhighcritical() {
+        this.incidentService.getMTTAYearhighcritical().subscribe(
+          (data) => {
+            this.MTTAhighcritical= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA high-critical:', error);
+          }
+        );
+      }
+       //MTTA year low-informationel
+       getMTTAlowinformationel() {
+        this.incidentService.getMTTAYearlowinformational().subscribe(
+          (data) => {
+            this.MTTAlowinformationel= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA  low-informationel:', error);
+          }
+        );
+      }
+       //MTTDyear Medium
+       getMTTDMedium() {
+        this.incidentService.getMTTDYearMedium().subscribe(
+          (data) => {
+            this.MTTDMedium = data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTD Medium:', error);
+          }
+        );
+      }
+   
+      //MTTD year high-critical
+      getMTTDhighcritical() {
+        this.incidentService.getMTTDYearhighcritical().subscribe(
+          (data) => {
+            this.MTTDhighcritical= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA high-critical:', error);
+          }
+        );
+      }
+       //MTTD year low-informationel
+       getMTTDlowinformationel() {
+        this.incidentService.getMTTDYearlowinformational().subscribe(
+          (data) => {
+            this.MTTDlowinformationel= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA  low-informationel:', error);
+          }
+        );
+      }
+       //MTTRyear Medium
+       getMTTRMedium() {
+        this.incidentService.getMTTRYearMedium().subscribe(
+          (data) => {
+            this.MTTRMedium = data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTD Medium:', error);
+          }
+        );
+      }
+   
+      //MTTR year high-critical
+      getMTTRhighcritical() {
+        this.incidentService.getMTTRYearhighcritical().subscribe(
+          (data) => {
+            this.MTTRhighcritical= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA high-critical:', error);
+          }
+        );
+      }
+       //MTTR year low-informationel
+       getMTTRlowinformationel() {
+        this.incidentService.getMTTRYearlowinformational().subscribe(
+          (data) => {
+            this.MTTRlowinformationel= data;
+        
+          },
+          (error) => {
+            console.error('Error fetching MTTA  low-informationel:', error);
+          }
+        );
+      }
+      
+
+
 
   //FPR
   falsePositiveRatingYear() {

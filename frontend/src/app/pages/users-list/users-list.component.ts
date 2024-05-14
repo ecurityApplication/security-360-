@@ -43,8 +43,6 @@ export class UsersListComponent implements OnInit {
     this.userService.getUser().subscribe(
       (user) => {
         this.users = user;
-        // this.calculateRoleUserCounts(); // Calculate user counts for each role
-        //console.log(this.users);
       },
       (error) => {
         console.error(error);
@@ -71,8 +69,8 @@ export class UsersListComponent implements OnInit {
   }
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {
-      width: '40%',
-      height: '60%',
+      width: '30%',
+      height: '40%',
       data: { role }, // Pass the entire user object for editing
     });
 
@@ -177,7 +175,7 @@ export class UsersListComponent implements OnInit {
   openCreaterole() {
     this.dialog.open(CreateRoleComponent, {
       width: '30%',
-      height: '30%',
+      height: '40%',
     });
   }
 

@@ -33,8 +33,10 @@ public class Incident {
     private String investigation;
     private String roadCauseAnalysis;
     private String remediation;
-    private String firstEvent;
-    private String acknowledge;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date firstEvent;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date acknowledge;
     private Integer timeAnalyse;
     private String analyst;
     private String reviewer;
@@ -43,7 +45,8 @@ public class Incident {
     private Date dateTarget;
     private String escalation ;
     private String incidentStatus ;
-    private String timeOfClosure ;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timeOfClosure ;
     private String  falsePositive ;
     private String functionalEscalation;
     private String herarachicescalation;

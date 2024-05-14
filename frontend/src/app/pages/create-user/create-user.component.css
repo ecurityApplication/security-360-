@@ -25,9 +25,6 @@
 }
 
 .md {
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   height: 25px;
   width: 2px;
   background-color: black;
@@ -37,7 +34,7 @@
 }
 .container header {
   font-size: 1.2rem;
-  color:#e4a814;
+  color:rgb(49, 20, 211);
   font-weight: 600;
 }
 .container .form {
@@ -62,18 +59,7 @@
   border-radius: 6px;
   padding: 0 15px;
 }
-/* .input-box textarea{
-  position: relative;
-  height: 90px;
-  width: 100%;
-  outline: none;
-  font-size: 1rem;
-  color: #000;
-  margin-top: 5px;
-  border: 1px solid rgb(6,14,131);
-  border-radius: 6px;
-  padding: 0 15px;
-} */
+
 .input-box input:focus,
 .input-box textarea:focus  {
   outline: none;
@@ -88,30 +74,7 @@
   flex-direction: row;
   column-gap: 15px;
 }
-/* .form .gender-box {
-  margin-top: 10px;
-}
-.form :where(.gender-option, .gender) {
-  display: flex;
-  align-items: center;
-  column-gap: 50px;
-  flex-wrap: wrap;
-}
-.form .gender {
-  column-gap: 5px;
-}
-.gender input {
-  accent-color: rgb(6,14,131);
-}
-.form :where(.gender input, .gender label) {
-  cursor: pointer;
-}
-.gender label {
-  color: #000;
-}
-.address :where(input, .select-box) {
-  margin-top: 10px;
-} */
+
 .select-box select {
   height: 100%;
   width: 100%;
@@ -126,7 +89,7 @@
   align-items: center;
   justify-content: end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 12%;
  }
 .Btn {
   position: relative;

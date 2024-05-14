@@ -10,11 +10,6 @@ export const navbarData = [
         label: 'Escalation'
     },
     {
-        routeLink: 'calendar',
-        icon: 'bx bx-calendar',
-        label: 'Calendar'
-    },
-    {
         routeLink: 'userList',
         icon: 'bx bx-user',
         label: 'Roles and Users List'

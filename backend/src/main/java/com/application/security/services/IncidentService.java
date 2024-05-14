@@ -12,8 +12,25 @@ public interface IncidentService {
     void DeleteIncident(Long id);
 
     List<Incident> getAllIncident(String searchKey);
+    List<Incident> getEscalations();
+    double calculateMTTA(String severityLevel) ;
+//    String calculateMTTD(String severityLevel) ;
+    String calculateMTTDForLowAndInformational() ;
+    String calculateMTTDForMedium() ;
+    String calculateMTTDForHighAndCritical() ;
+    String calculateMTTRForLowAndInformational() ;
+    String calculateMTTRForMedium() ;
+    String calculateMTTRForHighAndCritical() ;
 
-    Object getIncidentById(long id);
+
+
+
+
+
+
+
+
+        Object getIncidentById(long id);
 
     Incident updateIncident(Long id, Incident updatedIncident);
 
@@ -28,10 +45,12 @@ public int getIncidentsCountForCurrentMonth();
 
 
 
-    Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
-    
+//    Map<String, Map<String, Long>> getIncidentCountByPlantNameAndMonth();
+      Map<String, Long> getIncidentCountByPlantNameAndMonth();
+
+
     Double calculateAverageFalsePositiveCurrentMonth();
-    double calculateAverageMTTR();
+//    double calculateAverageMTTR();
 
      Map<String, Long> getNumeventsperanalyst();
 

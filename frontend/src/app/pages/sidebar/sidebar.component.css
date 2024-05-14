@@ -153,10 +153,10 @@ hr {
   background-color: white;
   width: calc(100% - 5px);
   min-height: 1px;
-  margin-top: 120px
+  margin-top: 180px
 }
 .sidbar-footer {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   background: #5b5b5b44;
   list-style: none;
   padding: 0.938rem;

@@ -2,9 +2,10 @@
   <div class="header-content">
     <h4>Soc Yearly KPI</h4>
   </div>
-  <div class="content-card">
+  <div class="content">
     <div class="row">
-       <!-- MTTA -->
+                <!-- Number of Incidents This year -->
+
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
@@ -14,29 +15,9 @@
                 </div>
             </div>
         </div>
-          <!-- Number of Incidents This year -->
-        <div class="col-md-4 col-xl-3">
+          <!-- FPR  -->
+          <div class="col-md-4 col-xl-3">
             <div class="card bg-c-green order-card">
-                <div class="card-block">
-                    <h6 class="m-b-20">MTTA</h6>
-                    <h2 class="text-right"><i class="fa fa-rocket f-left"></i><span> {{ averageTimeAnalyse }}</span></h2>
-                    <p class="m-b-0">Target<span class="f-right">60 min</span></p>
-                </div>
-            </div>
-        </div>
-        <!-- MTTR-->
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-yellow order-card">
-                <div class="card-block">
-                    <h6 class="m-b-20">MTTR</h6>
-                    <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span></span></h2>
-                    <p class="m-b-0">Target<span class="f-right"></span></p>
-                </div>
-            </div>
-        </div>
-        <!-- FPR  -->
-        <div class="col-md-4 col-xl-3">
-            <div class="card bg-c-pink order-card">
                 <div class="card-block">
                     <h6 class="m-b-20">FPR</h6>
                     <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>{{ falsePositiveRating }}%</span></h2>
@@ -44,24 +25,91 @@
                 </div>
             </div>
         </div>
+
 	</div>
-   
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Informational & Low</th>
+          <th>Medium</th>
+          <th>High & Critical</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+          <tr>
+            <th>MTTD</th>
+            <td>{{ MTTDlowinformationel }}</td>
+            <td>{{ MTTDMedium }}</td>
+            <td>{{ MTTDhighcritical }}</td>
+          </tr>
+      
+        <tr>
+          <th>MTTA (in min)</th>
+          <td>{{ MTTAlowinformationel }}</td>
+          <td>{{ MTTAMedium }}</td>
+          <td>{{ MTTAhighcritical }}</td>
+        </tr>
+        <tr>
+          <th>MTTR</th>
+          <td>{{ MTTRlowinformationel }}</td>
+          <td>{{ MTTRMedium }}</td>
+          <td>{{ MTTRhighcritical }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <table >
+      <thead>
+        <tr>
+          <th>Target</th>
+          <th>Informational & Low </th>
+          <th>Medium </th>
+          <th>High & Critical </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>MTTD (Hours)</th>
+          <td>24 </td>
+          <td>2-4h </td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th>MTTA (Minutes)</th>
+          <td>60</td>
+          <td>60</td>
+          <td>60</td>
+        </tr>
+        <tr>
+          <th>MTTR (Hours)</th>
+          <td>N/A(or>24)</td>
+          <td>4-8h</td>
+          <td>2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
     <div class="charts-bottom">
-    
       <!-- Tickets raised/incidents year-->
       <div class="chart" id="tickets-raised-per-year-chart" ></div>
             <!-- Tickets raised/incidents year-->
-
-
       <div class="chart" id="incident-chart-severity" ></div>
-      <div class="chart" id="incident-count-by-analyst" ></div>
-
-  
+      
     </div>
+    <br>
 
-  <div class="content">
-    <div style="width: 60%; height: 70%">
-      <canvas class="chart" id="lineChart"></canvas>
+  <div class="charts-bottom">
+    <div class="chart" style="width: 50%; height: 30%">
+      <h4 class="title">Number of incidents per month</h4>
+      <canvas class="card" id="lineChart"></canvas>
     </div>
+    <div class="chart" style="width: 50%; height: 30%">
+    <div  id="incident-count-by-analyst" ></div>
   </div>
+  <br>
+</div>
 </div>

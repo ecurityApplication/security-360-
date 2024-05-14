@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import { HttpClient,  HttpErrorResponse } from '@angular/common/http';
 import { Incident } from '../models/incident';
 @Injectable({
@@ -63,6 +63,57 @@ export class IncidentService {
   getAverageTimeAnalyseCurrentMonth(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseURL}/average-time-analyse-current-month`);
   }
+    //MTTA year
+    getAverageTimeAnalyseCurrentYear(): Observable<number> {
+      return this.httpClient.get<number>(`${this.baseURL}/averageTimeAnalyse-year`);
+    }
+    //MTTA year Medium
+    getMTTAYearMedium(): Observable<number> {
+      return this.httpClient.get<number>(`${this.baseURL}/mtta/mediumyear`);
+    }
+    //MTTA year high-critical
+    getMTTAYearhighcritical(): Observable<number> {
+      return this.httpClient.get<number>(`${this.baseURL}/mtta/high-criticalyear`);
+    }
+     //MTTA year low-informational
+     getMTTAYearlowinformational(): Observable<number> {
+      return this.httpClient.get<number>(`${this.baseURL}/mtta/low-informationalyear`);
+    }
+        //MTTD year Medium
+      getMTTDYearMedium(): Observable<string> {
+        return this.httpClient.get('http://localhost:8080/api/v1/incidents/mttd/mediumyear', { responseType: 'text' });
+      }
+    
+        //MTTD year high-critical
+    getMTTDYearhighcritical(): Observable<string> {
+      return this.httpClient.get(`${this.baseURL}/mttd/highCriticalyear`, { responseType: 'text' });
+    }
+         //MTTD year low-informational
+
+    getMTTDYearlowinformational(): Observable<string> {
+      return this.httpClient.get(`${this.baseURL}/mttd/lowInformationalyear`, { responseType: 'text' });
+    }
+      //MTTR year Medium
+      getMTTRYearMedium(): Observable<string> {
+        return this.httpClient.get('http://localhost:8080/api/v1/incidents/mttr/mediumyear', { responseType: 'text' });
+      }
+    
+        //MTTR year high-critical
+    getMTTRYearhighcritical(): Observable<string> {
+      return this.httpClient.get(`${this.baseURL}/mttr/highCriticalyear`, { responseType: 'text' });
+    }
+         //MTTR year low-informational
+
+    getMTTRYearlowinformational(): Observable<string> {
+      return this.httpClient.get(`${this.baseURL}/mttr/lowInformationalyear`, { responseType: 'text' });
+    }
+
+
+
+
+
+
+
   //MTTR
   getAverageMttr(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseURL}/average-mttr`);
@@ -74,8 +125,11 @@ export class IncidentService {
 
 
 //Number of alerts per plant
-getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: string]: number } }> {
-  return this.httpClient.get<{ [key: string]: { [key: string]: number } }>(`${this.baseURL}/count-by-plant-and-month`);
+// getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: { [key: string]: number } }> {
+//   return this.httpClient.get<{ [key: string]: { [key: string]: number } }>(`${this.baseURL}/count-by-plant-and-month`);
+// }
+getIncidentCountByPlantNameAndMonth(): Observable<{ [key: string]: number }> {
+  return this.httpClient.get<{ [key: string]: number }>(`${this.baseURL}/count-by-plant-and-month`);
 }
 
 //Tickets raised/incidents
@@ -101,6 +155,7 @@ getIncidentsBySeverityLevelmonth(): Observable<{ [key: string]: number }> {
     //   return this.httpClient.get<any[]>(`${this.baseURL}/count-by-severity-level`);
     // }
 //
+//count incident per month 
 getCurrentMonthIncidentCounts(): Observable<number> {
   return this.httpClient.get<number>(`${this.baseURL}/current-month-count`);
 }
@@ -125,15 +180,19 @@ getEventsPerAnalyst(): Observable<{ [key: string]: number }> {
 getTicketsRaisedInCurrentYear(): Observable<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]> {
   return this.httpClient.get<{ year: string; ticketsRaisedYes: number; ticketsRaisedNo: number }[]>(`${this.baseURL}/tickets-raised-in-current-year`);
 }
+//number of incident per year
 
 numberOfIncidentCountForCurrentYear() {
   return this.httpClient.get<number>(`${this.baseURL}/incident/count/currentYear`);
 }
+    //Number of incidents per month of the current year
 
 getIncidentsPerMonthCurrentYear(){
   return this.httpClient.get<Map<string, number>>(`${this.baseURL}/count-per-month-current-year`); 
 }
-  //MTTA
+  
+    //FPR
+
   falsePositiveRatingOfCurrentYear(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseURL}/averageFalsePositiveCurrentYear`);
   }
