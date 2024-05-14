@@ -199,7 +199,7 @@ export class IncidentLoggingComponent implements OnInit {
         reviewer: incident.reviewer,
       },
       height: '1500px',
-      width: '1000px',
+      width: '800px',
     });
   }
 }
