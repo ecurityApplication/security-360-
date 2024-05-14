@@ -177,6 +177,9 @@ public double calculateMTTA(String severityLevel) {
             existingIncident.setLessonLeraned( updatedIncident.getLessonLeraned() );
             existingIncident.setManagementescalation( updatedIncident.getManagementescalation() );
             existingIncident.setTimeOfClosure( updatedIncident.getTimeOfClosure() );
+            existingIncident.setRoadCauseAnalysis( updatedIncident.getRoadCauseAnalysis() );
+
+
 
 
             // Save the updated incident
