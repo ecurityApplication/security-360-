@@ -29,8 +29,8 @@ export class YearlyKpisComponent {
   MTTRhighcritical!: string;
   MTTRlowinformationel!: string;
   lineChart: any;
-  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'] 
-  falsePositiveRating!: number;
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(231, 11, 11)', ' rgb(116, 210, 116)'];
+     falsePositiveRating!: number;
   ticket = ['#0707f1', '#46a2ee'];
   constructor(private incidentService: IncidentService) {}
 
