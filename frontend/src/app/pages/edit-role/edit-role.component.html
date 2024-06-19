@@ -1,23 +1,21 @@
 <section class="container">
   <div class="div">
-      <mat-dialog-actions>
+    <mat-dialog-actions>
       <div class="mdiv" (click)="onNoClick()">
-        <div class="md" (click)="onNoClick()">
-        </div>
+        <div class="md" (click)="onNoClick()"></div>
       </div>
-  </mat-dialog-actions>
-    </div>
+    </mat-dialog-actions>
+  </div>
   <header>Edite Role</header>
   <form class="form" (ngSubmit)="onSubmit()">
-    <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->
     <div class="column">
       <div class="input-box">
         <input
           required=""
           placeholder="Enter Role Name"
-            type="roleName"
-            name="roleName"
-            [(ngModel)]="role.roleName"
+          type="roleName"
+          name="roleName"
+          [(ngModel)]="role.roleName"
         />
       </div>
     </div>
@@ -26,35 +24,3 @@
     </div>
   </form>
 </section>
-
-
-
-<!-- <section class="container">
-  <div class="div">
-    <mat-dialog-actions>
-    <div class="mdiv" (click)="onNoClick()">
-      <div class="md" (click)="onNoClick()">
-      </div>
-    </div>
-</mat-dialog-actions>
-  </div>
-    <header>Edit Role</header>
-    <form class="form" (ngSubmit)="onSubmit()">
-      <div class="column">
-        <div class="input-box">
-          <input
-            required=""
-            placeholder="Enter Role Name"
-            type="roleName"
-            name="roleName"
-            [(ngModel)]="role.roleName"
-          />
-        </div>
-      </div>
-      <div class="footer-container">
-        <button type="submit" class="Btn btn-1">Edit</button>
-      </div>
-    </form>
-  </section>
-  
-   -->

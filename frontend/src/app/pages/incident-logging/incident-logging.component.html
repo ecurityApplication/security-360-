@@ -11,7 +11,7 @@
     type="search" 
     placeholder="Search">
 
-    <button class="Btn" routerLink="/layout/createIncident">
+    <button *ngIf="roleName !== 'GUEST'" class="Btn" routerLink="/layout/createIncident">
       Add Incident
       <i class="bx bx-plus"></i>
     </button>
@@ -78,11 +78,22 @@
             <td>{{ incident.escalation }}</td>
             <td [ngClass]="getStatusClass(incident.incidentStatus)">{{ incident.incidentStatus }}</td>
             <td>{{ incident.falsePositive }}</td>
-            <td>{{incident.timeOfClosure| date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>
+               <!-- <div> -->
+              {{ incident.timeOfClosure | date:'dd/MM/yyyy HH:mm' }}
+              <button (click)="setTimeOfClosure(incident)">Set Time of Closure</button>
+            <!-- </div> -->
+            <!-- <label class="toggle-switch">
+              <input type="checkbox">
+              <div class="toggle-switch-background">
+                <div class="toggle-switch-handle"></div>
+              </div>
+            </label> -->
+          </td>
           <td>
             <div class="actions">
-              <i class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
-              <i class="bx bxs-trash-alt"(click)="deleteIncident(incident.id)"></i>
+              <i *ngIf="roleName !== 'GUEST'"  class="bx bx-edit" (click)="updateIncident(incident.id)"></i>
+              <i  *ngIf="roleName === 'ROLE_ADMIN'" class="bx bxs-trash-alt"(click)="deleteIncident(incident.id)"></i>
               <i class="bx bx-show" (click)="showImages(incident)"></i>
             </div>
           </td>

@@ -2,14 +2,13 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IncidentService } from '../../service/incident.service';
 import { Incident } from '../../models/incident';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ShowDialogComponent } from '../show-dialog/show-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ImageProcessingService } from '../../image-processing.service';
 import { map } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
-import { CreateIncidentComponent } from '../create-incident/create-incident.component';
 
 @Component({
   selector: 'app-incident-logging',
@@ -18,7 +17,7 @@ import { CreateIncidentComponent } from '../create-incident/create-incident.comp
 })
 export class IncidentLoggingComponent implements OnInit {
   incidents: Incident[] = [];
-
+  roleName!:string;
   constructor(
     private incidentService: IncidentService,
     private router: Router,
@@ -28,6 +27,7 @@ export class IncidentLoggingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.roleName= localStorage.getItem("role") as string
     this.getIncident();
   }
   searchByKeyword(searchkeyword: string) {
@@ -201,5 +201,10 @@ export class IncidentLoggingComponent implements OnInit {
       height: '1500px',
       width: '800px',
     });
+  }
+
+   // Method to handle setting the current time and date as the time of closure
+   setTimeOfClosure(incident: any) {
+    incident.timeOfClosure = new Date();
   }
 }

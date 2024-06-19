@@ -25,6 +25,7 @@ export class UsersListComponent implements OnInit {
   role: Role[] = [];
   id!: number;
   userCountPerRole: any;
+  roleName!:string;
   constructor(
     private userService: UserService,
     private roleService: RoleService,
@@ -33,6 +34,7 @@ export class UsersListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.roleName= localStorage.getItem("role") as string
     // Call the method to fetch users on component initialization
     this.getUser();
     this.getRole();

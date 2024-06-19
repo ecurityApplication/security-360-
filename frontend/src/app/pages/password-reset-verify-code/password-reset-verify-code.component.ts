@@ -37,5 +37,6 @@ export class PasswordResetVerifyCodeComponent {
         this.toastr.error('Error occurred while processing your request.');
       }
     });
+    this.router.navigate(['passwordconfirm']);
   }
 }

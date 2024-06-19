@@ -88,6 +88,12 @@ height: 70%;
 border-radius: 20px;
 }
 
+.column{
+display: flex;
+flex-direction: row;
+gap: 10%;
+}
+
 .card .card-block {
 padding: 25px;
 }

@@ -7,8 +7,8 @@
 
 .div {
   display: flex;
-  align-items:flex-end;
-  justify-content:flex-end;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .mdiv {
@@ -18,9 +18,9 @@
   height: 25px;
   width: 2px;
   margin-left: 12px;
-  background-color:black;
+  background-color: black;
   transform: rotate(45deg);
-  Z-index: 1;
+  z-index: 1;
   cursor: pointer;
 }
 
@@ -29,12 +29,12 @@
   width: 2px;
   background-color: black;
   transform: rotate(90deg);
-  Z-index: 2;
+  z-index: 2;
   cursor: pointer;
 }
 .container header {
   font-size: 1.2rem;
-  color:rgb(49, 20, 211);
+  color: rgb(49, 20, 211);
   font-weight: 600;
 }
 .container .form {
@@ -55,13 +55,13 @@
   font-size: 1rem;
   color: #000;
   margin-top: 5px;
-  border: 1px solid rgb(6,14,131);
+  border: 1px solid rgb(6, 14, 131);
   border-radius: 6px;
   padding: 0 15px;
 }
 
 .input-box input:focus,
-.input-box textarea:focus  {
+.input-box textarea:focus {
   outline: none;
   border: 2px solid rgb(49, 20, 211);
   background-color: #fff;
@@ -83,14 +83,14 @@
   color: #000;
   font-size: 1rem;
 }
-.footer-container{
+.footer-container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 10px;
   margin-top: 12%;
- }
+}
 .Btn {
   position: relative;
   display: flex;
@@ -106,37 +106,25 @@
   cursor: pointer;
   border-radius: 10px;
   display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(0,0,0,.1),
-    4px 4px 5px 0px rgba(0,0,0,.1);
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
 }
 .btn-1 {
-  background: rgb(6,14,131);
-  background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
+  background: rgb(6, 14, 131);
+  background: linear-gradient(
+    0deg,
+    rgba(6, 14, 131, 1) 0%,
+    rgba(12, 25, 180, 1) 100%
+  );
   border: none;
- }
- 
- .btn-1:hover {
+}
+
+.btn-1:hover {
   background: rgb(16, 51, 165);
-  background: linear-gradient(0deg, rgb(19, 28, 158) 0%, rgba(2,126,251,1) 100%);
- }
- /* mat-grid-tile {
-  border: 1px solid #eee;
-} */
-
-
-/* .btn-remove-image {
-position: absolute;
-cursor: pointer;
-top: -10px;
-right: -10px;
-background-color: red;
-color: white;
-border-radius: 50%;
-width: 20px;
-height: auto;
-text-align: center;
-} */
-
-
+  background: linear-gradient(
+    0deg,
+    rgb(19, 28, 158) 0%,
+    rgba(2, 126, 251, 1) 100%
+  );
+}

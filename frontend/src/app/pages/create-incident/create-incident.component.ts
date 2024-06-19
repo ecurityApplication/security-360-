@@ -34,11 +34,11 @@ export class CreateIncidentComponent {
     userName: '',
     hostStatus: '',
     investigation: '',
-    roadCauseAnalysis:'',
-    timeOfClosure :new Date(),
+    roadCauseAnalysis: '',
+    timeOfClosure: new Date(),
     remediation: '',
     firstEvent: new Date(),
-    acknowledge:new Date(),
+    acknowledge: new Date(),
     timeAnalyse: 0,
     analyst: '',
     reviewer: '',
@@ -61,7 +61,6 @@ export class CreateIncidentComponent {
     private incidentService: IncidentService,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private toast: NgToastService,
     private userService: UserService
   ) {}
 
@@ -90,17 +89,6 @@ export class CreateIncidentComponent {
     return formData;
   }
 
-  // prepareFormData(incident: Incident): FormData {
-  //   const formData = new FormData();
-  //   formData.append("incident", JSON.stringify(incident));
-
-  //   for (const file of this.incident.incidentImages) {
-  //     formData.append('imageFile', file.file, file.file.name);
-  //   }
-
-  //   return formData;
-  // }
-
   onFileSelected(event: any) {
     if (event.target.files) {
       const file = event.target.files[0];
@@ -115,44 +103,22 @@ export class CreateIncidentComponent {
     }
   }
 
-  // saveIncident(){
-
-  //     this.incidentService.createIncident(this.incident).subscribe( data =>{console.log(data);
-  //     this.goToIncidentList();
-  //   },
-  //   error => console.log(error));
-
-  // }
   goToIncidentList() {
     this.router.navigate(['layout/incidentlogging']);
-    // this.router.navigate(['/escalation']);
   }
-  // onSubmit() {
-  //   console.log(this.incident);
-  //   this.saveIncident();
-  // }
-  // incrementTimeAnalyse() {
-  //   this.incident.timeAnalyse += 5;
-  // }
 
   createIncident(incidentForm: NgForm) {
     if (incidentForm.invalid) {
       // Form is invalid, show alert or handle error message
-      alert('All champs are obligatoire ');
+      Swal.fire('Error!', 'All champs are obligatoire ', 'error');
       return;
     }
     const incidentFormData = this.prepareFormData(this.incident);
-    // if (this.incident.escalation === 'Yes') {
-    //   this.router.navigate(['/incidentlogging']);
-    //   this.router.navigate(['/escalation']);
-    // } else {
-    //   this.router.navigate(['/incidentlogging']);
-    // }
     this.incidentService.createIncident(incidentFormData).subscribe(
       (response: Incident) => {
         incidentForm.reset();
         this.incident.incidentImages = [];
-        //this.showSuccess(); // Show success popup after creating incident
+        // Show success popup after creating incident
         Swal.fire('Success!', 'Incident added successfully.', 'success');
 
         this.goToIncidentList();

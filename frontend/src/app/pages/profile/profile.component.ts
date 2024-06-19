@@ -16,9 +16,9 @@ import { IncidentService } from '../../service/incident.service';
 })
 export class ProfileComponent {
   user: User = new  User();
-  id!:number;
+
   resetRequest: ChangePasswordReset = {
-    email: '',
+    // email: '',
     currentPassword: '',
     newPassword: '',
     confirmationPassword: ''
@@ -35,7 +35,7 @@ changePassword() {
   console.log(this.resetRequest,"resetRequest");
   
   this.passwordService.changePassword(this.resetRequest).subscribe(
-     (response:any) => {
+     (response:string) => {
       console.log("response",response);
       
      // this.resetRequest=response;

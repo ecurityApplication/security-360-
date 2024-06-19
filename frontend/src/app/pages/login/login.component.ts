@@ -41,17 +41,21 @@ export class LoginComponent {
     private toast: NgToastService
   ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   authenticate() {
     this.authService.login(this.authRequest).subscribe({
       next: (response:any) => {
-        //console.log('response login  ', response);
         this.authResponse = response;
          if (this.authResponse.mfaEnabled) {
-          localStorage.setItem('token', response.accessToken as string);
+           // Check if admin is disabled
+          //  if (!this.authResponse.enabled) {
+          //   this.showAdminDisabledAlert();
+          // } else {
+          console.log("response login ",response);
+          localStorage.setItem('token', response.accessToken);
+          localStorage.setItem('role', response.role);
+          // }
           //localStorage.setItem('refreshToken', response.refreshToken as string);
           //localStorage.setItem('role', response.role as string);
           
@@ -79,7 +83,7 @@ export class LoginComponent {
  
         // this.message = 'You will be redirected to the Dashboard page ';
         // console.log('token');
-        localStorage.setItem('token', res.accessToken as string);
+        // localStorage.setItem('token', res.accessToken as string);
         this.router.navigate(['/layout/incidentlogging']);
       
     } ,  (error) => {
@@ -97,7 +101,14 @@ export class LoginComponent {
   }
 
  
-
+  showAdminDisabledAlert() {
+    this.toast.info({
+      detail: 'Admin account disabled. Contact support for assistance.',
+      summary: 'Admin Account Disabled',
+      duration: 5000, // Adjust duration as needed
+      position: 'topRight',
+    });
+  }
   showInfo() {
     this.toast.info({
       detail:"Info Message",

@@ -1,31 +1,26 @@
 <section class="container">
-    <div class="div">
-        <mat-dialog-actions>
-        <div class="mdiv" (click)="onNoClick()">
-          <div class="md" (click)="onNoClick()">
-          </div>
-        </div>
+  <div class="div">
+    <mat-dialog-actions>
+      <div class="mdiv" (click)="onNoClick()">
+        <div class="md" (click)="onNoClick()"></div>
+      </div>
     </mat-dialog-actions>
+  </div>
+  <header>Add New Role</header>
+  <form class="form" (ngSubmit)="onSubmit()">
+    <div class="column">
+      <div class="input-box">
+        <input
+          required=""
+          placeholder="Enter Role Name"
+          type="roleName"
+          name="roleName"
+          [(ngModel)]="role.roleName"
+        />
       </div>
-    <header>Add New Role</header>
-    <form class="form" (ngSubmit)="onSubmit()">
-      
-      <div class="column">
-        <div class="input-box">
-          <input
-            required=""
-            placeholder="Enter Role Name"
-            type="roleName"
-            name="roleName"
-            [(ngModel)]="role.roleName"
-          />
-        </div>
-      </div>
-      <div class="footer-container">
-        <button type="submit" class="Btn btn-1">Add</button>
-      </div>
-    </form>
-  </section>
-  
-  
-  
+    </div>
+    <div class="footer-container">
+      <button type="submit" class="Btn btn-1">Add</button>
+    </div>
+  </form>
+</section>
