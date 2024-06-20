@@ -14,11 +14,11 @@ import { RoleService } from '../../service/role.service';
   styleUrl: './create-user.component.css',
 })
 export class CreateUserComponent implements OnInit {
-  // user: User = new User();
   roleName!: string[];
   newUser: User = new User();
   id!: number;
   roles: Role[] = [];
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -47,11 +47,6 @@ export class CreateUserComponent implements OnInit {
       }
     );
   }
-
-  // pushRole(role:string) {
-  //   this.roleName.push(role);
-  //   console.log("roleName",this.roleName);
-  // }
 
   getRole() {
     this.roleService.getRole().subscribe(

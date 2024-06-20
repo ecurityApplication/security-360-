@@ -22,7 +22,6 @@ import { UpdateIncidentComponent } from "./pages/update-incident/update-incident
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TokeninterceptorService } from "./service/tokeninterceptor.service";
 import { CreateIncidentComponent } from "./pages/create-incident/create-incident.component";
-import { CalendarComponent } from './pages/calendar/calendar.component';
 import { UpdateEscalationComponent } from './pages/update-escalation/update-escalation.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDrawerContainer} from "@angular/material/sidenav";
@@ -67,7 +66,7 @@ import { YearlyKpisComponent } from './pages/yearly-kpis/yearly-kpis.component';
 import { NgChartjsModule } from 'ng-chartjs';
 import { StatisticsComponent } from "./pages/statistics/statistics.component";
 @NgModule({
-  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent, CalendarComponent, UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
+  declarations: [ AppComponent, PasswordResetConfirmComponent, PasswordResetInitiateComponent, SidebarComponent, IncidentLoggingComponent, EscalationComponent, ProfileComponent, ProfileComponent,UpdateIncidentComponent,CreateIncidentComponent,UpdateEscalationComponent,CreateUserComponent , UsersListComponent, DragDirective, ShowDialogComponent, EditUserComponent, NavbarComponent,CreateRoleComponent, EditRoleComponent, SignUpComponent, BodyComponent, PasswordResetVerifyCodeComponent, LoggedInLayoutComponent,StatisticsComponent,MonthlyKPIsComponent, YearlyKpisComponent  ],
   imports: [
     
     NgxAwesomePopupModule.forRoot({

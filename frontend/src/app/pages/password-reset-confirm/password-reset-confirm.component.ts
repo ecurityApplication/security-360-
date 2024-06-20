@@ -91,5 +91,6 @@ export class PasswordResetConfirmComponent {
         this.toastr.error('Error occurred while processing your request.');
       }
     });
+    this.router.navigate(['login']);
   }
 }

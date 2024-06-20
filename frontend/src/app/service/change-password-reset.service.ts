@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChangePasswordResetRequest } from '../models/ChangePasswordResetRequest';
@@ -16,8 +16,12 @@ export class ChangePasswordResetService {
   ) { }
 
  
-  changePassword(request: ChangePasswordReset): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/change-password`, request);
+  changePassword(request: ChangePasswordReset): Observable<string> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.post<string>(`${this.baseUrl}/change-password`, request, { headers });
   }
   
 }

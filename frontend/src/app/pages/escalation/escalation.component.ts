@@ -11,67 +11,28 @@ import Swal from 'sweetalert2';
 })
 export class EscalationComponent implements OnInit{
   constructor(private incidentService :IncidentService ,private router :Router ){ }
+
   incident: Incident = new  Incident();
-
-
   incidents: Incident[] = [];
+  roleName!: string;
+
   ngOnInit(): void {
+    this.roleName = localStorage.getItem('role') as string;
     this.getIncident()
-  //   this.incidentService.getIncidentList().subscribe((data :Incident[] )=> {
-  //    this.incidents = data;
-  //  });
 }
  getIncident(){
  this.incidentService.getEscalations().subscribe(data=>{
- // console.log(this.incidents);
    this.incidents = data;
-   
  } , error => {
   console.error(error)
  })
 
 }
-// getIncident() {
-//   if (this.incident.escalation === 'Yes') {
-//     this.incidentService.getIncidentList().subscribe(data => {
-//       console.log(this.incidents);
-//       this.incidents = data;
-//     }, error => {
-//       console.error(error);
-//     });
-//   } else if (this.incident.escalation === 'No') {
-//     // Do nothing or handle the case where escalation is 'No'
-//     console.log('Escalation is set to "No". No data fetched.');
-//   }
-// }
 
 updateescalation(id:number){
 this.router.navigate(['/layout/update-escalation', id]);
 
 }
-
-// deleteIncident(id: number) {
-//   this.incidentService.deleteIncident(id).subscribe(data => {
-//     console.log(data);
-//     this.getIncident();
-//     this.incidentService.getIncidentList().subscribe((data: Incident[]) => {
-//       this.incidents = data;
-//     });
-//   }}
-  // getIncident() {
-  //   this.incidentService.getIncidentList().subscribe(
-  //     (data) => {
-  //       this.incidents = data;
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-  // updateescalation(id: number) {
-  //   this.router.navigate(['update-escalation', id]);
-  // }
-
 
   //Delete Escalation
   deleteEscalation(id: number) {
@@ -110,9 +71,6 @@ this.router.navigate(['/layout/update-escalation', id]);
       }
     });
   }
-  // incidentDetails(id: number) {
-  // this.router.navigate(['incident-details', id]);
-  // }
 
   //incident id + date
   // Method to generate incident ID

@@ -71,31 +71,14 @@ public class AuthenticationService {
     // add roles to users
     List<String> strRoles = userRequest.getRole();
     List<Role> roles = new ArrayList<>();
-    // if (strRoles != null && !strRoles.isEmpty()) {
-    //     strRoles.forEach(role -> {
-    //         switch (role) {
-    //             case "admin":
-    //                 Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
-    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-    //                 roles.add(adminRole);
-    //                 break;
-    //             case "moderator":
-    //                 Role moderatorRole = roleRepository.findByRoleName("ROLE_MODERATOR")
-    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-    //                 roles.add(moderatorRole);
-    //                 break;
-    //             default:
-    //                 Role userRole = roleRepository.findByRoleName("ROLE_USER")
-    //                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-    //                 roles.add(userRole);
-    //         }
-    //     });
-    // } else {
+
     // if any role specified, attribute default role "ROLE_ADMIN"
     Role adminRole = roleRepository.findByRoleName("ROLE_ADMIN")
             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     roles.add(adminRole);
-    // }
+
+    // Deactivate existing admin accounts
+    deactivateExistingAdmins();
 
     // Create a new user entity with the provided details
     var user = User.builder()
@@ -104,6 +87,8 @@ public class AuthenticationService {
             .password(passwordEncoder.encode(userRequest.getPassword()))
             .roles(roles)
             .mfaEnabled(true)
+            //new
+            .enabled(true)
             .build();
 
     // Generate MFA secret if enabled
@@ -154,6 +139,19 @@ public class AuthenticationService {
                     .build(),
             HttpStatus.CREATED
     );
+  }
+
+  private void deactivateExistingAdmins() {
+    List<User> existingAdmins = repository.findAll().stream()
+            .filter(user -> user.getRoles().stream()
+                    .anyMatch(role -> role.getRoleName().equals("ROLE_ADMIN"))
+                    && user.getEnabled())
+            .collect(Collectors.toList());
+
+    for (User admin : existingAdmins) {
+      admin.setEnabled(false);
+      repository.save(admin);
+    }
   }
 
 

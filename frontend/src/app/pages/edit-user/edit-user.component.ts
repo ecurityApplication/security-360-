@@ -9,37 +9,36 @@ import { RoleService } from '../../service/role.service';
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrl: './edit-user.component.css'
+  styleUrl: './edit-user.component.css',
 })
 export class EditUserComponent {
-  roleName!:string[]
-  user: User = new  User();
-  id!:number;
-  roles:Role[]=[]; // Array to store roles
+  roleName!: string[];
+  user: User = new User();
+  id!: number;
+  roles: Role[] = []; // Array to store roles
   constructor(
-    private userService:UserService,
-    private router:Router,
+    private userService: UserService,
+    private router: Router,
     private route: ActivatedRoute,
-    private roleService : RoleService,
+    private roleService: RoleService,
     private dialogRef: MatDialogRef<EditUserComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: { user: User } 
-  ) {
-  }
-   ngOnInit(): void {
+    @Inject(MAT_DIALOG_DATA) private data: { user: User }
+  ) {}
+  ngOnInit(): void {
     this.getRole(); // Fetch roles on initialization
-  this.user = Object.assign({}, this.data.user); // Create a copy for editing
-}
+    this.user = Object.assign({}, this.data.user); // Create a copy for editing
+  }
 
-getRole() {
-  this.roleService.getRole().subscribe(
-    (role) => {
-      this.roles = role;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-}
+  getRole() {
+    this.roleService.getRole().subscribe(
+      (role) => {
+        this.roles = role;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
   onSubmit(): void {
     this.userService.updateUser(this.user.id, this.user).subscribe(

@@ -10,16 +10,19 @@
   </div>
 <ul class="sidenav-nav">
     <li class="sidenav-nav-item" *ngFor="let data of navData; let i = index"  [ngClass]="{'selected': selectedItem === i}" (click)="selectItem(i)">
+      <div *ngIf="data.role.includes(roleName)">
         <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-        >
-            <i class="sidenav-link-icon" [class]="data.icon"></i>
-            <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-                {{data.label}}
-            </span>
-           
-        </a>
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+    >
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed ">
+            {{data.label}}
+        </span>
+       
+    </a>
+      </div>
+       
     </li>
     <hr />
     <div class="sidbar-footer" (click)="logout()">

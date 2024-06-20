@@ -12,10 +12,8 @@ export class MonthlyKPIsComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions!: Highcharts.Options;
   incidentCountByPlantAndMonthChartOptions!: Highcharts.Options;
-  // ticketsRaisedPerMonthChartOptions!: Highcharts.Options;
-  // analysteChartOptions!: Highcharts.Options;
   averageTimeAnalyse!: number;
-  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'];  averageMttr!: number;
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(231, 11, 11)', ' rgb(116, 210, 116)'];  averageMttr!: number;
   falsePositiveRating!: number;
   ticket = ['#0707f1', '#46a2ee'];
 
@@ -80,72 +78,6 @@ export class MonthlyKPIsComponent implements OnInit {
       }
     );
   }
-  //Number of alerts per plant method call
-  // getIncidentCountByPlantNameAndMonth() {
-  //   this.incidentService
-  //     .getIncidentCountByPlantNameAndMonth()
-  //     .subscribe((data) => {
-  //       this.createIncidentCountByPlantAndMonthChart(data);
-  //     });
-  // }
-  //Number of alerts per plant highcharts
-  // createIncidentCountByPlantAndMonthChart(data: {
-  //   [key: string]: { [key: string]: number };
-  // }) {
-  //   this.incidentCountByPlantAndMonthChartOptions =
-  //     this.createHighchartsOptions(
-  //       'Number of alerts per plant',
-  //       Object.keys(data).sort(),
-  //       'Alert',
-  //       Object.values(data).flatMap((plantData) =>
-  //         Object.values(plantData).sort()
-  //       )
-  //     );
-  //   this.renderHighchartsChart(
-  //     'incident-count-by-plant-and-month-chart',
-  //     this.incidentCountByPlantAndMonthChartOptions
-  //   );
-  // }
-
-  // createHighchartsOptions(
-  //   title: string,
-  //   categories: string[],
-  //   seriesName: string,
-  //   data: number[]
-  // ): Highcharts.Options {
-  //   return {
-  //     chart: {
-  //       type: 'column',
-  //     },
-  //     title: {
-  //       text: title,
-  //     },
-  //     xAxis: {
-  //       categories: categories,
-  //       title: {
-  //         text: 'Plant Name',
-  //       },
-  //     },
-  //     yAxis: {
-  //       min: 0,
-  //       title: {
-  //         text: seriesName,
-  //       },
-  //     },
-  //     series: [
-  //       {
-  //         type: 'column',
-  //         name: seriesName,
-  //         data: data,
-  //         color: 'blue',
-  //       },
-  //     ],
-  //   };
-  // }
-
-  // renderHighchartsChart(containerId: string, chartOptions: Highcharts.Options) {
-  //   (Highcharts as any).chart(containerId, chartOptions);
-  // }
 
   //Tickets raised/incidents
   ticketchartOptions: any;
@@ -239,7 +171,7 @@ analysteChartOptions: Highcharts.Options = {
   yAxis: {
     min: 0,
     title: {
-      text: 'Count'
+      text: 'Analyst'
     }
   },
   series: [] as Highcharts.SeriesColumnOptions[]
@@ -289,7 +221,8 @@ getIncidentsBySeverityLevel(): void {
   this.incidentService.getIncidentsBySeverityLevelmonth().subscribe(data => {
     const formattedData = Object.entries(data).map(([key, value]) => ({
       name: key,
-      y: value
+      y: value,
+      severity: key.toLowerCase()
     }));
     this.SeverityLevelChartOptions.series = [
       {

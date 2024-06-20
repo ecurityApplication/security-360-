@@ -5,6 +5,7 @@ import com.application.security.dto.Response;
 import com.application.security.dto.UserDTO;
 import com.application.security.dto.UserGetDTO;
 import com.application.security.email.EmailSender;
+import com.application.security.email.EmailService;
 import com.application.security.entity.Incident;
 import com.application.security.entity.Role;
 import com.application.security.entity.User;
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
-    //@Autowired
-    //JavaMailSender emailSender;
+    @Autowired
+    EmailService emailService;
     @Autowired
     JwtService jwtService;
     @Autowired
@@ -185,49 +186,46 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(Long userId, UserDTO userDTO) {
         // Find the user by ID
-        User user = userRepository.findById( userId )
-                .orElseThrow( () -> new RuntimeException( "User not found" ) );
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Update user details
-        user.setUsername( userDTO.getUsername() );
-        user.setPassword( passwordEncoder.encode( userDTO.getPassword() ) ); // You may want to add checks to prevent password update if not provided
-        user.setEmail( userDTO.getEmail() );
-
-        user.setEnabled( true ); // Corrected isEnable to isEnabled
+        user.setUsername(userDTO.getUsername());
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
+        user.setEmail(userDTO.getEmail());
+        user.setEnabled(true);
 
         // Update roles
         String strRoles = userDTO.getRoleName();
         List<Role> roles = new ArrayList<>();
 
-        // Iterate through the role names provided in the DTO
+        Role role = roleRepository.findByRoleName(strRoles)
+                .orElseThrow(() -> new RuntimeException("Role not found: " + strRoles));
+        roles.add(role);
 
-        Role role = roleRepository.findByRoleName( strRoles )
-                .orElseThrow( () -> new RuntimeException( "Role not found: " + strRoles ) );
-        roles.add( role );
+        user.setRoles(roles);
 
+        // Send update notification email
+        sendUserUpdatedEmail(user, userDTO.getPassword(),strRoles);
 
-        user.setRoles( roles );
-        sendUserRegistrationEmail( user, userDTO.getPassword() );
         // Save the updated user entity to the database
-        return userRepository.save( user );
+        return userRepository.save(user);
     }
-    private void sendUserRegistrationEmail(User user, String password) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo( user.getEmail() );
-        message.setSubject( "Update Notification for Your Account" );
-        message.setText( "This is to inform you that there has been an update to your account.\n\n"
-                +"Hello " + user.getUsername() + ",\n\n"
-                // + "Your username: " + user.getUsername() + "\n"
+
+    private void sendUserUpdatedEmail(User user, String password,String role) {
+        String messageText = "This is to inform you that there has been an update to your account.\n\n"
+                + "Hello " + user.getUsername() + ",\n\n"
                 + "Your password: " + password + "\n"
-                // + "Your role: " + user.getRoles().get(0).getRoleName() + "\n"
-                + "Use this information to login to our application.\\n\\n\" +\n" +
-                " \"If you have any questions or concerns, please contact our support team.\\n\\n\" +\n" +
-                "  \"Thank you for using our application.\n\n"
-                + "Thank you!" );
+                + "Your password: " + role + "\n"
+                + "Use this information to login to our application.\n\n"
+                + "If you have any questions or concerns, please contact our support team.\n\n"
+                + "Thank you for using our application.\n\n"
+                + "Thank you!";
 
-        //emailSender.send( message );
+        emailService.sendSimpleMessage(user.getEmail(), "Update Notification for Your Account", messageText);
     }
-
 
 
     @Override

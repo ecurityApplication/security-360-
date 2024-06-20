@@ -29,15 +29,15 @@ export class YearlyKpisComponent {
   MTTRhighcritical!: string;
   MTTRlowinformationel!: string;
   lineChart: any;
-  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(116, 210, 116)', ' rgb(231, 11, 11)'] 
-  falsePositiveRating!: number;
+  customColors = ['rgb(240, 69, 69)', 'yellow', 'orange', ' rgb(231, 11, 11)', ' rgb(116, 210, 116)'];
+     falsePositiveRating!: number;
   ticket = ['#0707f1', '#46a2ee'];
   constructor(private incidentService: IncidentService) {}
 
   ngOnInit() {
     this.NumberOfIncidentInCurrentYear();
     this.getTicketsRaisedInCurrentYear();
-    this.getAverageTimeAnalyseCurrentYear();
+    // this.getAverageTimeAnalyseCurrentYear();
     this.getIncidentPerMonth();
     this.getIncidentsBySeverityLevel();
     this.falsePositiveRatingYear();
@@ -58,23 +58,23 @@ export class YearlyKpisComponent {
   }
 
   //MTTA
-  getAverageTimeAnalyseCurrentYear() {
-    this.incidentService.getAverageTimeAnalyseCurrentYear().subscribe(
-      (data) => {
-        this.averageTimeAnalyse = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching average time analyse:', error);
-      }
-    );
-  }
+  // getAverageTimeAnalyseCurrentYear() {
+  //   this.incidentService.getAverageTimeAnalyseCurrentYear().subscribe(
+  //     (data) => {
+  //       this.averageTimeAnalyse = data;
+    
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching average time analyse:', error);
+  //     }
+  //   );
+  // }
       //MTTA year Medium
       getMTTAMedium() {
         this.incidentService.getMTTAYearMedium().subscribe(
           (data) => {
             this.MTTAMedium = data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTAMedium:', error);
@@ -86,7 +86,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTAYearhighcritical().subscribe(
           (data) => {
             this.MTTAhighcritical= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA high-critical:', error);
@@ -98,7 +98,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTAYearlowinformational().subscribe(
           (data) => {
             this.MTTAlowinformationel= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA  low-informationel:', error);
@@ -110,7 +110,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTDYearMedium().subscribe(
           (data) => {
             this.MTTDMedium = data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTD Medium:', error);
@@ -123,7 +123,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTDYearhighcritical().subscribe(
           (data) => {
             this.MTTDhighcritical= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA high-critical:', error);
@@ -135,7 +135,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTDYearlowinformational().subscribe(
           (data) => {
             this.MTTDlowinformationel= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA  low-informationel:', error);
@@ -147,7 +147,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTRYearMedium().subscribe(
           (data) => {
             this.MTTRMedium = data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTD Medium:', error);
@@ -160,7 +160,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTRYearhighcritical().subscribe(
           (data) => {
             this.MTTRhighcritical= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA high-critical:', error);
@@ -172,7 +172,7 @@ export class YearlyKpisComponent {
         this.incidentService.getMTTRYearlowinformational().subscribe(
           (data) => {
             this.MTTRlowinformationel= data;
-            console.log(data);
+        
           },
           (error) => {
             console.error('Error fetching MTTA  low-informationel:', error);

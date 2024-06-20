@@ -20,5 +20,6 @@ public class AuthenticationResponse {
     private String refreshToken;
     private List<String> role;
     private boolean mfaEnabled=true;
+    //private Boolean enabled = false;
     private String secretImageUri;
 }

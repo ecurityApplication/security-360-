@@ -1,15 +1,13 @@
 <section class="container">
   <div class="div">
-      <mat-dialog-actions>
+    <mat-dialog-actions>
       <div class="mdiv" (click)="onNoClick()">
-        <div class="md" (click)="onNoClick()">
-        </div>
+        <div class="md" (click)="onNoClick()"></div>
       </div>
-  </mat-dialog-actions>
-    </div>
+    </mat-dialog-actions>
+  </div>
   <header>Add new user</header>
   <form class="form" (ngSubmit)="onSubmit()">
-    <!-- <form class="form" #incidentForm="ngForm" (ngSubmit)="createIncident(incidentForm)"> -->
     <div class="column">
       <div class="input-box">
         <label for="Username">Username</label>
@@ -22,15 +20,15 @@
         />
       </div>
       <div class="input-box">
-          <label for="email">Email</label>
-          <input
-            required=""
-            placeholder="Enter Email"
-            type="Email"
-            name="Email"
-            [(ngModel)]="newUser.email"
-          />
-        </div>
+        <label for="email">Email</label>
+        <input
+          required=""
+          placeholder="Enter Email"
+          type="Email"
+          name="Email"
+          [(ngModel)]="newUser.email"
+        />
+      </div>
     </div>
     <div class="column">
       <div class="input-box">
@@ -43,21 +41,18 @@
           [(ngModel)]="newUser.password"
         />
       </div>
-            <div class="input-box">
-              <label for="roleName">Role</label>
-              <div class="select-box" >
-                <select name="Role" name="Role" [(ngModel)]="newUser.roleName">
-                  <option hidden="">Role</option>
-                  <option *ngFor="let role of roles"  >{{ role.roleName }}</option>
-                  <!-- <option  value="ROLE_USER">ROLE_USER</option>
-                  <option value="ROLE_MODERATOR">ROLE_MODERATOR</option> -->
-                </select>
-              </div>
-            </div>  
+      <div class="input-box">
+        <label for="roleName">Role</label>
+        <div class="select-box">
+          <select name="Role" name="Role" [(ngModel)]="newUser.roleName">
+            <option hidden="">Role</option>
+            <option *ngFor="let role of roles">{{ role.roleName }}</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div class="footer-container">
-      <button type="submit" class="Btn btn-1">Create</button>
+      <button type="submit" class="Btn btn-1">Add</button>
     </div>
   </form>
 </section>
-

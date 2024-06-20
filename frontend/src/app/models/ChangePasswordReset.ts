@@ -1,5 +1,5 @@
 export interface ChangePasswordReset {
-    email:string;
+    // email:string;
     currentPassword:string;
     newPassword:string;
     confirmationPassword:string;

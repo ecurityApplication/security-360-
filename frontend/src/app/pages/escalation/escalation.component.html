@@ -22,7 +22,7 @@
           <th>Status</th>
           <th>Action plan</th>
           <th>Owner of Action Plan</th>
-          <th>Actions</th>
+          <th *ngIf="roleName !== 'GUEST'">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -43,10 +43,11 @@
           <td>{{incident.remediation}}</td>
           <td>{{incident.remediationOwner}}</td> 
           <td>
-            <div class="actions">
-              <i class="bx bx-edit" (click)="updateescalation(incident.id)"></i>
+            <div class="actions" *ngIf="roleName !== 'GUEST'" >
+              <i class="bx bx-edit"  *ngIf="roleName === 'ANALYST' || 'ROLE_ADMIN'"  (click)="updateescalation(incident.id)"></i>
                 <i
                   class="bx bxs-trash-alt"
+                  *ngIf="roleName === 'ROLE_ADMIN'" 
                   (click)="deleteEscalation(incident.id)"
                 ></i>
             </div>

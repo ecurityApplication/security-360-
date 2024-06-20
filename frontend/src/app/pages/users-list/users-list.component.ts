@@ -25,6 +25,7 @@ export class UsersListComponent implements OnInit {
   role: Role[] = [];
   id!: number;
   userCountPerRole: any;
+  roleName!:string;
   constructor(
     private userService: UserService,
     private roleService: RoleService,
@@ -33,6 +34,7 @@ export class UsersListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.roleName= localStorage.getItem("role") as string
     // Call the method to fetch users on component initialization
     this.getUser();
     this.getRole();
@@ -43,8 +45,6 @@ export class UsersListComponent implements OnInit {
     this.userService.getUser().subscribe(
       (user) => {
         this.users = user;
-        // this.calculateRoleUserCounts(); // Calculate user counts for each role
-        //console.log(this.users);
       },
       (error) => {
         console.error(error);
@@ -72,7 +72,7 @@ export class UsersListComponent implements OnInit {
   openEditRole(role: Role): void {
     const dialogRef = this.dialog.open(EditRoleComponent, {
       width: '30%',
-      height: '30%',
+      height: '40%',
       data: { role }, // Pass the entire user object for editing
     });
 
@@ -177,7 +177,7 @@ export class UsersListComponent implements OnInit {
   openCreaterole() {
     this.dialog.open(CreateRoleComponent, {
       width: '30%',
-      height: '30%',
+      height: '40%',
     });
   }
 
